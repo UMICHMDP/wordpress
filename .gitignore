@@ -1,47 +1,49 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
+*~
 .DS_Store
-.AppleDouble
-.LSOverride
+.svn
+.cvs
+*.bak
+*.swp
+Thumbs.db
+.htaccess
 
-# Thumbnails
-._*
+# Ignore all WP core files, except plugins and themes
+/index.php
+/license.txt
+/readme.html
+/wp-activate.php
+/wp-admin
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-config-sample.php
+/wp-config.php
+/wp-content/index.php
+/wp-content/upgrade
+/wp-content/uploads
+/wp-content/plugins/hello.php
+/wp-content/plugins/index.php
+/wp-content/themes/twentyfifteen
+/wp-content/themes/twentyfourteen
+/wp-content/themes/twentythirteen
+/wp-content/themes/index.php
+/wp-cron.php
+/wp-includes
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
 
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+# wpengine specific - from http://cdn.wpengine.com/wp-content/uploads/2013/10/recommended-gitignore-no-wp.txt
+.smushit-status
+.gitattributes
+_wpeprivate
+/wp-content/object-cache.php
+/wp-content/mu-plugins/mu-plugin.php
+/wp-content/mu-plugins/slt-force-strong-passwords.php
+/wp-content/mu-plugins/limit-login-attempts
+/wp-content/mu-plugins/wpengine-common
+/wp-content/mysql.sql

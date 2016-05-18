@@ -1,0 +1,9 @@
+Chức năng Event:
+- Tạo event với các tham số cơ bản:
+	+ datetime start, location(điền tay)
+	+ render shortcode countdown đến thời điểm start và end tương ứng.
+	+ 3 trạng thái status: Happening, Expired, Upcoming( tự động update status )
+- Addon tp-event-auth:
+	+ cho phép regis, login WP User
+	+ regis event sử dụng payment.
+	+ booking manager, user approve

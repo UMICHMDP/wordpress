@@ -1,0 +1,105 @@
+.learn-press-cert-preview{
+	font-family: 'Open Sans';
+}
+.learn-press-cert-preview a{
+	text-decoration: none;
+	color: #666;
+}
+.learn-press-cert-preview a:hover{
+	text-decoration: underline;
+}
+.learn-press-user-profile-certs{
+	margin: 0 -10px;
+	padding: 0;
+	list-style: none;
+}
+.learn-press-user-profile-certs:after{
+	display: block;
+	content: '';
+	clear: both;
+}
+.learn-press-user-profile-certs li{
+	float: left;
+	width: 50%;
+}
+.learn-press-user-profile-certs li .inside{
+	margin: 0 10px;
+}
+.learn-press-user-profile-certs li .inside img{
+	max-width: 100%;
+	height: auto;
+}
+.learn-press-user-profile-certs li .inside h4{
+	font-size: 14px;
+	margin: 5px 0;
+	text-align: center;
+}
+.learn-press-user-profile-certs li .inside h4 .course-cert{
+	font-size: smaller;
+	font-style: italic;
+}
+.learn-press-user-profile-certs li .inside h4 p{
+	margin-bottom: 5px;
+}
+#learn-press-cert-wrap{
+	max-width: 1140px;
+	width: 80%;
+	margin: 0 auto;
+}
+#cert-design-viewport{
+	position: relative;
+}
+#cert-design-viewport img{
+	width: 100%;
+	height: auto;
+	_position: absolute;
+	top:0;
+}
+.cert-design-actions{
+	text-align: center;
+	margin: 20px 0;
+	position: relative;
+}
+.learn-press-cert-preview.popup{
+	position: fixed;
+	top:0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 999999;
+	overflow: auto;
+	display: none;
+}
+.learn-press-cert-preview.popup:before{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.9;
+	content: '';
+}
+.learn-press-cert-preview.popup a,
+.learn-press-cert-preview.popup{
+}
+.learn-press-cert-preview #cert-design-viewport{
+	margin-top: 30px;
+}
+.learn-press-cert-preview.popup #learn-press-cert-wrap{
+	background: #FFF;
+	position: relative;
+	padding: 20px 20px 1px 20px;
+	margin: 20px auto;
+}
+.learn-press-cert-preview.popup .close{
+	float: right;
+	color: #FF0000;
+}
+#learn-press-form-download-cert{
+	opacity: 0;
+	height: 0;
+	position: absolute;
+}
+#cert-design-viewport .canvas-container{
+	position: absolute;
+	top: 0;
+}

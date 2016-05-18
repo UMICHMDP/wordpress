@@ -1,0 +1,13 @@
+.lp-question-sorting-choice-display-position {
+	display: inline-block;
+	background: #4ABEFF;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: 5px 10px;
+}
+.question-type-sorting_choice.checked .correct-answer-label{
+	color: #1e73be;
+	font-size: smaller;
+	font-style: italic;
+}

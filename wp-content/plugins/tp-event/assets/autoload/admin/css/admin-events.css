@@ -1,0 +1,112 @@
+.tp_event_admin_widget{
+    max-height: 100px;
+    overflow: scroll;
+    border: 1px solid #dddddd;
+    padding: 5px 10px;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+#tp_event_setting_section .shortcode{
+	min-width: 300px;
+}
+.tp_event_widget_tab li{
+	display: inline-block;
+}
+.tp_event_admin_widget{
+	display: none;
+}
+.tp_event_admin_widget.active{
+	display: block;
+}
+.tp_event_setting_wrapper a.nav-tab:focus{
+    box-shadow: none;
+}
+.tp_event_wrapper_content table th{
+    text-align: left;
+    min-width: 300px;
+    max-width: 300px;
+}
+.tp_event_wrapper_content table p{
+    margin: 2px;
+    font-weight: normal;
+}
+.tp_event_wrapper_content table select,
+.tp_event_wrapper_content table input[type="text"]
+.tp_event_wrapper_content table input[type="email"]{
+    width: auto;
+    min-width: 250px;
+}
+#checkout h3 a{
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0px 12px;
+}
+#checkout h3 a.active{
+    border-bottom: 1px solid #f1f1f1;
+    background: #f1f1f1;
+    color: #000;
+}
+/**
+ * metabox
+ */
+.event_metabox_setting{
+    width: auto;
+    float: left;
+    min-width: 200px;
+    margin: 0;
+    background-color: #fdfdfd;
+    border: 1px solid #dfdfdf;
+}
+.event_metabox_setting li{
+    margin: 0;
+}
+.event_metabox_setting li a{
+    text-decoration: none;
+    padding: 8px;
+    display: block;
+}
+.event_metabox_setting li a:focus{
+    box-shadow: none;
+}
+.event_metabox_setting_container{
+    padding-left: 220px;
+}
+#event_setting_section .inside{
+    overflow: hidden;
+}
+.event_metabox_setting_section .event_metabox{
+    border-bottom: 1px solid #dedede;
+}
+.event_metabox_setting_section label{
+    font-weight: bold;
+    float: left;
+    width: 100%;
+}
+.event_metabox_setting_section th{
+    text-align: left;
+    width: 30%;
+}
+.event_metabox_setting_container .tool_box{
+    overflow: hidden;
+}
+.event_metabox_setting_container .tool_box .button{
+    float: right;
+}
+.event_metabox_setting_section textarea{
+    width: 100%;
+}
+
+/**
+ * event metabox
+ */
+#tp_event_setting_section {
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+#tp_event_setting_section th,
+#tp_event_setting_section td,
+#tp_event_setting_section th,
+#tp_event_setting_section td{
+    padding: 10px;
+    border: 1px solid #dedede;
+}
