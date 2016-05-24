@@ -23,7 +23,7 @@ $user          = LP()->user;
 
 //var_dump($user->has( 'enrolled-course', $course->id ));
 // only show enroll button if user had not enrolled
-$purchase_button_text = apply_filters( 'learn_press_purchase_button_text', __( 'Take This Course', 'eduma' ) );
+$purchase_button_text = apply_filters( 'learn_press_purchase_button_text', __( 'APPLY', 'eduma' ) );
 $enroll_button_text   = apply_filters( 'learn_press_enroll_button_loading_text', __( 'Enroll', 'eduma' ) );
 ?>
 <?php if ( !$user->has( 'enrolled-course', $course->id ) ): ?>
@@ -48,7 +48,7 @@ $enroll_button_text   = apply_filters( 'learn_press_enroll_button_loading_text',
 	<?php elseif ( $user->can( 'purchase-course', $course->id ) ) : ?>
 
 		<?php if ( LP()->cart->has_item( $course->id ) ) : ?>
-			<a class="button view-cart-button" href="<?php echo learn_press_get_page_link( 'cart' ); ?>"><?php esc_html_e( 'View cart', 'eduma' ); ?></a>
+			<a class="button view-cart-button" href="<?php echo learn_press_get_page_link( 'cart' ); ?>"><?php esc_html_e( 'APPLIED', 'eduma' ); ?></a>
 		<?php else: ?>
 
 			<form name="purchase-course" class="purchase-course" method="post" enctype="multipart/form-data">
@@ -56,7 +56,7 @@ $enroll_button_text   = apply_filters( 'learn_press_enroll_button_loading_text',
 				<input type="hidden" name="_wp_http_referer" value="<?php echo get_the_permalink(); ?>" />
 				<input type="hidden" name="add-course-to-cart" value="<?php echo esc_attr( $course->id ); ?>" />
 				<button class="button purchase-button thim-enroll-course-button"><?php echo esc_html( $purchase_button_text ); ?></button>
-				<a class="button view-cart-button hide-if-js" href="<?php echo learn_press_get_page_link( 'cart' ); ?>" data-loading-text="<?php esc_attr_e('Processing', 'eduma'); ?>"><?php esc_html_e( 'View cart', 'eduma' ); ?></a>
+				<a class="button view-cart-button hide-if-js" href="<?php echo learn_press_get_page_link( 'cart' ); ?>" data-loading-text="<?php esc_attr_e('Processing', 'eduma'); ?>"><?php esc_html_e( 'APPLIED', 'eduma' ); ?></a>
 				<?php do_action( 'learn_press_after_purchase_button' ); ?>
 			</form>
 

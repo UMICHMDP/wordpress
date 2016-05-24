@@ -26,7 +26,7 @@ if ( is_tax() ) {
 }
 
 if ( $total == 0 ) {
-	echo '<p class="message message-error">' . esc_html__( 'There are no available courses!', 'eduma' ) . '</p>';
+	echo '<p class="message message-error">' . esc_html__( 'There are no available projects!', 'eduma' ) . '</p>';
 	return;
 } elseif ( $total == 1 ) {
 	$index = esc_html__( 'Showing only one result', 'eduma' );
@@ -39,7 +39,7 @@ if ( $total == 0 ) {
 
 	if ( $from == $to ) {
 		$index = sprintf(
-			esc_html__( 'Showing last course of %s results', 'eduma' ),
+			esc_html__( 'Showing last project of %s results', 'eduma' ),
 			$total
 		);
 	} else {
@@ -73,7 +73,7 @@ if ( $total == 0 ) {
 		</div>
 		<div class="courses-searching">
 			<form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<input type="text" value="" name="s" placeholder="<?php esc_html_e( 'Search our courses', 'eduma' ) ?>" class="thim-s form-control courses-search-input" autocomplete="off" />
+				<input type="text" value="" name="s" placeholder="<?php esc_html_e( 'Search our projects', 'eduma' ) ?>" class="thim-s form-control courses-search-input" autocomplete="off" />
 				<input type="hidden" value="course" name="ref" />
 				<button type="submit"><i class="fa fa-search"></i></button>
 				<span class="widget-search-close"></span>

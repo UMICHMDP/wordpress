@@ -60,10 +60,10 @@ do_action( 'learn_press_before_single_course' ); ?>
 		<?php learn_press_course_instructor(); ?>
 		<?php learn_press_course_categories(); ?>
 		<?php //if ( $is_enrolled || !$is_required ) {
-			thim_course_forum_link();
+			//thim_course_forum_link();
 		//} ?>
-		<?php thim_course_ratings(); ?>
-		<?php learn_press_course_progress(); ?>
+		<?php //thim_course_ratings(); ?>
+		<?php //learn_press_course_progress(); ?>
 	</div>
 
 	<div class="course-payment">
