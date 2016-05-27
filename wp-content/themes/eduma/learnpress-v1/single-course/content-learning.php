@@ -35,7 +35,7 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 			<li role="presentation">
 				<a href="#tab-course-instructor" data-toggle="tab">
 					<i class="fa fa-user"></i>
-					<span><?php esc_html_e( 'Faculty', 'eduma' ); ?></span>
+					<span><?php esc_html_e( 'Faculty & Sponsor', 'eduma' ); ?></span>
 				</a>
 			</li>
 			<?php/* if ( $review_is_enable ) : ?>
