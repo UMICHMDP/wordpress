@@ -93,7 +93,7 @@ if ( $the_query->have_posts() ) :
 								<div class="value " itemprop="price" content="<?php echo esc_attr( $price ); ?>">
 									<?php //echo esc_html( $price ); ?>
 								</div>
-							<?php endif; ?>
+							<?php //endif; ?>
 							<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
 
 						</div>
