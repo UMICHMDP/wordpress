@@ -5,7 +5,7 @@
  * @author  ThimPress
  * @package LearnPress/Templates
  * @version 1.0
-
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -34,4 +34,3 @@ if ( LP()->user->has( 'enrolled-course', $course->id ) && is_singular('lp_course
 	<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
 
 </div>
-*/

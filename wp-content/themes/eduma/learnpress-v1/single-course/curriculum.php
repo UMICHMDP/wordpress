@@ -28,13 +28,15 @@ $section_index = 1;
 			<?php foreach ( $curriculum as $section ) : ?>
 
 				<?php
+
 				$section->section_index = $section_index;
 				learn_press_get_template(
 					'single-course/loop-section.php',
 					array(
 						'section'       => $section,
 					)
-				); ?>
+				);?>
+ 
 				<?php $section_index ++; ?>
 			<?php endforeach; ?>
 

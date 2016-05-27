@@ -446,47 +446,27 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 		$course_id = get_the_ID();
 		?>
 		<div class="thim-course-info">
-			<h3 class="title"><?php esc_html_e( 'Course Features', 'eduma' ); ?></h3>
+			<h3 class="title"><?php esc_html_e( 'Project Features', 'eduma' ); ?></h3>
 			<ul>
-				<li>
-					<i class="fa fa-files-o"></i>
-					<span class="label"><?php esc_html_e( 'Lectures', 'eduma' ); ?></span>
-					<span class="value"><?php echo count( $course->get_lessons() ); ?></span>
-				</li>
-				<li>
-					<i class="fa fa-puzzle-piece"></i>
-					<span class="label"><?php esc_html_e( 'Quizzes', 'eduma' ); ?></span>
-					<span class="value"><?php echo count( $course->get_quizzes() ); ?></span>
-				</li>
-				<li>
-					<i class="fa fa-clock-o"></i>
-					<span class="label"><?php esc_html_e( 'Duration', 'eduma' ); ?></span>
-					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_duration', true ) ); ?></span>
-				</li>
+	
 				<li>
 					<i class="fa fa-level-up"></i>
 					<span class="label"><?php esc_html_e( 'Skill level', 'eduma' ); ?></span>
 					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_skill_level', true ) ); ?></span>
 				</li>
 				<li>
-					<i class="fa fa-language"></i>
-					<span class="label"><?php esc_html_e( 'Language', 'eduma' ); ?></span>
-					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
-				</li>
-				<li>
 					<i class="fa fa-users"></i>
 					<span class="label"><?php esc_html_e( 'Students', 'eduma' ); ?></span>
-					<?php $user_count = $course->count_users_enrolled( 'append' ) ? $course->count_users_enrolled( 'append' ) : 0; ?>
-					<span class="value"><?php echo esc_html( $user_count ); ?></span>
+					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_duration', true ) ); ?></span>
 				</li>
-				<?php thim_course_certificate( $course_id ); ?>
+				<?php //thim_course_certificate( $course_id ); ?>
 				<li>
 					<i class="fa fa-check-square-o"></i>
 					<span class="label"><?php esc_html_e( 'Assessments', 'eduma' ); ?></span>
-					<span class="value"><?php echo ( get_post_meta( $course_id, '_lp_course_result', true ) == 'yes' ) ? esc_html__( 'Yes', 'eduma' ) : esc_html__( 'Self', 'eduma' ); ?></span>
+					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
 				</li>
 			</ul>
-			<?php thim_course_wishlist_button(); ?>
+			<?php //thim_course_wishlist_button(); ?>
 		</div>
 		<?php
 	}

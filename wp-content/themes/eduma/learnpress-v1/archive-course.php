@@ -26,7 +26,7 @@ if ( is_tax() ) {
 }
 
 if ( $total == 0 ) {
-	echo '<p class="message message-error">' . esc_html__( 'There are no available projects!', 'eduma' ) . '</p>';
+	echo '<p class="message message-error">' . esc_html__( 'There are no available courses!', 'eduma' ) . '</p>';
 	return;
 } elseif ( $total == 1 ) {
 	$index = esc_html__( 'Showing only one result', 'eduma' );
@@ -39,7 +39,7 @@ if ( $total == 0 ) {
 
 	if ( $from == $to ) {
 		$index = sprintf(
-			esc_html__( 'Showing last project of %s results', 'eduma' ),
+			esc_html__( 'Showing last course of %s results', 'eduma' ),
 			$total
 		);
 	} else {

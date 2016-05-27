@@ -18,7 +18,7 @@ global $course;
 <div class="course-author" itemscope itemtype="http://schema.org/Person">
 	<?php echo get_avatar( get_the_author_meta( 'ID' ), 40 ); ?>
 	<div class="author-contain">
-		<label itemprop="jobTitle"><?php esc_html_e( 'Faculty', 'eduma' ); ?></label>
+		<label itemprop="jobTitle"><?php esc_html_e( 'Teacher', 'eduma' ); ?></label>
 
 		<div class="value" itemprop="name">
 			<a href="<?php echo esc_url( learn_press_user_profile_link( $course->post->post_author ) ); ?>">

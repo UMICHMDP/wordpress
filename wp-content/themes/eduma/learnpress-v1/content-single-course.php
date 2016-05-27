@@ -30,7 +30,7 @@ do_action( 'learn_press_before_single_course' ); ?>
 
 			<?php if ( ! $user->can( 'enroll-course', $course->id ) ) : ?>
 
-				<?php learn_press_display_message( apply_filters( 'learn_press_user_purchased_course_message', esc_html__( 'You have already purchased this course. Please wait for approve', 'eduma' ), $course, $user ) , 'notice' ); ?>
+				<?php //learn_press_display_message( apply_filters( 'learn_press_user_purchased_course_message', esc_html__( 'You have already purchased this course. Please wait for approve', 'eduma' ), $course, $user ) , 'notice' ); ?>
 
 			<?php endif; ?>
 
@@ -38,7 +38,7 @@ do_action( 'learn_press_before_single_course' ); ?>
 
 			<?php if ( LP()->cart->has_item( $course->id ) ) : ?>
 
-				<?php learn_press_display_message( esc_html__( 'This course is already added to your cart', 'eduma' ), 'notice' ); ?>
+				<?php //learn_press_display_message( esc_html__( 'This course is already added to your cart', 'eduma' ), 'notice' ); ?>
 
 			<?php else: ?>
 
@@ -46,7 +46,7 @@ do_action( 'learn_press_before_single_course' ); ?>
 
 		<?php else: ?>
 
-			<?php learn_press_display_message( apply_filters( 'learn_press_user_can_not_purchase_course_message', esc_html__( 'Sorry, you can not purchase this course', 'eduma' ), $course, $user ), 'error' ); ?>
+			<?php //learn_press_display_message( apply_filters( 'learn_press_user_can_not_purchase_course_message', esc_html__( 'Sorry, you can not purchase this course', 'eduma' ), $course, $user ), 'error' ); ?>
 
 		<?php endif; ?>
 
@@ -57,20 +57,20 @@ do_action( 'learn_press_before_single_course' ); ?>
 	?>
 
 	<div class="course-meta">
-		<?php learn_press_course_instructor(); ?>
+		<?php //learn_press_course_instructor(); ?>
 		<?php learn_press_course_categories(); ?>
 		<?php //if ( $is_enrolled || !$is_required ) {
 			//thim_course_forum_link();
 		//} ?>
 		<?php //thim_course_ratings(); ?>
-		<?php //learn_press_course_progress(); ?>
+		<?php learn_press_course_progress(); ?>
 	</div>
 
 	<div class="course-payment">
 		<?php
 		if ( ! $is_enrolled ) {
-			learn_press_course_price();
-			learn_press_course_enroll_button();
+			//learn_press_course_price();
+			//learn_press_course_enroll_button();
 		}
 		//else {
 			//echo '<button class="course-enrolled"><i class="fa fa-check"></i>' . esc_html__( 'Enrolled', 'eduma' ) . '</button>';
