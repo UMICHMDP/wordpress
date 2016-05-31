@@ -466,8 +466,9 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				<li>
 					<i class="fa fa-puzzle-piece"></i>
 					<span class="label"><?php esc_html_e( 'Typical Majors', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php //foreach ($categories as $category){
-						//echo $category->name."\n";
+					<span class="value" style="text-align: right;"><?php foreach ($categories as $category){
+						echo $category->name."\n";
+					}
 					 ?></span>
 				</li>
 			</ul>
