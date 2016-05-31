@@ -468,7 +468,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 					<span class="label"><?php esc_html_e( 'Typical Majors', 'eduma' ); ?></span>
 					<span class="value" style="text-align: right;"><?php //foreach ($categories as $category){
 						//echo $category->name."\n";
-					} ?></span>
+					 ?></span>
 				</li>
 			</ul>
 			<form>
