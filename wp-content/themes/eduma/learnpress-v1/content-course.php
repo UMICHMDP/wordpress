@@ -20,7 +20,7 @@ $class .= ' lpr_course';
 		<?php learn_press_course_thumbnail(); ?>
 		<div class="thim-course-content">
 			<?php
-			learn_press_course_instructor();
+			//learn_press_course_instructor();
 			do_action( 'learn_press_before_the_title' );
 			the_title( sprintf( '<h2 class="course-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
 			do_action( 'learn_press_after_the_title' );
@@ -28,7 +28,7 @@ $class .= ' lpr_course';
 			<div class="course-meta">
 				<?php //learn_press_course_instructor(); ?>
 				<?php //thim_course_ratings(); ?>
-				<?php learn_press_course_students(); ?>
+				<?php //learn_press_course_students(); ?>
 				<?php //thim_course_ratings_count(); ?>
 				<?php //learn_press_course_price(); ?>
 			</div>
