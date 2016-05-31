@@ -99,11 +99,8 @@ add_action( 'after_setup_theme', 'thim_remove_learnpress_hooks', 15 );
 
 if ( ! function_exists( 'thim_course_wishlist_button' ) ) {
 	function thim_course_wishlist_button( $course_id = null ) {
-		if ( ! thim_plugin_active( 'learnpress-wishlist/learnpress-wishlist.php' ) ) {
-			return;
-		}
-		LP_Addon_Wishlist::instance()->wishlist_button( $course_id );
-
+		 
+		
 	}
 }
 
@@ -444,6 +441,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 	function thim_course_info() {
 		global $course;
 		$course_id = get_the_ID();
+		$categories = get_the_terms( $post, 'course_category' );
 		?>
 		<div class="thim-course-info">
 			<h3 class="title"><?php esc_html_e( 'Project Features', 'eduma' ); ?></h3>
@@ -452,21 +450,32 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				<li>
 					<i class="fa fa-level-up"></i>
 					<span class="label"><?php esc_html_e( 'Skill level', 'eduma' ); ?></span>
-					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_skill_level', true ) ); ?></span>
+					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_skill_level', true ) ); ?></span>
 				</li>
 				<li>
 					<i class="fa fa-users"></i>
 					<span class="label"><?php esc_html_e( 'Students', 'eduma' ); ?></span>
-					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_duration', true ) ); ?></span>
+					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_duration', true ) ); ?></span>
 				</li>
 				<?php //thim_course_certificate( $course_id ); ?>
 				<li>
 					<i class="fa fa-check-square-o"></i>
 					<span class="label"><?php esc_html_e( 'Assessments', 'eduma' ); ?></span>
-					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
+					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
+				</li>
+				<li>
+					<i class="fa fa-puzzle-piece"></i>
+					<span class="label"><?php esc_html_e( 'Typical Majors', 'eduma' ); ?></span>
+					<span class="value" style="text-align: right;"><?php //foreach ($categories as $category){
+						//echo $category->name."\n";
+					} ?></span>
 				</li>
 			</ul>
-			<?php //thim_course_wishlist_button(); ?>
+			<form>
+			<INPUT style="width: 210px; height: 50px; text-align: center; border: 0px; font-weight: bold; background: #ffcb05; color: #00274c; cursor: pointer; font-size: 100%;" Type="BUTTON" Value="APPLY" Onclick="window.location.href='https://umich.qualtrics.com/SE/?SID=SV_1TViVgTbkMmTyQJ'">
+			</form>
+			
+			
 		</div>
 		<?php
 	}
@@ -578,7 +587,7 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
 										echo thim_get_feature_image( get_post_thumbnail_id( $course_item->ID ), 'full', 450, 450, $course->post_title );
 										?>
 									</a>
-									<?php thim_course_wishlist_button( $course_item->ID ); ?>
+									<?php //thim_course_wishlist_button( $course_item->ID ); ?>
 									<?php echo '<a class="course-readmore" href="' . esc_url( get_the_permalink( $course_item->ID ) ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>'; ?>
 								</div>
 								<div class="thim-course-content">

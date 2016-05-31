@@ -64,7 +64,7 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 				<?php learn_press_course_curriculum(); ?>
 			</div>
 			<div class="tab-pane" id="tab-course-instructor">
-				<?php thim_about_author(); ?>
+				<?php the_excerpt(); ?>
 			</div>
 			<?php /*if ( $review_is_enable ) : ?>
 				<div class="tab-pane" id="tab-course-review">
