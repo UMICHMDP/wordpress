@@ -64,12 +64,12 @@ if ( ! empty( $cat_id_tab ) ) {
 					?>
 					<div class="thim-course-content">
 						<?php
-						learn_press_course_instructor();
+						//learn_press_course_instructor();
 						?>
 						<h2 class="course-title">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>"> <?php echo get_the_title(); ?></a>
 						</h2>
-
+						<?php/*
 						<div class="course-meta">
 							<?php //learn_press_course_students(); ?>
 							<?php //thim_course_ratings_count(); ?>
@@ -90,6 +90,7 @@ if ( ! empty( $cat_id_tab ) ) {
 								<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
 
 							</div>
+							*/?>
 						</div>
 					</div>
 				</div>

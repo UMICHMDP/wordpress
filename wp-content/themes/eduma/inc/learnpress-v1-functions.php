@@ -467,8 +467,10 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 					<i class="fa fa-puzzle-piece"></i>
 					<span class="label"><?php esc_html_e( 'Typical Majors', 'eduma' ); ?></span>
 					<span class="value" style="text-align: right;"><?php foreach ($categories as $category){
-						echo $category->name."\n";
+						$resultst[] = $category->name;
 					}
+					$result = implode(", ", $resultst);
+					echo $result;
 					 ?></span>
 				</li>
 			</ul>
@@ -593,14 +595,7 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
 								</div>
 								<div class="thim-course-content">
 									<div class="course-author">
-										<?php echo get_avatar( $course_item->post_author, 40 ); ?>
-										<div class="author-contain">
-											<div class="value">
-												<a href="<?php echo esc_url( learn_press_user_profile_link( $course_item->post_author ) ); ?>">
-													<?php echo get_the_author_meta( 'display_name', $course_item->post_author ); ?>
-												</a>
-											</div>
-										</div>
+										<?php //echo get_avatar( $course_item->post_author, 40 ); ?>
 									</div>
 									<h2 class="course-title">
 										<a rel="bookmark" href="<?php echo get_the_permalink( $course_item->ID ); ?>"><?php echo esc_html( $course_item->post_title ); ?></a>
@@ -609,29 +604,8 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
 										<?php
 										$count_student = $course->count_users_enrolled( 'append' ) ? $course->count_users_enrolled( 'append' ) : 0;
 										?>
-										<div class="course-students">
-											<label><?php esc_html_e( 'Students', 'eduma' ); ?></label>
-											<?php do_action( 'learn_press_begin_course_students' ); ?>
-
-											<div class="value"><i class="fa fa-group"></i>
-												<?php echo esc_html( $count_student ); ?>
-											</div>
-											<?php do_action( 'learn_press_end_course_students' ); ?>
-
-										</div>
-										<?php thim_course_ratings_count( $course_item->ID ); ?>
-										<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-											<?php if ( $course->is_free() || ! $is_required ) : ?>
-												<div class="value free-course" itemprop="price" content="<?php esc_attr_e( 'Free', 'eduma' ); ?>">
-													<?php esc_html_e( 'Free', 'eduma' ); ?>
-												</div>
-											<?php else: $price = learn_press_format_price( $course->get_price(), true ); ?>
-												<div class="value " itemprop="price" content="<?php echo esc_attr( $price ); ?>">
-													<?php echo esc_html( $price ); ?>
-												</div>
-											<?php endif; ?>
-											<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
-										</div>
+										<?php //thim_course_ratings_count( $course_item->ID ); ?>
+										
 									</div>
 								</div>
 							</div>

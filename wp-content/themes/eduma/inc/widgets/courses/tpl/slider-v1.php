@@ -80,6 +80,7 @@ if ( $the_query->have_posts() ) :
 					<div class="course-meta">
 						<?php //learn_press_course_students(); ?>
 						<?php //thim_course_ratings_count(); ?>
+						<?php/*
 						<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 							<?php
 							$course      = LP_Course::get_course( $post->ID );
@@ -97,6 +98,7 @@ if ( $the_query->have_posts() ) :
 							<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
 
 						</div>
+						*/?>
 					</div>
 				</div>
 			</div>
