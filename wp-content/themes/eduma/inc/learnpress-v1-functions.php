@@ -483,9 +483,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				<li>
 					<i class="fa fa-check-square-o"></i>
 					<span class="label"><?php esc_html_e( 'Assessments', 'eduma' ); ?></span>
-<<<<<<< HEAD
-					<span class="value"><?php echo ( get_post_meta( $course_id, '_lp_course_result', true ) == 'yes' ) ? esc_html__( 'Yes', 'eduma' ) : esc_html__( 'Self', 'eduma' ); ?></span>
-=======
+
 					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
 				</li>
 				<li>
@@ -495,7 +493,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 						echo $category->name."\n";
 					}
 					 ?></span>
->>>>>>> parent of da9715b... more changes
+
 				</li>
 			</ul>
 			<?php thim_course_wishlist_button(); ?>
