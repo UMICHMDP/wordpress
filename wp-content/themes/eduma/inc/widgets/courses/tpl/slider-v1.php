@@ -78,8 +78,11 @@ if ( $the_query->have_posts() ) :
 					</h2>
 
 					<div class="course-meta">
-						<?php learn_press_course_students(); ?>
-						<?php thim_course_ratings_count(); ?>
+
+
+						<?php //learn_press_course_students(); ?>
+						<?php //thim_course_ratings_count(); ?>
+
 						<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 							<?php
 							$course      = LP_Course::get_course( $post->ID );
