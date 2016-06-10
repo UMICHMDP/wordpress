@@ -99,8 +99,11 @@ add_action( 'after_setup_theme', 'thim_remove_learnpress_hooks', 15 );
 
 if ( ! function_exists( 'thim_course_wishlist_button' ) ) {
 	function thim_course_wishlist_button( $course_id = null ) {
-		 
-		
+		if ( ! thim_plugin_active( 'learnpress-wishlist/learnpress-wishlist.php' ) ) {
+			return;
+		}
+		LP_Addon_Wishlist::instance()->wishlist_button( $course_id );
+
 	}
 }
 
@@ -441,44 +444,49 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 	function thim_course_info() {
 		global $course;
 		$course_id = get_the_ID();
-		$categories = get_the_terms( $post, 'course_category' );
 		?>
 		<div class="thim-course-info">
-			<h3 class="title"><?php esc_html_e( 'Project Features', 'eduma' ); ?></h3>
+			<h3 class="title"><?php esc_html_e( 'Course Features', 'eduma' ); ?></h3>
 			<ul>
-	
+				<li>
+					<i class="fa fa-files-o"></i>
+					<span class="label"><?php esc_html_e( 'Lectures', 'eduma' ); ?></span>
+					<span class="value"><?php echo count( $course->get_lessons() ); ?></span>
+				</li>
+				<li>
+					<i class="fa fa-puzzle-piece"></i>
+					<span class="label"><?php esc_html_e( 'Quizzes', 'eduma' ); ?></span>
+					<span class="value"><?php echo count( $course->get_quizzes() ); ?></span>
+				</li>
+				<li>
+					<i class="fa fa-clock-o"></i>
+					<span class="label"><?php esc_html_e( 'Duration', 'eduma' ); ?></span>
+					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_duration', true ) ); ?></span>
+				</li>
 				<li>
 					<i class="fa fa-level-up"></i>
 					<span class="label"><?php esc_html_e( 'Skill level', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_skill_level', true ) ); ?></span>
+					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_skill_level', true ) ); ?></span>
+				</li>
+				<li>
+					<i class="fa fa-language"></i>
+					<span class="label"><?php esc_html_e( 'Language', 'eduma' ); ?></span>
+					<span class="value"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
 				</li>
 				<li>
 					<i class="fa fa-users"></i>
 					<span class="label"><?php esc_html_e( 'Students', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_duration', true ) ); ?></span>
+					<?php $user_count = $course->count_users_enrolled( 'append' ) ? $course->count_users_enrolled( 'append' ) : 0; ?>
+					<span class="value"><?php echo esc_html( $user_count ); ?></span>
 				</li>
-				<?php //thim_course_certificate( $course_id ); ?>
+				<?php thim_course_certificate( $course_id ); ?>
 				<li>
 					<i class="fa fa-check-square-o"></i>
 					<span class="label"><?php esc_html_e( 'Assessments', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
-				</li>
-				<li>
-					<i class="fa fa-puzzle-piece"></i>
-					<span class="label"><?php esc_html_e( 'Typical Majors', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php foreach ($categories as $category){
-						$resultst[] = $category->name;
-					}
-					$result = implode(", ", $resultst);
-					echo $result;
-					 ?></span>
+					<span class="value"><?php echo ( get_post_meta( $course_id, '_lp_course_result', true ) == 'yes' ) ? esc_html__( 'Yes', 'eduma' ) : esc_html__( 'Self', 'eduma' ); ?></span>
 				</li>
 			</ul>
-			<form>
-			<INPUT style="width: 210px; height: 50px; text-align: center; border: 0px; font-weight: bold; background: #ffcb05; color: #00274c; cursor: pointer; font-size: 100%;" Type="BUTTON" Value="APPLY" Onclick="window.location.href='https://umich.qualtrics.com/SE/?SID=SV_1TViVgTbkMmTyQJ'">
-			</form>
-			
-			
+			<?php thim_course_wishlist_button(); ?>
 		</div>
 		<?php
 	}
@@ -590,12 +598,19 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
 										echo thim_get_feature_image( get_post_thumbnail_id( $course_item->ID ), 'full', 450, 450, $course->post_title );
 										?>
 									</a>
-									<?php //thim_course_wishlist_button( $course_item->ID ); ?>
+									<?php thim_course_wishlist_button( $course_item->ID ); ?>
 									<?php echo '<a class="course-readmore" href="' . esc_url( get_the_permalink( $course_item->ID ) ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>'; ?>
 								</div>
 								<div class="thim-course-content">
 									<div class="course-author">
-										<?php //echo get_avatar( $course_item->post_author, 40 ); ?>
+										<?php echo get_avatar( $course_item->post_author, 40 ); ?>
+										<div class="author-contain">
+											<div class="value">
+												<a href="<?php echo esc_url( learn_press_user_profile_link( $course_item->post_author ) ); ?>">
+													<?php echo get_the_author_meta( 'display_name', $course_item->post_author ); ?>
+												</a>
+											</div>
+										</div>
 									</div>
 									<h2 class="course-title">
 										<a rel="bookmark" href="<?php echo get_the_permalink( $course_item->ID ); ?>"><?php echo esc_html( $course_item->post_title ); ?></a>
@@ -604,8 +619,29 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
 										<?php
 										$count_student = $course->count_users_enrolled( 'append' ) ? $course->count_users_enrolled( 'append' ) : 0;
 										?>
-										<?php //thim_course_ratings_count( $course_item->ID ); ?>
-										
+										<div class="course-students">
+											<label><?php esc_html_e( 'Students', 'eduma' ); ?></label>
+											<?php do_action( 'learn_press_begin_course_students' ); ?>
+
+											<div class="value"><i class="fa fa-group"></i>
+												<?php echo esc_html( $count_student ); ?>
+											</div>
+											<?php do_action( 'learn_press_end_course_students' ); ?>
+
+										</div>
+										<?php thim_course_ratings_count( $course_item->ID ); ?>
+										<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+											<?php if ( $course->is_free() || ! $is_required ) : ?>
+												<div class="value free-course" itemprop="price" content="<?php esc_attr_e( 'Free', 'eduma' ); ?>">
+													<?php esc_html_e( 'Free', 'eduma' ); ?>
+												</div>
+											<?php else: $price = learn_press_format_price( $course->get_price(), true ); ?>
+												<div class="value " itemprop="price" content="<?php echo esc_attr( $price ); ?>">
+													<?php echo esc_html( $price ); ?>
+												</div>
+											<?php endif; ?>
+											<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
+										</div>
 									</div>
 								</div>
 							</div>

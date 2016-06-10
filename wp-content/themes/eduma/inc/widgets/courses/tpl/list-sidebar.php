@@ -71,7 +71,7 @@ if ( $the_query->have_posts() ) :
 				<div class="thim-course-content">
 					<h3 class="course-title">
 						<a href="<?php echo esc_url( get_the_permalink() ); ?>"> <?php echo get_the_title(); ?></a></h3>
-					<?php //learn_press_course_price(); ?>
+					<?php learn_press_course_price(); ?>
 				</div>
 			</div>
 			<?php

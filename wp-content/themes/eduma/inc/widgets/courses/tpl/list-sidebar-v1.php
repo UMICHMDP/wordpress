@@ -64,7 +64,7 @@ if ( $the_query->have_posts() ) :
 					<h3 class="course-title">
 						<a href="<?php echo esc_url( get_the_permalink() ); ?>"> <?php echo get_the_title(); ?></a>
 					</h3>
-					<?php/*
+
 					<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 						<?php if ( $course->is_free() || !$is_required ) : ?>
 							<div class="value free-course" itemprop="price" content="<?php esc_attr_e( 'Free', 'eduma' ); ?>">
@@ -78,7 +78,6 @@ if ( $the_query->have_posts() ) :
 						<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
 
 					</div>
-					*/?>
 				</div>
 			</div>
 			<?php
