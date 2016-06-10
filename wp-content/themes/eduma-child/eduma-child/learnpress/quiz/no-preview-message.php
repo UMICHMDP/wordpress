@@ -1,1 +1,0 @@
-<p class="message message-error"><?php esc_html_e( 'Sorry! You have not permission to view this quiz!', 'eduma' ); ?></p>
