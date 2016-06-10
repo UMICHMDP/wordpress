@@ -64,15 +64,15 @@ if ( ! empty( $cat_id_tab ) ) {
 					?>
 					<div class="thim-course-content">
 						<?php
-						learn_press_course_instructor();
+						//learn_press_course_instructor();
 						?>
 						<h2 class="course-title">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>"> <?php echo get_the_title(); ?></a>
 						</h2>
-
+						<?php/*
 						<div class="course-meta">
-							<?php learn_press_course_students(); ?>
-							<?php thim_course_ratings_count(); ?>
+							<?php //learn_press_course_students(); ?>
+							<?php //thim_course_ratings_count(); ?>
 							<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 								<?php
 								$course      = LP_Course::get_course( $post->ID );
@@ -80,16 +80,17 @@ if ( ! empty( $cat_id_tab ) ) {
 								?>
 								<?php if ( $course->is_free() || ! $is_required ) : ?>
 									<div class="value free-course" itemprop="price" content="<?php esc_attr_e( 'Free', 'eduma' ); ?>">
-										<?php esc_html_e( 'Free', 'eduma' ); ?>
+										<?php //esc_html_e( 'Free', 'eduma' ); ?>
 									</div>
 								<?php else: $price = learn_press_format_price( $course->get_price(), true ); ?>
 									<div class="value " itemprop="price" content="<?php echo esc_attr( $price ); ?>">
-										<?php echo esc_html( $price ); ?>
+										<?php //echo esc_html( $price ); ?>
 									</div>
 								<?php endif; ?>
 								<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
 
 							</div>
+							*/?>
 						</div>
 					</div>
 				</div>

@@ -79,7 +79,7 @@ if ( $the_query->have_posts() ) :
 						</h2>
 
 						<div class="course-meta">
-							<?php learn_press_course_price(); ?>
+							<?php //learn_press_course_price(); ?>
 						</div>
 						<?php
 						echo '<a class="course-readmore" href="' . esc_url( get_the_permalink() ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>';

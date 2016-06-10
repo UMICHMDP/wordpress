@@ -25,7 +25,7 @@ function thim_getCSSAnimation( $css_animation ) {
  * @return array|mixed|string|void
  */
 function thim_excerpt( $limit ) {
-	$excerpt = explode( ' ', get_the_excerpt(), $limit );
+	$excerpt = explode( ' ', get_the_content(), $limit );
 	if ( count( $excerpt ) >= $limit ) {
 		array_pop( $excerpt );
 		$excerpt = implode( " ", $excerpt ) . '...';

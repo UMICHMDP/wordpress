@@ -36,7 +36,7 @@ if ( !defined( 'ABSPATH' ) ) {
 	?>
 	<?php } else { ?>
 
-		<li class="course-item section-empty"><?php learn_press_display_message( esc_html__( 'No items in this section', 'eduma' ), 'notice' );?></li>
+		
 
 	<?php } ?>
 </ul>
