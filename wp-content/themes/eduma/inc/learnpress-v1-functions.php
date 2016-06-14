@@ -458,20 +458,23 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_duration', true ) ); ?></span>
 				</li>
 				<?php //thim_course_certificate( $course_id ); ?>
-				<li>
-					<i class="fa fa-check-square-o"></i>
-					<span class="label"><?php esc_html_e( 'Assessments', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
-				</li>
+				
 				<li>
 					<i class="fa fa-puzzle-piece"></i>
 					<span class="label"><?php esc_html_e( 'Typical Majors', 'eduma' ); ?></span>
 					<span class="value" style="text-align: right;"><?php foreach ($categories as $category){
-						$resultst[] = $category->name;
+						if ($category->description != 'NONE'){
+						$resultst[] = $category->description;
+						}
 					}
 					$result = implode(", ", $resultst);
 					echo $result;
 					 ?></span>
+				</li>
+				<li>
+					<i class="fa fa-check-square-o"></i>
+					<span class="label"><?php esc_html_e( 'Course Substitutions', 'eduma' ); ?></span>
+					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
 				</li>
 			</ul>
 			<form>
