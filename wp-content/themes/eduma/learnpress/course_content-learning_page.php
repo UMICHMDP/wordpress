@@ -21,7 +21,7 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 				<li class="active">
 					<a href="#tab-course-curriculum" data-toggle="tab">
 						<i class="fa fa-cube"></i>
-						<span><?php esc_html_e( 'Student Roles', 'eduma' ); ?></span>
+						<span><?php esc_html_e( 'Curriculum', 'eduma' ); ?></span>
 					</a>
 				</li>
 				<li role="presentation">

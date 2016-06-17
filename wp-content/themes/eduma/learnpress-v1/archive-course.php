@@ -73,7 +73,7 @@ if ( $total == 0 ) {
 		</div>
 		<div class="courses-searching">
 			<form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<input type="text" value="" name="s" placeholder="<?php esc_html_e( 'Search our projects', 'eduma' ) ?>" class="thim-s form-control courses-search-input" autocomplete="off" />
+				<input type="text" value="" name="s" placeholder="<?php esc_html_e( 'Search our courses', 'eduma' ) ?>" class="thim-s form-control courses-search-input" autocomplete="off" />
 				<input type="hidden" value="course" name="ref" />
 				<button type="submit"><i class="fa fa-search"></i></button>
 				<span class="widget-search-close"></span>

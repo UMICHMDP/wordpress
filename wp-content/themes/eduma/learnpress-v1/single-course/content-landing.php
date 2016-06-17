@@ -31,16 +31,16 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 			<li >
 				<a href="#tab-course-curriculum" data-toggle="tab">
 					<i class="fa fa-cube"></i>
-					<span><?php esc_html_e( 'Student Roles', 'eduma' ); ?></span>
+					<span><?php esc_html_e( 'Curriculum', 'eduma' ); ?></span>
 				</a>
 			</li>
 			<li role="presentation">
 				<a href="#tab-course-instructor" data-toggle="tab">
 					<i class="fa fa-user"></i>
-					<span><?php esc_html_e( 'Faculty & Sponsor', 'eduma' ); ?></span>
+					<span><?php esc_html_e( 'Instructors', 'eduma' ); ?></span>
 				</a>
 			</li>
-			<?php/* if ( $review_is_enable ) : ?>
+			<?php if ( $review_is_enable ) : ?>
 				<li role="presentation">
 					<a href="#tab-course-review" data-toggle="tab">
 						<i class="fa fa-comments"></i>
@@ -48,7 +48,7 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 						<span><?php echo '(' . learn_press_get_course_rate_total( get_the_ID() ) . ')'; ?></span>
 					</a>
 				</li>
-			<?php endif; */?>
+			<?php endif; ?>
 		</ul>
 
 		<div class="tab-content">
@@ -65,13 +65,13 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 				<?php learn_press_course_curriculum(); ?>
 			</div>
 			<div class="tab-pane" id="tab-course-instructor">
-				<?php the_excerpt(); ?>
+				<?php thim_about_author(); ?>
 			</div>
-			<?php/* if ( $review_is_enable ) : ?>
+			<?php if ( $review_is_enable ) : ?>
 				<div class="tab-pane" id="tab-course-review">
 					<?php thim_course_review(); ?>
 				</div>
-			<?php endif;*/ ?>
+			<?php endif; ?>
 		</div>
 
 	</div>
@@ -83,22 +83,22 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 					<a href="#tab-course-description"><?php esc_html_e( 'Description', 'eduma' ); ?></a>
 				</li>
 				<li>
-					<a href="#tab-course-curriculum"><?php esc_html_e( 'Student Positions', 'eduma' ); ?></a>
+					<a href="#tab-course-curriculum"><?php esc_html_e( 'Curriculum', 'eduma' ); ?></a>
 				</li>
 				<li>
-					<a href="#tab-course-instructor"><?php esc_html_e( 'Faculty & Sponsor', 'eduma' ); ?></a>
+					<a href="#tab-course-instructor"><?php esc_html_e( 'Instructors', 'eduma' ); ?></a>
 				</li>
-				<?php /*if ( $review_is_enable ) : ?>
+				<?php if ( $review_is_enable ) : ?>
 					<li>
 						<a href="#tab-course-review"><?php esc_html_e( 'Reviews', 'eduma' ); ?></a>
 					</li>
-				<?php endif; */?>
+				<?php endif; ?>
 
 			</ul>
 			<div class="thim-course-landing-button">
 				<?php
-				//learn_press_course_price();
-				//learn_press_course_enroll_button();
+				learn_press_course_price();
+				learn_press_course_enroll_button();
 				?>
 			</div>
 		</div>

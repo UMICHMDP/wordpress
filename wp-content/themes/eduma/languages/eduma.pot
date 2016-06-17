@@ -16,7 +16,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
-"MIME-Version: 1.0\n"thim
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
@@ -695,11 +695,11 @@ msgstr ""
 #: inc/learnpress-functions.php:579 inc/learnpress-functions.php:584
 #: inc/learnpress-v1-functions.php:1201 inc/learnpress-v1-functions.php:1214
 #: inc/learnpress-v1-functions.php:1220 inc/learnpress-v1-functions.php:1225
-msgid "all projects"
+msgid "All courses"
 msgstr ""
 
 #: inc/learnpress-functions.php:601 inc/learnpress-v1-functions.php:1162
-msgid "all projects"
+msgid "All Courses"
 msgstr ""
 
 #: inc/learnpress-functions.php:608 inc/learnpress-v1-functions.php:1169
@@ -3157,7 +3157,7 @@ msgid "Limit number course"
 msgstr ""
 
 #: inc/widgets/courses/courses.php:80
-msgid "Text View all projects"
+msgid "Text View All Courses"
 msgstr ""
 
 #: inc/widgets/courses/courses.php:91

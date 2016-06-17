@@ -77,7 +77,7 @@ class Thim_Courses_Widget extends Thim_Widget {
 				),
 				'view_all_courses'  => array(
 					'type'          => 'text',
-					'label'         => esc_html__( 'Text View all projects', 'eduma' ),
+					'label'         => esc_html__( 'Text View All Courses', 'eduma' ),
 					'default'       => '',
 					'hide'          => true,
 					'state_handler' => array(

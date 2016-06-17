@@ -80,12 +80,12 @@ if ( $the_query->have_posts() ) :
 					?>
 					<div class="thim-course-content">
 						<?php
-						//learn_press_course_instructor();
+						learn_press_course_instructor();
 						?>
 						<h2 class="course-title">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>"> <?php echo get_the_title(); ?></a>
 						</h2>
-						<?php/*
+
 						<div class="course-meta">
 							<div class="course-student">
 								<?php
@@ -95,11 +95,10 @@ if ( $the_query->have_posts() ) :
 								</div>
 							</div>
 
-							<?php //thim_course_ratings_count(); ?>
+							<?php thim_course_ratings_count(); ?>
 
-							<?php //learn_press_course_price(); ?>
+							<?php learn_press_course_price(); ?>
 						</div>
-						*/?>
 					</div>
 				</div>
 			</div>

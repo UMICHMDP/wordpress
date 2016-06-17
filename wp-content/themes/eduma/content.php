@@ -25,7 +25,7 @@ $classes[] = 'col-sm-12';
 				?>
 				<div class="entry-summary">
 					<?php
-					the_content();
+					the_excerpt();
 					?>
 				</div><!-- .entry-summary -->
 				<div class="readmore">
@@ -65,7 +65,7 @@ $classes[] = 'col-sm-12';
 				</header>
 				<div class="entry-summary">
 					<?php
-					the_content();
+					the_excerpt();
 					?>
 				</div><!-- .entry-summary -->
 				<div class="readmore">
@@ -91,7 +91,7 @@ $classes[] = 'col-sm-12';
 				<!-- .entry-header -->
 				<div class="entry-summary">
 					<?php
-					the_content();
+					the_excerpt();
 					?>
 				</div><!-- .entry-summary -->
 				<div class="readmore">

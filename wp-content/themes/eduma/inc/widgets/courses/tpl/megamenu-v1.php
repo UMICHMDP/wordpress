@@ -69,7 +69,7 @@ if ( $the_query->have_posts() ) :
 						<h2 class="course-title">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>"> <?php echo get_the_title(); ?></a>
 						</h2>
-						<?php/*
+
 						<div class="course-meta">
 							<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 								<?php if ( $course->is_free() || !$is_required ) : ?>
@@ -85,7 +85,6 @@ if ( $the_query->have_posts() ) :
 
 							</div>
 						</div>
-						*/?>
 						<?php
 						echo '<a class="course-readmore" href="' . esc_url( get_the_permalink() ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>';
 						?>

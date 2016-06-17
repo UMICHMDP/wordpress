@@ -37,11 +37,11 @@ $class .= ' lpr_course';
 			do_action( 'learn_press_after_the_title' );
 			?>
 			<div class="course-meta">
-				<?php //learn_press_course_instructor(); ?>
-				<?php //thim_course_ratings(); ?>
-				<?php //learn_press_course_students(); ?>
-				<?php //thim_course_ratings_count(); ?>
-				<?php //learn_press_course_price(); ?>
+				<?php learn_press_course_instructor(); ?>
+				<?php thim_course_ratings(); ?>
+				<?php learn_press_course_students(); ?>
+				<?php thim_course_ratings_count(); ?>
+				<?php learn_press_course_price(); ?>
 			</div>
 			<div class="course-description">
 				<?php
@@ -50,7 +50,7 @@ $class .= ' lpr_course';
 				do_action( 'learn_press_after_course_content' );
 				?>
 			</div>
-			<?php //learn_press_course_price(); ?>
+			<?php learn_press_course_price(); ?>
 			<div class="course-readmore">
 				<a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read More', 'eduma' ); ?></a>
 			</div>
