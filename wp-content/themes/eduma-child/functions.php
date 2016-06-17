@@ -139,3 +139,70 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
 		}
 	}
 }
+
+function thim_excerpt( $limit ) {
+	$excerpt = explode( ' ', get_the_content(), $limit );
+	if ( count( $excerpt ) >= $limit ) {
+		array_pop( $excerpt );
+		$excerpt = implode( " ", $excerpt ) . '...';
+	} else {
+		$excerpt = implode( " ", $excerpt );
+	}
+	$excerpt = preg_replace( '`\[[^\]]*\]`', '', $excerpt );
+
+	return '<p>' . $excerpt . '</p>';
+}
+
+function thim_learnpress_breadcrumb() {
+
+		// Do not display on the homepage
+		if ( is_front_page() || is_404() ) {
+			return;
+		}
+
+		// Get the query & post information
+		global $post;
+
+		// Build the breadcrums
+		echo '<ul itemprop="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList" id="breadcrumbs" class="breadcrumbs">';
+
+		// Home page
+		echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_html( get_home_url() ) . '" title="' . esc_attr__( 'Home', 'eduma' ) . '"><span itemprop="name">' . esc_html__( 'Home', 'eduma' ) . '</span></a></li>';
+
+		if ( is_single() ) {
+
+			$categories = get_the_terms( $post, 'course_category' );
+
+			if ( get_post_type() == 'lp_course' ) {
+				// All courses
+				echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_post_type_archive_link( 'lp_course' ) ) . '" title="' . esc_attr__( 'All projects', 'eduma' ) . '"><span itemprop="name">' . esc_html__( 'All projects', 'eduma' ) . '</span></a></li>';
+			} else {
+				echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_permalink( get_post_meta( $post->ID, '_lp_course', true ) ) ) . '" title="' . esc_attr( get_the_title( get_post_meta( $post->ID, '_lp_course', true ) ) ) . '"><span itemprop="name">' . esc_html( get_the_title( get_post_meta( $post->ID, '_lp_course', true ) ) ) . '</span></a></li>';
+			}
+
+			// Single post (Only display the first category)
+			if ( isset( $categories[0] ) ) {
+				echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_term_link( $categories[0] ) ) . '" title="' . esc_attr( $categories[0]->name ) . '"><span itemprop="name">' . esc_html( $categories[0]->name ) . '</span></a></li>';
+			}
+			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name" title="' . esc_attr( get_the_title() ) . '">' . esc_html( get_the_title() ) . '</span></li>';
+
+		} else if ( is_tax( 'course_category' ) || is_tax( 'course_tag' ) ) {
+			// All courses
+			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_post_type_archive_link( 'lp_course' ) ) . '" title="' . esc_attr__( 'All projects', 'eduma' ) . '"><span itemprop="name">' . esc_html__( 'All projects', 'eduma' ) . '</span></a></li>';
+
+			// Category page
+			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name" title="' . esc_attr( single_term_title( '', false ) ) . '">' . esc_html( single_term_title( '', false ) ) . '</span></li>';
+		} else if ( ! empty( $_REQUEST['s'] ) && ! empty( $_REQUEST['ref'] ) && ( $_REQUEST['ref'] == 'course' ) ) {
+			// All courses
+			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_post_type_archive_link( 'lp_course' ) ) . '" title="' . esc_attr__( 'All projects', 'eduma' ) . '"><span itemprop="name">' . esc_html__( 'All projects', 'eduma' ) . '</span></a></li>';
+
+			// Search result
+			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name" title="' . esc_attr__( 'Search results for:', 'eduma' ) . ' ' . esc_attr( get_search_query() ) . '">' . esc_html__( 'Search results for:', 'eduma' ) . ' ' . esc_html( get_search_query() ) . '</span></li>';
+		} else {
+			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name" title="' . esc_attr__( 'All projects', 'eduma' ) . '">' . esc_html__( 'All projects', 'eduma' ) . '</span></li>';
+		}
+
+		echo '</ul>';
+	}
+
+

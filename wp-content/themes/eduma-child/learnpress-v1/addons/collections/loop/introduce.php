@@ -13,5 +13,5 @@ if ( !defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="collection-introduce">
-	<?php echo get_the_excerpt(); ?>
+	<?php echo get_the_content(); ?>
 </div>
