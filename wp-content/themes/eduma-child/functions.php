@@ -139,7 +139,7 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
 		}
 	}
 }
-
+if (!function_exists('thim_excerpt')){
 function thim_excerpt( $limit ) {
 	$excerpt = explode( ' ', get_the_content(), $limit );
 	if ( count( $excerpt ) >= $limit ) {
@@ -152,7 +152,8 @@ function thim_excerpt( $limit ) {
 
 	return '<p>' . $excerpt . '</p>';
 }
-
+}
+if (!function_exists('thim_learnpress_breadcrumb')){
 function thim_learnpress_breadcrumb() {
 
 		// Do not display on the homepage
@@ -204,5 +205,5 @@ function thim_learnpress_breadcrumb() {
 
 		echo '</ul>';
 	}
-
+}
 
