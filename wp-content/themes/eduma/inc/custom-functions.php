@@ -24,6 +24,7 @@ function thim_getCSSAnimation( $css_animation ) {
  *
  * @return array|mixed|string|void
  */
+if (!function_exists('thim_excerpt')){
 function thim_excerpt( $limit ) {
 	$excerpt = explode( ' ', get_the_excerpt(), $limit );
 	if ( count( $excerpt ) >= $limit ) {
@@ -36,7 +37,7 @@ function thim_excerpt( $limit ) {
 
 	return '<p>' . $excerpt . '</p>';
 }
-
+}
 /**
  * Display breadcrumbs
  */
