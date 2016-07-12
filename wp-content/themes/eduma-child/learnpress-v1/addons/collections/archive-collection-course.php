@@ -14,12 +14,12 @@ if ( !defined( 'ABSPATH' ) ) {
 $total =  $query->found_posts ;
 
 if ( $total == 0 ) {
-	echo '<p class="message message-error">' . esc_html__( 'There are no available courses!', 'eduma' ) . '</p>';
+	echo '<p class="message message-error">' . esc_html__( 'There are no available projects!', 'eduma' ) . '</p>';
 	return;
 } elseif ( $total == 1 ) {
 	$index = esc_html__( 'Showing only one result', 'eduma' );
 } else {
-	$courses_per_page = get_option( 'posts_per_page', 10 );
+	$courses_per_page = get_option( 'posts_per_page', 12 );
 	$paged            = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 
 	$from = 1 + ( $paged - 1 ) * $courses_per_page;
@@ -60,7 +60,7 @@ if ( $total == 0 ) {
 		LP_Addon_Collections::$in_loop = false;
 		learn_press_course_paging_nav();
 	} else {
-		learn_press_display_message( esc_html__( 'No course found!', 'eduma' ), 'notice' ) . $id;
+		learn_press_display_message( esc_html__( 'No project found!', 'eduma' ), 'notice' ) . $id;
 	}
 	?>
 	</div>

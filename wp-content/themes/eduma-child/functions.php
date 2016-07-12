@@ -37,14 +37,16 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				
 				<li>
 					<i class="fa fa-puzzle-piece"></i>
-					<span class="label"><?php esc_html_e( 'Likely Majors', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php foreach ($categories as $category){
+					<span class="label" ><?php esc_html_e( 'Likely Majors', 'eduma' ); ?></span>
+					<span class="majors" style=" font-weight:bold; text-align:right;display:block;"><?php foreach ($categories as $category){
 						if ($category->description != 'NONE'){
 						$resultst[] = $category->description;
 						}
 					}
 					$result = implode(", ", $resultst);
 					echo $result;
+					
+					
 					 ?></span>
 				</li>
 				<li>
@@ -67,7 +69,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				</li>
 				<li>
 					<i class="fa fa-language"></i>
-					<span class="label"><?php esc_html_e( 'Summer Internship?', 'eduma' ); ?></span>
+					<span class="label"><?php esc_html_e( 'Summer Opportunities?', 'eduma' ); ?></span>
 					<span class="value"style="text-align: right;"><?php  if ($course->is_free()){
 						echo 'Yes';
 					} 

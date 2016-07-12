@@ -6,7 +6,7 @@ $query_args = array(
 		array(
 			'taxonomy' => 'post_format',
 			'field'    => 'slug',
-			'terms'    => array( 'post-format-gallery' ),
+			'terms'    => array( 'post-format-standard' ),
 		)
 	),
 	'posts_per_page' => -1
