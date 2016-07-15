@@ -52,13 +52,13 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				<li>
 					<i class="fa fa-check-square-o"></i>
 					<span class="label"><?php esc_html_e( 'Course Substitutions', 'eduma' ); ?></span>
-					<span class="value" style="text-align: right;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
+					<span class="majors" style=" font-weight:bold; text-align:right;display:block;"><?php echo esc_html( get_post_meta( $course_id, 'thim_course_language', true ) ); ?></span>
 				</li>
 				<li>
 					<i class="fa fa-files-o"></i>
 					<span class="label"><?php esc_html_e( 'IP & NDA Required?', 'eduma' ); ?></span>
 					<?php $user_count = $course->count_users_enrolled( 'append' ) ? $course->count_users_enrolled( 'append' ) : 0; ?>
-					<span class="value"style="text-align: right;"><?php 
+					<span class="value" style="text-align: right;"><?php 
 					  if ($user_count == 1){
 						echo 'Yes';
 						}
@@ -69,12 +69,19 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				</li>
 				<li>
 					<i class="fa fa-language"></i>
-					<span class="label"><?php esc_html_e( 'Summer Opportunities?', 'eduma' ); ?></span>
-					<span class="value"style="text-align: right;"><?php  if ($course->is_free()){
-						echo 'Yes';
+					<span class="label"><?php esc_html_e( 'Summer Opportunity', 'eduma' ); ?></span>
+					<span class="majors" style=" font-weight:bold; text-align:right;display:block;"><?php 
+					if ($course->is_free()){
+						echo 'Internship Guaranteed';
 					} 
 					else {
-						echo 'No';
+						$price = $course->get_price();
+						if ($price == 1){
+							echo 'Interview Guaranteed';
+						}
+						else {
+							echo 'Summer Funding Application';
+						}
 					}?></span>
 				</li>
 			</ul>
