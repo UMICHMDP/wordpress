@@ -24,7 +24,6 @@ function thim_getCSSAnimation( $css_animation ) {
  *
  * @return array|mixed|string|void
  */
-if (!function_exists('thim_excerpt')){
 function thim_excerpt( $limit ) {
 	$excerpt = explode( ' ', get_the_excerpt(), $limit );
 	if ( count( $excerpt ) >= $limit ) {
@@ -37,7 +36,7 @@ function thim_excerpt( $limit ) {
 
 	return '<p>' . $excerpt . '</p>';
 }
-}
+
 /**
  * Display breadcrumbs
  */
@@ -485,55 +484,18 @@ add_action( 'wp_head', 'thim_favicon' );
 /**
  * Redirect to custom login page
  */
-function thim_login_failed() {
-	wp_redirect( add_query_arg( 'result', 'failed', thim_get_login_page_url() ) );
-	exit;
-}
+if ( !function_exists( 'thim_login_failed' ) ) {
+	function thim_login_failed() {
 
-add_action( 'wp_login_failed', 'thim_login_failed', 1000 );
-
-/**
- * Redirect to custom login page
- *
- * @param $user
- * @param $username
- * @param $password
- */
-function thim_verify_username_password( $user, $username, $password ) {
-
-	global $wpdb;
-	$page = $wpdb->get_col(
-		$wpdb->prepare(
-			"SELECT p.ID FROM $wpdb->posts AS p INNER JOIN $wpdb->postmeta AS pm ON p.ID = pm.post_id
-			WHERE 	pm.meta_key = %s
-			AND 	pm.meta_value = %s
-			AND		p.post_type = %s
-			AND		p.post_status = %s",
-			'thim_login_page',
-			'1',
-			'page',
-			'publish'
-		)
-	);
-	if ( empty( $page[0] ) || !thim_plugin_active( 'siteorigin-panels/siteorigin-panels.php' ) ) {
-		return $user;
-	} else {
-		$url = null;
-		if ( $username == '' && $password == '' ) {
-			$url = ( add_query_arg( 'result', 'empty', thim_get_login_page_url() ) );
-		} elseif ( $username == '' || $password == '' ) {
-			$url = ( add_query_arg( 'result', 'failed', thim_get_login_page_url() ) );
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'thim_login_ajax' ) {
+			return;
 		}
-		if ( $url ) {
-			if ( !empty( $_REQUEST['redirect_to'] ) ) {
-				$url = add_query_arg( 'redirect_to', urlencode( $_REQUEST['redirect_to'] ), $url );
-			}
-			wp_redirect( $url );
-		}
+		wp_redirect( add_query_arg( 'result', 'failed', thim_get_login_page_url() ) );
+		exit;
 	}
-}
 
-//add_filter( 'authenticate', 'thim_verify_username_password', 1, 3 );
+	add_action( 'wp_login_failed', 'thim_login_failed', 1000 );
+}
 
 /**
  * Filter register link
@@ -555,24 +517,27 @@ function thim_get_register_url() {
  * @param $user_email
  * @param $errors
  */
-function thim_register_failed( $sanitized_user_login, $user_email, $errors ) {
+if ( !function_exists( 'thim_register_failed' ) ) {
+	function thim_register_failed( $sanitized_user_login, $user_email, $errors ) {
 
-	$errors = apply_filters( 'registration_errors', $errors, $sanitized_user_login, $user_email );
+		$errors = apply_filters( 'registration_errors', $errors, $sanitized_user_login, $user_email );
 
-	if ( $errors->get_error_code() ) {
+		if ( $errors->get_error_code() ) {
 
-		//setup your custom URL for redirection
-		$url = add_query_arg( 'action', 'register', thim_get_login_page_url() );
+			//setup your custom URL for redirection
+			$url = add_query_arg( 'action', 'register', thim_get_login_page_url() );
 
-		foreach ( $errors->errors as $e => $m ) {
-			$url = add_query_arg( $e, '1', $url );
+			foreach ( $errors->errors as $e => $m ) {
+				$url = add_query_arg( $e, '1', $url );
+			}
+			wp_redirect( $url );
+			exit;
 		}
-		wp_redirect( $url );
-		exit;
 	}
+
+	add_action( 'register_post', 'thim_register_failed', 99, 3 );
 }
 
-add_action( 'register_post', 'thim_register_failed', 99, 3 );
 
 /**
  * Redirect to custom register page in case multi sites
@@ -677,25 +642,35 @@ add_action( 'lostpassword_post', 'thim_reset_password_failed', 999 );
  * @return false|string
  */
 function thim_get_login_page_url() {
-	global $wpdb;
-	$page = $wpdb->get_col(
-		$wpdb->prepare(
-			"SELECT p.ID FROM $wpdb->posts AS p INNER JOIN $wpdb->postmeta AS pm ON p.ID = pm.post_id
+
+	if ( !thim_plugin_active( 'siteorigin-panels/siteorigin-panels.php' ) ) {
+		return wp_login_url();
+	}
+
+	if ( $page = get_option( 'thim_login_page' ) ) {
+		return get_permalink( $page );
+	} else {
+		global $wpdb;
+		$page = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT p.ID FROM $wpdb->posts AS p INNER JOIN $wpdb->postmeta AS pm ON p.ID = pm.post_id
 			WHERE 	pm.meta_key = %s
 			AND 	pm.meta_value = %s
 			AND		p.post_type = %s
 			AND		p.post_status = %s",
-			'thim_login_page',
-			'1',
-			'page',
-			'publish'
-		)
-	);
-	if ( empty( $page[0] ) || !thim_plugin_active( 'siteorigin-panels/siteorigin-panels.php' ) ) {
-		return wp_login_url();
-	} else {
-		return get_permalink( $page[0] );
+				'thim_login_page',
+				'1',
+				'page',
+				'publish'
+			)
+		);
+		if ( !empty( $page[0] ) ) {
+			return get_permalink( $page[0] );
+		}
 	}
+
+	return wp_login_url();
+
 }
 
 /**
@@ -1167,32 +1142,35 @@ function thim_wpcf7_ajax_loader() {
 
 add_filter( 'wpcf7_ajax_loader', 'thim_wpcf7_ajax_loader' );
 
-function thim_ssl_secure_url( $sources ) {
-	$scheme = parse_url( site_url(), PHP_URL_SCHEME );
-	if ( 'https' == $scheme ) {
-		if ( stripos( $sources, 'http://' ) === 0 ) {
-			$sources = 'https' . substr( $sources, 4 );
-		}
-
-		return $sources;
-	}
-
-	return $sources;
-}
-
-function thim_ssl_secure_image_srcset( $sources ) {
-	$scheme = parse_url( site_url(), PHP_URL_SCHEME );
-	if ( 'https' == $scheme ) {
-		foreach ( $sources as &$source ) {
-			if ( stripos( $source['url'], 'http://' ) === 0 ) {
-				$source['url'] = 'https' . substr( $source['url'], 4 );
+if ( !function_exists( 'thim_ssl_secure_url' ) ) {
+	function thim_ssl_secure_url( $sources ) {
+		$scheme = parse_url( site_url(), PHP_URL_SCHEME );
+		if ( 'https' == $scheme ) {
+			if ( stripos( $sources, 'http://' ) === 0 ) {
+				$sources = 'https' . substr( $sources, 4 );
 			}
+
+			return $sources;
 		}
 
 		return $sources;
 	}
+}
+if ( !function_exists( 'thim_ssl_secure_image_srcset' ) ) {
+	function thim_ssl_secure_image_srcset( $sources ) {
+		$scheme = parse_url( site_url(), PHP_URL_SCHEME );
+		if ( 'https' == $scheme ) {
+			foreach ( $sources as &$source ) {
+				if ( stripos( $source['url'], 'http://' ) === 0 ) {
+					$source['url'] = 'https' . substr( $source['url'], 4 );
+				}
+			}
 
-	return $sources;
+			return $sources;
+		}
+
+		return $sources;
+	}
 }
 
 //add_filter( 'wp_calculate_image_srcset', 'thim_ssl_secure_image_srcset' );
@@ -1284,6 +1262,7 @@ function thim_event_posts_join_paged( $join, $q ) {
 		$join .= " LEFT JOIN {$wpdb->postmeta} pm1 ON pm1.post_id = {$wpdb->posts}.ID AND pm1.meta_key = 'tp_event_date_start'";
 		$join .= " LEFT JOIN {$wpdb->postmeta} pm2 ON pm2.post_id = {$wpdb->posts}.ID AND pm2.meta_key = 'tp_event_time_start'";
 	}
+
 	return $join;
 }
 
@@ -1325,7 +1304,7 @@ function thim_replace_retrieve_password_message( $message, $key, $user_login, $u
 	$message .= sprintf( __( 'Username: %s', 'eduma' ), $user_login ) . "\r\n\r\n";
 	$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'eduma' ) . "\r\n\r\n";
 	$message .= __( 'To reset your password, visit the following address:', 'eduma' ) . "\r\n\r\n";
-	$message .= '<' . $reset_link . ">\r\n";
+	$message .= $reset_link . "\r\n";
 
 	return $message;
 }
@@ -2747,6 +2726,7 @@ function thim_polylang_dropdown( $output, $args ) {
 			$current_language, $list
 		);
 	}
+
 	return $output;
 }
 
@@ -2803,6 +2783,7 @@ if ( !function_exists( 'thim_get_current_url' ) ) {
 			}
 			$current_url = remove_query_arg( '__', $url );
 		}
+
 		return $current_url;
 	}
 }
@@ -2812,54 +2793,161 @@ if ( !function_exists( 'thim_is_current_url' ) ) {
 	}
 }
 
-function thim_get_upcoming_events( $args = array() ) {
-	$args = wp_parse_args(
-		$args,
-		array(
-			'post_type'   => 'tp_event',
-			'post_status' => 'tp-event-upcoming'
-		)
-	);
 
-	return new WP_Query( $args );
-}
+//Filter post_status tp_event
+if ( !function_exists( 'thim_get_upcoming_events' ) ) {
+	function thim_get_upcoming_events( $args = array() ) {
+		$args = wp_parse_args(
+			$args,
+			array(
+				'post_type'   => 'tp_event',
+				'post_status' => 'tp-event-upcoming'
+			)
+		);
 
-function thim_get_expired_events( $args = array() ) {
-	$args = wp_parse_args(
-		$args,
-		array(
-			'post_type'   => 'tp_event',
-			'post_status' => 'tp-event-expired',
-			/*'meta_key'    => 'tp_event_date_start',
-			'orderby'     => 'meta_value_num',
-			'order'       => 'DESC'*/
-		)
-	);
-	return new WP_Query( $args );
-}
-
-function thim_get_happening_events( $args = array() ) {
-	$args = wp_parse_args(
-		$args,
-		array(
-			'post_type'   => 'tp_event',
-			'post_status' => 'tp-event-happenning'
-		)
-	);
-	return new WP_Query( $args );
-}
-
-
-function thim_archive_event_template( $template ) {
-	if ( get_post_type() == 'tp_event' && is_post_type_archive( 'tp_event' ) ) {
-		$GLOBALS['thim_happening_events'] = thim_get_happening_events();
-		$GLOBALS['thim_upcoming_events']  = thim_get_upcoming_events();
-		$GLOBALS['thim_expired_events']   = thim_get_expired_events();
+		return new WP_Query( $args );
 	}
-	return $template;
 }
 
+if ( !function_exists( 'thim_get_expired_events' ) ) {
+	function thim_get_expired_events( $args = array() ) {
+		$args = wp_parse_args(
+			$args,
+			array(
+				'post_type'   => 'tp_event',
+				'post_status' => 'tp-event-expired',
+			)
+		);
+
+		return new WP_Query( $args );
+	}
+}
+
+if ( !function_exists( 'thim_get_happening_events' ) ) {
+	function thim_get_happening_events( $args = array() ) {
+		$args = wp_parse_args(
+			$args,
+			array(
+				'post_type'   => 'tp_event',
+				'post_status' => 'tp-event-happenning'
+			)
+		);
+
+		return new WP_Query( $args );
+	}
+}
+
+if ( !function_exists( 'thim_archive_event_template' ) ) {
+	function thim_archive_event_template( $template ) {
+		if ( get_post_type() == 'tp_event' && is_post_type_archive( 'tp_event' ) ) {
+			$GLOBALS['thim_happening_events'] = thim_get_happening_events();
+			$GLOBALS['thim_upcoming_events']  = thim_get_upcoming_events();
+			$GLOBALS['thim_expired_events']   = thim_get_expired_events();
+		}
+
+		return $template;
+	}
+}
 add_action( 'template_include', 'thim_archive_event_template' );
-/** */
 
 
+add_filter( 'pmpro_format_price', 'thim_pmpro_formatPrice', 10, 4 );
+if ( !function_exists( 'thim_pmpro_formatPrice' ) ) {
+	function thim_pmpro_formatPrice( $formatted, $price, $pmpro_currency, $pmpro_currency_symbol ) {
+		if ( is_numeric( $price ) && ( intval( $price ) == floatval( $price ) ) ) {
+			return $pmpro_currency_symbol . number_format( $price );
+		} else {
+			return $pmpro_currency_symbol . number_format( $price, 2 );
+		}
+
+	}
+}
+
+
+add_filter( 'pmpro_level_cost_text', 'thim_pmpro_getLevelCost', 10, 4 );
+if ( !function_exists( 'thim_pmpro_getLevelCost' ) ) {
+	function thim_pmpro_getLevelCost( $r, $level, $tags, $short ) {
+		$r = pmpro_formatPrice( $level->initial_payment );
+
+		return $r;
+	}
+}
+
+
+//Ajax widget login-popup
+add_action( 'wp_ajax_nopriv_thim_login_ajax', 'thim_login_ajax_callback' );
+add_action( 'wp_ajax_thim_login_ajax', 'thim_login_ajax_callback' );
+if ( !function_exists( 'thim_login_ajax_callback' ) ) {
+	function thim_login_ajax_callback() {
+		//ob_start();
+		global $wpdb;
+
+		//We shall SQL prepare all inputs to avoid sql injection.
+		$username = $wpdb->prepare( $_REQUEST['username'], array() );
+		$password = $_REQUEST['password'];//$wpdb->prepare( $_REQUEST['password'] );
+		$remember = $wpdb->prepare( $_REQUEST['rememberme'], array() );
+
+		if ( $remember ) {
+			$remember = "true";
+		} else {
+			$remember = "false";
+		}
+
+		$login_data                  = array();
+		$login_data['user_login']    = $username;
+		$login_data['user_password'] = $password;
+		$login_data['remember']      = $remember;
+		$user_verify                 = wp_signon( $login_data, false );
+
+
+		$code    = 1;
+
+		if ( is_wp_error( $user_verify ) ) {
+			$message = '<p class="message message-error">' . esc_html__( 'Wrong username or password.', 'eduma' ) . '</p>';
+			$code    = - 1;
+		} else {
+			$message = '<p class="message message-success">' . esc_html__( 'Login successful, redirecting...', 'eduma' ) . '</p>';
+		}
+
+		$response_data = array(
+			'code'    => $code,
+			'message' => $message
+		);
+
+		echo json_encode( $response_data );
+		die(); // this is required to return a proper result
+	}
+}
+
+/**
+ * @param $settings
+ *
+ * @return array
+ */
+if ( !function_exists( 'thim_update_metabox_settings' ) ) {
+	function thim_update_metabox_settings( $settings ) {
+		$settings[] = 'lp_course';
+		$settings[] = 'tp_event';
+		return $settings;
+	}
+}
+
+add_filter( 'thim_framework_metabox_settings', 'thim_update_metabox_settings' );
+
+// Turn off Paid Membership pro register redirect
+add_filter('pmpro_register_redirect', '__return_false');
+
+
+if ( !function_exists( 'thim_add_custom_js' ) ) {
+	function thim_add_custom_js() {
+		$theme_options_data = get_theme_mods();
+		if ( !empty( $theme_options_data['thim_custom_js'] ) ) {
+			?>
+			<script data-cfasync="false" type="text/javascript">
+				<?php echo ent2ncr($theme_options_data['thim_custom_js']); ?>
+			</script>
+			<?php
+		}
+	}
+}
+add_action( 'wp_footer', 'thim_add_custom_js' );

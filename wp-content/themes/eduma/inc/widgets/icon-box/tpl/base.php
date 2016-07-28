@@ -204,7 +204,7 @@ if ( $instance['desc_group']['content'] != '' ) {
 	}
 	//
 	$html_content .= '<div class="desc-icon-box">';
-	$html_content .= ( $instance['desc_group']['content'] != '' ) ? '<p ' . $color_desc . '>' . $complete_prefix . $instance['desc_group']['content'] . $complete_suffix . '</p>' : '';
+	$html_content .= ( $instance['desc_group']['content'] != '' ) ? '<div class="desc-content" ' . $color_desc . '>' . $complete_prefix . $instance['desc_group']['content'] . $complete_suffix . '</div>' : '';
 	$html_content .= $more_link;
 	$html_content .= "</div>";
 }

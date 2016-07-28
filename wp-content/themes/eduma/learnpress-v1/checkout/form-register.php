@@ -18,7 +18,7 @@ if ( is_user_logged_in() ) {
 $heading    = apply_filters( 'learn_press_checkout_register_heading', __( 'NEW CUSTOMER', 'eduma' ) );
 $subheading = apply_filters( 'learn_press_checkout_register_subheading', __( 'Register Account', 'eduma' ) );
 
-$register_url         = learn_press_get_register_url();
+$register_url         = thim_get_register_url();
 $register_button_text = apply_filters( 'learn_press_checkout_register_button_text', __( 'Continue', 'eduma' ) );
 
 $content = sprintf( __( 'By creating an account you will be able to shop faster, be up to date on an order status, and keep track of the orders you have previously made.<br/><a href="%s">%s</a>', 'eduma' ), $register_url, $register_button_text );

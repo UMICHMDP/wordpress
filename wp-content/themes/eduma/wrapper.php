@@ -2,7 +2,7 @@
 
 $template_file = thim_template_path();
 
-if ( is_page_template( 'page-templates/homepage.php' ) || is_singular( 'lpr_quiz' ) || is_singular( 'lp_quiz' ) || is_page_template( 'page-templates/landing-no-footer.php' ) ) {
+if ( is_page_template( 'page-templates/homepage.php' ) || is_page_template( 'page-templates/landing-page.php' ) || is_singular( 'lpr_quiz' ) || is_singular( 'lp_quiz' ) || is_page_template( 'page-templates/landing-no-footer.php' ) ) {
 	load_template( $template_file );
 
 	return;

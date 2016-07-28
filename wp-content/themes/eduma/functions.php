@@ -7,7 +7,7 @@
 
 define( 'THIM_DIR', trailingslashit( get_template_directory() ) );
 define( 'THIM_URI', trailingslashit( get_template_directory_uri() ) );
-define( 'THIM_THEME_VERSION', '2.2.1.1' );
+define( 'THIM_THEME_VERSION', '2.4.2.0' );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -232,12 +232,19 @@ if ( ! function_exists( 'thim_styles' ) ) {
 if ( ! function_exists( 'thim_scripts' ) ) {
 	function thim_scripts() {
 
+		$thim_options = get_theme_mods();
+
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
 
 		// New script update from resca,sailing
 		wp_enqueue_script( 'thim-main', THIM_URI . 'assets/js/main.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
+
+		if( !isset( $thim_options['thim_smooth_scroll'] ) ||  $thim_options['thim_smooth_scroll'] !== false  ){
+			wp_enqueue_script( 'thim-smooth-scroll', THIM_URI . 'assets/js/smooth_scroll.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
+		}
+
 
 		if ( thim_is_new_learnpress() ) {
 			//wp_enqueue_script( 'thim-custom-script', THIM_URI . 'assets/js/custom-script-v1.js', array( 'jquery' ), THIM_THEME_VERSION, true );
@@ -249,12 +256,15 @@ if ( ! function_exists( 'thim_scripts' ) ) {
 
 		wp_dequeue_script( 'framework-bootstrap' );
 
+		wp_dequeue_script( 'thim-flexslider' );
+
 		//Dequeue tp chameleon
 		wp_dequeue_style( 'tp-chameleon' );
 		wp_deregister_style( 'siteorigin-panels-front' );
 		wp_dequeue_style( 'nfgc-main-style' );
 
 		// Remove some scripts LearnPress
+		//wp_dequeue_style( 'learn-press' );
 		wp_dequeue_style( 'lpr-print-rate-css' );
 		wp_dequeue_style( 'tipsy' );
 		wp_dequeue_style( 'certificate' );
@@ -327,9 +337,12 @@ if ( ! function_exists( 'thim_scripts' ) ) {
 				'thim-main'
 			), THIM_THEME_VERSION, true );
 		}
+
 	}
 
 	add_action( 'wp_enqueue_scripts', 'thim_scripts', 1000 );
+
+
 }
 
 if ( class_exists( 'WooCommerce' ) ) {
@@ -364,6 +377,9 @@ if ( ! function_exists( 'thim_manage_woocommerce_styles' ) ) {
 			}
 		}
 
+		if ( is_post_type_archive( 'product' ) ) {
+			wp_enqueue_script( 'wc-add-to-cart-variation' );
+		}
 	}
 }
 
@@ -436,3 +452,4 @@ function xxx( $x ) {
 	}
 	echo '</pre>';
 }
+

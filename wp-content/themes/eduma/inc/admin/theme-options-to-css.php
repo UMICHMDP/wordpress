@@ -9,9 +9,9 @@ function thim_customcss() {
 		$custom_css .= $icomoon_css;
 	}
 	if ( isset( $thim_options['thim_user_bg_pattern'] ) && $thim_options['thim_user_bg_pattern'] == '1' ) {
-		if(isset($thim_options['thim_box_layout']) && 'boxed' == $thim_options['thim_box_layout'] ){
+		if ( isset( $thim_options['thim_box_layout'] ) && 'boxed' == $thim_options['thim_box_layout'] ) {
 			$custom_css .= ' body{background-image: url("' . $thim_options['thim_bg_pattern'] . '"); }';
-		}else{
+		} else {
 			$custom_css .= ' body #main-content {background-image: url("' . $thim_options['thim_bg_pattern'] . '"); }';
 		}
 
@@ -19,7 +19,7 @@ function thim_customcss() {
 	if ( isset( $thim_options['thim_bg_upload'] ) && $thim_options['thim_bg_upload'] <> '' ) {
 		$bg_body = wp_get_attachment_image_src( $thim_options['thim_bg_upload'], 'full' );
 
-		if(isset($thim_options['thim_box_layout']) && 'boxed' == $thim_options['thim_box_layout'] ){
+		if ( isset( $thim_options['thim_box_layout'] ) && 'boxed' == $thim_options['thim_box_layout'] ) {
 			$custom_css .= ' body{background-image: url("' . $bg_body[0] . '"); }
 							body{
 								 background-repeat: ' . $thim_options['thim_bg_repeat'] . ';
@@ -28,7 +28,7 @@ function thim_customcss() {
 								 background-size: ' . $thim_options['thim_bg_size'] . ';
 							}
 	        ';
-		}else{
+		} else {
 			$custom_css .= ' body #main-content{background-image: url("' . $bg_body[0] . '"); }
 						body #main-content{
 							 background-repeat: ' . $thim_options['thim_bg_repeat'] . ';
@@ -76,7 +76,7 @@ function thim_options_variation( $data ) {
 		'thim_text_color_toolbar',
 		'thim_link_color_toolbar',
 		'thim_bg_color_toolbar',
-		
+
 		//main menu
 		'thim_bg_main_menu_color',
 		'thim_main_menu_text_color',
@@ -125,6 +125,7 @@ function thim_options_variation( $data ) {
 	// Write it down to config.less file
 	$fileout = THIM_DIR . "assets/less/config.less";
 	thim_file_put_contents( $fileout, $config_less );
+
 }
 
 function thim_convert_font_to_variable( $data, $tag ) {

@@ -71,4 +71,10 @@ $demo_datas = array(
 		'title'         => esc_html__( 'Demo Courses Hub', 'eduma' ),
 		'demo_url'      => 'http://educationwp.thimpress.com/demo-courses-hub/',
 	),
+	'demo-kindergarten'      => array(
+		'data_dir'      => $demo_datas_dir . DS . 'demo-kindergarten',
+		'thumbnail_url' => THIM_URI . 'inc/admin/data/demo-kindergarten/screenshot.jpg',
+		'title'         => esc_html__( 'Demo Kindergarten', 'eduma' ),
+		'demo_url'      => 'http://educationwp.thimpress.com/demo-kindergarten/',
+	),
 );

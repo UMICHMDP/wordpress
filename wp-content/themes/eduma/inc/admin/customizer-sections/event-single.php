@@ -16,3 +16,56 @@ $courses->createOption( array(
 	),
 	'default' => 'sidebar-right'
 ) );
+
+$courses->createOption( array(
+	'name'    => esc_html__( 'Hide Breadcrumbs', 'eduma' ),
+	'id'      => 'event_single_hide_breadcrumbs',
+	'type'    => 'checkbox',
+	'desc'    => esc_html__( 'Check this box to hide/show breadcrumbs.', 'eduma' ),
+	'default' => false,
+) );
+
+$courses->createOption( array(
+	'name'    => esc_html__( 'Hide Title', 'eduma' ),
+	'id'      => 'event_single_hide_title',
+	'type'    => 'checkbox',
+	'desc'    => esc_html__( 'Check this box to hide/show title.', 'eduma' ),
+	'default' => false,
+) );
+
+$courses->createOption( array(
+	'name'        => esc_html__( 'Top Image', 'eduma' ),
+	'id'          => 'event_single_top_image',
+	'type'        => 'upload',
+	'desc'        => esc_html__( 'Enter URL or upload a top image file for header.', 'eduma' ),
+	'default'     => THIM_URI . 'images/bg-page.jpg',
+	'livepreview' => ''
+) );
+
+$courses->createOption( array(
+	'name'        => esc_html__( 'Heading Background Color', 'eduma' ),
+	'id'          => 'event_single_heading_bg_color',
+	'type'        => 'color-opacity',
+	'livepreview' => ''
+) );
+
+$courses->createOption( array(
+	'name'    => esc_html__( 'Heading Text Color', 'eduma' ),
+	'id'      => 'event_single_heading_text_color',
+	'type'    => 'color-opacity',
+	'default' => '#fff',
+) );
+
+$courses->createOption( array(
+	'name'    => esc_html__( 'Sub Heading Text Color', 'eduma' ),
+	'id'      => 'event_single_sub_heading_text_color',
+	'type'    => 'color-opacity',
+	'default' => '#878787',
+) );
+
+$courses->createOption( array(
+	'name'    => esc_html__( 'Sub Title', 'eduma' ),
+	'id'      => 'event_single_sub_title',
+	'type'    => 'text',
+	'default' => '',
+) );

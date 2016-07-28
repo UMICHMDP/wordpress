@@ -29,7 +29,7 @@ $result = $user->get_quiz_results( $post->ID );
 		</div>
 		<div class="result-field points">
 			<span><?php esc_html_e( 'Points', 'eduma' ); ?></span>
-			<span class="value"><?php printf( '%d/%d', $result->results['correct_percent'], 100 ); ?></span>
+			<span class="value"><?php printf( '%d/%d', $result->results['mark'],  $result->results['quiz_mark'] ) ; ?></span>
 		</div>
 	</div>
 </div>

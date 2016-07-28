@@ -22,6 +22,9 @@ include_once( THIM_DIR . '/inc/widgets/list-post/list-post.php' );
 include_once( THIM_DIR . '/inc/widgets/one-course-instructors/one-course-instructors.php' );
 include_once( THIM_DIR . '/inc/widgets/video/video.php' );
 include_once( THIM_DIR . '/inc/widgets/gallery-posts/gallery-posts.php' );
+include_once( THIM_DIR . '/inc/widgets/landing-image/landing-image.php' );
+include_once( THIM_DIR . '/inc/widgets/login-popup/login-popup.php' );
+include_once( THIM_DIR . '/inc/widgets/timetable/timetable.php' );
 
 if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) {
 	include_once( THIM_DIR . '/inc/widgets/courses-searching/courses-searching.php' );

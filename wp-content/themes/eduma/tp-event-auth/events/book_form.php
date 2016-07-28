@@ -36,15 +36,15 @@ $user_reg = $event->booked_quantity( $user->ID ) ;
 
 		<ul class="info-event">
 			<li>
-				<div class="label"><?php esc_html_e( 'Total Slot', 'eduma' ); ?></div>
+				<div class="label"><?php esc_html_e( 'Total Slots', 'eduma' ); ?></div>
 				<div class="value"><?php echo absint( $event->quantity ); ?></div>
 			</li>
 			<li>
-				<div class="label"><?php esc_html_e( 'Booked Time', 'eduma' ); ?></div>
+				<div class="label"><?php esc_html_e( 'Booked Times', 'eduma' ); ?></div>
 				<div class="value"><?php echo count( $event->load_registered() ); ?></div>
 			</li>
 			<li>
-				<div class="label"><?php esc_html_e( 'Booked Slot', 'eduma' ); ?></div>
+				<div class="label"><?php esc_html_e( 'Booked Slots', 'eduma' ); ?></div>
 				<div class="value"><?php echo esc_html( $event->booked_quantity() ); ?></div>
 			</li>
 			<li class="event-cost">
@@ -91,8 +91,10 @@ $user_reg = $event->booked_quantity( $user->ID ) ;
 			<input type="hidden" name="event_id" value="<?php echo esc_attr( get_the_ID() ) ?>" />
 			<input type="hidden" name="action" value="event_auth_register" />
 			<?php wp_nonce_field( 'event_auth_register_nonce', 'event_auth_register_nonce' ); ?>
-			<?php if(  absint( $event->quantity ) == 0 || $event->post->post_status === 'tp-event-expired' ) : ?>
+			<?php if(  $event->post->post_status === 'tp-event-expired' ) : ?>
 				<button type="submit" disabled class="event_button_disable"><?php esc_html_e( 'Expired', 'eduma' ); ?></button>
+			<?php elseif(  absint( $event->quantity ) == 0  ) : ?>
+				<button type="submit" disabled class="event_button_disable"><?php esc_html_e( 'Sold Out', 'eduma' ); ?></button>
 			<?php else: ?>
 				<button type="submit" class="event_register_submit event_auth_button"><?php esc_html_e( 'Book Now', 'eduma' ); ?></button>
 			<?php endif ?>

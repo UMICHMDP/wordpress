@@ -28,7 +28,7 @@ $header->createOption( array(
 	'id'          => 'sub_menu_text_color',
 	'default'     => '#999',
 	'type'        => 'color-opacity',
-	'livepreview' => ' $(".navigation .navbar-nav>li .sub-menu li>a, .navigation .navbar-nav>li .sub-menu li>span").css("border-bottom-color", value); '
+	'livepreview' => ' $(".navigation .navbar-nav>li .sub-menu li>a, .navigation .navbar-nav>li .sub-menu li>span").css("color", value); '
 ) );
 $header->createOption( array(
 	'name'    => esc_html__( 'Text Color Hover', 'eduma' ),

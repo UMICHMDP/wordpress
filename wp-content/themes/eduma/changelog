@@ -1,3 +1,68 @@
+/* Education WP 2.4.2 - 2016-07-15 */
++ Added Pre-loader image option for Customize.
++ Added Custom JS option for Customize.
++ Added Youtube option for Thim Video widget.
++ Improved Thim widgets style.
++ Fixed issue: can not import events status.
++ Turned off Paid Membership Pro register redirect.
++ Updated demo data.
+
+/* Education WP 2.4.1 - 2016-07-06 */
++ Added metabox settings for courses, events, portfolios.
++ Added option enable/disable Smooth Scroll feature.
++ Improved Certificate button style.
++ Improved My Account page style.
++ Improved Mini Cart widget.
++ Improved Portfolio widget.
++ Improved course categories style.
++ Updated Google Map.
++ Updated to latest version 5.2.6 of Slider Revolution plugin.
+
+/* Education WP 2.4.0 - 2016-06-20 */
++ Added a brand new Pre-built DEMO for Kindergarten (child theme).
++ Added Timetable widget.
++ Improved sub-menu style.
++ Improved LearnPress style.
++ Updated LearnPress WooCommerce Payments add-on.
++ Updated to latest version 5.2.5.4 of Slider Revolution plugin.
++ Fixed outdated WooCommerce templates.
+
+/* Education WP 2.3.2 - 2016-06-06 */
++ Updated demo data.
++ Improved child theme functions.
++ Improved mega-menu style.
++ Fixed a conflict with All-in-One Event Calendar plugin.
+
+/* Education WP 2.3.1 - 2016-06-02 */
++ Added Login Popup widget.
++ Improved members section in a single our team page.
++ Improved mobile menu in RTL.
++ Updated top header area in a single event page.
++ Updated Tab Event widget.
++ Updated to latest version 5.2.5.3 of Slider Revolution plugin.
++ Updated tgmpa library to version 2.6.1.
+
+/* Education WP 2.3.0 - 2016-05-30 */
++ Integrated with Paid Membership Pro plugin.
++ Supported courses membership features.
++ Added link target option for menu items.
+
+/* Education WP 2.2.3 - 2016-05-25 */
++ Updated to latest version 5.2.5.2 of Slider Revolution plugin.
++ Updated Events plugin - improved events registration.
++ Updated Portfolio plugin - fixed adding images for a portfolio.
++ Updated Thim Framework plugin - improve saving Customize.
++ Updated LearnPress Co-Instructors plugin - fixed some minor bugs.
++ Improved portfolio widget.
++ Improved quiz result page.
++ Added Customize options for events.
+
+/* Education WP 2.2.2 - 2016-05-13 */
++ Improved sidebar shop style .
++ Improved top header image.
++ Updated Thim Events installation package.
++ Fixed some warnings in LearnPress profile.
+
 /* Education WP 2.2.1 - 2016-05-07 */
 + Improved registration form process.
 + Improved events order.
@@ -5,6 +70,7 @@
 + Improved carousel style.
 + Improved cart page responsive.
 + Improved Video widget style.
++ Improved quiz UX.
 
 /* Education WP 2.2.0 - 2016-04-28 */
 + Added a brand new Pre-built DEMO for Courses Hub.

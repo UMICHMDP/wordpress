@@ -100,7 +100,7 @@ if ( is_array( $gallery->posts ) && ! empty( $gallery->posts ) && $gallery->post
 }
 
 ?>
-	<div class="portfolio_container <?php echo $pf_layout; ?>">
+	<div class="portfolio_container <?php echo isset( $pf_layout ) ? $pf_layout : ''; ?>">
 		<div
 			class="wapper_portfolio <?php echo $item_style; ?> <?php echo $item_effect; ?><?php echo $class_gutter; ?> <?php echo $item_size; ?> <?php echo $paging; ?>">
 			<?php if( !empty($portfolio_taxs) ) : ?>

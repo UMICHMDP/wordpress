@@ -72,9 +72,9 @@ do_action( 'learn_press_before_single_course' ); ?>
 			learn_press_course_price();
 			learn_press_course_enroll_button();
 		}
-		//else {
-			//echo '<button class="course-enrolled"><i class="fa fa-check"></i>' . esc_html__( 'Enrolled', 'eduma' ) . '</button>';
-		//}
+		else {
+			do_action( 'thim_end_course_payment' );
+		}
 		?>
 	</div>
 

@@ -56,13 +56,13 @@
 			</div>
 		</article>
 		<div class="clear"></div>
-		<?php $related_member = thim_related_our_team($team_id, 4); ?>
+		<?php $related_member = thim_related_our_team($team_id, -1); ?>
 		<?php if($related_member->have_posts()) : ?>
 			<div class="thim-other-member wrapper-lists-our-team">
-				<h3 class="box-title"><?php esc_html_e( 'Other Member', 'eduma' ); ?></h3>
-				<div class="row">
+				<h3 class="box-title"><?php esc_html_e( 'Other Members', 'eduma' ); ?></h3>
+				<div class="thim-carousel-wrapper" data-visible="4" data-pagination="1" >
 				<?php while ( $related_member->have_posts() ) : $related_member->the_post(); ?>
-					<div class="our-team-item col-sm-3">
+					<div class="our-team-item">
 						<div class="our-team-image">
 							<?php echo thim_get_feature_image( get_post_thumbnail_id(), 'full', 200, 200 ); ?>
 							<?php

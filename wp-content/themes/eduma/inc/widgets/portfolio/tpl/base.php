@@ -12,10 +12,10 @@ $item_size       = $instance['item_size'];
 $item_style      = $instance['item_style'];
 $paging          = $instance['paging'];
 $num_per_view    = $instance['num_per_view'] ? $instance['num_per_view'] : "";
-if(strcmp($category, "all")==0){
-        $category = array();
+if ( strcmp( $category, "all" ) == 0 ) {
+	$category = array();
 }
-if (isset( $category[''] ) && is_array( $category[''] )  ) {
+if ( isset( $category[''] ) && is_array( $category[''] ) ) {
 	$category = $category[''];
 
 }
@@ -120,6 +120,8 @@ if ( ( is_array( $category ) && !empty( $category ) ) || ( !is_array( $category 
 	);
 }
 
+$argss = apply_filters( 'thim_query_portfolio', $argss );
+
 $gallery = new WP_Query( $argss );
 global $portfolio_data;
 
@@ -140,14 +142,14 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 		}
 	}
 } else {
-	exit;
+	return;
 }
 ?>
 <div class="wapper_portfolio <?php echo esc_attr( $item_style ); ?> <?php echo esc_attr( $class_gutter ); ?> <?php echo esc_attr( $item_size ); ?> <?php echo esc_attr( $paging ); ?>">
 	<?php if ( $filter_hiden !== true ) { ?>
 		<div class="portfolio-tabs-wapper filters"<?php echo ent2ncr( $css_filter_position ); ?> >
 			<ul class="portfolio-tabs">
-				<?php if ( $category[''] == '' ) {?>
+				<?php if ( $category[''] == '' ) { ?>
 					<li><a href class="filter active" data-filter="*"><?php echo esc_html__( 'All', 'eduma' ); ?></a>
 					</li>
 					<?php foreach ( $portfolio_taxs as $portfolio_tax_slug => $portfolio_tax_name ): ?>
@@ -163,7 +165,7 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 					<li>
 						<a class="filter active" href data-filter=".<?php echo $slug; ?>"><?php echo $name; ?></a>
 					</li>
-				<?php
+					<?php
 				}
 				?>
 			</ul>
@@ -257,12 +259,14 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 					$crop   = ( $height == null ) ? false : true;
 
 					$imgurl     = wp_get_attachment_image_src( $image_id, 'full' );
-					$image_crop = aq_resize( $imgurl[0], $width, $height, $crop );
+					if( $image_crop = aq_resize( $imgurl[0], $width, $height, $crop ) ) {
+						$imgurl[0] = $image_crop;
+					}
 
-					$image_url = '<img src="' . $image_crop . '" alt= ' . get_the_title() . ' title = ' . get_the_title() . ' />';
+					$image_url = '<img src="' . $imgurl[0] . '" alt= ' . get_the_title() . ' title = ' . get_the_title() . ' />';
 
 				} else {
-					$crop = true;
+					$crop       = true;
 					$dimensions = isset( $portfolio_data['thim_portfolio_option_dimensions'] ) ? $portfolio_data['thim_portfolio_option_dimensions'] : array();
 					if ( $images_size == 'portfolio_size11' ) {
 						$w = isset( $dimensions['width'] ) ? $dimensions['width'] : '480';
@@ -282,17 +286,21 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 						}
 					}
 					$imgurl     = wp_get_attachment_image_src( $image_id, 'full' );
-					$image_crop = aq_resize( $imgurl[0], $w, $h, $crop );
+
+					if( $image_crop = aq_resize( $imgurl[0], $w, $h, $crop ) ) {
+						$imgurl[0] = $image_crop;
+					}
+					//$image_crop = aq_resize( $imgurl[0], $w, $h, $crop );
 
 					if ( $item_size == "multigrid" && $gutter == "on" ) {
-						$image_url = '<div class="thumb-img" style="background: url(' . $image_crop . ');background-size: cover;background-repeat: no-repeat;background-position: center center;height: inherit;"><img style="visibility: hidden;" src="' . $image_crop . '" alt= ' . get_the_title() . ' title = ' . get_the_title() . ' /></div>';
+						$image_url = '<div class="thumb-img" style="background: url(' . $imgurl[0] . ');background-size: cover;background-repeat: no-repeat;background-position: center center;height: inherit;"><img style="visibility: hidden;" src="' . $imgurl[0] . '" alt= ' . get_the_title() . ' title = ' . get_the_title() . ' /></div>';
 					} else {
-						$image_url = '<img src="' . $image_crop . '" alt= ' . get_the_title() . ' title = ' . get_the_title() . ' />';
+						$image_url = '<img src="' . $imgurl[0] . '" alt= ' . get_the_title() . ' title = ' . get_the_title() . ' />';
 					}
 				}
 
 				// check postfolio type
-				$btn_text  = esc_html__('Zoom','eduma');
+				$btn_text  = esc_html__( 'Zoom', 'eduma' );
 				$data_href = "";
 				if ( get_post_meta( get_the_ID(), 'selectPortfolio', true ) == "portfolio_type_1" ) {
 					if ( get_post_meta( get_the_ID(), 'style_image_popup', true ) == "Style-01" ) { // prettyPhoto
@@ -308,7 +316,7 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 							} else {// no thumb and no overide image
 								$imclass  = "";
 								$imImage  = get_permalink( $post->ID );
-								$btn_text = esc_html__('View More','eduma');
+								$btn_text = esc_html__( 'View More', 'eduma' );
 							}
 						}
 
@@ -326,7 +334,7 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 							} else {
 								$imclass  = "";
 								$imImage  = get_permalink( $post->ID );
-								$btn_text = esc_html__('View More','eduma');
+								$btn_text = esc_html__( 'View More', 'eduma' );
 							}
 						}
 
@@ -352,7 +360,7 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 							} else {
 								$imclass  = "";
 								$imImage  = get_permalink( $post->ID );
-								$btn_text = esc_html__('View More','eduma');
+								$btn_text = esc_html__( 'View More', 'eduma' );
 							}
 						}
 					} else {
@@ -364,7 +372,7 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 							$imclass   = "";
 							$data_href = "";
 							$imImage   = get_permalink( $post->ID );
-							$btn_text  = esc_html__('View More','eduma');
+							$btn_text  = esc_html__( 'View More', 'eduma' );
 						}
 					}
 				}
@@ -397,10 +405,10 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 		</ul>
 		<?php
 		$show_readmore = $instance['show_readmore'];
-		$btn_text = esc_html__('View More','eduma');
+		$btn_text      = esc_html__( 'View More', 'eduma' );
 		if ( $show_readmore == true ) {
 			echo '<div class="read-more">';
-			echo '<a class="thim-button" href="' . esc_url( home_url( '/' ) ) . 'portfolio/">'.$btn_text.'</a>';
+			echo '<a class="thim-button" href="' . esc_url( home_url( '/' ) ) . 'portfolio/">' . $btn_text . '</a>';
 			echo '</div>';
 		}
 		if ( $paging == 'paging' ) {

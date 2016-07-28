@@ -55,7 +55,7 @@ $theme_options_data = get_theme_mods();
 					</h5>
 
 					<div class="date">
-						<?php echo get_the_date( 'j F, Y', $prev_post->ID ); ?>
+						<?php echo get_the_date(  get_option( 'date_format' ) ); ?>
 					</div>
 				</div>
 			<?php endif; ?>

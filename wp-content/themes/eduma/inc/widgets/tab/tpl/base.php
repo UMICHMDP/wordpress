@@ -6,11 +6,33 @@ echo '<ul class="nav nav-tabs" role="tablist">';
 
 $j = $k = 1;
 if ( $instance['tab'] ) {
+	switch ( count( $instance['tab'] ) ) {
+		case 1:
+			$class = 'tab-col-1';
+			break;
+		case 2:
+			$class = 'tab-col-2';
+			break;
+		case 3:
+			$class = 'tab-col-3';
+			break;
+		case 4:
+			$class = 'tab-col-4';
+			break;
+		case 5:
+			$class = 'tab-col-5';
+			break;
+		case 6:
+			$class = 'tab-col-6';
+			break;
+		default:
+			$class = 'tab-col-1';
+	}
 	foreach ( $instance['tab'] as $i => $tab ) {
 		if ( $j == '1' ) {
-			$active = "class='active'";
+			$active = "class='active " . $class . "'";
 		} else {
-			$active = '';
+			$active = $class;
 		}
 		echo '<li role="presentation" ' . $active . '><a href="#thim-widget-tab-' . $j . $rand . '"  role="tab" data-toggle="tab">' . $tab['title'] . '</a></li>';
 		$j ++;

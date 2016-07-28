@@ -58,6 +58,7 @@
                 margin-top: 7px;
                 margin-bottom: 14px;
                 line-height: 25px;
+                text-align: left;
                 input[type="checkbox"] {
                     border: 1px solid #000;
                 }
@@ -120,7 +121,7 @@
             border-radius: 0;
         }
 
-        .gglcptch.gglcptch_v2{
+        .gglcptch.gglcptch_v2 {
             margin-bottom: 18px;
         }
     }
@@ -140,11 +141,13 @@
         }
     }
 }
-#resetpassform{
-    .message{
+
+.thim-login #resetpassform {
+    .message {
         margin-top: 30px;
     }
 }
+
 form#lostpasswordform {
     text-align: center;
     margin-bottom: 70px;
@@ -196,19 +199,19 @@ form#lostpasswordform {
     }
 }
 
-.thim-widget-login-form .message{
+.thim-widget-login-form .message {
     max-width: 600px;
     margin: 0 auto 30px;
 }
 
-.thim-login-captcha{
+.thim-login-captcha {
     text-align: center;
-    >span{
+    > span {
         display: inline-block;
     }
 }
 
-#learn-press-form-login{
+#learn-press-form-login {
     border: 0;
     padding: 0;
     clear: both;
@@ -302,7 +305,150 @@ form#lostpasswordform {
         border-radius: 0;
     }
 
-    .gglcptch.gglcptch_v2{
+    .gglcptch.gglcptch_v2 {
         margin-bottom: 18px;
+    }
+}
+
+#thim-popup-login {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 9999999;
+    .opacity(0);
+    visibility: hidden;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.8);
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    .scale(0.2, 0.2);
+    .transition(all .3s cubic-bezier(0.4, 0, 1, 1));
+    &.active{
+        .scale(1, 1);
+        .opacity(1);
+        visibility: visible;
+    }
+    overflow: auto;
+    .thim-login-container {
+        background: #fff;
+        position: relative;
+        padding: 50px 50px 80px;
+        overflow: hidden;
+        max-width: 900px;
+        margin: auto;
+        top: 0;
+        cursor: default;
+        p,a{
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .link-bottom{
+            a{
+                color: @thim_body_primary_color;
+            }
+        }
+        .close-popup{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            line-height: 30px;
+            text-align: center;
+            font-size: 14px;
+            background: @thim_body_primary_color;
+            color: #fff;
+            display: none;
+        }
+    }
+    .message {
+        display: block;
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        text-align: left;
+        font-size: 13px !important;
+    }
+    .thim-login-container > br {
+        display: none;
+    }
+
+    .mo-openid-app-icons {
+        width: 50%;
+        float: left;
+        padding: 0 30px;
+        > p {
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            text-align: center;
+            margin: 0 0 23px;
+            padding: 0;
+            text-transform: none;
+            line-height: 30px;
+            margin-bottom: 23px !important;
+        }
+        .btn-block {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            display: block;
+            &:hover{
+                text-decoration: none;
+            }
+            &:nth-child(2) {
+                margin-top: 0;
+            }
+        }
+        &:after {
+            left: auto;
+            bottom: auto;
+            top: 0;
+            right: 1px;
+            width: 1px;
+            border: 0;
+            background: #eee;
+            height: 300px;
+        }
+    }
+
+    &.has-shortcode {
+        .thim-login {
+            width: 50%;
+            padding: 0 30px;
+            position: relative;
+            float: left;
+            clear: none;
+            .title {
+                font-size: 24px;
+                font-weight: 700;
+                position: relative;
+                text-align: center;
+                margin: 0 0 23px;
+                padding: 0;
+                text-transform: none;
+                line-height: 30px;
+            }
+        }
+    }
+
+    .thim-loading-container {
+        .opacity(0.6);
+    }
+}
+body.thim-search-active{
+    #tp_style_selector{
+        visibility: hidden;
+    }
+}
+body.thim-popup-active{
+    #tp_style_selector{
+        visibility: hidden;
+    }
+    #thim-popup-login{
+        cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVBAMAAABbObilAAAAMFBMVEVMaXH////////////////////////////////////////////////////////////6w4mEAAAAD3RSTlMAlAX+BKLcA5+b6hJ7foD4ZP1OAAAAkUlEQVR4XkWPoQ3CUBQAL4SktoKAbCUjgAKLJZ2ABYosngTJCHSD6joUI6BZgqSoB/+Shqde7sS9x3OGk81fdO+texMtRVTia+TsQtHEUJLdohJfgNNPJHyEJPZTsWLoxShqsWITazEwqePAn69Sw2TUxk1+euPis3EwaXy8RMHSZBIlRcKKnC5hRctjMf57/wJbBlAIs9k1BAAAAABJRU5ErkJggg==),progress;
     }
 }

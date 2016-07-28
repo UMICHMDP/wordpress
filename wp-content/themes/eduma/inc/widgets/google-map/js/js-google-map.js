@@ -111,7 +111,7 @@ function ob_loadMap($) {
 }
 
 function ob_loadApi($) {
-    var apiKey = $('.ob-google-map-canvas').data('api-key');
+    var apiKey = 'AIzaSyAVv2tyh3rLYN0bQlLPyUWkPgGohVUyixE';
 
     var apiUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initialize';
     if(apiKey) {

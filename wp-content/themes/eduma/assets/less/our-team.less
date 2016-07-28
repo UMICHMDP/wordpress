@@ -36,7 +36,8 @@ article.our_team{
         border-left: 1px solid #eee;
         width: 270px;
         float: left;
-        padding: 45px 0 15px 30px;
+        padding: 45px 0 50px 30px;
+
         .email,.phone{
             a{
                 color: #666;
@@ -61,6 +62,7 @@ article.our_team{
     }
 }
 .thim-other-member{
+    position: relative;
     &.wrapper-lists-our-team{
         margin-bottom: 0;
         .our-team-item{
@@ -73,5 +75,51 @@ article.our_team{
         font-size: 30px;
         font-weight: 700;
         margin: 70px 0 50px;
+    }
+    .owl-controls{
+        margin-top: 25px;
+    }
+    .owl-buttons{
+        .owl-prev,
+        .owl-next{
+            border: 1px solid #666;
+            width: 30px;
+            height: 30px;
+            line-height: 28px;
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            left: 0;
+            text-align: center;
+            .transition(all .3s ease-in-out);
+            .opacity(0);
+            .translate(10px, 0);
+            .fa{
+                font-size: 8px;
+                color: #666;
+                line-height: 28px;
+                display: block;
+            }
+        }
+        .owl-next{
+            left: auto;
+            right: 0;
+            .translate(-10px, 0);
+        }
+    }
+    &:hover{
+        .owl-buttons{
+            .owl-prev,
+            .owl-next{
+                .opacity(1);
+                .translate(0,0);
+                &:hover{
+                    border-color: @thim_body_primary_color;
+                    .fa{
+                        color: @thim_body_primary_color;
+                    }
+                }
+            }
+        }
     }
 }

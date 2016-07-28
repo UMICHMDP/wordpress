@@ -134,6 +134,7 @@
         margin-top: -100px;
         position: relative;
     }
+
 }
 
 @media (max-width: 1200px) {
@@ -285,6 +286,28 @@
             }
         }
     }
+
+    .site-header.header_v2 .navigation .navbar-nav>li>a,
+    .site-header.header_v2 .navigation .navbar-nav>li>span{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .site-header.header_v2 .navigation .navbar-nav>li>a:after,
+    .site-header.header_v2 .navigation .navbar-nav>li>span:after{
+        right: 5px;
+    }
+
+    .mo-openid-app-icons .btn-block {
+        margin-top: 20px;
+    }
+    .mo-openid-app-icons .btn-block:last-child{
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    .thim-bg-border-top .thim-widget-icon-box .wrapper-box-icon .content-inner{
+        padding: 40px 30px 50px 120px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -400,6 +423,17 @@
                 margin-bottom: 30px;
                 padding: 0 15px;
             }
+        }
+    }
+
+    #thim-popup-login .thim-login-container .close-popup{
+        display: block;
+    }
+
+    .thim-welcome-university-2 .panel-grid-cell {
+        width: 50%!important;
+        &:nth-child(3){
+            clear: both;
         }
     }
 }
@@ -772,6 +806,42 @@
             padding-left: 0;
             border: 0;
         }
+    }
+
+    .mobile-menu-container{
+        ul.sub-menu{
+            &[class*="submenu_columns"]{
+                margin-left: 10px;
+                &:before{
+                    display: none;
+                }
+                >li{
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    overflow: hidden;
+                    &:before{
+                        display: none;
+                    }
+                    .sub-menu:before{
+                        top: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .thim-row-bg-border-top{
+        margin-top: 0;
+    }
+
+    .thim-hello-there{
+        .readmore {
+            margin-bottom: 30px;
+        }
+    }
+
+    .thim-bg-border-top .thim-widget-icon-box .wrapper-box-icon .content-inner {
+        padding: 100px 0px 50px 60px;
     }
 }
 @media (max-width: 767px) {
@@ -1173,6 +1243,41 @@
             margin-bottom: 30px;
         }
     }
+
+    #thim-popup-login{
+        .thim-login-container >br{
+            display: block;
+        }
+        .mo-openid-app-icons{
+            width: 100%;
+            float: none;
+            padding-bottom: 40px;
+            &:after{
+                content: '';
+                position: absolute;
+                max-width: 520px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                width: auto;
+                height: 1px;
+                top: auto;
+            }
+        }
+        &.has-shortcode{
+            .thim-login{
+                width: 100%;
+                float: none;
+                clear: both;
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .thim-bg-border-top .thim-widget-icon-box .wrapper-box-icon .content-inner {
+        padding: 40px 60px 50px 140px;
+    }
 }
 
 //For Apple Iphone 6
@@ -1212,6 +1317,7 @@
             float: none;
             clear: both;
             border-right: 0;
+            width: 100%;
         }
         .thim-course-info {
             float: none;
@@ -1273,6 +1379,13 @@
             max-height: 300px;
             height: 300px;
         }
+    }
+    .thim-top-landing{
+        padding-top: 120px !important;
+        padding-bottm: 110px !important;
+    }
+    .thim-support-service .sc_heading .title{
+        line-height: 40px;
     }
 }
 
@@ -1478,6 +1591,16 @@
     .woocommerce-page form .form-row-last{
         float: none;
         width: 100%;
+    }
+
+    .thim-welcome-university-2 .panel-grid-cell{
+        width: 100% !important;
+    }
+
+    table.list-book-event{
+        td,th{
+            padding: 5px !important;
+        }
     }
 }
 
@@ -1955,6 +2078,30 @@
         font-size: 12px;
         padding: 5px 10px;
     }
+
+    .lp_pmpro_courses_by_level .thim-level-wrap{
+        width: 100%;
+    }
+    .pmpro-has-access{
+        .pmpro_thead-msg,
+        .pmpro_thead-name{
+            width: 100%;
+            float: none;
+        }
+    }
+
+    #tp_style_selector{
+        display: none;
+    }
+
+    #thim-popup-login .thim-login-container{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .thim-carousel-course-categories .item{
+        width: 100%;
+    }
 }
 
 @media (width: 480px){
@@ -2040,6 +2187,7 @@
                     padding: 4px 25px;
                 }
             }
+            button[type="submit"],
             input[type="submit"]{
                 height: 40px;
                 padding: 5px 25px;
@@ -2252,9 +2400,7 @@
             }
         }
     }
-}
 
-@media( max-width: 360px ) {
     .woocommerce table.shop_table th,
     .woocommerce table.shop_table td{
         padding-left: 10px;
@@ -2267,7 +2413,25 @@
         margin-top: 5px;
         margin-bottom: 5px;
     }
+
+    .pmpro-has-access{
+        .navigation,
+        .pmpro_actionlinks{
+            a{
+                display: block;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+
+    #thim-popup-login .mo-openid-app-icons,
+    #thim-popup-login.has-shortcode .thim-login{
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
+
 
 @media (max-width: 320px) {
     #tab-course-review{

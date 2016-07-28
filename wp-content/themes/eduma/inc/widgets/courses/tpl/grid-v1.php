@@ -1,11 +1,11 @@
 <?php
 global $post;
 
-$limit           = $instance['limit'];
-$columns         = $instance['grid-options']['columns'];
-$view_all_course = ( $instance['view_all_courses'] && '' != $instance['view_all_courses'] ) ? $instance['view_all_courses'] : false;
+$limit             = $instance['limit'];
+$columns           = $instance['grid-options']['columns'];
+$view_all_course   = ( $instance['view_all_courses'] && '' != $instance['view_all_courses'] ) ? $instance['view_all_courses'] : false;
 $view_all_position = ( $instance['view_all_position'] && '' != $instance['view_all_position'] ) ? $instance['view_all_position'] : 'position-top';
-$sort            = $instance['order'];
+$sort              = $instance['order'];
 
 $condition = array(
 	'post_type'           => 'lp_course',
@@ -27,16 +27,16 @@ if ( $sort == 'category' && $instance['cat_id'] && $instance['cat_id'] != 'all' 
 
 if ( $sort == 'popular' ) {
 	global $wpdb;
-	$the_query = $wpdb->get_col( $wpdb->prepare(
-		"
-		SELECT pm.post_id, pm.meta_value + COUNT(pm.post_id) - IF (uc.course_id, 0, 1) as students 
-		FROM `$wpdb->postmeta` AS pm
-		LEFT JOIN `$wpdb->learnpress_user_courses` AS uc ON pm.post_id = uc.course_id
-		WHERE pm.meta_key = %s
-		GROUP BY pm.post_id
-		ORDER BY students DESC",
-		'_lp_students'
-	) );
+	$the_query = $wpdb->get_col(
+			$wpdb->prepare( "
+			SELECT p.ID, if(pm.meta_value, pm.meta_value, 0) + (select count(course_id) from {$wpdb->prefix}learnpress_user_courses where course_id=p.ID) as students
+			FROM {$wpdb->posts} p
+			LEFT JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id  AND pm.meta_key = %s
+			LEFT JOIN {$wpdb->prefix}learnpress_user_courses AS uc ON p.ID = uc.course_id
+			WHERE p.post_type = %s and p.post_status='publish'
+			ORDER BY students DESC
+		", '_lp_students', 'lp_course' )
+	);
 
 	$condition['post__in'] = $the_query;
 	$condition['orderby']  = 'post__in';
@@ -64,7 +64,7 @@ if ( $the_query->have_posts() ) :
 					<?php
 					echo '<div class="course-thumbnail">';
 					echo '<a href="' . esc_url( get_the_permalink() ) . '" >';
-					echo thim_get_feature_image( get_post_thumbnail_id( $post->ID ), 'full', apply_filters( 'thim_course_thumbnail_width', 450 ), apply_filters('thim_course_thumbnail_height', 450), get_the_title() );
+					echo thim_get_feature_image( get_post_thumbnail_id( $post->ID ), 'full', apply_filters( 'thim_course_thumbnail_width', 450 ), apply_filters( 'thim_course_thumbnail_height', 450 ), get_the_title() );
 					echo '</a>';
 					thim_course_wishlist_button();
 					echo '<a class="course-readmore" href="' . esc_url( get_the_permalink() ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>';

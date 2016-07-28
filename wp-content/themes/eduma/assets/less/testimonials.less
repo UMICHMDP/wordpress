@@ -29,3 +29,85 @@ article.testimonials{
         }
     }
 }
+
+.thim-testimonial-carousel{
+    max-width: 800px;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 0px;
+    &:before{
+        top: 0;
+        left: 0;
+        right: 0;
+        content: ' ';
+        display: block;
+        height: 20px;
+        width: 100%;
+        margin-bottom: 50px;
+        background: url(../../images/quote-bg.png) no-repeat center center;
+    }
+    .content{
+        text-align: center;
+        max-width: 620px;
+        margin: auto;
+        .title{
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 34px;
+            margin-bottom: 15px;
+            .line{
+                display: block;
+                position: relative;
+                background: transparent;
+                border: 0;
+                max-width: 270px;
+                margin: 0 auto 20px;
+                &:before,
+                &:after{
+                    top: 100%;
+                    left: 50%;
+                    border: solid transparent;
+                    content: " ";
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+                &:before{
+                    border-color: rgba(194, 225, 245, 0);
+                    border-width: 10px;
+                    margin-left: -10px;
+                }
+                &:after{
+                    border-color: rgba(136, 183, 213, 0);
+                    border-width: 9px;
+                    margin-left: -9px;
+                }
+            }
+        }
+        .description{
+            line-height: 26px;
+            font-size: 18px;
+            font-weight: 400;
+        }
+    }
+    .owl-buttons{
+        .owl-prev,
+        .owl-next{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: -12px;
+            font-size: 18px;
+            line-height: 30px;
+            width: 30px;
+            text-align: center;
+        }
+        .owl-next{
+           right: 0;
+            left: auto;
+
+        }
+    }
+
+}

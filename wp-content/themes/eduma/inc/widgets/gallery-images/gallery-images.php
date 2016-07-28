@@ -34,7 +34,17 @@ class Thim_Gallery_Images_Widget extends Thim_Widget {
 				'number'          => array(
 					'type'    => 'number',
 					'default' => '4',
-					'label'   => esc_html__( 'Visible Item', 'eduma' ),
+					'label'   => esc_html__( 'Visible Items', 'eduma' ),
+				),
+				'item_tablet'          => array(
+						'type'    => 'number',
+						'default' => '2',
+						'label'   => esc_html__( 'Tablet Items', 'eduma' ),
+				),
+				'item_mobile'          => array(
+						'type'    => 'number',
+						'default' => '1',
+						'label'   => esc_html__( 'Mobile Items', 'eduma' ),
 				),
 				'show_pagination' => array(
 					'type'    => 'radio',

@@ -4,7 +4,7 @@ Theme URI: http://educationwp.thimpress.com/
 Author: ThimPress
 Author URI: http://thimpress.com
 Description: Theme Descriptions
-Version: 2.2.1
+Version: 2.4.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, three-columns, left-sidebar, right-sidebar, fixed-layout, responsive-layout, custom-background, custom-header, custom-menu, editor-style, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready, accessibility-ready
@@ -1372,17 +1372,20 @@ input[type=checkbox]:checked:before {
 
 @media (max-width: 768px) {
 
-	#toolbar .widget_login-menu .thim-widget-login-menu a:last-child {
+	#toolbar .widget_login-menu .thim-widget-login-menu a:last-child,
+	#toolbar .widget_login-popup .thim-widget-login-menu a:last-child{
 		padding-left: 0;
 		padding-right: 0;
 	}
 
-	#toolbar .widget_login-menu .thim-widget-login-menu a:first-child {
+	#toolbar .widget_login-menu .thim-widget-login-menu a:first-child,
+	#toolbar .widget_login-popup .thim-widget-login-menu a:first-child{
 		padding-right: 0;
 		padding-left: 0;
 	}
 
-	#toolbar .widget_login-menu .thim-widget-login-menu .thim-link-login a:first-child {
+	#toolbar .widget_login-menu .thim-widget-login-menu .thim-link-login a:first-child,
+	#toolbar .widget_login-popup .thim-widget-login-menu .thim-link-login a:first-child{
 		border-left: 1px solid #eee;
 		border-right: none;
 	}
@@ -1481,6 +1484,14 @@ input[type=checkbox]:checked:before {
 		-ms-transform: translate(300px, 0) !important;
 		-o-transform: translate(300px, 0) !important;
 	}
+
+	.mobile-menu-container ul.sub-menu[class*=submenu_columns]{
+		margin-right: 0;
+	}
+	.navbar-nav .sub-menu .sub-menu{
+		margim-right: 20px;
+		margin-left: 0;
+	}
 }
 
 /** Loading -> Page **/
@@ -1521,11 +1532,13 @@ div#preload .cssload-inner.cssload-three {
 	margin-left: auto;
 }
 
-#toolbar .widget_login-menu {
+#toolbar .widget_login-menu,
+#toolbar .widget_login-popup{
 	float: left;
 }
 
-#toolbar .widget_login-menu .thim-widget-login-menu .thim-link-login a:first-child {
+#toolbar .widget_login-menu .thim-widget-login-menu .thim-link-login a:first-child,
+#toolbar .widget_login-popup .thim-widget-login-menu .thim-link-login a:first-child{
 	border-left: 1px solid #eee;
 	border-right: none;
 }
@@ -3628,9 +3641,6 @@ form#lostpasswordform p input[type=submit] {
 	}
 }
 
-@media (max-width: 320px) {
-
-}
 
 /** New CSS **/
 .sc_heading .title {
@@ -3822,20 +3832,36 @@ footer#colophon .copyright-area .text-right {
 		-ms-transform: translate(250px, 0);
 		-o-transform: translate(250px, 0);
 	}
+
 }
 
-#toolbar .widget_login-menu .thim-widget-login-menu a:first-child {
+@media (max-width: 320px) {
+	.wrapper-container.mobile-menu-open .content-pusher{
+		transform: translate(250px, 0) !important;
+		-webkit-transform: translate(250px, 0) !important;
+		-moz-transform: translate(250px, 0) !important;
+		-ms-transform: translate(250px, 0) !important;
+		-o-transform: translate(250px, 0) !important;
+	}
+	.wrapper-container .mobile-effect.mobile-menu-container{
+		left: -500px;
+		right: auto;
+	}
+}
+#toolbar .widget_login-menu .thim-widget-login-menu a:first-child,
+#toolbar .widget_login-popup .thim-widget-login-menu a:first-child{
 	padding-left: 12px;
 }
 
-#toolbar .widget_login-menu .thim-widget-login-menu a:last-child {
+#toolbar .widget_login-menu .thim-widget-login-menu a:last-child,
+#toolbar .widget_login-popup .thim-widget-login-menu a:last-child{
 	padding-left: 0;
 	padding-right: 12px;
 }
 
 .mo-openid-app-icons .btn-block {
 	margin-right: 0;
-	margin-left: 20px;
+	margin-left: 0;
 }
 
 .mo-openid-app-icons .btn-block:last-child {
@@ -3999,4 +4025,12 @@ table.learn-press-cart-table .subtotal-price, table.learn-press-cart-table .tota
 		min-width: 0;
 		padding-right: 30px;
 	}
+}
+
+#toolbar .widget_login-popup .thim-link-login a:first-child:not(:last-child),
+#toolbar .widget_login-menu .thim-link-login a:first-child:not(:last-child){
+	border: none;
+	border-left: 1px solid #212121;
+	padding-left: 10px;
+	margin-left: 10px;
 }

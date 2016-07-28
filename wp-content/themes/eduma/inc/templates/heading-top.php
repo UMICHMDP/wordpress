@@ -23,6 +23,10 @@ if ( get_post_type() == "product" ) {
 	$prefix = 'thim_woo';
 } elseif ( get_post_type() == "lpr_course" || get_post_type() == "lpr_quiz" || get_post_type() == "lp_course" || get_post_type() == "lp_quiz" || is_tax( 'course_category' ) ) {
 	$prefix = 'thim_learnpress';
+} elseif ( get_post_type() == "tp_event" ) {
+	$prefix = 'thim_event';
+} elseif ( get_post_type() == "portfolio" ) {
+	$prefix = 'thim_portfolio';
 } else {
 	$prefix = 'thim_archive';
 }
@@ -30,9 +34,9 @@ if ( get_post_type() == "product" ) {
 // single and archive
 if ( is_page() || is_single() ) {
 	$prefix_inner = '_single_';
-	if ( get_post_type() == "portfolio" ) {
-		$prefix_inner = '_cate_';
-	}
+//	if ( get_post_type() == "portfolio") {
+//		$prefix_inner = '_cate_';
+//	}
 } else {
 	if ( is_front_page() || is_home() ) {
 		$prefix       = 'thim';
@@ -66,6 +70,7 @@ if ( isset( $theme_options_data[$prefix . $prefix_inner . 'top_image'] ) && $the
 	}
 
 }
+
 
 if ( isset( $theme_options_data[$prefix . $prefix_inner . 'hide_title'] ) ) {
 	$hide_title = $theme_options_data[$prefix . $prefix_inner . 'hide_title'];
@@ -132,7 +137,7 @@ if ( is_page() || is_single() ) {
 	}
 }
 
-$cate_top_image_src = thim_ssl_secure_url( $cate_top_image_src );
+//$cate_top_image_src = thim_ssl_secure_url( $cate_top_image_src );
 
 $hide_title       = ( $hide_title == 'on' ) ? '1' : $hide_title;
 $hide_breadcrumbs = ( $hide_breadcrumbs == 'on' ) ? '1' : $hide_breadcrumbs;
@@ -170,13 +175,16 @@ $c_css_overlay   = ( $cate_top_image_src != '' && $bg_color != '' ) ? '<span cla
 						echo '</div>';
 					}
 				} elseif ( get_post_type() == "lpr_course" || get_post_type() == "lpr_quiz" || get_post_type() == "lp_course" || get_post_type() == "lp_quiz" ) {
-
 					if ( is_single() ) {
-						$course_cat = get_the_terms( $postid, 'course_category' );
-						if ( !empty( $course_cat ) ) {
-							echo '<' . $typography . '>';
-							echo esc_html( $course_cat[0]->name );
-							echo '</' . $typography . '>';
+						if ( $custom_title ) {
+							echo '<' . $typography . '>' . $custom_title . '</' . $typography . '>';
+						} else {
+							$course_cat = get_the_terms( $postid, 'course_category' );
+							if ( !empty( $course_cat ) ) {
+								echo '<' . $typography . '>';
+								echo esc_html( $course_cat[0]->name );
+								echo '</' . $typography . '>';
+							}
 						}
 					} else {
 						echo '<' . $typography . '>';
@@ -193,20 +201,26 @@ $c_css_overlay   = ( $cate_top_image_src != '' && $bg_color != '' ) ? '<span cla
 					} else {
 						echo ( $subtitle != '' ) ? '<div class="banner-description" ' . $c_css_sub_color . '><p>' . $subtitle . '</p></div>' : '';
 					}
-				} elseif( get_post_type() == "lp_collection" ){
+				} elseif ( get_post_type() == "lp_collection" ) {
 
 					echo '<' . $typography . '>';
 					learn_press_collections_page_title();
 					echo '</' . $typography . '>';
 
-				}elseif ( ( is_category() || is_archive() || is_search() || is_404() ) && !thim_use_bbpress() ) {
-					echo '<' . $typography . '>';
-					echo thim_archive_title();
-					echo '</' . $typography . '>';
-					if ( category_description( $cat_ID ) != '' ) {
-						//thim_archive_description( '<div class="banner-description" ' . $c_css_sub_color . '>', '</div>' );
+				} elseif ( ( is_category() || is_archive() || is_search() || is_404() ) && !thim_use_bbpress() ) {
+					if ( get_post_type() == "tp_event" ) {
+						echo '<' . $typography . '>';
+						echo esc_html__( 'Events', 'eduma' );
+						echo '</' . $typography . '>';
 					} else {
-						echo ( $subtitle != '' ) ? '<div class="banner-description" ' . $c_css_sub_color . '><p>' . $subtitle . '</p></div>' : '';
+						echo '<' . $typography . '>';
+						echo thim_archive_title();
+						echo '</' . $typography . '>';
+						if ( category_description( $cat_ID ) != '' ) {
+							//thim_archive_description( '<div class="banner-description" ' . $c_css_sub_color . '>', '</div>' );
+						} else {
+							echo ( $subtitle != '' ) ? '<div class="banner-description" ' . $c_css_sub_color . '><p>' . $subtitle . '</p></div>' : '';
+						}
 					}
 				} elseif ( thim_use_bbpress() ) {
 					echo '<' . $typography . '>';
@@ -226,8 +240,16 @@ $c_css_overlay   = ( $cate_top_image_src != '' && $bg_color != '' ) ? '<span cla
 							echo '</' . $typography . '>';
 						}
 						if ( get_post_type() == "tp_event" ) {
-							echo '<' . $typography . '>' . esc_html__( 'Events', 'eduma' );
-							echo '</' . $typography . '>';
+							if ( ! $custom_title ) {
+								$custom_title = esc_html__( 'Events', 'eduma' );
+							}
+							echo '<' . $typography . '>' . $custom_title . '</' . $typography . '>';
+						}
+						if ( get_post_type() == "portfolio" ) {
+							if ( ! $custom_title ) {
+								$custom_title = esc_html__( 'Portfolio', 'eduma' );
+							}
+							echo '<' . $typography . '>' . $custom_title . '</' . $typography . '>';
 						}
 						if ( get_post_type() == "our_team" ) {
 							echo '<' . $typography . '>' . esc_html__( 'Our Team', 'eduma' );
@@ -261,11 +283,13 @@ $c_css_1 .= ( $cate_top_image_src != '' ) ? 'background-image:url(' . $cate_top_
 $c_css_1 .= ( $bg_color != '' ) ? 'background-color:' . $bg_color . '' : '';
 $c_css_1       = ( $c_css_1 != '' ) ? 'style="' . $c_css_1 . '"' : '';
 $c_css_overlay = ( $cate_top_image_src != '' && $bg_color != '' ) ? '<span class="overlay-top-header" style="background-color:' . $bg_color . '"></span>' : '';
-if ( $hide_title == '1' && isset( $theme_options_data['thim_header_position'] ) && $theme_options_data['thim_header_position'] == 'header_overlay' && $c_css_1 != '' ) { ?>
-	<div class="top_site_main" <?php echo ent2ncr( $c_css_1 ); ?>><?php echo ent2ncr( $c_css_overlay ) ?></div>
-<?php }
-// end header_overlay
-?>
+
+$site_main_class = ( isset( $theme_options_data['thim_header_position'] ) && $theme_options_data['thim_header_position'] == 'header_overlay' ) ? 'top_site_main top_site_overlay' : 'top_site_main';
+
+if ( $hide_title == '1' && $c_css_1 != '' ) { ?>
+	<div
+		class="<?php echo ent2ncr( $site_main_class ); ?>" <?php echo ent2ncr( $c_css_1 ); ?>><?php echo ent2ncr( $c_css_overlay ) ?></div>
+<?php } ?>
 
 
 <?php
@@ -285,9 +309,9 @@ if ( $hide_breadcrumbs != '1' ) {
 						woocommerce_breadcrumb();
 					} elseif ( get_post_type() == 'lpr_course' || get_post_type() == 'lpr_quiz' || get_post_type() == 'lp_course' || get_post_type() == 'lp_quiz' ) {
 						thim_learnpress_breadcrumb();
-					} elseif( get_post_type() == 'lp_collection' ){
+					} elseif ( get_post_type() == 'lp_collection' ) {
 						thim_courses_collection_breadcrumb();
-					}elseif ( thim_use_bbpress() ) {
+					} elseif ( thim_use_bbpress() ) {
 						bbp_breadcrumb();
 					} else {
 						thim_breadcrumbs();

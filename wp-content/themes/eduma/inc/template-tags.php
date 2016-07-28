@@ -128,7 +128,7 @@ if ( !function_exists( 'thim_entry_meta' ) ) :
 			if ( isset( $theme_options_data['thim_show_category'] ) && $theme_options_data['thim_show_category'] == 1 && get_the_category() ) {
 				?>
 				<li class="entry-category">
-					<span><?php echo esc_attr_e( 'Categories', 'eduma' ); ?></span> <?php the_category( ', ', '' ); ?>
+					<span><?php esc_attr_e( 'Categories', 'eduma' ); ?></span> <?php the_category( ', ', '' ); ?>
 				</li>
 				<?php
 			}
@@ -136,7 +136,7 @@ if ( !function_exists( 'thim_entry_meta' ) ) :
 				?>
 				<li class="entry-date">
 					<span><?php echo esc_html__( 'Date', 'eduma' ); ?></span>
-					<span class="value"> <?php the_time( get_option( 'date_format' ) ) ?></span>
+					<span class="value"> <?php echo get_the_date( get_option( 'date_format' ) ); ?></span>
 				</li>
 				<?php
 			}
@@ -147,7 +147,7 @@ if ( !function_exists( 'thim_entry_meta' ) ) :
 					?>
 					<li class="comment-total">
 						<span><?php echo esc_html__( 'Comments', 'eduma' ) ?></span>
-						<?php comments_popup_link( esc_html__( '0 comment', 'eduma' ), esc_html__( '1 comment', 'eduma' ), esc_html__( '% comments', 'eduma' ) ); ?>
+						<?php comments_popup_link( esc_html__( '0 comment', 'eduma' ), esc_html__( '1 comment', 'eduma' ), '% ' . esc_html__( 'comments', 'eduma' ) ); ?>
 					</li>
 					<?php
 				endif;
@@ -180,7 +180,7 @@ if ( !function_exists( 'thim_entry_footer' ) ) :
 
 		if ( !is_single() && !post_password_required() && ( comments_open() || get_comments_number() ) ) {
 			echo '<span class="comments-link">';
-			comments_popup_link( esc_html__( 'Leave a comment', 'eduma' ), esc_html__( '1 comment', 'eduma' ), esc_html__( '% comments', 'eduma' ) );
+			comments_popup_link( esc_html__( 'Leave a comment', 'eduma' ), esc_html__( '1 comment', 'eduma' ), '%' . esc_html__( 'comments', 'eduma' ) );
 			echo '</span>';
 		}
 
@@ -388,75 +388,76 @@ add_action( 'save_post', 'thim_category_transient_flusher' );
 /**
  * About the author
  */
-function thim_about_author() {
-	$lp_info = get_the_author_meta( 'lp_info' );
-	$link    = '#';
-	if ( get_post_type() == 'lpr_course' ) {
-		$link = apply_filters( 'learn_press_instructor_profile_link', '#', $user_id = null, get_the_ID() );
-	} elseif( get_post_type() == 'lp_course' ){
-		$link = learn_press_user_profile_link( get_the_author_meta( 'ID' ) ) ;
-	}
-	elseif ( is_single() ) {
-		$link = get_author_posts_url( get_the_author_meta( 'ID' ) );
-	}
-	?>
-	<div class="thim-about-author">
-		<div class="author-wrapper">
-			<div class="author-avatar">
-				<?php echo get_avatar( get_the_author_meta( 'ID' ), 110 ); ?>
-			</div>
-			<div class="author-bio">
-				<div class="author-top">
-					<a class="name" href="<?php echo esc_url( $link ); ?>">
-						<?php echo get_the_author(); ?>
-					</a>
-					<?php if ( isset( $lp_info['major'] ) && $lp_info['major'] ) : ?>
-						<p class="job"><?php echo esc_html( $lp_info['major'] ); ?></p>
-					<?php endif; ?>
+if ( !function_exists( 'thim_about_author' ) ) {
+	function thim_about_author() {
+		$lp_info = get_the_author_meta( 'lp_info' );
+		$link    = '#';
+		if ( get_post_type() == 'lpr_course' ) {
+			$link = apply_filters( 'learn_press_instructor_profile_link', '#', $user_id = null, get_the_ID() );
+		} elseif ( get_post_type() == 'lp_course' ) {
+			$link = learn_press_user_profile_link( get_the_author_meta( 'ID' ) );
+		} elseif ( is_single() ) {
+			$link = get_author_posts_url( get_the_author_meta( 'ID' ) );
+		}
+		?>
+		<div class="thim-about-author">
+			<div class="author-wrapper">
+				<div class="author-avatar">
+					<?php echo get_avatar( get_the_author_meta( 'ID' ), 110 ); ?>
 				</div>
-				<ul class="thim-author-social">
-					<?php if ( isset( $lp_info['facebook'] ) && $lp_info['facebook'] ) : ?>
-						<li>
-							<a href="<?php echo esc_url( $lp_info['facebook'] ); ?>" class="facebook"><i class="fa fa-facebook"></i></a>
-						</li>
-					<?php endif; ?>
+				<div class="author-bio">
+					<div class="author-top">
+						<a class="name" href="<?php echo esc_url( $link ); ?>">
+							<?php echo get_the_author(); ?>
+						</a>
+						<?php if ( isset( $lp_info['major'] ) && $lp_info['major'] ) : ?>
+							<p class="job"><?php echo esc_html( $lp_info['major'] ); ?></p>
+						<?php endif; ?>
+					</div>
+					<ul class="thim-author-social">
+						<?php if ( isset( $lp_info['facebook'] ) && $lp_info['facebook'] ) : ?>
+							<li>
+								<a href="<?php echo esc_url( $lp_info['facebook'] ); ?>" class="facebook"><i class="fa fa-facebook"></i></a>
+							</li>
+						<?php endif; ?>
 
-					<?php if ( isset( $lp_info['twitter'] ) && $lp_info['twitter'] ) : ?>
-						<li>
-							<a href="<?php echo esc_url( $lp_info['twitter'] ); ?>" class="twitter"><i class="fa fa-twitter"></i></a>
-						</li>
-					<?php endif; ?>
+						<?php if ( isset( $lp_info['twitter'] ) && $lp_info['twitter'] ) : ?>
+							<li>
+								<a href="<?php echo esc_url( $lp_info['twitter'] ); ?>" class="twitter"><i class="fa fa-twitter"></i></a>
+							</li>
+						<?php endif; ?>
 
-					<?php if ( isset( $lp_info['google'] ) && $lp_info['google'] ) : ?>
-						<li>
-							<a href="<?php echo esc_url( $lp_info['google'] ); ?>" class="google-plus"><i class="fa fa-google-plus"></i></a>
-						</li>
-					<?php endif; ?>
+						<?php if ( isset( $lp_info['google'] ) && $lp_info['google'] ) : ?>
+							<li>
+								<a href="<?php echo esc_url( $lp_info['google'] ); ?>" class="google-plus"><i class="fa fa-google-plus"></i></a>
+							</li>
+						<?php endif; ?>
 
-					<?php if ( isset( $lp_info['linkedin'] ) && $lp_info['linkedin'] ) : ?>
-						<li>
-							<a href="<?php echo esc_url( $lp_info['linkedin'] ); ?>" class="linkedin"><i class="fa fa-linkedin"></i></a>
-						</li>
-					<?php endif; ?>
+						<?php if ( isset( $lp_info['linkedin'] ) && $lp_info['linkedin'] ) : ?>
+							<li>
+								<a href="<?php echo esc_url( $lp_info['linkedin'] ); ?>" class="linkedin"><i class="fa fa-linkedin"></i></a>
+							</li>
+						<?php endif; ?>
 
-					<?php if ( isset( $lp_info['youtube'] ) && $lp_info['youtube'] ) : ?>
-						<li>
-							<a href="<?php echo esc_url( $lp_info['youtube'] ); ?>" class="youtube"><i class="fa fa-youtube"></i></a>
-						</li>
-					<?php endif; ?>
-				</ul>
+						<?php if ( isset( $lp_info['youtube'] ) && $lp_info['youtube'] ) : ?>
+							<li>
+								<a href="<?php echo esc_url( $lp_info['youtube'] ); ?>" class="youtube"><i class="fa fa-youtube"></i></a>
+							</li>
+						<?php endif; ?>
+					</ul>
 
-			</div>
-			<div class="author-description">
-				<?php echo get_the_author_meta( 'description' ); ?>
+				</div>
+				<div class="author-description">
+					<?php echo get_the_author_meta( 'description' ); ?>
+				</div>
 			</div>
 		</div>
-	</div>
-	<?php
-	if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) {
-		thim_co_instructors( get_the_ID(), get_the_author_meta( 'ID' ) );
-	}
+		<?php
+		if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) {
+			thim_co_instructors( get_the_ID(), get_the_author_meta( 'ID' ) );
+		}
 
+	}
 }
 
 add_action( 'thim_about_author', 'thim_about_author' );

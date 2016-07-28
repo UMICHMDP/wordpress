@@ -763,7 +763,7 @@ if ( !function_exists( 'thim_add_course_meta' ) ) {
 			'id'   => 'thim_course_skill_level',
 			'type' => 'text',
 			'desc' => esc_html__( 'A possible level with this course', 'eduma' ),
-			'std'  => esc_html__( 'All level', 'eduma' )
+			'std'  => esc_html__( 'All levels', 'eduma' )
 		);
 		$fields[]           = array(
 			'name' => esc_html__( 'Language', 'eduma' ),

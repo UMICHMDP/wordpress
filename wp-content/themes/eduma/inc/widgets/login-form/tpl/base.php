@@ -1,9 +1,11 @@
 <?php
 
-update_post_meta( get_the_ID(), 'thim_login_page', '1' );
+//update_post_meta( get_the_ID(), 'thim_login_page', '1' );
+update_option( 'thim_login_page', get_the_ID() );
 
 if ( is_user_logged_in() ) {
 	echo '<p class="message message-success">' . sprintf( wp_kses( __( 'You have logged in. You better go to <a href="%s">Home</a>', 'eduma' ), array( 'a' => array( 'href' => array() ) ) ), esc_url( home_url() ) ) . '</p>';
+
 	return;
 }
 ?>
@@ -14,22 +16,22 @@ if ( is_user_logged_in() ) {
 
 	<?php if ( $_GET['action'] == 'register' ) : ?>
 		<?php if ( get_option( 'users_can_register' ) ) : ?>
-			<?php if ( !empty( $_GET['empty_username'] ) ) : ?>
+			<?php if ( ! empty( $_GET['empty_username'] ) ) : ?>
 				<?php echo '<p class="message message-error">' . esc_html__( 'Please enter a username!', 'eduma' ) . '</p>'; ?>
 			<?php endif; ?>
-			<?php if ( !empty( $_GET['empty_email'] ) ) : ?>
+			<?php if ( ! empty( $_GET['empty_email'] ) ) : ?>
 				<?php echo '<p class="message message-error">' . esc_html__( 'Please type your e-mail address!', 'eduma' ) . '</p>'; ?>
 			<?php endif; ?>
-			<?php if ( !empty( $_GET['username_exists'] ) ) : ?>
+			<?php if ( ! empty( $_GET['username_exists'] ) ) : ?>
 				<?php echo '<p class="message message-error">' . esc_html__( 'This username is already registered. Please choose another one!', 'eduma' ) . '</p>'; ?>
 			<?php endif; ?>
-			<?php if ( !empty( $_GET['email_exists'] ) ) : ?>
+			<?php if ( ! empty( $_GET['email_exists'] ) ) : ?>
 				<?php echo '<p class="message message-error">' . esc_html__( 'This email is already registered. Please choose another one!', 'eduma' ) . '</p>'; ?>
 			<?php endif; ?>
-			<?php if ( !empty( $_GET['invalid_email'] ) ) : ?>
+			<?php if ( ! empty( $_GET['invalid_email'] ) ) : ?>
 				<?php echo '<p class="message message-error">' . esc_html__( 'The email address isn\'t correct. Please try again!', 'eduma' ) . '</p>'; ?>
 			<?php endif; ?>
-			<?php if ( !empty( $_GET['invalid_username'] ) ) : ?>
+			<?php if ( ! empty( $_GET['invalid_username'] ) ) : ?>
 				<?php echo '<p class="message message-error">' . esc_html__( 'The username is invalid. Please try again!', 'eduma' ) . '</p>'; ?>
 			<?php endif; ?>
 			<div class="thim-login">
@@ -80,10 +82,10 @@ if ( is_user_logged_in() ) {
 
 	<?php if ( $_GET['action'] == 'lostpassword' ) : ?>
 
-		<?php if ( !empty( $_GET['empty'] ) ) : ?>
+		<?php if ( ! empty( $_GET['empty'] ) ) : ?>
 			<?php echo '<p class="message message-error">' . esc_html__( 'Please enter a username or email!', 'eduma' ) . '</p>'; ?>
 		<?php endif; ?>
-		<?php if ( !empty( $_GET['user_not_exist'] ) ) : ?>
+		<?php if ( ! empty( $_GET['user_not_exist'] ) ) : ?>
 			<?php echo '<p class="message message-error">' . esc_html__( 'The user does not exist. Please try again!', 'eduma' ) . '</p>'; ?>
 		<?php endif; ?>
 
@@ -92,6 +94,7 @@ if ( is_user_logged_in() ) {
 
 			<form name="lostpasswordform" id="lostpasswordform" action="<?php echo esc_url( network_site_url( 'wp-login.php?action=lostpassword', 'login_post' ) ); ?>" method="post">
 				<p class="description"><?php esc_html_e( 'Lost your password? Please enter your username or email address. You will receive a link to create a new password via email.', 'eduma' ); ?></p>
+
 				<p>
 					<input placeholder="<?php esc_attr_e( 'Username or email', 'eduma' ); ?>" type="text" name="user_login" id="user_login" class="input" />
 					<input type="hidden" name="redirect_to" value="<?php echo esc_attr( add_query_arg( 'result', 'reset', thim_get_login_page_url() ) ); ?>" />
@@ -105,27 +108,31 @@ if ( is_user_logged_in() ) {
 
 	<?php if ( $_GET['action'] == 'rp' ) : ?>
 
-		<?php if ( !empty( $_GET['expired_key'] ) ) : ?>
+		<?php if ( ! empty( $_GET['expired_key'] ) ) : ?>
 			<?php echo '<p class="message message-error">' . esc_html__( 'The key is expired. Please try again!', 'eduma' ) . '</p>'; ?>
 		<?php endif; ?>
-		<?php if ( !empty( $_GET['invalid_key'] ) ) : ?>
+		<?php if ( ! empty( $_GET['invalid_key'] ) ) : ?>
 			<?php echo '<p class="message message-error">' . esc_html__( 'The key is invalid. Please try again!', 'eduma' ) . '</p>'; ?>
 		<?php endif; ?>
-		<?php if ( !empty( $_GET['invalid_password'] ) ) : ?>
+		<?php if ( ! empty( $_GET['invalid_password'] ) ) : ?>
 			<?php echo '<p class="message message-error">' . esc_html__( 'The password is invalid. Please try again!', 'eduma' ) . '</p>'; ?>
 		<?php endif; ?>
 
 		<div class="thim-login">
 			<h2 class="title"><?php esc_html_e( 'Change Password', 'eduma' ); ?></h2>
+
 			<form name="resetpassform" id="resetpassform" action="<?php echo site_url( 'wp-login.php?action=resetpass' ); ?>" method="post" autocomplete="off">
 				<input type="hidden" id="user_login" name="login" value="<?php echo isset( $_GET['login'] ) ? esc_attr( $_GET['login'] ) : ''; ?>" autocomplete="off" />
 				<input type="hidden" name="key" value="<?php echo isset( $_GET['key'] ) ? esc_attr( $_GET['key'] ) : ''; ?>" />
+
 				<p>
 					<input placeholder="<?php esc_attr_e( 'New password', 'eduma' ); ?>" type="text" name="password" id="password" class="input" />
 				</p>
+
 				<p class="resetpass-submit">
 					<input type="submit" name="submit" id="resetpass-button" class="button" value="<?php _e( 'Reset Password', 'eduma' ); ?>" />
 				</p>
+
 				<p class="message message-success"><?php echo wp_get_password_hint(); ?></p>
 
 			</form>
@@ -153,7 +160,7 @@ if ( is_user_logged_in() ) {
 <div class="thim-login">
 	<h2 class="title"><?php esc_html_e( 'Login with your site account', 'eduma' ); ?></h2>
 	<?php wp_login_form( array(
-		'redirect'       => !empty( $_REQUEST['redirect_to'] ) ? esc_url( $_REQUEST['redirect_to'] ) : apply_filters( 'thim_default_login_redirect', home_url() ),
+		'redirect'       => ! empty( $_REQUEST['redirect_to'] ) ? esc_url( $_REQUEST['redirect_to'] ) : apply_filters( 'thim_default_login_redirect', home_url() ),
 		'id_username'    => 'thim_login',
 		'id_password'    => 'thim_pass',
 		'label_username' => esc_html__( 'Username or email', 'eduma' ),
@@ -161,6 +168,11 @@ if ( is_user_logged_in() ) {
 		'label_remember' => esc_html__( 'Remember me', 'eduma' ),
 		'label_log_in'   => esc_html__( 'Login', 'eduma' ),
 	) ); ?>
-	<?php echo '<p class="link-bottom">' . esc_html__( 'Not a member yet? ', 'eduma' ) . '<a href="' . esc_url( thim_get_register_url() ) . '">' . esc_html__( 'Register now', 'eduma' ) . '</a></p>'; ?>
+	<?php
+	$registration_enabled = get_option( 'users_can_register' );
+	if ( $registration_enabled ) {
+		echo '<p class="link-bottom">' . esc_html__( 'Not a member yet? ', 'eduma' ) . '<a href="' . esc_url( thim_get_register_url() ) . '">' . esc_html__( 'Register now', 'eduma' ) . '</a></p>';
+	}
+	?>
 </div>
 

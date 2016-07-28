@@ -22,7 +22,7 @@ global $post;
 	<div class="thim-carousel-wrapper thim-course-carousel thim-course-grid" data-visible="3" data-pagination="0" data-navigation="1">
 
 		<?php foreach( $courses as $post ){ setup_postdata( $post );?>
-
+			<?php setup_postdata($post);?>
 			<?php learn_press_get_template( 'profile/tabs/courses/loop.php', array( 'subtab' => 'learning' ) ); ?>
 
 		<?php } ?>

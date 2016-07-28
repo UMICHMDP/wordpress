@@ -36,6 +36,7 @@ if ( !empty( $custom_style ) ) {
 	}
 	if ( !empty($instance['style_options']['border_width']) ) {
 		$style .= "border-width: " . $instance['style_options']['border_width'] . ";";
+		$style_hover .= "border-width: " . $instance['style_options']['border_width'] . ";";
 	}
 	if ( ! empty( $instance['style_options']['color'] ) ) {
 		$style .= "color: " . $instance['style_options']['color'] . ";";

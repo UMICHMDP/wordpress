@@ -10,18 +10,19 @@ class Thim_Heading_Widget extends Thim_Widget {
 				'description'   => esc_html__( 'Add heading text', 'eduma' ),
 				'help'          => '',
 				'panels_groups' => array( 'thim_widget_group' ),
-				'panels_icon' => 'dashicons dashicons-welcome-learn-more'
+				'panels_icon'   => 'dashicons dashicons-welcome-learn-more'
 			),
 			array(),
 			array(
 				'title'               => array(
-					'type'    => 'text',
-					'label'   => esc_html__( 'Heading Text', 'eduma' ),
-					'default' => esc_html__( "Default value", 'eduma' )
+					'type'                  => 'text',
+					'label'                 => esc_html__( 'Heading Text', 'eduma' ),
+					'default'               => esc_html__( "Default value", 'eduma' ),
+					'allow_html_formatting' => true
 				),
 				'textcolor'           => array(
-					'type'    => 'color',
-					'label'   => esc_html__( 'Text Heading color', 'eduma' ),
+					'type'  => 'color',
+					'label' => esc_html__( 'Text Heading color', 'eduma' ),
 				),
 				'size'                => array(
 					"type"    => "select",
@@ -35,13 +36,13 @@ class Thim_Heading_Widget extends Thim_Widget {
 					),
 					"default" => "h3"
 				),
-				'sub_heading' => array(
-					'type'    => 'text',
-					'label'   => esc_html__( 'Sub Heading', 'eduma' ),
+				'sub_heading'         => array(
+					'type'  => 'text',
+					'label' => esc_html__( 'Sub Heading', 'eduma' ),
 				),
-				'sub_heading_color'           => array(
-					'type'    => 'color',
-					'label'   => esc_html__( 'Sub heading color', 'eduma' ),
+				'sub_heading_color'   => array(
+					'type'  => 'color',
+					'label' => esc_html__( 'Sub heading color', 'eduma' ),
 				),
 				'font_heading'        => array(
 					"type"          => "select",
@@ -117,13 +118,13 @@ class Thim_Heading_Widget extends Thim_Widget {
 					'type'  => 'color',
 					'label' => esc_html__( 'Color Line', 'eduma' ),
 				),
-				'text_align'      => array(
+				'text_align'          => array(
 					"type"    => "select",
 					"label"   => esc_html__( "Text Align", 'eduma' ),
 					"options" => array(
-						"text-left" 	=> esc_html__( "Text Left", 'eduma' ),
-						"text-center" 	=> esc_html__( "Text Center", 'eduma' ),
-						"text-right" 	=> esc_html__( "Text Right", 'eduma' ),
+						"text-left"   => esc_html__( "Text Left", 'eduma' ),
+						"text-center" => esc_html__( "Text Center", 'eduma' ),
+						"text-right"  => esc_html__( "Text Right", 'eduma' ),
 					),
 				),
 				'css_animation'       => array(

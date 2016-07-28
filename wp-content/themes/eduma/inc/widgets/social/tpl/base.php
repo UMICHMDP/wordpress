@@ -7,8 +7,9 @@ $link_google        = $instance['link_google'];
 $link_dribble       = $instance['link_dribble'];
 $link_linkedin      = $instance['link_linkedin'];
 $link_pinterest     = $instance['link_pinterest'];
-$link_instagram      = $instance['link_instagram'];
+$link_instagram     = $instance['link_instagram'];
 $link_youtube       = $instance['link_youtube'];
+$link_snapchat      = !empty( $instance['link_snapchat'] ) ? $instance['link_snapchat'] : '';
 
 ?>
 <div class="thim-social">
@@ -43,6 +44,9 @@ $link_youtube       = $instance['link_youtube'];
 		}
 		if ( $link_youtube != '' ) {
 			echo '<li><a class="youtube hasTooltip" href="' . $link_youtube . '" target="' . $instance['link_target'] . '" ><i class="fa fa-youtube"></i></a></li>';
+		}
+		if ( $link_snapchat != '' ) {
+			echo '<li><a class="snapchat hasTooltip" href="' . $link_snapchat . '" target="' . $instance['link_target'] . '" ><i class="fa fa-snapchat"></i></a></li>';
 		}
 		?>
 	</ul>

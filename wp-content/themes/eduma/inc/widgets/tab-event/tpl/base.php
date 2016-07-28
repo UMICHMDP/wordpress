@@ -3,7 +3,8 @@
 $query_args = array(
 	'post_type'           => 'tp_event',
 	'posts_per_page'      => - 1,
-	'ignore_sticky_posts' => true
+	'ignore_sticky_posts' => true,
+	'post_status'         => array( 'tp-event-happenning', 'tp-event-upcoming', 'tp-event-expired'),
 );
 
 $events = new WP_Query( $query_args );

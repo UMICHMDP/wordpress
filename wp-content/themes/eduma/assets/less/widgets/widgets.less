@@ -70,8 +70,10 @@
                 li {
                     margin: 0;
                     padding: 0;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
                     list-style: none;
-                    line-height: 30px;
+                    line-height: 20px;
                     font-weight: 700;
                     font-size: 13px;
                     text-transform: uppercase;
@@ -79,6 +81,17 @@
                         font-weight: 700;
                         font-size: 13px;
                         text-transform: uppercase;
+                    }
+                    ul{
+                        padding-left: 20px;
+                        li{
+                            &:first-child{
+                                padding-top: 10px;
+                            }
+                            &:last-child{
+                                padding-bottom: 0;
+                            }
+                        }
                     }
                 }
             }
@@ -463,6 +476,14 @@
         a {
             text-decoration: none;
             color: #fff;
+        }
+    }
+    .read-more{
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        &:hover{
+            text-decoration: underline;
         }
     }
     .owl-controls {
@@ -932,7 +953,7 @@
     .control-nav {
         position: absolute;
         left: 0;
-        top: 65px !important;
+        top: 50px !important;
         margin-top: -15px !important;
         bottom: 0;
         margin: auto;
@@ -984,6 +1005,24 @@
             text-align: center;
             border: 0;
             position: relative;
+            &.tab-col-1{
+                width: 100%;
+            }
+            &.tab-col-2{
+                width: 50%;
+            }
+            &.tab-col-3{
+                width: 33.3333333%;
+            }
+            &.tab-col-4{
+                width: 25%;
+            }
+            &.tab-col-5{
+                width: 20%;
+            }
+            &.tab-col-6{
+                width: 16.666666%;
+            }
             a {
                 border-radius: 0;
                 margin-right: 3px;
@@ -1253,6 +1292,7 @@
         }
     }
     &.layout-2{
+        margin-bottom: 0;
         .time-from{
             width: 48px;
             border: 1px solid #ffb606;
@@ -1408,6 +1448,64 @@
     &.gallery-img{
         .owl-item{
             text-align: center;
+        }
+    }
+}
+
+//Timetable widget
+.thim-widget-timetable{
+    .widget-title{
+        body &{
+            text-align: center;
+            background: #212121;
+            font-size: 18px;
+            font-weight: 400;
+            text-transform: none;
+            margin-bottom: 2px;
+            line-height: 30px;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+    }
+    .timetable-item{
+        padding: 10px 16px;
+        margin-bottom: 2px;
+        .title{
+            font-size: 14px;
+            line-height: 20px;
+            margin: 0;
+            font-weight: 400;
+        }
+        .time{
+            font-size: 13px;
+            .opacity(0.75);
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+        .location,
+        .teacher{
+            font-size: 11px;
+            .opacity(0.6);
+            line-height: 15px;
+        }
+        .teacher{
+        }
+        &.light{
+            color: #fff;
+            .title{
+                color: #fff;
+            }
+        }
+        &.dark{
+
+        }
+
+        &:hover{
+            .location,
+            .teacher{
+                .opacity(1);
+            }
         }
     }
 }

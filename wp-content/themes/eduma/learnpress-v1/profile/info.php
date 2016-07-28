@@ -41,6 +41,10 @@
 		<h3 class="author-name"><?php echo esc_attr( $user->user->data->display_name ); ?></h3>
 
 		<p><?php echo get_user_meta( $user->user->data->ID, 'description', true ); ?></p>
-
+		
+		<?php $current_id = get_current_user_id(); ?>
+		<?php if ( $current_id && $current_id == $user->user->data->ID ) : ?>
+			<?php echo '<p class="edit-profile"><a href="' . get_edit_user_link( $current_id ) . '">' . esc_html__( 'Edit Profile', 'eduma' ) . '</a></p>'; ?>
+		<?php endif; ?>
 	</div>
 </div>

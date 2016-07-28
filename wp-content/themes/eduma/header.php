@@ -26,7 +26,7 @@ $theme_options_data = get_theme_mods();
 	if ( isset( $theme_options_data['thim_config_att_sticky'] ) && $theme_options_data['thim_config_att_sticky'] == 'sticky_custom' ) {
 		$custom_sticky .= ' bg-custom-sticky';
 	}
-	if ( isset( $theme_options_data['thim_header_sticky'] ) && $theme_options_data['thim_header_sticky'] == 1 && ! (  is_singular('lpr_course') || is_singular('lp_course') ) ) {
+	if ( isset( $theme_options_data['thim_header_sticky'] ) && $theme_options_data['thim_header_sticky'] == 1 && !( is_singular( 'lpr_course' ) || is_singular( 'lp_course' ) ) ) {
 		$custom_sticky .= ' sticky-header';
 	}
 	if ( isset( $theme_options_data['thim_header_position'] ) ) {
@@ -34,15 +34,15 @@ $theme_options_data = get_theme_mods();
 	}
 
 	if ( isset( $theme_options_data['thim_header_style'] ) ) {
-		$custom_sticky .= ' '.$theme_options_data['thim_header_style'];
-	}else{
+		$custom_sticky .= ' ' . $theme_options_data['thim_header_style'];
+	} else {
 		$custom_sticky .= ' header_v1';
 	}
 
 	// mobile menu custom class
 	if ( isset( $theme_options_data['thim_config_logo_mobile'] ) && $theme_options_data['thim_config_logo_mobile'] == 'custom_logo' ) {
 		if ( wp_is_mobile() && ( ( isset( $theme_options_data['thim_logo_mobile'] ) && $theme_options_data['thim_logo_mobile'] <> '' ) ||
-		                         ( isset( $theme_options_data['thim_sticky_logo_mobile'] ) && $theme_options_data['thim_sticky_logo_mobile'] <> '' )
+				( isset( $theme_options_data['thim_sticky_logo_mobile'] ) && $theme_options_data['thim_sticky_logo_mobile'] <> '' )
 			)
 		) {
 			$custom_sticky .= ' mobile-logo-custom';
@@ -58,22 +58,32 @@ $theme_options_data = get_theme_mods();
 
 	if ( isset( $theme_options_data['thim_preload'] ) && $theme_options_data['thim_preload'] == '1' ) {
 		$class_header .= ' thim-body-preload';
-	}else{
+	} else {
 		$class_header .= ' thim-body-load-overlay';
 	}
 
 	wp_head();
+
 	?>
 </head>
 
 <body <?php body_class( $class_header ); ?> id="thim-body">
 <?php if ( isset( $theme_options_data['thim_preload'] ) && $theme_options_data['thim_preload'] == '1' ) { ?>
 	<div id="preload">
-		<div class="cssload-loader">
-			<div class="cssload-inner cssload-one"></div>
-			<div class="cssload-inner cssload-two"></div>
-			<div class="cssload-inner cssload-three"></div>
-		</div>
+		<?php
+		if ( !empty( $theme_options_data['thim_preload_image'] ) ) {
+			echo wp_get_attachment_image( $theme_options_data['thim_preload_image'], 'full' );
+		} else {
+			?>
+			<div class="cssload-loader">
+				<div class="cssload-inner cssload-one"></div>
+				<div class="cssload-inner cssload-two"></div>
+				<div class="cssload-inner cssload-three"></div>
+			</div>
+			<?php
+		}
+		?>
+
 	</div>
 <?php } ?>
 
@@ -100,8 +110,8 @@ $theme_options_data = get_theme_mods();
 			}
 
 			if ( isset( $theme_options_data['thim_header_style'] ) ) {
-				get_template_part( 'inc/header/'.$theme_options_data['thim_header_style'] );
-			}else{
+				get_template_part( 'inc/header/' . $theme_options_data['thim_header_style'] );
+			} else {
 				get_template_part( 'inc/header/header_v1' );
 			}
 

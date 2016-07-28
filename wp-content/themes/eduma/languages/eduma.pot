@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 08:19+0700\n"
+"POT-Creation-Date: 2016-07-15 15:58+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgid "Post Comment"
 msgstr ""
 
 #: comments.php:70 buddypress/activity/entry.php:125
-#: inc/learnpress-functions.php:403 inc/learnpress-v1-functions.php:227
+#: inc/learnpress-functions.php:403 inc/learnpress-v1-functions.php:218
 msgid "Comment"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 
 #: content-search.php:42 content-search.php:82 content-search.php:108
 #: content.php:32 content.php:72 content.php:98
-#: inc/learnpress-functions.php:698 inc/learnpress-v1-functions.php:602
+#: inc/learnpress-functions.php:698 inc/learnpress-v1-functions.php:603
 #: inc/widgets/courses/tpl/grid-v1.php:70 inc/widgets/courses/tpl/grid.php:78
 #: inc/widgets/courses/tpl/megamenu-v1.php:89
 #: inc/widgets/courses/tpl/megamenu.php:85
@@ -145,7 +145,7 @@ msgstr ""
 msgid "Primary Menu"
 msgstr ""
 
-#: functions.php:97 inc/widgets/list-post/list-post.php:91
+#: functions.php:97 inc/widgets/list-post/list-post.php:92
 msgid "Sidebar"
 msgstr ""
 
@@ -208,16 +208,17 @@ msgstr ""
 msgid "Sidebar Events"
 msgstr ""
 
-#: functions.php:319 inc/widgets/login-form/tpl/base.php:40
+#: functions.php:329 inc/widgets/login-form/tpl/base.php:42
 #: learnpress-v1/checkout/form-login.php:40
-#: woocommerce/myaccount/form-login.php:97
+#: woocommerce/myaccount/form-login.php:98
 msgid "Username"
 msgstr ""
 
-#: functions.php:320 inc/widgets/login-form/tpl/base.php:160
+#: functions.php:330 inc/widgets/login-form/tpl/base.php:167
+#: inc/widgets/login-popup/tpl/base.php:38
 #: learnpress-v1/checkout/form-login.php:44 tp-event-auth/auths/login.php:19
-#: woocommerce/myaccount/form-login.php:49
-#: woocommerce/myaccount/form-login.php:113
+#: woocommerce/myaccount/form-login.php:50
+#: woocommerce/myaccount/form-login.php:114
 msgid "Password"
 msgstr ""
 
@@ -263,7 +264,7 @@ msgstr ""
 msgid "Hidden Replies"
 msgstr ""
 
-#: bbpress/form-search.php:14
+#: bbpress/form-search.php:14 woocommerce/product-searchform.php:27
 msgid "Search for:"
 msgstr ""
 
@@ -423,18 +424,19 @@ msgstr ""
 msgid "Sorry, no members were found."
 msgstr ""
 
-#: inc/custom-functions.php:60 inc/custom-functions.php:1100
-#: inc/learnpress-functions.php:552 inc/learnpress-v1-functions.php:1193
-#: inc/learnpress-v1-functions.php:1276
+#: inc/custom-functions.php:60 inc/custom-functions.php:1076
+#: inc/learnpress-functions.php:552 inc/learnpress-v1-functions.php:1195
+#: inc/learnpress-v1-functions.php:1278
 msgid "Home"
 msgstr ""
 
-#: inc/custom-functions.php:63 inc/templates/heading-top.php:248
+#: inc/custom-functions.php:63 inc/templates/heading-top.php:270
 msgid "Blog"
 msgstr ""
 
 #: inc/custom-functions.php:68 inc/custom-functions.php:161
-#: inc/templates/heading-top.php:229 tp-event-auth/auths/my-account.php:30
+#: inc/templates/heading-top.php:213 inc/templates/heading-top.php:244
+#: tp-event-auth/auths/my-account.php:30
 msgid "Events"
 msgstr ""
 
@@ -454,7 +456,7 @@ msgid "Page"
 msgstr ""
 
 #: inc/custom-functions.php:154 inc/learnpress-functions.php:582
-#: inc/learnpress-v1-functions.php:1223
+#: inc/learnpress-v1-functions.php:1225
 msgid "Search results for:"
 msgstr ""
 
@@ -496,173 +498,183 @@ msgstr ""
 msgid "Pinterest"
 msgstr ""
 
-#: inc/custom-functions.php:636
+#: inc/custom-functions.php:602
 msgid "Lost Password"
 msgstr ""
 
-#: inc/custom-functions.php:636 woocommerce/myaccount/form-login.php:63
+#: inc/custom-functions.php:602 woocommerce/myaccount/form-login.php:64
 msgid "Lost your password?"
 msgstr ""
 
-#: inc/custom-functions.php:831
+#: inc/custom-functions.php:807
 msgid "Organizers"
 msgstr ""
 
-#: inc/custom-functions.php:858
+#: inc/custom-functions.php:834
 msgid "No members exists. You can create a member data from"
 msgstr ""
 
-#: inc/custom-functions.php:864
+#: inc/custom-functions.php:840
 msgid "Get Members"
 msgstr ""
 
-#: inc/custom-functions.php:875
+#: inc/custom-functions.php:851
 msgid ""
 "Hold down the Ctrl (Windows) / Command (Mac) button to select multiple "
 "options."
 msgstr ""
 
-#: inc/custom-functions.php:884
+#: inc/custom-functions.php:860
 msgid "Current Members: "
 msgstr ""
 
-#: inc/custom-functions.php:886 inc/widgets/button/button.php:177
+#: inc/custom-functions.php:862 inc/widgets/button/button.php:178
 #: inc/widgets/icon-box/icon-box.php:457 inc/widgets/icon-box/icon-box.php:501
 #: inc/widgets/icon-box/icon-box.php:944 inc/widgets/icon-box/icon-box.php:988
 msgid "None"
 msgstr ""
 
-#: inc/custom-functions.php:961
+#: inc/custom-functions.php:937
 msgid "Name"
 msgstr ""
 
-#: inc/custom-functions.php:962 inc/widgets/login-form/tpl/base.php:44
+#: inc/custom-functions.php:938 inc/widgets/login-form/tpl/base.php:46
 msgid "Email"
 msgstr ""
 
-#: inc/custom-functions.php:963
+#: inc/custom-functions.php:939
 msgid "Website"
 msgstr ""
 
-#: inc/custom-functions.php:1322
+#: inc/custom-functions.php:1302
 msgid "Someone has requested a password reset for the following account:"
 msgstr ""
 
-#: inc/custom-functions.php:1324
+#: inc/custom-functions.php:1304
 #, php-format
 msgid "Username: %s"
 msgstr ""
 
-#: inc/custom-functions.php:1325
+#: inc/custom-functions.php:1305
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 
-#: inc/custom-functions.php:1326
+#: inc/custom-functions.php:1306
 msgid "To reset your password, visit the following address:"
 msgstr ""
 
-#: inc/custom-functions.php:1391
+#: inc/custom-functions.php:1371
 msgid "Invalid request."
 msgstr ""
 
-#: inc/custom-functions.php:2470
+#: inc/custom-functions.php:2450
 msgid "Related Items"
 msgstr ""
 
-#: inc/custom-functions.php:2518 inc/widgets/portfolio/tpl/base.php:295
+#: inc/custom-functions.php:2498 inc/widgets/portfolio/tpl/base.php:303
 msgid "Zoom"
 msgstr ""
 
-#: inc/custom-functions.php:2559 inc/custom-functions.php:2561
+#: inc/custom-functions.php:2539 inc/custom-functions.php:2541
 msgid "This post doesn't have any gallery images, please add some!"
 msgstr ""
 
-#: inc/learnpress-functions.php:124 inc/learnpress-v1-functions.php:775
+#: inc/custom-functions.php:2906
+msgid "Wrong username or password."
+msgstr ""
+
+#: inc/custom-functions.php:2909
+msgid "Login successful, redirecting..."
+msgstr ""
+
+#: inc/learnpress-functions.php:124 inc/learnpress-v1-functions.php:776
 msgid "No course found"
 msgstr ""
 
-#: inc/learnpress-functions.php:144 inc/learnpress-v1-functions.php:917
+#: inc/learnpress-functions.php:144 inc/learnpress-v1-functions.php:919
 msgid "LearnPress Profile"
 msgstr ""
 
-#: inc/learnpress-functions.php:150 inc/learnpress-v1-functions.php:923
+#: inc/learnpress-functions.php:150 inc/learnpress-v1-functions.php:925
 msgid "Major"
 msgstr ""
 
-#: inc/learnpress-functions.php:158 inc/learnpress-v1-functions.php:931
+#: inc/learnpress-functions.php:158 inc/learnpress-v1-functions.php:933
 msgid "Facebook Account"
 msgstr ""
 
-#: inc/learnpress-functions.php:166 inc/learnpress-v1-functions.php:939
+#: inc/learnpress-functions.php:166 inc/learnpress-v1-functions.php:941
 msgid "Twitter Account"
 msgstr ""
 
-#: inc/learnpress-functions.php:174 inc/learnpress-v1-functions.php:947
+#: inc/learnpress-functions.php:174 inc/learnpress-v1-functions.php:949
 msgid "Google Plus Account"
 msgstr ""
 
-#: inc/learnpress-functions.php:182 inc/learnpress-v1-functions.php:955
+#: inc/learnpress-functions.php:182 inc/learnpress-v1-functions.php:957
 msgid "LinkedIn Plus Account"
 msgstr ""
 
-#: inc/learnpress-functions.php:190 inc/learnpress-v1-functions.php:963
+#: inc/learnpress-functions.php:190 inc/learnpress-v1-functions.php:965
 msgid "Youtube Account"
 msgstr ""
 
-#: inc/learnpress-functions.php:342 inc/learnpress-v1-functions.php:162
+#: inc/learnpress-functions.php:342 inc/learnpress-v1-functions.php:153
 #, php-format
 msgid "%s stars"
 msgstr ""
 
-#: inc/learnpress-functions.php:370 inc/learnpress-v1-functions.php:194
+#: inc/learnpress-functions.php:370 inc/learnpress-v1-functions.php:185
 msgid "Leave A Review"
 msgstr ""
 
-#: inc/learnpress-functions.php:372 inc/learnpress-v1-functions.php:196
+#: inc/learnpress-functions.php:372 inc/learnpress-v1-functions.php:187
 msgid ""
 "Please provide as much detail as you can to justify your rating and to help "
 "others."
 msgstr ""
 
-#: inc/learnpress-functions.php:376 inc/learnpress-v1-functions.php:200
-#: inc/widgets/accordion/accordion.php:22
+#: inc/learnpress-functions.php:376 inc/learnpress-v1-functions.php:191
+#: inc/widgets/accordion/accordion.php:18
 #: inc/widgets/book-event/book-event.php:18
 #: inc/widgets/carousel-post/carousel-post.php:68
 #: inc/widgets/course-categories/course-categories.php:25
 #: inc/widgets/courses-searching/courses-searching.php:39
 #: inc/widgets/google-map/google-map.php:18
 #: inc/widgets/icon-box/icon-box.php:31 inc/widgets/icon-box/icon-box.php:553
+#: inc/widgets/landing-image/landing-image.php:20
 #: inc/widgets/list-event/list-event.php:18
-#: inc/widgets/list-post/list-post.php:30
-#: inc/widgets/list-post/list-post.php:65 inc/widgets/social/social.php:20
+#: inc/widgets/list-post/list-post.php:31
+#: inc/widgets/list-post/list-post.php:66 inc/widgets/social/social.php:21
 #: inc/widgets/tab-event/tab-event.php:17
+#: inc/widgets/timetable/timetable.php:19
 msgid "Title"
 msgstr ""
 
-#: inc/learnpress-functions.php:382 inc/learnpress-v1-functions.php:206
+#: inc/learnpress-functions.php:382 inc/learnpress-v1-functions.php:197
 msgid "Rating"
 msgstr ""
 
-#: inc/learnpress-functions.php:409 inc/learnpress-v1-functions.php:233
+#: inc/learnpress-functions.php:409 inc/learnpress-v1-functions.php:224
 msgid "Submit Review"
 msgstr ""
 
-#: inc/learnpress-functions.php:454 inc/learnpress-v1-functions.php:289
+#: inc/learnpress-functions.php:454 inc/learnpress-v1-functions.php:280
 msgid "Review"
 msgstr ""
 
-#: inc/learnpress-functions.php:458 inc/learnpress-v1-functions.php:293
+#: inc/learnpress-functions.php:458 inc/learnpress-v1-functions.php:284
 #, php-format
 msgid "(%1$s review)"
 msgid_plural "(%1$s reviews)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/learnpress-functions.php:458 inc/learnpress-v1-functions.php:293
+#: inc/learnpress-functions.php:458 inc/learnpress-v1-functions.php:284
 msgid "(0 review)"
 msgstr ""
 
-#: inc/learnpress-functions.php:476 inc/learnpress-v1-functions.php:365
+#: inc/learnpress-functions.php:476 inc/learnpress-v1-functions.php:356
 #: learnpress/course_content-landing_page.php:38
 #: learnpress/course_content-landing_page.php:89
 #: learnpress/course_content-learning_page.php:37
@@ -672,145 +684,145 @@ msgstr ""
 msgid "Reviews"
 msgstr ""
 
-#: inc/learnpress-functions.php:479 inc/learnpress-v1-functions.php:368
+#: inc/learnpress-functions.php:479 inc/learnpress-v1-functions.php:359
 msgid "Average Rating"
 msgstr ""
 
-#: inc/learnpress-functions.php:487 inc/learnpress-v1-functions.php:376
+#: inc/learnpress-functions.php:487 inc/learnpress-v1-functions.php:367
 #, php-format
 msgid "%1$s rating"
 msgid_plural "%1$s ratings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/learnpress-functions.php:487 inc/learnpress-v1-functions.php:376
+#: inc/learnpress-functions.php:487 inc/learnpress-v1-functions.php:367
 msgid "0 rating"
 msgstr ""
 
-#: inc/learnpress-functions.php:492 inc/learnpress-v1-functions.php:381
+#: inc/learnpress-functions.php:492 inc/learnpress-v1-functions.php:372
 msgid "Detailed Rating"
 msgstr ""
 
 #: inc/learnpress-functions.php:560 inc/learnpress-functions.php:573
 #: inc/learnpress-functions.php:579 inc/learnpress-functions.php:584
-#: inc/learnpress-v1-functions.php:1201 inc/learnpress-v1-functions.php:1214
-#: inc/learnpress-v1-functions.php:1220 inc/learnpress-v1-functions.php:1225
+#: inc/learnpress-v1-functions.php:1203 inc/learnpress-v1-functions.php:1216
+#: inc/learnpress-v1-functions.php:1222 inc/learnpress-v1-functions.php:1227
 msgid "All courses"
 msgstr ""
 
-#: inc/learnpress-functions.php:601 inc/learnpress-v1-functions.php:1162
+#: inc/learnpress-functions.php:601 inc/learnpress-v1-functions.php:1164
 msgid "All Courses"
 msgstr ""
 
-#: inc/learnpress-functions.php:608 inc/learnpress-v1-functions.php:1169
+#: inc/learnpress-functions.php:608 inc/learnpress-v1-functions.php:1171
 #: learnpress/course/loop-curriculum-quiz.php:11
 #: learnpress-v1/single-course/section/item-quiz.php:20
 msgid "Quiz"
 msgstr ""
 
-#: inc/learnpress-functions.php:629 inc/learnpress-v1-functions.php:734
+#: inc/learnpress-functions.php:629 inc/learnpress-v1-functions.php:735
 msgid "h"
 msgstr ""
 
-#: inc/learnpress-functions.php:632 inc/learnpress-v1-functions.php:737
+#: inc/learnpress-functions.php:632 inc/learnpress-v1-functions.php:738
 msgid "m"
 msgstr ""
 
-#: inc/learnpress-functions.php:685 inc/learnpress-v1-functions.php:585
+#: inc/learnpress-functions.php:685 inc/learnpress-v1-functions.php:586
 msgid "You May Like"
 msgstr ""
 
 #: inc/learnpress-functions.php:755 inc/learnpress-functions.php:806
-#: inc/learnpress-v1-functions.php:463 inc/learnpress-v1-functions.php:524
+#: inc/learnpress-v1-functions.php:460 inc/learnpress-v1-functions.php:525
 msgid "Duration"
 msgstr ""
 
-#: inc/learnpress-functions.php:758 inc/learnpress-v1-functions.php:527
+#: inc/learnpress-functions.php:758 inc/learnpress-v1-functions.php:528
 msgid "Course duration"
 msgstr ""
 
-#: inc/learnpress-functions.php:759 inc/learnpress-v1-functions.php:528
+#: inc/learnpress-functions.php:759 inc/learnpress-v1-functions.php:529
 msgid "50 hours"
 msgstr ""
 
-#: inc/learnpress-functions.php:762 inc/learnpress-v1-functions.php:531
+#: inc/learnpress-functions.php:762
 msgid "Skill Level"
 msgstr ""
 
-#: inc/learnpress-functions.php:765 inc/learnpress-v1-functions.php:534
+#: inc/learnpress-functions.php:765 inc/learnpress-v1-functions.php:535
 msgid "A possible level with this course"
 msgstr ""
 
-#: inc/learnpress-functions.php:766 inc/learnpress-v1-functions.php:535
-msgid "All level"
+#: inc/learnpress-functions.php:766 inc/learnpress-v1-functions.php:536
+msgid "All levels"
 msgstr ""
 
 #: inc/learnpress-functions.php:769 inc/learnpress-functions.php:816
-#: inc/learnpress-v1-functions.php:473 inc/learnpress-v1-functions.php:538
+#: inc/learnpress-v1-functions.php:474
 msgid "Language"
 msgstr ""
 
-#: inc/learnpress-functions.php:772 inc/learnpress-v1-functions.php:541
+#: inc/learnpress-functions.php:772 inc/learnpress-v1-functions.php:542
 msgid "Language's used for studying"
 msgstr ""
 
-#: inc/learnpress-functions.php:773 inc/learnpress-v1-functions.php:542
+#: inc/learnpress-functions.php:773 inc/learnpress-v1-functions.php:543
 msgid "English"
 msgstr ""
 
-#: inc/learnpress-functions.php:792 inc/learnpress-v1-functions.php:449
+#: inc/learnpress-functions.php:792 inc/learnpress-v1-functions.php:445
 msgid "Course Features"
 msgstr ""
 
-#: inc/learnpress-functions.php:796 inc/learnpress-v1-functions.php:453
+#: inc/learnpress-functions.php:796 inc/learnpress-v1-functions.php:449
 msgid "Lectures"
 msgstr ""
 
-#: inc/learnpress-functions.php:801 inc/learnpress-v1-functions.php:458
+#: inc/learnpress-functions.php:801 inc/learnpress-v1-functions.php:454
 msgid "Quizzes"
 msgstr ""
 
-#: inc/learnpress-functions.php:811 inc/learnpress-v1-functions.php:468
+#: inc/learnpress-functions.php:811 inc/learnpress-v1-functions.php:467
 msgid "Skill level"
 msgstr ""
 
-#: inc/learnpress-functions.php:821 inc/learnpress-v1-functions.php:478
-#: inc/learnpress-v1-functions.php:623 learnpress/course/students.php:10
+#: inc/learnpress-functions.php:821 inc/learnpress-v1-functions.php:480
+#: inc/learnpress-v1-functions.php:624 learnpress/course/students.php:10
 #: learnpress-v1/addons/wishlist/wishlist-content.php:42
 #: learnpress-v1/profile/tabs/courses/loop.php:48
 #: learnpress-v1/single-course/students.php:18
 msgid "Students"
 msgstr ""
 
-#: inc/learnpress-functions.php:827 inc/learnpress-v1-functions.php:485
+#: inc/learnpress-functions.php:827 inc/learnpress-v1-functions.php:487
 msgid "Assessments"
 msgstr ""
 
 #: inc/learnpress-functions.php:828 inc/learnpress-functions.php:1127
-#: inc/learnpress-v1-functions.php:486 inc/learnpress-v1-functions.php:508
+#: inc/learnpress-v1-functions.php:488 inc/learnpress-v1-functions.php:509
 #: inc/widgets/carousel-post/carousel-post.php:44
 #: inc/widgets/carousel-post/carousel-post.php:53
-#: inc/widgets/gallery-images/gallery-images.php:45
+#: inc/widgets/gallery-images/gallery-images.php:55
 #: inc/widgets/icon-box/icon-box.php:207 inc/widgets/icon-box/icon-box.php:729
-#: inc/widgets/list-post/list-post.php:51
+#: inc/widgets/list-post/list-post.php:52
 #: inc/widgets/login-form/login-form.php:24
 #: inc/widgets/one-course-instructors/one-course-instructors.php:27
 msgid "Yes"
 msgstr ""
 
-#: inc/learnpress-functions.php:828 inc/learnpress-v1-functions.php:486
+#: inc/learnpress-functions.php:828 inc/learnpress-v1-functions.php:488
 msgid "Self"
 msgstr ""
 
-#: inc/learnpress-functions.php:851 inc/learnpress-v1-functions.php:825
+#: inc/learnpress-functions.php:851 inc/learnpress-v1-functions.php:826
 msgid "Courses"
 msgstr ""
 
-#: inc/learnpress-functions.php:856 inc/learnpress-v1-functions.php:828
+#: inc/learnpress-functions.php:856 inc/learnpress-v1-functions.php:829
 msgid "Quiz Results"
 msgstr ""
 
-#: inc/learnpress-functions.php:866 inc/learnpress-v1-functions.php:834
+#: inc/learnpress-functions.php:866 inc/learnpress-v1-functions.php:835
 #: learnpress/addons/course-wishlist/button.php:18
 #: learnpress-v1/addons/wishlist/button.php:11
 msgid "Wishlist"
@@ -820,11 +832,11 @@ msgstr ""
 msgid "This user is not available!"
 msgstr ""
 
-#: inc/learnpress-functions.php:916 inc/learnpress-v1-functions.php:1090
+#: inc/learnpress-functions.php:916 inc/learnpress-v1-functions.php:1092
 msgid "Hint"
 msgstr ""
 
-#: inc/learnpress-functions.php:951 inc/learnpress-v1-functions.php:1114
+#: inc/learnpress-functions.php:951 inc/learnpress-v1-functions.php:1116
 #: learnpress/quiz/time-counter.php:17 learnpress-v1/single-quiz/timer.php:24
 msgid "Question"
 msgstr ""
@@ -838,20 +850,20 @@ msgstr ""
 msgid "Complete Lesson"
 msgstr ""
 
-#: inc/learnpress-functions.php:1126 inc/learnpress-v1-functions.php:507
+#: inc/learnpress-functions.php:1126 inc/learnpress-v1-functions.php:508
 msgid "Certificate"
 msgstr ""
 
-#: inc/learnpress-functions.php:1127 inc/learnpress-v1-functions.php:508
+#: inc/learnpress-functions.php:1127 inc/learnpress-v1-functions.php:509
 #: inc/widgets/carousel-post/carousel-post.php:43
 #: inc/widgets/carousel-post/carousel-post.php:52
 #: inc/widgets/counters-box/counters-box.php:73
-#: inc/widgets/gallery-images/gallery-images.php:44
-#: inc/widgets/gallery-images/gallery-images.php:61
-#: inc/widgets/heading/heading.php:133 inc/widgets/icon-box/icon-box.php:206
+#: inc/widgets/gallery-images/gallery-images.php:54
+#: inc/widgets/gallery-images/gallery-images.php:71
+#: inc/widgets/heading/heading.php:134 inc/widgets/icon-box/icon-box.php:206
 #: inc/widgets/icon-box/icon-box.php:535 inc/widgets/icon-box/icon-box.php:728
 #: inc/widgets/icon-box/icon-box.php:1022
-#: inc/widgets/list-post/list-post.php:50
+#: inc/widgets/list-post/list-post.php:51
 #: inc/widgets/login-form/login-form.php:23
 #: inc/widgets/one-course-instructors/one-course-instructors.php:26
 #: inc/widgets/our-team/our-team.php:57
@@ -860,7 +872,15 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: inc/learnpress-v1-functions.php:635 inc/learnpress-v1-functions.php:636
+#: inc/learnpress-v1-functions.php:532
+msgid "Skill Levels"
+msgstr ""
+
+#: inc/learnpress-v1-functions.php:539
+msgid "Languages"
+msgstr ""
+
+#: inc/learnpress-v1-functions.php:636 inc/learnpress-v1-functions.php:637
 #: inc/widgets/courses/tpl/grid-v1.php:86
 #: inc/widgets/courses/tpl/grid-v1.php:87
 #: inc/widgets/courses/tpl/list-sidebar-v1.php:70
@@ -871,6 +891,7 @@ msgstr ""
 #: inc/widgets/courses/tpl/slider-v1.php:90
 #: inc/widgets/courses/tpl/tabs-v1.php:82
 #: inc/widgets/courses/tpl/tabs-v1.php:83
+#: learnpress-v1/addons/paid-membership-pro/courses.php:74
 #: learnpress-v1/addons/wishlist/wishlist-content.php:54
 #: learnpress-v1/addons/wishlist/wishlist-content.php:55
 #: learnpress-v1/profile/tabs/courses/loop.php:60
@@ -881,15 +902,15 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: inc/learnpress-v1-functions.php:831
+#: inc/learnpress-v1-functions.php:832
 msgid "Orders"
 msgstr ""
 
-#: inc/learnpress-v1-functions.php:1250
+#: inc/learnpress-v1-functions.php:1252
 msgid "Certificates"
 msgstr ""
 
-#: inc/learnpress-v1-functions.php:1280 inc/learnpress-v1-functions.php:1284
+#: inc/learnpress-v1-functions.php:1282 inc/learnpress-v1-functions.php:1286
 msgid "Collections"
 msgstr ""
 
@@ -925,7 +946,7 @@ msgstr ""
 #: inc/tax-meta.php:83 inc/tax-meta.php:104 inc/tax-meta.php:125
 #: inc/admin/customizer-sections/header-mobile.php:39
 #: inc/admin/customizer-sections/header-stickymenu.php:24
-#: inc/widgets/heading/heading.php:52 inc/widgets/icon-box/icon-box.php:62
+#: inc/widgets/heading/heading.php:53 inc/widgets/icon-box/icon-box.php:62
 #: inc/widgets/icon-box/icon-box.php:584
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:53
 msgid "Custom"
@@ -955,9 +976,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:32
 #: inc/admin/customizer-sections/display-frontpage.php:32
 #: inc/admin/customizer-sections/display-postpage.php:32
+#: inc/admin/customizer-sections/event-archive.php:29
+#: inc/admin/customizer-sections/event-single.php:29
 #: inc/admin/customizer-sections/learnpress-archive.php:29
 #: inc/admin/customizer-sections/learnpress-single.php:29
 #: inc/admin/customizer-sections/portfolio-archive.php:29
+#: inc/admin/customizer-sections/portfolio-single.php:29
 #: inc/admin/customizer-sections/woocommerce-archive.php:40
 #: inc/admin/customizer-sections/woocommerce-single.php:30
 msgid "Hide Title"
@@ -967,9 +991,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:24
 #: inc/admin/customizer-sections/display-frontpage.php:24
 #: inc/admin/customizer-sections/display-postpage.php:24
+#: inc/admin/customizer-sections/event-archive.php:21
+#: inc/admin/customizer-sections/event-single.php:21
 #: inc/admin/customizer-sections/learnpress-archive.php:21
 #: inc/admin/customizer-sections/learnpress-single.php:21
 #: inc/admin/customizer-sections/portfolio-archive.php:21
+#: inc/admin/customizer-sections/portfolio-single.php:21
 msgid "Hide Breadcrumbs"
 msgstr ""
 
@@ -990,8 +1017,7 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: inc/template-tags.php:138 learnpress-v1/checkout/order-received_.php:26
-#: learnpress-v1/profile/tabs/orders.php:16
+#: inc/template-tags.php:138 learnpress-v1/profile/tabs/orders.php:16
 msgid "Date"
 msgstr ""
 
@@ -1008,8 +1034,7 @@ msgid "1 comment"
 msgstr ""
 
 #: inc/template-tags.php:150 inc/template-tags.php:183
-#, php-format
-msgid "% comments"
+msgid "comments"
 msgstr ""
 
 #: inc/template-tags.php:170 inc/template-tags.php:175
@@ -1174,44 +1199,48 @@ msgstr ""
 msgid "Demo Courses Hub"
 msgstr ""
 
-#: inc/admin/plugins-require.php:250
-#: inc/libs/class-tgm-plugin-activation.php:333
+#: inc/admin/demo-data.php:77
+msgid "Demo Kindergarten"
+msgstr ""
+
+#: inc/admin/plugins-require.php:349
+#: inc/libs/class-tgm-plugin-activation.php:334
 msgid "Install Required Plugins"
 msgstr ""
 
-#: inc/admin/plugins-require.php:251
-#: inc/libs/class-tgm-plugin-activation.php:334
+#: inc/admin/plugins-require.php:350
+#: inc/libs/class-tgm-plugin-activation.php:335
 msgid "Install Plugins"
 msgstr ""
 
-#: inc/admin/plugins-require.php:252
-#: inc/libs/class-tgm-plugin-activation.php:335
+#: inc/admin/plugins-require.php:351
+#: inc/libs/class-tgm-plugin-activation.php:337
 #, php-format
 msgid "Installing Plugin: %s"
 msgstr ""
 
-#: inc/admin/plugins-require.php:254
-#: inc/libs/class-tgm-plugin-activation.php:336
+#: inc/admin/plugins-require.php:353
+#: inc/libs/class-tgm-plugin-activation.php:340
 msgid "Something went wrong with the plugin API."
 msgstr ""
 
-#: inc/admin/plugins-require.php:255
-#: inc/libs/class-tgm-plugin-activation.php:338
+#: inc/admin/plugins-require.php:354
+#: inc/libs/class-tgm-plugin-activation.php:343
 #, php-format
 msgid "This theme requires the following plugin: %1$s."
 msgid_plural "This theme requires the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:257
-#: inc/libs/class-tgm-plugin-activation.php:343
+#: inc/admin/plugins-require.php:356
+#: inc/libs/class-tgm-plugin-activation.php:349
 #, php-format
 msgid "This theme recommends the following plugin: %1$s."
 msgid_plural "This theme recommends the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:259
+#: inc/admin/plugins-require.php:358
 #, php-format
 msgid ""
 "Sorry, but you do not have the correct permissions to install the %s plugin. "
@@ -1224,15 +1253,15 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:261
-#: inc/libs/class-tgm-plugin-activation.php:368
+#: inc/admin/plugins-require.php:360
+#: inc/libs/class-tgm-plugin-activation.php:367
 #, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:263
+#: inc/admin/plugins-require.php:362
 #: inc/libs/class-tgm-plugin-activation.php:373
 #, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
@@ -1240,7 +1269,7 @@ msgid_plural "The following recommended plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:265
+#: inc/admin/plugins-require.php:364
 #, php-format
 msgid ""
 "Sorry, but you do not have the correct permissions to activate the %s "
@@ -1253,8 +1282,8 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:267
-#: inc/libs/class-tgm-plugin-activation.php:353
+#: inc/admin/plugins-require.php:366
+#: inc/libs/class-tgm-plugin-activation.php:355
 #, php-format
 msgid ""
 "The following plugin needs to be updated to its latest version to ensure "
@@ -1265,7 +1294,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:269
+#: inc/admin/plugins-require.php:368
 #, php-format
 msgid ""
 "Sorry, but you do not have the correct permissions to update the %s plugin. "
@@ -1278,31 +1307,31 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:271
-#: inc/libs/class-tgm-plugin-activation.php:383
+#: inc/admin/plugins-require.php:370
+#: inc/libs/class-tgm-plugin-activation.php:378
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:272
+#: inc/admin/plugins-require.php:371
 msgid "Activate installed plugin"
 msgid_plural "Activate installed plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:273
-#: inc/libs/class-tgm-plugin-activation.php:397
+#: inc/admin/plugins-require.php:372
+#: inc/libs/class-tgm-plugin-activation.php:392
 msgid "Return to Required Plugins Installer"
 msgstr ""
 
-#: inc/admin/plugins-require.php:274
-#: inc/libs/class-tgm-plugin-activation.php:399
-#: inc/libs/class-tgm-plugin-activation.php:3031
+#: inc/admin/plugins-require.php:373
+#: inc/libs/class-tgm-plugin-activation.php:394
+#: inc/libs/class-tgm-plugin-activation.php:3244
 msgid "Plugin activated successfully."
 msgstr ""
 
-#: inc/admin/plugins-require.php:275
+#: inc/admin/plugins-require.php:374
 #, php-format
 msgid "All plugins installed and activated successfully. %s"
 msgstr ""
@@ -1316,7 +1345,17 @@ msgstr ""
 msgid "Put your additional CSS rules here."
 msgstr ""
 
+#: inc/admin/customizer-sections/custom-js.php:4
+#: inc/admin/customizer-sections/custom-js.php:12
+msgid "Custom JS"
+msgstr ""
+
+#: inc/admin/customizer-sections/custom-js.php:15
+msgid "Put your additional JS rules here."
+msgstr ""
+
 #: inc/admin/customizer-sections/display-archive.php:6
+#: inc/admin/customizer-sections/event-archive.php:3
 #: inc/admin/customizer-sections/learnpress-archive.php:3
 #: inc/admin/customizer-sections/portfolio-archive.php:3
 msgid "Archive"
@@ -1330,9 +1369,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:27
 #: inc/admin/customizer-sections/display-frontpage.php:27
 #: inc/admin/customizer-sections/display-postpage.php:27
+#: inc/admin/customizer-sections/event-archive.php:24
+#: inc/admin/customizer-sections/event-single.php:24
 #: inc/admin/customizer-sections/learnpress-archive.php:24
 #: inc/admin/customizer-sections/learnpress-single.php:24
 #: inc/admin/customizer-sections/portfolio-archive.php:24
+#: inc/admin/customizer-sections/portfolio-single.php:24
 #: inc/admin/customizer-sections/woocommerce-archive.php:35
 msgid "Check this box to hide/show breadcrumbs."
 msgstr ""
@@ -1340,9 +1382,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:35
 #: inc/admin/customizer-sections/display-frontpage.php:35
 #: inc/admin/customizer-sections/display-postpage.php:35
+#: inc/admin/customizer-sections/event-archive.php:32
+#: inc/admin/customizer-sections/event-single.php:32
 #: inc/admin/customizer-sections/learnpress-archive.php:32
 #: inc/admin/customizer-sections/learnpress-single.php:32
 #: inc/admin/customizer-sections/portfolio-archive.php:32
+#: inc/admin/customizer-sections/portfolio-single.php:32
 #: inc/admin/customizer-sections/woocommerce-archive.php:43
 #: inc/admin/customizer-sections/woocommerce-single.php:33
 msgid "Check this box to hide/show title."
@@ -1351,9 +1396,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:40
 #: inc/admin/customizer-sections/display-frontpage.php:40
 #: inc/admin/customizer-sections/display-postpage.php:40
+#: inc/admin/customizer-sections/event-archive.php:37
+#: inc/admin/customizer-sections/event-single.php:37
 #: inc/admin/customizer-sections/learnpress-archive.php:37
 #: inc/admin/customizer-sections/learnpress-single.php:37
 #: inc/admin/customizer-sections/portfolio-archive.php:37
+#: inc/admin/customizer-sections/portfolio-single.php:37
 #: inc/admin/customizer-sections/woocommerce-archive.php:48
 #: inc/admin/customizer-sections/woocommerce-single.php:38
 msgid "Top Image"
@@ -1362,9 +1410,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:43
 #: inc/admin/customizer-sections/display-frontpage.php:43
 #: inc/admin/customizer-sections/display-postpage.php:43
+#: inc/admin/customizer-sections/event-archive.php:40
+#: inc/admin/customizer-sections/event-single.php:40
 #: inc/admin/customizer-sections/learnpress-archive.php:40
 #: inc/admin/customizer-sections/learnpress-single.php:40
 #: inc/admin/customizer-sections/portfolio-archive.php:40
+#: inc/admin/customizer-sections/portfolio-single.php:40
 #: inc/admin/customizer-sections/woocommerce-archive.php:51
 #: inc/admin/customizer-sections/woocommerce-single.php:41
 msgid "Enter URL or upload a top image file for header."
@@ -1373,9 +1424,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:49
 #: inc/admin/customizer-sections/display-frontpage.php:49
 #: inc/admin/customizer-sections/display-postpage.php:49
+#: inc/admin/customizer-sections/event-archive.php:46
+#: inc/admin/customizer-sections/event-single.php:46
 #: inc/admin/customizer-sections/learnpress-archive.php:46
 #: inc/admin/customizer-sections/learnpress-single.php:46
 #: inc/admin/customizer-sections/portfolio-archive.php:46
+#: inc/admin/customizer-sections/portfolio-single.php:46
 #: inc/admin/customizer-sections/woocommerce-archive.php:57
 #: inc/admin/customizer-sections/woocommerce-single.php:47
 msgid "Heading Background Color"
@@ -1384,9 +1438,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:56
 #: inc/admin/customizer-sections/display-frontpage.php:56
 #: inc/admin/customizer-sections/display-postpage.php:56
+#: inc/admin/customizer-sections/event-archive.php:53
+#: inc/admin/customizer-sections/event-single.php:53
 #: inc/admin/customizer-sections/learnpress-archive.php:53
 #: inc/admin/customizer-sections/learnpress-single.php:53
 #: inc/admin/customizer-sections/portfolio-archive.php:53
+#: inc/admin/customizer-sections/portfolio-single.php:53
 #: inc/admin/customizer-sections/woocommerce-archive.php:64
 #: inc/admin/customizer-sections/woocommerce-single.php:54
 msgid "Heading Text Color"
@@ -1395,9 +1452,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:63
 #: inc/admin/customizer-sections/display-frontpage.php:63
 #: inc/admin/customizer-sections/display-postpage.php:63
+#: inc/admin/customizer-sections/event-archive.php:60
+#: inc/admin/customizer-sections/event-single.php:60
 #: inc/admin/customizer-sections/learnpress-archive.php:60
 #: inc/admin/customizer-sections/learnpress-single.php:60
 #: inc/admin/customizer-sections/portfolio-archive.php:60
+#: inc/admin/customizer-sections/portfolio-single.php:60
 #: inc/admin/customizer-sections/woocommerce-archive.php:71
 #: inc/admin/customizer-sections/woocommerce-single.php:60
 msgid "Sub Heading Text Color"
@@ -1406,9 +1466,12 @@ msgstr ""
 #: inc/admin/customizer-sections/display-archive.php:70
 #: inc/admin/customizer-sections/display-frontpage.php:77
 #: inc/admin/customizer-sections/display-postpage.php:70
+#: inc/admin/customizer-sections/event-archive.php:67
+#: inc/admin/customizer-sections/event-single.php:67
 #: inc/admin/customizer-sections/learnpress-archive.php:67
 #: inc/admin/customizer-sections/learnpress-single.php:67
 #: inc/admin/customizer-sections/portfolio-archive.php:67
+#: inc/admin/customizer-sections/portfolio-single.php:67
 #: inc/admin/customizer-sections/woocommerce-archive.php:79
 #: inc/admin/customizer-sections/woocommerce-single.php:67
 msgid "Sub Title"
@@ -1486,11 +1549,7 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: inc/admin/customizer-sections/event-single.php:3
-#: inc/admin/customizer-sections/learnpress-single.php:3
-msgid "Single"
-msgstr ""
-
+#: inc/admin/customizer-sections/event-archive.php:9
 #: inc/admin/customizer-sections/event-single.php:9
 #: inc/admin/customizer-sections/learnpress-archive.php:9
 #: inc/admin/customizer-sections/learnpress-single.php:9
@@ -1500,6 +1559,12 @@ msgstr ""
 #: inc/widgets/course-categories/course-categories.php:29
 #: inc/widgets/list-event/list-event.php:23
 msgid "Layout"
+msgstr ""
+
+#: inc/admin/customizer-sections/event-single.php:3
+#: inc/admin/customizer-sections/learnpress-single.php:3
+#: inc/admin/customizer-sections/portfolio-single.php:3
+msgid "Single"
 msgstr ""
 
 #: inc/admin/customizer-sections/event.php:4
@@ -1516,6 +1581,7 @@ msgstr ""
 #: inc/admin/customizer-sections/header-toolbar.php:29
 #: inc/admin/metabox-sections/portfolio-background.php:8
 #: inc/widgets/counters-box/counters-box.php:39
+#: inc/widgets/timetable/timetable.php:54
 msgid "Background Color"
 msgstr ""
 
@@ -1642,10 +1708,11 @@ msgstr ""
 #: inc/admin/customizer-sections/header-mobile.php:38
 #: inc/widgets/button/button.php:40
 #: inc/widgets/courses-searching/courses-searching.php:28
-#: inc/widgets/heading/heading.php:51 inc/widgets/icon-box/icon-box.php:61
+#: inc/widgets/heading/heading.php:52 inc/widgets/icon-box/icon-box.php:61
 #: inc/widgets/icon-box/icon-box.php:488 inc/widgets/icon-box/icon-box.php:583
 #: inc/widgets/icon-box/icon-box.php:975
 #: inc/widgets/list-event/list-event.php:25
+#: inc/widgets/testimonials/testimonials.php:26
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:52
 msgid "Default"
 msgstr ""
@@ -1664,7 +1731,7 @@ msgstr ""
 
 #: inc/admin/customizer-sections/header-mainmenu.php:67
 #: inc/admin/customizer-sections/header-toolbar.php:20
-#: inc/widgets/heading/heading.php:71 inc/widgets/icon-box/icon-box.php:81
+#: inc/widgets/heading/heading.php:72 inc/widgets/icon-box/icon-box.php:81
 #: inc/widgets/icon-box/icon-box.php:603
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:74
 msgid "Font Size"
@@ -1838,7 +1905,20 @@ msgid "One Course ID"
 msgstr ""
 
 #: inc/admin/customizer-sections/learnpress-features.php:12
-msgid "The one course will be a latest course if you leave this field empty."
+msgid "Only use for Demo One Course."
+msgstr ""
+
+#: inc/admin/customizer-sections/learnpress-features.php:17
+msgid "Contact Form 7 Shortcode"
+msgstr ""
+
+#: inc/admin/customizer-sections/learnpress-features.php:20
+#: inc/admin/customizer-sections/learnpress-features.php:28
+msgid "Only use for Demo Kindergarten"
+msgstr ""
+
+#: inc/admin/customizer-sections/learnpress-features.php:25
+msgid "Timetable Link"
 msgstr ""
 
 #: inc/admin/customizer-sections/learnpress.php:4
@@ -1858,6 +1938,7 @@ msgid "Upload your favicon."
 msgstr ""
 
 #: inc/admin/customizer-sections/portfolio.php:4
+#: inc/templates/heading-top.php:250
 msgid "Portfolio"
 msgstr ""
 
@@ -1937,12 +2018,27 @@ msgstr ""
 
 #: inc/admin/customizer-sections/styling-rtl.php:12
 #: inc/admin/customizer-sections/styling-rtl.php:20
+#: inc/admin/customizer-sections/styling-rtl.php:28
 #: inc/admin/customizer-sections/utilities.php:11
 msgid "Enable/Disable"
 msgstr ""
 
 #: inc/admin/customizer-sections/styling-rtl.php:17
+msgid "Smooth Scroll"
+msgstr ""
+
+#: inc/admin/customizer-sections/styling-rtl.php:25
 msgid "Pre-loader"
+msgstr ""
+
+#: inc/admin/customizer-sections/styling-rtl.php:33
+msgid "Pre-loader Image"
+msgstr ""
+
+#: inc/admin/customizer-sections/styling-rtl.php:36
+msgid ""
+"Choose your image pre-loader. Recommend to use .gif format. Blank to display "
+"pre-loader default."
 msgstr ""
 
 #: inc/admin/customizer-sections/styling.php:7
@@ -2083,192 +2179,164 @@ msgstr ""
 msgid "Number Related"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:348
+#: inc/libs/class-tgm-plugin-activation.php:339
 #, php-format
-msgid ""
-"Sorry, but you do not have the correct permissions to install the %1$s "
-"plugin."
-msgid_plural ""
-"Sorry, but you do not have the correct permissions to install the %1$s "
-"plugins."
-msgstr[0] ""
-msgstr[1] ""
+msgid "Updating Plugin: %s"
+msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:358
+#: inc/libs/class-tgm-plugin-activation.php:361
 #, php-format
 msgid "There is an update available for: %1$s."
 msgid_plural "There are updates available for the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:363
-#, php-format
-msgid ""
-"Sorry, but you do not have the correct permissions to update the %1$s plugin."
-msgid_plural ""
-"Sorry, but you do not have the correct permissions to update the %1$s "
-"plugins."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/libs/class-tgm-plugin-activation.php:378
-#, php-format
-msgid ""
-"Sorry, but you do not have the correct permissions to activate the %1$s "
-"plugin."
-msgid_plural ""
-"Sorry, but you do not have the correct permissions to activate the %1$s "
-"plugins."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/libs/class-tgm-plugin-activation.php:388
+#: inc/libs/class-tgm-plugin-activation.php:383
 msgid "Begin updating plugin"
 msgid_plural "Begin updating plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:393
+#: inc/libs/class-tgm-plugin-activation.php:388
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:398
-msgid "Return to the dashboard"
+#: inc/libs/class-tgm-plugin-activation.php:393
+#: inc/libs/class-tgm-plugin-activation.php:912
+#: inc/libs/class-tgm-plugin-activation.php:2618
+#: inc/libs/class-tgm-plugin-activation.php:3665
+msgid "Return to the Dashboard"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:400
-#: inc/libs/class-tgm-plugin-activation.php:2834
+#: inc/libs/class-tgm-plugin-activation.php:395
+#: inc/libs/class-tgm-plugin-activation.php:3037
 msgid "The following plugin was activated successfully:"
 msgid_plural "The following plugins were activated successfully:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:401
+#: inc/libs/class-tgm-plugin-activation.php:397
 #, php-format
 msgid "No action taken. Plugin %1$s was already active."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:402
+#: inc/libs/class-tgm-plugin-activation.php:399
 #, php-format
 msgid ""
 "Plugin not activated. A higher version of %s is needed for this theme. "
 "Please update the plugin."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:403
+#: inc/libs/class-tgm-plugin-activation.php:401
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:404
+#: inc/libs/class-tgm-plugin-activation.php:402
 msgid "Dismiss this notice"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:405
+#: inc/libs/class-tgm-plugin-activation.php:403
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: inc/libs/class-tgm-plugin-activation.php:404
 msgid "Please contact the administrator of this site for help."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:524
+#: inc/libs/class-tgm-plugin-activation.php:607
 msgid "This plugin needs to be updated to be compatible with your theme."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:525
+#: inc/libs/class-tgm-plugin-activation.php:608
 msgid "Update Required"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:639
-msgid "Set the parent_slug config variable instead."
-msgstr ""
-
-#: inc/libs/class-tgm-plugin-activation.php:830
-#: inc/libs/class-tgm-plugin-activation.php:3412
-msgid "Return to the Dashboard"
-msgstr ""
-
-#: inc/libs/class-tgm-plugin-activation.php:937
+#: inc/libs/class-tgm-plugin-activation.php:1019
 msgid ""
 "The remote plugin package does not contain a folder with the desired slug "
 "and renaming did not work."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:937
-#: inc/libs/class-tgm-plugin-activation.php:940
+#: inc/libs/class-tgm-plugin-activation.php:1019
+#: inc/libs/class-tgm-plugin-activation.php:1022
 msgid ""
 "Please contact the plugin provider and ask them to package their plugin "
 "according to the WordPress guidelines."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:940
+#: inc/libs/class-tgm-plugin-activation.php:1022
 msgid ""
 "The remote plugin package consists of more than one file, but the files are "
 "not packaged in a folder."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:1118
-#: inc/libs/class-tgm-plugin-activation.php:2830
+#: inc/libs/class-tgm-plugin-activation.php:1206
+#: inc/libs/class-tgm-plugin-activation.php:3033
 msgctxt "plugin A *and* plugin B"
 msgid "and"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:1883
+#: inc/libs/class-tgm-plugin-activation.php:2067
 #, php-format
-msgctxt "%s = version number"
 msgid "TGMPA v%s"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2169
+#: inc/libs/class-tgm-plugin-activation.php:2358
 msgid "Required"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2172
+#: inc/libs/class-tgm-plugin-activation.php:2361
 msgid "Recommended"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2188
+#: inc/libs/class-tgm-plugin-activation.php:2377
 msgid "WordPress Repository"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2191
+#: inc/libs/class-tgm-plugin-activation.php:2380
 msgid "External Source"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2194
+#: inc/libs/class-tgm-plugin-activation.php:2383
 msgid "Pre-Packaged"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2211
+#: inc/libs/class-tgm-plugin-activation.php:2400
 msgid "Not Installed"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2215
+#: inc/libs/class-tgm-plugin-activation.php:2404
 msgid "Installed But Not Activated"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2217
+#: inc/libs/class-tgm-plugin-activation.php:2406
 msgid "Active"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2223
+#: inc/libs/class-tgm-plugin-activation.php:2412
 msgid "Required Update not Available"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2226
+#: inc/libs/class-tgm-plugin-activation.php:2415
 msgid "Requires Update"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2229
+#: inc/libs/class-tgm-plugin-activation.php:2418
 msgid "Update recommended"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2237
+#: inc/libs/class-tgm-plugin-activation.php:2427
 #, php-format
-msgctxt "%1$s = install status, %2$s = update status"
+msgctxt "Install/Update Status"
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2282
+#: inc/libs/class-tgm-plugin-activation.php:2473
 #, php-format
 msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
@@ -2276,197 +2344,191 @@ msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2285
+#: inc/libs/class-tgm-plugin-activation.php:2477
 #, php-format
 msgid "To Install <span class=\"count\">(%s)</span>"
 msgid_plural "To Install <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2288
+#: inc/libs/class-tgm-plugin-activation.php:2481
 #, php-format
 msgid "Update Available <span class=\"count\">(%s)</span>"
 msgid_plural "Update Available <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2291
+#: inc/libs/class-tgm-plugin-activation.php:2485
 #, php-format
 msgid "To Activate <span class=\"count\">(%s)</span>"
 msgid_plural "To Activate <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2373
+#: inc/libs/class-tgm-plugin-activation.php:2567
 msgctxt "as in: \"version nr unknown\""
 msgid "unknown"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2381
+#: inc/libs/class-tgm-plugin-activation.php:2575
 msgid "Installed version:"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2389
+#: inc/libs/class-tgm-plugin-activation.php:2583
 msgid "Minimum required version:"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2401
+#: inc/libs/class-tgm-plugin-activation.php:2595
 msgid "Available version:"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2424
-#, php-format
-msgid ""
-"No plugins to install, update or activate. <a href=\"%1$s\">Return to the "
-"Dashboard</a>"
+#: inc/libs/class-tgm-plugin-activation.php:2618
+msgid "No plugins to install, update or activate."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2438
+#: inc/libs/class-tgm-plugin-activation.php:2632
 msgid "Plugin"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2439
+#: inc/libs/class-tgm-plugin-activation.php:2633
 msgid "Source"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2440
+#: inc/libs/class-tgm-plugin-activation.php:2634
 #: tp-event-auth/auths/my-account.php:31
 msgid "Type"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2444
+#: inc/libs/class-tgm-plugin-activation.php:2638
 msgid "Version"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2445
+#: inc/libs/class-tgm-plugin-activation.php:2639
 #: learnpress-v1/profile/tabs/orders.php:17
 #: tp-event-auth/auths/my-account.php:35
 msgid "Status"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2493
+#: inc/libs/class-tgm-plugin-activation.php:2688
 #, php-format
-msgctxt "%2$s = plugin name in screen reader markup"
 msgid "Install %2$s"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2497
+#: inc/libs/class-tgm-plugin-activation.php:2693
 #, php-format
-msgctxt "%2$s = plugin name in screen reader markup"
 msgid "Update %2$s"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2502
+#: inc/libs/class-tgm-plugin-activation.php:2699
 #, php-format
-msgctxt "%2$s = plugin name in screen reader markup"
 msgid "Activate %2$s"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2572
+#: inc/libs/class-tgm-plugin-activation.php:2769
 msgid "Upgrade message from the plugin author:"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2605
+#: inc/libs/class-tgm-plugin-activation.php:2802
 msgid "Install"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2611
+#: inc/libs/class-tgm-plugin-activation.php:2808
 msgid "Update"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2614
+#: inc/libs/class-tgm-plugin-activation.php:2811
 msgid "Activate"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2645
+#: inc/libs/class-tgm-plugin-activation.php:2842
 msgid "No plugins were selected to be installed. No action taken."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2647
+#: inc/libs/class-tgm-plugin-activation.php:2844
 msgid "No plugins were selected to be updated. No action taken."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2683
+#: inc/libs/class-tgm-plugin-activation.php:2885
 msgid "No plugins are available to be installed at this time."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2685
+#: inc/libs/class-tgm-plugin-activation.php:2887
 msgid "No plugins are available to be updated at this time."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2790
+#: inc/libs/class-tgm-plugin-activation.php:2993
 msgid "No plugins were selected to be activated. No action taken."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:2816
+#: inc/libs/class-tgm-plugin-activation.php:3019
 msgid "No plugins are available to be activated at this time."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3030
+#: inc/libs/class-tgm-plugin-activation.php:3243
 msgid "Plugin activation failed."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3336
+#: inc/libs/class-tgm-plugin-activation.php:3583
 #, php-format
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3338
+#: inc/libs/class-tgm-plugin-activation.php:3586
 #, php-format
 msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3339
+#: inc/libs/class-tgm-plugin-activation.php:3588
 #, php-format
 msgid "The installation of %1$s failed."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3343
+#: inc/libs/class-tgm-plugin-activation.php:3592
 msgid ""
 "The installation and activation process is starting. This process may take a "
 "while on some hosts, so please be patient."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3344
+#: inc/libs/class-tgm-plugin-activation.php:3594
 #, php-format
 msgid "%1$s installed and activated successfully."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3344
-#: inc/libs/class-tgm-plugin-activation.php:3350
+#: inc/libs/class-tgm-plugin-activation.php:3594
+#: inc/libs/class-tgm-plugin-activation.php:3602
 msgid "Show Details"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3344
-#: inc/libs/class-tgm-plugin-activation.php:3350
+#: inc/libs/class-tgm-plugin-activation.php:3594
+#: inc/libs/class-tgm-plugin-activation.php:3602
 msgid "Hide Details"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3345
+#: inc/libs/class-tgm-plugin-activation.php:3595
 msgid "All installations and activations have been completed."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3346
+#: inc/libs/class-tgm-plugin-activation.php:3597
 #, php-format
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3349
+#: inc/libs/class-tgm-plugin-activation.php:3600
 msgid ""
 "The installation process is starting. This process may take a while on some "
 "hosts, so please be patient."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3350
+#: inc/libs/class-tgm-plugin-activation.php:3602
 #, php-format
 msgid "%1$s installed successfully."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3351
+#: inc/libs/class-tgm-plugin-activation.php:3603
 msgid "All installations have been completed."
 msgstr ""
 
-#: inc/libs/class-tgm-plugin-activation.php:3352
+#: inc/libs/class-tgm-plugin-activation.php:3605
 #, php-format
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr ""
@@ -2509,40 +2571,41 @@ msgstr ""
 msgid "Select a color"
 msgstr ""
 
-#: inc/templates/heading-top.php:233
+#: inc/templates/heading-top.php:255
 msgid "Our Team"
 msgstr ""
 
-#: inc/templates/heading-top.php:237
+#: inc/templates/heading-top.php:259
 #: inc/widgets/testimonials/testimonials.php:19
 msgid "Testimonials"
 msgstr ""
 
-#: inc/widgets/widgets.php:94
+#: inc/widgets/widgets.php:97
 msgid "Extra Class"
 msgstr ""
 
-#: inc/widgets/accordion/accordion.php:12
+#: inc/widgets/accordion/accordion.php:8
 msgid "Thim: Accordion"
 msgstr ""
 
-#: inc/widgets/accordion/accordion.php:14
+#: inc/widgets/accordion/accordion.php:10
 msgid "Add Accordion"
 msgstr ""
 
-#: inc/widgets/accordion/accordion.php:28
+#: inc/widgets/accordion/accordion.php:24
 msgid "Panel List"
 msgstr ""
 
-#: inc/widgets/accordion/accordion.php:29
+#: inc/widgets/accordion/accordion.php:25
+#: inc/widgets/timetable/timetable.php:26
 msgid "Panel"
 msgstr ""
 
-#: inc/widgets/accordion/accordion.php:33
+#: inc/widgets/accordion/accordion.php:29
 msgid "Panel Title"
 msgstr ""
 
-#: inc/widgets/accordion/accordion.php:39
+#: inc/widgets/accordion/accordion.php:35
 msgid "Panel Body"
 msgstr ""
 
@@ -2578,7 +2641,7 @@ msgstr ""
 msgid "Open in New Window"
 msgstr ""
 
-#: inc/widgets/button/button.php:38 inc/widgets/list-post/list-post.php:87
+#: inc/widgets/button/button.php:38 inc/widgets/list-post/list-post.php:88
 msgid "Style"
 msgstr ""
 
@@ -2599,77 +2662,77 @@ msgid "Select font size."
 msgstr ""
 
 #: inc/widgets/button/button.php:72 inc/widgets/button/button.php:167
-#: inc/widgets/heading/heading.php:81 inc/widgets/icon-box/icon-box.php:92
+#: inc/widgets/heading/heading.php:82 inc/widgets/icon-box/icon-box.php:92
 #: inc/widgets/icon-box/icon-box.php:154 inc/widgets/icon-box/icon-box.php:614
 #: inc/widgets/icon-box/icon-box.php:676
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:84
 msgid "Normal"
 msgstr ""
 
-#: inc/widgets/button/button.php:73 inc/widgets/heading/heading.php:82
+#: inc/widgets/button/button.php:73 inc/widgets/heading/heading.php:83
 #: inc/widgets/icon-box/icon-box.php:93 inc/widgets/icon-box/icon-box.php:155
 #: inc/widgets/icon-box/icon-box.php:615 inc/widgets/icon-box/icon-box.php:677
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:85
 msgid "Bold"
 msgstr ""
 
-#: inc/widgets/button/button.php:74 inc/widgets/heading/heading.php:83
+#: inc/widgets/button/button.php:74 inc/widgets/heading/heading.php:84
 #: inc/widgets/icon-box/icon-box.php:94 inc/widgets/icon-box/icon-box.php:156
 #: inc/widgets/icon-box/icon-box.php:616 inc/widgets/icon-box/icon-box.php:678
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:86
 msgid "100"
 msgstr ""
 
-#: inc/widgets/button/button.php:75 inc/widgets/heading/heading.php:84
+#: inc/widgets/button/button.php:75 inc/widgets/heading/heading.php:85
 #: inc/widgets/icon-box/icon-box.php:95 inc/widgets/icon-box/icon-box.php:157
 #: inc/widgets/icon-box/icon-box.php:617 inc/widgets/icon-box/icon-box.php:679
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:87
 msgid "200"
 msgstr ""
 
-#: inc/widgets/button/button.php:76 inc/widgets/heading/heading.php:85
+#: inc/widgets/button/button.php:76 inc/widgets/heading/heading.php:86
 #: inc/widgets/icon-box/icon-box.php:96 inc/widgets/icon-box/icon-box.php:158
 #: inc/widgets/icon-box/icon-box.php:618 inc/widgets/icon-box/icon-box.php:680
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:88
 msgid "300"
 msgstr ""
 
-#: inc/widgets/button/button.php:77 inc/widgets/heading/heading.php:86
+#: inc/widgets/button/button.php:77 inc/widgets/heading/heading.php:87
 #: inc/widgets/icon-box/icon-box.php:97 inc/widgets/icon-box/icon-box.php:159
 #: inc/widgets/icon-box/icon-box.php:619 inc/widgets/icon-box/icon-box.php:681
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:89
 msgid "400"
 msgstr ""
 
-#: inc/widgets/button/button.php:78 inc/widgets/heading/heading.php:87
+#: inc/widgets/button/button.php:78 inc/widgets/heading/heading.php:88
 #: inc/widgets/icon-box/icon-box.php:98 inc/widgets/icon-box/icon-box.php:160
 #: inc/widgets/icon-box/icon-box.php:620 inc/widgets/icon-box/icon-box.php:682
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:90
 msgid "500"
 msgstr ""
 
-#: inc/widgets/button/button.php:79 inc/widgets/heading/heading.php:88
+#: inc/widgets/button/button.php:79 inc/widgets/heading/heading.php:89
 #: inc/widgets/icon-box/icon-box.php:99 inc/widgets/icon-box/icon-box.php:161
 #: inc/widgets/icon-box/icon-box.php:621 inc/widgets/icon-box/icon-box.php:683
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:91
 msgid "600"
 msgstr ""
 
-#: inc/widgets/button/button.php:80 inc/widgets/heading/heading.php:89
+#: inc/widgets/button/button.php:80 inc/widgets/heading/heading.php:90
 #: inc/widgets/icon-box/icon-box.php:100 inc/widgets/icon-box/icon-box.php:162
 #: inc/widgets/icon-box/icon-box.php:622 inc/widgets/icon-box/icon-box.php:684
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:92
 msgid "700"
 msgstr ""
 
-#: inc/widgets/button/button.php:81 inc/widgets/heading/heading.php:90
+#: inc/widgets/button/button.php:81 inc/widgets/heading/heading.php:91
 #: inc/widgets/icon-box/icon-box.php:101 inc/widgets/icon-box/icon-box.php:163
 #: inc/widgets/icon-box/icon-box.php:623 inc/widgets/icon-box/icon-box.php:685
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:93
 msgid "800"
 msgstr ""
 
-#: inc/widgets/button/button.php:82 inc/widgets/heading/heading.php:91
+#: inc/widgets/button/button.php:82 inc/widgets/heading/heading.php:92
 #: inc/widgets/icon-box/icon-box.php:102 inc/widgets/icon-box/icon-box.php:164
 #: inc/widgets/icon-box/icon-box.php:624 inc/widgets/icon-box/icon-box.php:686
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:94
@@ -2763,18 +2826,22 @@ msgid "Button Size"
 msgstr ""
 
 #: inc/widgets/button/button.php:168
-msgid "Medium"
+msgid "Small"
 msgstr ""
 
 #: inc/widgets/button/button.php:169
+msgid "Medium"
+msgstr ""
+
+#: inc/widgets/button/button.php:170
 msgid "Large"
 msgstr ""
 
-#: inc/widgets/button/button.php:175
+#: inc/widgets/button/button.php:176
 msgid "Rounding"
 msgstr ""
 
-#: inc/widgets/button/button.php:178
+#: inc/widgets/button/button.php:179
 msgid "Very Rounded"
 msgstr ""
 
@@ -2802,7 +2869,7 @@ msgstr ""
 #: inc/widgets/carousel-post/carousel-post.php:24
 #: inc/widgets/courses/courses.php:47
 #: inc/widgets/gallery-posts/gallery-posts.php:25
-#: inc/widgets/list-post/list-post.php:35 inc/widgets/our-team/our-team.php:20
+#: inc/widgets/list-post/list-post.php:36 inc/widgets/our-team/our-team.php:20
 msgid "Select Category"
 msgstr ""
 
@@ -2818,14 +2885,16 @@ msgstr ""
 #: inc/widgets/carousel-post/carousel-post.php:40
 #: inc/widgets/course-categories/course-categories.php:62
 #: inc/widgets/courses/courses.php:130
+#: inc/widgets/testimonials/testimonials.php:81
 msgid "Show Navigation"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:49
 #: inc/widgets/course-categories/course-categories.php:57
 #: inc/widgets/courses/courses.php:125
-#: inc/widgets/gallery-images/gallery-images.php:41
+#: inc/widgets/gallery-images/gallery-images.php:51
 #: inc/widgets/one-course-instructors/one-course-instructors.php:23
+#: inc/widgets/testimonials/testimonials.php:76
 msgid "Show Pagination"
 msgstr ""
 
@@ -2833,6 +2902,7 @@ msgstr ""
 #: inc/widgets/course-categories/course-categories.php:82
 #: inc/widgets/courses/courses.php:148
 #: inc/widgets/one-course-instructors/one-course-instructors.php:32
+#: inc/widgets/testimonials/testimonials.php:86
 msgid "Auto Play Speed (in ms)"
 msgstr ""
 
@@ -2840,38 +2910,39 @@ msgstr ""
 #: inc/widgets/course-categories/course-categories.php:83
 #: inc/widgets/courses/courses.php:149
 #: inc/widgets/one-course-instructors/one-course-instructors.php:33
+#: inc/widgets/testimonials/testimonials.php:87
 msgid "Set 0 to disable auto play."
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:64
 #: inc/widgets/carousel-post/carousel-post.php:74
-#: inc/widgets/list-post/list-post.php:61
-#: inc/widgets/list-post/list-post.php:71
+#: inc/widgets/list-post/list-post.php:62
+#: inc/widgets/list-post/list-post.php:72
 msgid "Order by"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:66
-#: inc/widgets/courses/courses.php:35 inc/widgets/list-post/list-post.php:63
+#: inc/widgets/courses/courses.php:35 inc/widgets/list-post/list-post.php:64
 msgid "Popular"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:67
-#: inc/widgets/list-post/list-post.php:64
+#: inc/widgets/list-post/list-post.php:65
 msgid "Recent"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:69
-#: inc/widgets/list-post/list-post.php:66
+#: inc/widgets/list-post/list-post.php:67
 msgid "Random"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:76
-#: inc/widgets/list-post/list-post.php:73
+#: inc/widgets/list-post/list-post.php:74
 msgid "ASC"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:77
-#: inc/widgets/list-post/list-post.php:74
+#: inc/widgets/list-post/list-post.php:75
 msgid "DESC"
 msgstr ""
 
@@ -2944,24 +3015,24 @@ msgid "Black"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:63
-#: inc/widgets/heading/heading.php:122
+#: inc/widgets/heading/heading.php:123
 msgid "Text Align"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:65
-#: inc/widgets/heading/heading.php:124 inc/widgets/icon-box/icon-box.php:479
+#: inc/widgets/heading/heading.php:125 inc/widgets/icon-box/icon-box.php:479
 #: inc/widgets/icon-box/icon-box.php:966
 msgid "Text Left"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:66
-#: inc/widgets/heading/heading.php:125 inc/widgets/icon-box/icon-box.php:481
+#: inc/widgets/heading/heading.php:126 inc/widgets/icon-box/icon-box.php:481
 #: inc/widgets/icon-box/icon-box.php:968
 msgid "Text Center"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:67
-#: inc/widgets/heading/heading.php:126 inc/widgets/icon-box/icon-box.php:480
+#: inc/widgets/heading/heading.php:127 inc/widgets/icon-box/icon-box.php:480
 #: inc/widgets/icon-box/icon-box.php:967
 msgid "Text Right"
 msgstr ""
@@ -3003,7 +3074,7 @@ msgid "Counter Style"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:62
-#: inc/widgets/list-post/list-post.php:90
+#: inc/widgets/list-post/list-post.php:91
 msgid "Home Page"
 msgstr ""
 
@@ -3016,8 +3087,8 @@ msgid "Number Left"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:71
-#: inc/widgets/gallery-images/gallery-images.php:59
-#: inc/widgets/heading/heading.php:131 inc/widgets/icon-box/icon-box.php:533
+#: inc/widgets/gallery-images/gallery-images.php:69
+#: inc/widgets/heading/heading.php:132 inc/widgets/icon-box/icon-box.php:533
 #: inc/widgets/icon-box/icon-box.php:1020 inc/widgets/our-team/our-team.php:55
 #: inc/widgets/single-images/single-images.php:55
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:130
@@ -3025,8 +3096,8 @@ msgid "CSS Animation"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:74
-#: inc/widgets/gallery-images/gallery-images.php:62
-#: inc/widgets/heading/heading.php:134 inc/widgets/icon-box/icon-box.php:536
+#: inc/widgets/gallery-images/gallery-images.php:72
+#: inc/widgets/heading/heading.php:135 inc/widgets/icon-box/icon-box.php:536
 #: inc/widgets/icon-box/icon-box.php:1023 inc/widgets/our-team/our-team.php:58
 #: inc/widgets/single-images/single-images.php:58
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:133
@@ -3034,8 +3105,8 @@ msgid "Top to bottom"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:75
-#: inc/widgets/gallery-images/gallery-images.php:63
-#: inc/widgets/heading/heading.php:135 inc/widgets/icon-box/icon-box.php:537
+#: inc/widgets/gallery-images/gallery-images.php:73
+#: inc/widgets/heading/heading.php:136 inc/widgets/icon-box/icon-box.php:537
 #: inc/widgets/icon-box/icon-box.php:1024 inc/widgets/our-team/our-team.php:59
 #: inc/widgets/single-images/single-images.php:59
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:134
@@ -3043,8 +3114,8 @@ msgid "Bottom to top"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:76
-#: inc/widgets/gallery-images/gallery-images.php:64
-#: inc/widgets/heading/heading.php:136 inc/widgets/icon-box/icon-box.php:538
+#: inc/widgets/gallery-images/gallery-images.php:74
+#: inc/widgets/heading/heading.php:137 inc/widgets/icon-box/icon-box.php:538
 #: inc/widgets/icon-box/icon-box.php:1025 inc/widgets/our-team/our-team.php:60
 #: inc/widgets/single-images/single-images.php:60
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:135
@@ -3052,8 +3123,8 @@ msgid "Left to right"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:77
-#: inc/widgets/gallery-images/gallery-images.php:65
-#: inc/widgets/heading/heading.php:137 inc/widgets/icon-box/icon-box.php:539
+#: inc/widgets/gallery-images/gallery-images.php:75
+#: inc/widgets/heading/heading.php:138 inc/widgets/icon-box/icon-box.php:539
 #: inc/widgets/icon-box/icon-box.php:1026 inc/widgets/our-team/our-team.php:61
 #: inc/widgets/single-images/single-images.php:61
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:136
@@ -3061,8 +3132,8 @@ msgid "Right to left"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:78
-#: inc/widgets/gallery-images/gallery-images.php:66
-#: inc/widgets/heading/heading.php:138 inc/widgets/icon-box/icon-box.php:540
+#: inc/widgets/gallery-images/gallery-images.php:76
+#: inc/widgets/heading/heading.php:139 inc/widgets/icon-box/icon-box.php:540
 #: inc/widgets/icon-box/icon-box.php:1027 inc/widgets/our-team/our-team.php:62
 #: inc/widgets/single-images/single-images.php:62
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:137
@@ -3137,6 +3208,7 @@ msgid "Category"
 msgstr ""
 
 #: inc/widgets/courses/courses.php:59
+#: inc/widgets/testimonials/testimonials.php:24
 msgid "Widget Layout"
 msgstr ""
 
@@ -3294,11 +3366,13 @@ msgid "Add gallery image"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:20
+#: inc/widgets/landing-image/landing-image.php:25
 #: inc/widgets/single-images/single-images.php:20
 msgid "Image"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:21
+#: inc/widgets/landing-image/landing-image.php:26
 #: inc/widgets/single-images/single-images.php:21
 msgid "Select image from media library."
 msgstr ""
@@ -3325,31 +3399,42 @@ msgid ""
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:37
-msgid "Visible Item"
+msgid "Visible Items"
 msgstr ""
 
-#: inc/widgets/gallery-images/gallery-images.php:50
+#: inc/widgets/gallery-images/gallery-images.php:42
+msgid "Tablet Items"
+msgstr ""
+
+#: inc/widgets/gallery-images/gallery-images.php:47
+msgid "Mobile Items"
+msgstr ""
+
+#: inc/widgets/gallery-images/gallery-images.php:60
+#: inc/widgets/landing-image/landing-image.php:34
 #: inc/widgets/single-images/single-images.php:36
-#: inc/widgets/social/social.php:56
+#: inc/widgets/social/social.php:61
 msgid "Link Target"
 msgstr ""
 
-#: inc/widgets/gallery-images/gallery-images.php:52
+#: inc/widgets/gallery-images/gallery-images.php:62
+#: inc/widgets/landing-image/landing-image.php:36
 #: inc/widgets/single-images/single-images.php:38
-#: inc/widgets/social/social.php:58
+#: inc/widgets/social/social.php:63
 msgid "Same window"
 msgstr ""
 
-#: inc/widgets/gallery-images/gallery-images.php:53
+#: inc/widgets/gallery-images/gallery-images.php:63
+#: inc/widgets/landing-image/landing-image.php:37
 #: inc/widgets/single-images/single-images.php:39
-#: inc/widgets/social/social.php:59
+#: inc/widgets/social/social.php:64
 msgid "New window"
 msgstr ""
 
 #: inc/widgets/gallery-posts/gallery-posts.php:7
-#: inc/widgets/gallery-posts/tpl/base.php:72
+#: inc/widgets/gallery-posts/tpl/base.php:74
 #: inc/widgets/portfolio/portfolio.php:35
-#: inc/widgets/portfolio/tpl/base.php:151 portfolio/archive-portfolio.php:109
+#: inc/widgets/portfolio/tpl/base.php:153 portfolio/archive-portfolio.php:109
 #: woocommerce/archive-product.php:59
 msgid "All"
 msgstr ""
@@ -3379,7 +3464,7 @@ msgid "Get Map By"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:24
-#: tp-event/content-single-event.php:67
+#: tp-event/content-single-event.php:69
 msgid "Address"
 msgstr ""
 
@@ -3475,6 +3560,7 @@ msgid "Thim: Heading"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:10
+#: inc/widgets/landing-image/landing-image.php:11
 #: inc/widgets/single-images/single-images.php:11
 msgid "Add heading text"
 msgstr ""
@@ -3483,126 +3569,126 @@ msgstr ""
 msgid "Default value"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:24
+#: inc/widgets/heading/heading.php:25
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:31
 msgid "Text Heading color"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:28 inc/widgets/icon-box/icon-box.php:46
+#: inc/widgets/heading/heading.php:29 inc/widgets/icon-box/icon-box.php:46
 #: inc/widgets/icon-box/icon-box.php:568
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:36
 msgid "Size Heading"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:30 inc/widgets/icon-box/icon-box.php:49
+#: inc/widgets/heading/heading.php:31 inc/widgets/icon-box/icon-box.php:49
 #: inc/widgets/icon-box/icon-box.php:571
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:39
 msgid "h2"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:31 inc/widgets/icon-box/icon-box.php:50
+#: inc/widgets/heading/heading.php:32 inc/widgets/icon-box/icon-box.php:50
 #: inc/widgets/icon-box/icon-box.php:572
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:40
 msgid "h3"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:32 inc/widgets/icon-box/icon-box.php:51
+#: inc/widgets/heading/heading.php:33 inc/widgets/icon-box/icon-box.php:51
 #: inc/widgets/icon-box/icon-box.php:573
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:41
 msgid "h4"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:33 inc/widgets/icon-box/icon-box.php:52
+#: inc/widgets/heading/heading.php:34 inc/widgets/icon-box/icon-box.php:52
 #: inc/widgets/icon-box/icon-box.php:574
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:42
 msgid "h5"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:34 inc/widgets/icon-box/icon-box.php:53
+#: inc/widgets/heading/heading.php:35 inc/widgets/icon-box/icon-box.php:53
 #: inc/widgets/icon-box/icon-box.php:575
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:43
 msgid "h6"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:40
+#: inc/widgets/heading/heading.php:41
 msgid "Sub Heading"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:44
+#: inc/widgets/heading/heading.php:45
 msgid "Sub heading color"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:48 inc/widgets/icon-box/icon-box.php:59
+#: inc/widgets/heading/heading.php:49 inc/widgets/icon-box/icon-box.php:59
 #: inc/widgets/icon-box/icon-box.php:581
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:49
 msgid "Font Heading"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:54 inc/widgets/icon-box/icon-box.php:64
+#: inc/widgets/heading/heading.php:55 inc/widgets/icon-box/icon-box.php:64
 #: inc/widgets/icon-box/icon-box.php:586
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:55
 msgid "Select Font heading."
 msgstr ""
 
-#: inc/widgets/heading/heading.php:62
+#: inc/widgets/heading/heading.php:63
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:64
 msgid "Custom Font Heading"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:74 inc/widgets/icon-box/icon-box.php:84
+#: inc/widgets/heading/heading.php:75 inc/widgets/icon-box/icon-box.php:84
 #: inc/widgets/icon-box/icon-box.php:606
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:77
 msgid "custom font size"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:79 inc/widgets/icon-box/icon-box.php:89
+#: inc/widgets/heading/heading.php:80 inc/widgets/icon-box/icon-box.php:89
 #: inc/widgets/icon-box/icon-box.php:151 inc/widgets/icon-box/icon-box.php:611
 #: inc/widgets/icon-box/icon-box.php:673
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:82
 msgid "Custom Font Weight"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:93 inc/widgets/icon-box/icon-box.php:104
+#: inc/widgets/heading/heading.php:94 inc/widgets/icon-box/icon-box.php:104
 #: inc/widgets/icon-box/icon-box.php:166 inc/widgets/icon-box/icon-box.php:626
 #: inc/widgets/icon-box/icon-box.php:688
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:96
 msgid "Select Custom Font Weight"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:98
+#: inc/widgets/heading/heading.php:99
 msgid "Custom Font Style"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:100
+#: inc/widgets/heading/heading.php:101
 msgid "inherit"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:101
+#: inc/widgets/heading/heading.php:102
 msgid "initial"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:102
+#: inc/widgets/heading/heading.php:103
 msgid "italic"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:103
+#: inc/widgets/heading/heading.php:104
 msgid "normal"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:104
+#: inc/widgets/heading/heading.php:105
 msgid "oblique"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:106
+#: inc/widgets/heading/heading.php:107
 msgid "Select Custom Font Style"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:113 inc/widgets/icon-box/icon-box.php:124
+#: inc/widgets/heading/heading.php:114 inc/widgets/icon-box/icon-box.php:124
 #: inc/widgets/icon-box/icon-box.php:646
 msgid "Show Separator"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:118
+#: inc/widgets/heading/heading.php:119
 msgid "Color Line"
 msgstr ""
 
@@ -3776,6 +3862,7 @@ msgid "Font Icomoon Icon"
 msgstr ""
 
 #: inc/widgets/icon-box/icon-box.php:276 inc/widgets/icon-box/icon-box.php:796
+#: inc/widgets/list-post/list-post.php:8
 msgid "Custom Image"
 msgstr ""
 
@@ -3933,6 +4020,14 @@ msgstr ""
 msgid "Select cover image"
 msgstr ""
 
+#: inc/widgets/landing-image/landing-image.php:9
+msgid "Thim: Landing Image"
+msgstr ""
+
+#: inc/widgets/landing-image/landing-image.php:30
+msgid "Link"
+msgstr ""
+
 #: inc/widgets/list-event/list-event.php:8
 msgid "Thim: List Events "
 msgstr ""
@@ -3957,39 +4052,39 @@ msgstr ""
 msgid "No Image"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:19
+#: inc/widgets/list-post/list-post.php:20
 msgid "Thim: List Posts"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:21
+#: inc/widgets/list-post/list-post.php:22
 msgid "Display list posts"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:31
+#: inc/widgets/list-post/list-post.php:32
 msgid "From Blog"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:41
+#: inc/widgets/list-post/list-post.php:42
 msgid "Select Image Size"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:47
+#: inc/widgets/list-post/list-post.php:48
 msgid "Show Description"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:56
+#: inc/widgets/list-post/list-post.php:57
 msgid "Number Post"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:79
+#: inc/widgets/list-post/list-post.php:80
 msgid "Link All Post"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:83 inc/widgets/our-team/our-team.php:31
-msgid "Text Link"
+#: inc/widgets/list-post/list-post.php:84
+msgid "Text Read More"
 msgstr ""
 
-#: inc/widgets/list-post/list-post.php:89
+#: inc/widgets/list-post/list-post.php:90
 msgid "No Style"
 msgstr ""
 
@@ -4009,156 +4104,162 @@ msgstr ""
 msgid "Use captcha in register form"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:6
+#: inc/widgets/login-form/tpl/base.php:7
 #, php-format
 msgid "You have logged in. You better go to <a href=\"%s\">Home</a>"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:12
+#: inc/widgets/login-form/tpl/base.php:14
 msgid "Invalid username or password. Please try again!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:18
+#: inc/widgets/login-form/tpl/base.php:20
 msgid "Please enter a username!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:21
+#: inc/widgets/login-form/tpl/base.php:23
 msgid "Please type your e-mail address!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:24
+#: inc/widgets/login-form/tpl/base.php:26
 msgid "This username is already registered. Please choose another one!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:27
+#: inc/widgets/login-form/tpl/base.php:29
 msgid "This email is already registered. Please choose another one!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:30
+#: inc/widgets/login-form/tpl/base.php:32
 msgid "The email address isn't correct. Please try again!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:33
+#: inc/widgets/login-form/tpl/base.php:35
 msgid "The username is invalid. Please try again!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:36
+#: inc/widgets/login-form/tpl/base.php:38
 #: inc/widgets/login-menu/login-menu.php:24
-#: woocommerce/myaccount/form-login.php:88
-#: woocommerce/myaccount/form-login.php:136
+#: woocommerce/myaccount/form-login.php:89
+#: woocommerce/myaccount/form-login.php:137
 msgid "Register"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:68
+#: inc/widgets/login-form/tpl/base.php:70
 msgid "Sign up"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:71
+#: inc/widgets/login-form/tpl/base.php:73
 msgid "Are you a member? "
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:71
-#: woocommerce/myaccount/form-login.php:141
+#: inc/widgets/login-form/tpl/base.php:73
+#: woocommerce/myaccount/form-login.php:142
 msgid "Login now"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:76
+#: inc/widgets/login-form/tpl/base.php:78
 msgid "Your site does not allow users registration."
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:84
+#: inc/widgets/login-form/tpl/base.php:86
 msgid "Please enter a username or email!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:87
+#: inc/widgets/login-form/tpl/base.php:89
 msgid "The user does not exist. Please try again!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:91
-#: woocommerce/myaccount/form-lost-password.php:26
+#: inc/widgets/login-form/tpl/base.php:93
+#: woocommerce/myaccount/form-lost-password.php:27
 msgid "Get Your Password"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:94
-#: woocommerce/myaccount/form-lost-password.php:31
+#: inc/widgets/login-form/tpl/base.php:96
+#: woocommerce/myaccount/form-lost-password.php:32
 msgid ""
 "Lost your password? Please enter your username or email address. You will "
 "receive a link to create a new password via email."
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:96
-#: inc/widgets/login-form/tpl/base.php:159 tp-event-auth/auths/login.php:18
-#: woocommerce/myaccount/form-lost-password.php:34
+#: inc/widgets/login-form/tpl/base.php:99
+#: inc/widgets/login-form/tpl/base.php:166
+#: inc/widgets/login-popup/tpl/base.php:37 tp-event-auth/auths/login.php:18
+#: woocommerce/myaccount/form-lost-password.php:35
 msgid "Username or email"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:98
+#: inc/widgets/login-form/tpl/base.php:101
 msgid "Reset password"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:109
+#: inc/widgets/login-form/tpl/base.php:112
 msgid "The key is expired. Please try again!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:112
+#: inc/widgets/login-form/tpl/base.php:115
 msgid "The key is invalid. Please try again!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:115
+#: inc/widgets/login-form/tpl/base.php:118
 msgid "The password is invalid. Please try again!"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:119
+#: inc/widgets/login-form/tpl/base.php:122
 msgid "Change Password"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:124
-#: woocommerce/myaccount/form-lost-password.php:44
+#: inc/widgets/login-form/tpl/base.php:129
+#: woocommerce/myaccount/form-lost-password.php:45
 msgid "New password"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:127
-#: woocommerce/myaccount/form-lost-password.php:36
-#: woocommerce/myaccount/form-lost-password.php:47
+#: inc/widgets/login-form/tpl/base.php:133
+#: woocommerce/myaccount/form-lost-password.php:37
+#: woocommerce/myaccount/form-lost-password.php:48
 msgid "Reset Password"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:137
+#: inc/widgets/login-form/tpl/base.php:144
 msgid "Registration is successful. Confirmation will be e-mailed to you."
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:142
+#: inc/widgets/login-form/tpl/base.php:149
 msgid "Check your email to get a link to create a new password."
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:147
+#: inc/widgets/login-form/tpl/base.php:154
 #, php-format
 msgid "Password changed. You can <a href=\"%s\">login</a> now."
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:154 tp-event-auth/auths/login.php:13
+#: inc/widgets/login-form/tpl/base.php:161
+#: inc/widgets/login-popup/tpl/base.php:32 tp-event-auth/auths/login.php:13
 msgid "Login with your site account"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:161 tp-event-auth/auths/login.php:20
-#: woocommerce/myaccount/form-login.php:57
+#: inc/widgets/login-form/tpl/base.php:168
+#: inc/widgets/login-popup/tpl/base.php:39 tp-event-auth/auths/login.php:20
+#: woocommerce/myaccount/form-login.php:58
 msgid "Remember me"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:162
+#: inc/widgets/login-form/tpl/base.php:169
 #: inc/widgets/login-menu/login-menu.php:19
+#: inc/widgets/login-popup/tpl/base.php:40
 #: learnpress-v1/checkout/form-login.php:48 tp-event-auth/auths/login.php:21
-#: woocommerce/myaccount/form-login.php:36
-#: woocommerce/myaccount/form-login.php:70
+#: woocommerce/myaccount/form-login.php:37
+#: woocommerce/myaccount/form-login.php:71
 msgid "Login"
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:164 tp-event-auth/auths/login.php:23
+#: inc/widgets/login-form/tpl/base.php:174
+#: inc/widgets/login-popup/tpl/base.php:46 tp-event-auth/auths/login.php:23
 msgid "Not a member yet? "
 msgstr ""
 
-#: inc/widgets/login-form/tpl/base.php:164 tp-event-auth/auths/login.php:23
-#: woocommerce/myaccount/form-login.php:75
+#: inc/widgets/login-form/tpl/base.php:174
+#: inc/widgets/login-popup/tpl/base.php:46 tp-event-auth/auths/login.php:23
+#: woocommerce/myaccount/form-login.php:76
 msgid "Register now"
 msgstr ""
 
@@ -4187,7 +4288,33 @@ msgid "Logout"
 msgstr ""
 
 #: inc/widgets/login-menu/tpl/base.php:5 inc/widgets/login-menu/tpl/base.php:7
+#: inc/widgets/login-popup/tpl/base.php:5
+#: inc/widgets/login-popup/tpl/base.php:7
 msgid "Profile"
+msgstr ""
+
+#: inc/widgets/login-popup/login-popup.php:7
+msgid "Thim: Login Popup"
+msgstr ""
+
+#: inc/widgets/login-popup/login-popup.php:16
+msgid "Register Label"
+msgstr ""
+
+#: inc/widgets/login-popup/login-popup.php:21
+msgid "Login Label"
+msgstr ""
+
+#: inc/widgets/login-popup/login-popup.php:26
+msgid "Logout Label"
+msgstr ""
+
+#: inc/widgets/login-popup/login-popup.php:31
+msgid "Shortcode"
+msgstr ""
+
+#: inc/widgets/login-popup/login-popup.php:32
+msgid "Enter shortcode to show in form Login"
 msgstr ""
 
 #: inc/widgets/one-course-instructors/one-course-instructors.php:7
@@ -4224,6 +4351,10 @@ msgstr ""
 
 #: inc/widgets/our-team/our-team.php:26
 msgid "Number Posts"
+msgstr ""
+
+#: inc/widgets/our-team/our-team.php:31
+msgid "Text Link"
 msgstr ""
 
 #: inc/widgets/our-team/our-team.php:32
@@ -4399,11 +4530,11 @@ msgstr ""
 msgid "Show Read More?"
 msgstr ""
 
-#: inc/widgets/portfolio/tpl/base.php:311
-#: inc/widgets/portfolio/tpl/base.php:329
-#: inc/widgets/portfolio/tpl/base.php:355
-#: inc/widgets/portfolio/tpl/base.php:367
-#: inc/widgets/portfolio/tpl/base.php:400 portfolio/archive-portfolio.php:167
+#: inc/widgets/portfolio/tpl/base.php:319
+#: inc/widgets/portfolio/tpl/base.php:337
+#: inc/widgets/portfolio/tpl/base.php:363
+#: inc/widgets/portfolio/tpl/base.php:375
+#: inc/widgets/portfolio/tpl/base.php:408 portfolio/archive-portfolio.php:167
 msgid "View More"
 msgstr ""
 
@@ -4538,44 +4669,48 @@ msgstr ""
 msgid "id section scoll"
 msgstr ""
 
-#: inc/widgets/social/social.php:9
+#: inc/widgets/social/social.php:10
 msgid "Thim: Social Links"
 msgstr ""
 
-#: inc/widgets/social/social.php:11
+#: inc/widgets/social/social.php:12
 msgid "Social Links"
 msgstr ""
 
-#: inc/widgets/social/social.php:24
+#: inc/widgets/social/social.php:25
 msgid "Facebook Url"
 msgstr ""
 
-#: inc/widgets/social/social.php:28
+#: inc/widgets/social/social.php:29
 msgid "Twitter Url"
 msgstr ""
 
-#: inc/widgets/social/social.php:32
+#: inc/widgets/social/social.php:33
 msgid "Google Url"
 msgstr ""
 
-#: inc/widgets/social/social.php:36
+#: inc/widgets/social/social.php:37
 msgid "Dribble Url"
 msgstr ""
 
-#: inc/widgets/social/social.php:40
+#: inc/widgets/social/social.php:41
 msgid "Linked in Url"
 msgstr ""
 
-#: inc/widgets/social/social.php:44
+#: inc/widgets/social/social.php:45
 msgid "Pinterest Url"
 msgstr ""
 
-#: inc/widgets/social/social.php:48
+#: inc/widgets/social/social.php:49
 msgid "Instagram Url"
 msgstr ""
 
-#: inc/widgets/social/social.php:52
+#: inc/widgets/social/social.php:53
 msgid "Youtube Url"
+msgstr ""
+
+#: inc/widgets/social/social.php:57
+msgid "Snapchat Url"
 msgstr ""
 
 #: inc/widgets/tab/tab.php:8
@@ -4606,18 +4741,16 @@ msgstr ""
 msgid "Show all event with tab"
 msgstr ""
 
-#: inc/widgets/tab-event/tpl/base.php:90 tp-event/archive-event-bak.php:128
-#: tp-event/archive-event.php:41
+#: inc/widgets/tab-event/tpl/base.php:91 tp-event/archive-event.php:41
 msgid "Happening"
 msgstr ""
 
-#: inc/widgets/tab-event/tpl/base.php:91 tp-event/archive-event-bak.php:129
-#: tp-event/archive-event.php:42
+#: inc/widgets/tab-event/tpl/base.php:92 tp-event/archive-event.php:42
 msgid "Upcoming"
 msgstr ""
 
-#: inc/widgets/tab-event/tpl/base.php:92 tp-event/archive-event-bak.php:130
-#: tp-event/archive-event.php:43 tp-event-auth/events/book_form.php:95
+#: inc/widgets/tab-event/tpl/base.php:93 tp-event/archive-event.php:43
+#: tp-event-auth/events/book_form.php:95
 msgid "Expired"
 msgstr ""
 
@@ -4625,24 +4758,32 @@ msgstr ""
 msgid "Thim: Testimonials"
 msgstr ""
 
-#: inc/widgets/testimonials/testimonials.php:24
+#: inc/widgets/testimonials/testimonials.php:27
+msgid "Carousel Slider"
+msgstr ""
+
+#: inc/widgets/testimonials/testimonials.php:37
 msgid "Limit Posts"
 msgstr ""
 
-#: inc/widgets/testimonials/testimonials.php:29
+#: inc/widgets/testimonials/testimonials.php:42
 msgid "Item visible"
 msgstr ""
 
-#: inc/widgets/testimonials/testimonials.php:30
+#: inc/widgets/testimonials/testimonials.php:43
 msgid "Enter odd number"
 msgstr ""
 
-#: inc/widgets/testimonials/testimonials.php:35
+#: inc/widgets/testimonials/testimonials.php:48
 msgid "Auto play"
 msgstr ""
 
-#: inc/widgets/testimonials/testimonials.php:40
+#: inc/widgets/testimonials/testimonials.php:57
 msgid "Mousewheel Scroll"
+msgstr ""
+
+#: inc/widgets/testimonials/testimonials.php:66
+msgid "Carousel Options"
 msgstr ""
 
 #: inc/widgets/thim-recent-comments/thim-recent-comments.php:9
@@ -4669,6 +4810,71 @@ msgstr ""
 msgid "Number Comments"
 msgstr ""
 
+#: inc/widgets/timetable/timetable.php:9
+msgid "Thim: Timetable"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:11
+msgid "Display Timetable"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:25
+msgid "Timetable Item"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:30
+#: inc/widgets/timetable/timetable.php:31
+msgid "Course Title"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:36
+msgid "Time Activity"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:37
+msgid "8:00 AM - 10:00 AM"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:42
+msgid "Teacher Name"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:43
+msgid "Mr John Doe"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:48
+msgid "Location"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:49
+msgid "Playground"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:59
+msgid "Background Hover Color"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:64
+msgid "Color Style"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:67
+msgid "Light"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:68
+msgid "Dark"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:69
+msgid "Gray"
+msgstr ""
+
+#: inc/widgets/timetable/timetable.php:71
+msgid "Select Color Style."
+msgstr ""
+
 #: inc/widgets/video/video.php:9
 msgid "Thim: Video"
 msgstr ""
@@ -4683,7 +4889,7 @@ msgstr ""
 
 #: inc/widgets/video/video.php:20
 #, php-format
-msgid "Enter width video. Example 100% or 600. "
+msgid "Enter width of video. Example 100% or 600. "
 msgstr ""
 
 #: inc/widgets/video/video.php:24
@@ -4692,17 +4898,39 @@ msgstr ""
 
 #: inc/widgets/video/video.php:25
 #, php-format
-msgid "Enter height video. Example 100% or 600."
+msgid "Enter height of video. Example 100% or 600."
 msgstr ""
 
 #: inc/widgets/video/video.php:29
+msgid "Video Source"
+msgstr ""
+
+#: inc/widgets/video/video.php:31
+msgid "Vimeo"
+msgstr ""
+
+#: inc/widgets/video/video.php:32
+msgid "Youtube"
+msgstr ""
+
+#: inc/widgets/video/video.php:42
 msgid "Vimeo Video ID"
 msgstr ""
 
-#: inc/widgets/video/video.php:30
+#: inc/widgets/video/video.php:43
 msgid ""
 "Enter vimeo video ID . Example if link video https://player.vimeo.com/"
 "video/61389324 then video ID is 61389324 "
+msgstr ""
+
+#: inc/widgets/video/video.php:52
+msgid "Youtube Video ID"
+msgstr ""
+
+#: inc/widgets/video/video.php:53
+msgid ""
+"Enter Youtube video ID . Example if link video https://www.youtube.com/watch?"
+"v=orl1nVy4I6s then video ID is orl1nVy4I6s "
 msgstr ""
 
 #: inc/widgets/video/tpl/default.php:31
@@ -4719,19 +4947,19 @@ msgstr ""
 msgid "Showing only one result"
 msgstr ""
 
-#: learnpress/archive-course.php:31 learnpress-v1/archive-course.php:42
+#: learnpress/archive-course.php:31 learnpress-v1/archive-course.php:43
 #: learnpress-v1/addons/collections/archive-collection-course.php:30
 #, php-format
 msgid "Showing last course of %s results"
 msgstr ""
 
-#: learnpress/archive-course.php:36 learnpress-v1/archive-course.php:47
+#: learnpress/archive-course.php:36 learnpress-v1/archive-course.php:48
 #: learnpress-v1/addons/collections/archive-collection-course.php:35
 #, php-format
 msgid "Showing %s-%s of %s results"
 msgstr ""
 
-#: learnpress/archive-course.php:57 learnpress-v1/archive-course.php:76
+#: learnpress/archive-course.php:57 learnpress-v1/archive-course.php:77
 msgid "Search our courses"
 msgstr ""
 
@@ -4787,7 +5015,7 @@ msgid "Take this course"
 msgstr ""
 
 #: learnpress/course/enroll-button.php:15
-#: learnpress-v1/global/become-teacher-form.php:58
+#: learnpress-v1/global/become-teacher-form.php:57
 #: learnpress-v1/single-course/enroll-button.php:59
 msgid "Processing"
 msgstr ""
@@ -4831,12 +5059,12 @@ msgid "Check out"
 msgstr ""
 
 #: learnpress/global/become-teacher-form.php:12
-#: learnpress-v1/global/become-teacher-form.php:16
+#: learnpress-v1/global/become-teacher-form.php:15
 msgid "Register to become a teacher"
 msgstr ""
 
 #: learnpress/global/become-teacher-form.php:14
-#: learnpress-v1/global/become-teacher-form.php:18
+#: learnpress-v1/global/become-teacher-form.php:17
 #, php-format
 msgid "You have to <a href=\"%s\">login</a> to fill out this form"
 msgstr ""
@@ -4974,17 +5202,41 @@ msgstr ""
 msgid "No course found!"
 msgstr ""
 
+#: learnpress-v1/addons/paid-membership-pro/courses.php:32
+#: learnpress-v1/addons/paid-membership-pro/courses.php:48
+#, php-format
+msgid "per %d %s."
+msgstr ""
+
+#: learnpress-v1/addons/paid-membership-pro/courses.php:88
+msgid "No courses!"
+msgstr ""
+
+#: learnpress-v1/addons/paid-membership-pro/courses.php:94
+msgid "GET IT NOW"
+msgstr ""
+
+#: learnpress-v1/addons/paid-membership-pro/courses.php:100
+msgid "Renew"
+msgstr ""
+
+#: learnpress-v1/addons/paid-membership-pro/courses.php:104
+msgid "Your Level"
+msgstr ""
+
+#: learnpress-v1/addons/paid-membership-pro/courses.php:119
+msgid "Return to Your Account"
+msgstr ""
+
 #: learnpress-v1/addons/wishlist/user-wishlist.php:18
 msgid "Favorite Courses"
 msgstr ""
 
 #: learnpress-v1/cart/empty-cart.php:12
-#: learnpress-v1/checkout/empty-cart_.php:12
 msgid "Your cart is currently empty."
 msgstr ""
 
 #: learnpress-v1/cart/empty-cart.php:16
-#: learnpress-v1/checkout/empty-cart_.php:16
 msgid "Back to class"
 msgstr ""
 
@@ -5003,7 +5255,6 @@ msgid "Quantity"
 msgstr ""
 
 #: learnpress-v1/cart/form.php:34 learnpress-v1/cart/form.php:118
-#: learnpress-v1/checkout/order-received_.php:32
 #: learnpress-v1/checkout/review-order.php:26
 #: learnpress-v1/checkout/review-order.php:65
 #: learnpress-v1/order/order-details.php:18
@@ -5074,29 +5325,6 @@ msgstr ""
 msgid "ADDITIONAL INFORMATION"
 msgstr ""
 
-#: learnpress-v1/checkout/order-received_.php:16
-#: learnpress-v1/checkout/order-received_.php:52
-#: learnpress-v1/order/confirm.php:32 learnpress-v1/order/confirm.php:67
-msgid "Thank you. Your order has been received."
-msgstr ""
-
-#: learnpress-v1/checkout/order-received_.php:20
-msgid "Order Number"
-msgstr ""
-
-#: learnpress-v1/checkout/order-received_.php:39
-#: learnpress-v1/checkout/payment_.php:14
-msgid "Payment Method"
-msgstr ""
-
-#: learnpress-v1/checkout/payment_.php:15
-msgid "Place order"
-msgstr ""
-
-#: learnpress-v1/checkout/payment_.php:30
-msgid "No available payment methods."
-msgstr ""
-
 #: learnpress-v1/checkout/review-order.php:14
 msgid "YOUR ORDER"
 msgstr ""
@@ -5135,6 +5363,10 @@ msgstr ""
 msgid "My Account"
 msgstr ""
 
+#: learnpress-v1/order/confirm.php:32 learnpress-v1/order/confirm.php:67
+msgid "Thank you. Your order has been received."
+msgstr ""
+
 #: learnpress-v1/order/confirm.php:36
 msgid "Order Number:"
 msgstr ""
@@ -5161,6 +5393,10 @@ msgstr ""
 
 #: learnpress-v1/order/order-details.php:37
 msgid "Free!"
+msgstr ""
+
+#: learnpress-v1/profile/info.php:47
+msgid "Edit Profile"
 msgstr ""
 
 #: learnpress-v1/profile/private-area.php:8
@@ -5322,7 +5558,7 @@ msgid "The theme has not supported archive template yet."
 msgstr ""
 
 #: our-team/single-our-team.php:62
-msgid "Other Member"
+msgid "Other Members"
 msgstr ""
 
 #: portfolio/type/content-portfolio.php:44
@@ -5347,16 +5583,16 @@ msgstr ""
 msgid "Project description"
 msgstr ""
 
-#: tp-event/content-single-event.php:49
+#: tp-event/content-single-event.php:51
 msgid "Start Time"
 msgstr ""
 
-#: tp-event/content-single-event.php:58
+#: tp-event/content-single-event.php:60
 msgid "Finish Time"
 msgstr ""
 
-#: tp-event/content-single-event.php:78
-msgid "Who come with us?"
+#: tp-event/content-single-event.php:80
+msgid "Event Participants"
 msgstr ""
 
 #: tp-event-auth/auths/my-account.php:21
@@ -5382,15 +5618,15 @@ msgid "Buy Ticket"
 msgstr ""
 
 #: tp-event-auth/events/book_form.php:39
-msgid "Total Slot"
+msgid "Total Slots"
 msgstr ""
 
 #: tp-event-auth/events/book_form.php:43
-msgid "Booked Time"
+msgid "Booked Times"
 msgstr ""
 
 #: tp-event-auth/events/book_form.php:47
-msgid "Booked Slot"
+msgid "Booked Slots"
 msgstr ""
 
 #: tp-event-auth/events/book_form.php:52
@@ -5402,6 +5638,10 @@ msgid "Pay with"
 msgstr ""
 
 #: tp-event-auth/events/book_form.php:97
+msgid "Sold Out"
+msgstr ""
+
+#: tp-event-auth/events/book_form.php:99
 msgid "Book Now"
 msgstr ""
 
@@ -5409,51 +5649,51 @@ msgstr ""
 msgid "View Detail"
 msgstr ""
 
-#: woocommerce/product-searchform.php:3
+#: woocommerce/product-searchform.php:28
 msgctxt "placeholder"
 msgid "Search Products&hellip;"
 msgstr ""
 
-#: woocommerce/product-searchform.php:3
+#: woocommerce/product-searchform.php:28
 msgctxt "label"
 msgid "Search for:"
 msgstr ""
 
-#: woocommerce/product-searchform.php:5
+#: woocommerce/product-searchform.php:29
 msgctxt "submit button"
 msgid "Search"
 msgstr ""
 
-#: woocommerce/myaccount/form-login.php:43
+#: woocommerce/myaccount/form-login.php:44
 msgid "Username or email address"
 msgstr ""
 
-#: woocommerce/myaccount/form-login.php:74
+#: woocommerce/myaccount/form-login.php:75
 msgid "Not a member yet?"
 msgstr ""
 
-#: woocommerce/myaccount/form-login.php:105
+#: woocommerce/myaccount/form-login.php:106
 msgid "Email address"
 msgstr ""
 
-#: woocommerce/myaccount/form-login.php:120
+#: woocommerce/myaccount/form-login.php:121
 msgid "Anti-spam"
 msgstr ""
 
-#: woocommerce/myaccount/form-login.php:140
+#: woocommerce/myaccount/form-login.php:141
 msgid "Are you a member?"
 msgstr ""
 
-#: woocommerce/myaccount/form-lost-password.php:36
-#: woocommerce/myaccount/form-lost-password.php:47
+#: woocommerce/myaccount/form-lost-password.php:37
+#: woocommerce/myaccount/form-lost-password.php:48
 msgid "Save"
 msgstr ""
 
-#: woocommerce/myaccount/form-lost-password.php:41
+#: woocommerce/myaccount/form-lost-password.php:42
 msgid "Enter a new password below."
 msgstr ""
 
-#: woocommerce/myaccount/form-lost-password.php:45
+#: woocommerce/myaccount/form-lost-password.php:46
 msgid "Re-enter new password"
 msgstr ""
 
@@ -5473,15 +5713,15 @@ msgstr[1] ""
 msgid "Related Products"
 msgstr ""
 
-#: woocommerce/single-product/review.php:39
+#: woocommerce/single-product/review.php:40
 msgid "Your comment is awaiting approval"
 msgstr ""
 
-#: woocommerce/single-product/review.php:49
+#: woocommerce/single-product/review.php:50
 msgid "verified owner"
 msgstr ""
 
-#: woocommerce/single-product/review.php:59
+#: woocommerce/single-product/review.php:60
 #, php-format
 msgid "Rated %d out of 5"
 msgstr ""

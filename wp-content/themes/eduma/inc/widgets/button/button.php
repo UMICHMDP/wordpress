@@ -165,6 +165,7 @@ class Thim_Button_Widget extends Thim_Widget {
 							'label'   => esc_html__( 'Button Size', 'eduma' ),
 							'options' => array(
 								'normal' => esc_html__( 'Normal', 'eduma' ),
+								'small'  => esc_html__( 'Small', 'eduma' ),
 								'medium' => esc_html__( 'Medium', 'eduma' ),
 								'large'  => esc_html__( 'Large', 'eduma' ),
 							),

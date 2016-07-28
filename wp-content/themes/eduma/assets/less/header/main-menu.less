@@ -26,6 +26,7 @@
             .wrapper-container.mobile-menu-open & {
                 .translate(0, 0);
             }
+            body.thim-popup-active &,
             body.thim-search-active & {
                 -webkit-transform: none;
                 -moz-transform: none;
@@ -36,6 +37,7 @@
     }
 }
 
+body.thim-popup-active,
 body.thim-search-active {
     #masthead {
         -webkit-transform: none;
@@ -1040,6 +1042,7 @@ body.thim-search-active {
     ul{
         li{
             >div{
+                &.thim-widget-login-popup,
                 &.thim-widget-login-menu{
                     padding-top: 5px;
                     padding-bottom: 23px;
@@ -1237,7 +1240,6 @@ body.thim-search-active {
             .search-field{
                 height: 34px;
                 line-height: 32px;
-                border: 0;
                 color: #ddd;
                 font-style: italic;
                 padding-right: 40px;
@@ -1259,4 +1261,13 @@ body.thim-search-active {
             color: #ddd;
         }
     }
+}
+
+.menu-main-menu li ul.sub-menu:not(.megacol) li.menu-item-has-children:before{
+    content: "\f107";
+    font-family: FontAwesome;
+    position: absolute;
+    right: -15px;
+    top: 5px;
+    line-height: 32px;
 }

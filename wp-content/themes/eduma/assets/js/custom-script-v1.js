@@ -5,7 +5,7 @@ var woof_js_after_ajax_done;
 //}
 (function ($) {
 	"use strict";
-	if( typeof LearnPress != 'undefined' ) {
+	if (typeof LearnPress != 'undefined') {
 		if (typeof LearnPress.load_lesson == 'undefined') {
 			LearnPress.load_lesson = function (a, b) {
 				LearnPress.$Course && LearnPress.$Course.loadLesson(a, b);
@@ -253,7 +253,7 @@ var woof_js_after_ajax_done;
 
 		if ($(window).width() > 768) {
 			//Magic Line
-			var menu_active = $('#masthead .navbar-nav>li.menu-item.current-menu-item,#masthead .navbar-nav>li.menu-item.current-menu-parent');
+			var menu_active = $('#masthead .navbar-nav>li.menu-item.current-menu-item,#masthead .navbar-nav>li.menu-item.current-menu-parent, #masthead .navbar-nav>li.menu-item.current-menu-ancestor');
 			if (menu_active.length > 0) {
 				menu_active.before('<span id="magic-line"></span>');
 				var menu_active_child = menu_active.find('>a,>span.disable_link'),
@@ -298,9 +298,15 @@ var woof_js_after_ajax_done;
 		//Update position for sub-menu
 		$('.header_v1 .menu-item.widget_area:not(.dropdown_full_width),.header_v1 .menu-item.multicolumn:not(.dropdown_full_width)').each(function () {
 			var elem = $(this),
+				elem_Left = elem.offset().left,
 				sub_menu = elem.find('>.sub-menu');
 			if (sub_menu.length > 0) {
-				sub_menu.css('left', ( elem.width() - sub_menu.width() ) / 2);
+				var left = ( elem.width() - sub_menu.width() ) / 2;
+				if (Math.abs(left) > elem_Left) {
+					sub_menu.css('left', elem_Left * Math.abs(left) / left);
+				} else {
+					sub_menu.css('left', left);
+				}
 			}
 		});
 
@@ -359,7 +365,11 @@ var woof_js_after_ajax_done;
 				$('.loading').remove();
 				$('.product-card .wrapper').removeClass('animate');
 				setTimeout(function () {
-					$('.product-lightbox form').wc_variation_form();
+					if (typeof wc_add_to_cart_variation_params !== 'undefined') {
+						$('.product-info .variations_form').each(function () {
+							$(this).wc_variation_form().find('.variations select:eq(0)').change();
+						});
+					}
 				}, 600);
 			});
 			e.preventDefault();
@@ -367,16 +377,16 @@ var woof_js_after_ajax_done;
 	};
 
 	var thim_miniCartHover = function () {
-		jQuery(document).on('mouseenter', '.minicart_hover', function () {
+		jQuery(document).on('mouseenter', '.site-header .minicart_hover', function () {
 			jQuery(this).next('.widget_shopping_cart_content').slideDown();
-		}).on('mouseleave', '.minicart_hover', function () {
+		}).on('mouseleave', '.site-header .minicart_hover', function () {
 			jQuery(this).next('.widget_shopping_cart_content').delay(100).stop(true, false).slideUp();
 		});
 		jQuery(document)
-			.on('mouseenter', '.widget_shopping_cart_content', function () {
+			.on('mouseenter', '.site-header .widget_shopping_cart_content', function () {
 				jQuery(this).stop(true, false).show();
 			})
-			.on('mouseleave', '.widget_shopping_cart_content', function () {
+			.on('mouseleave', '.site-header .widget_shopping_cart_content', function () {
 				jQuery(this).delay(100).stop(true, false).slideUp();
 			});
 	};
@@ -394,20 +404,21 @@ var woof_js_after_ajax_done;
 			$('.thim-carousel-wrapper').each(function () {
 				var item_visible = $(this).data('visible') ? parseInt($(this).data('visible')) : 4,
 					item_desktopsmall = $(this).data('desktopsmall') ? parseInt($(this).data('desktopsmall')) : item_visible,
+					itemsTablet = $(this).data('itemtablet') ? parseInt($(this).data('itemtablet')) : 2,
+					itemsMobile = $(this).data('itemmobile') ? parseInt($(this).data('itemmobile')) : 1,
 					pagination = $(this).data('pagination') ? true : false,
 					navigation = $(this).data('navigation') ? true : false,
 					autoplay = $(this).data('autoplay') ? parseInt($(this).data('autoplay')) : false;
-
 				$(this).owlCarousel({
 					items            : item_visible,
 					itemsDesktop     : [1200, item_visible],
 					itemsDesktopSmall: [1024, item_desktopsmall],
-					itemsTablet      : [768, 2],
-					itemsMobile      : [480, 1],
+					itemsTablet      : [768, itemsTablet],
+					itemsMobile      : [480, itemsMobile],
 					navigation       : navigation,
 					pagination       : pagination,
 					lazyLoad         : true,
-					autoPlay: autoplay,
+					autoPlay         : autoplay,
 					navigationText   : [
 						"<i class=\'fa fa-chevron-left \'></i>",
 						"<i class=\'fa fa-chevron-right \'></i>"
@@ -429,7 +440,7 @@ var woof_js_after_ajax_done;
 					itemsMobile      : [480, 2],
 					navigation       : navigation,
 					pagination       : pagination,
-					autoPlay: autoplay,
+					autoPlay         : autoplay,
 					navigationText   : [
 						"<i class=\'fa fa-chevron-left \'></i>",
 						"<i class=\'fa fa-chevron-right \'></i>"
@@ -519,6 +530,85 @@ var woof_js_after_ajax_done;
 		}
 	};
 
+	var thim_LoginPopup = function () {
+		if ($('#thim-popup-login .thim-login-container').length) {
+
+			var el = $('#thim-popup-login .thim-login-container'),
+				el_H = el.outerHeight(),
+				win_H = $(window).height();
+
+			if (win_H > el_H) {
+				el.css('top', ( win_H - el_H ) / 2);
+			}
+		}
+		$(document).on('click', 'body:not(".loggen-in") .purchase-course .thim-enroll-course-button', function (e) {
+			if ($(window).width() > 767) {
+				if ($('.thim-login-popup .login').length) {
+					e.preventDefault();
+					$('.thim-login-popup .login').trigger('click');
+				}
+			}
+		});
+
+		$(document).on('click', '#thim-popup-login .close-popup', function (event) {
+			event.preventDefault();
+			$('body').removeClass('thim-popup-active');
+			$('#thim-popup-login').removeClass('active');
+		});
+
+		$(document).on('click', '.thim-login-popup .login', function (event) {
+			if ($(window).width() > 767) {
+				event.preventDefault();
+				$('body').addClass('thim-popup-active');
+				$('#thim-popup-login').addClass('active');
+			}
+		});
+
+		$(document).on('click', '#thim-popup-login', function (e) {
+			if ($(e.target).attr('id') == 'thim-popup-login') {
+				$('body').removeClass('thim-popup-active');
+				$('#thim-popup-login').removeClass('active');
+			}
+		});
+
+		$('#thim-popup-login #loginform').submit(function (event) {
+
+			var elem = $('#thim-popup-login .thim-login-container'),
+				input_username = elem.find('#thim_login').val(),
+				input_password = elem.find('#thim_pass').val();
+
+			if (input_username == '' || input_password == '') {
+				return;
+			}
+
+			elem.append('<div class="thim-loading-container"><div class="thim-loading"></div></div>');
+			elem.find('.message').slideDown().remove();
+
+			var data = {
+				action  : 'thim_login_ajax',
+				username: input_username,
+				password: input_password,
+				remember: elem.find('#rememberme').val()
+			};
+
+			$.post(ajaxurl, data, function (response) {
+				try {
+					var response = JSON.parse(response);
+					elem.find('.thim-login').append(response.message);
+					if (response.code == '1') {
+						window.location = window.location;
+					}
+				} catch (e) {
+					return false;
+				}
+				elem.find('.thim-loading-container').remove();
+			});
+
+			event.preventDefault();
+			return false;
+		});
+	}
+
 	$(function () {
 		back_to_top();
 
@@ -579,6 +669,7 @@ var woof_js_after_ajax_done;
 		thim_contentslider();
 		thim_SwitchLayout();
 		thim_Shop_SwitchLayout();
+		thim_LoginPopup();
 
 		setTimeout(function () {
 			TitleAnimation.initialize();
@@ -769,31 +860,31 @@ var woof_js_after_ajax_done;
 
 
 	jQuery(function ($) {
-		if( typeof LearnPress != 'undefined' ) {
+		if (typeof LearnPress != 'undefined') {
 			LearnPress.Hook
-					.addFilter('learn_press_before_next_question', _before_loading_quiz)
-					.addAction('learn_press_next_question', _after_update_quiz_content )
-					.addFilter('learn_press_before_prev_question', _before_loading_quiz)
-					.addAction('learn_press_previous_question', _after_update_quiz_content)
-					.addFilter('learn_press_before_select_question', _before_loading_quiz)
-					.addFilter('learn_press_before_start_quiz', _before_loading_quiz)
-					.addAction('learn_press_start_quiz', _after_start_quiz)
-					.addFilter('learn_press_before_check_question', _before_loading_quiz)
-					.addAction('learn_press_check_question', _after_update_quiz_content)
-					.addFilter('learn_press_before_finish_quiz', _before_finish_quiz)
-					.addFilter('learn_press_before_retake_quiz', _before_retake_quiz)
-					.removeAction('learn_press_user_completed_lesson')
-					.addAction('learn_press_user_completed_lesson', _user_complete_lesson);
+				.addFilter('learn_press_before_next_question', _before_loading_quiz)
+				.addAction('learn_press_next_question', _after_update_quiz_content)
+				.addFilter('learn_press_before_prev_question', _before_loading_quiz)
+				.addAction('learn_press_previous_question', _after_update_quiz_content)
+				.addFilter('learn_press_before_select_question', _before_loading_quiz)
+				.addFilter('learn_press_before_start_quiz', _before_loading_quiz)
+				.addAction('learn_press_start_quiz', _after_start_quiz)
+				.addFilter('learn_press_before_check_question', _before_loading_quiz)
+				.addAction('learn_press_check_question', _after_update_quiz_content)
+				.addFilter('learn_press_before_finish_quiz', _before_finish_quiz)
+				.addFilter('learn_press_before_retake_quiz', _before_retake_quiz)
+				.removeAction('learn_press_user_completed_lesson')
+				.addAction('learn_press_user_completed_lesson', _user_complete_lesson);
 
 			LearnPress.Hook
-					.addAction('learn_press_update_question_content', function ($a, $b, $c) {
-						var id = $c.model.current().get('id'),
-								pos = $.inArray(id, single_quiz_params.questions)
-						if (pos != -1) {
-							$('.single-quiz .quiz-text .number').html((pos + 1) + '/' + single_quiz_params.questions.length);
-						}
-						_after_update_quiz_content();
-					});
+				.addAction('learn_press_update_question_content', function ($a, $b, $c) {
+					var id = $c.model.current().get('id'),
+						pos = $.inArray(id, single_quiz_params.questions)
+					if (pos != -1) {
+						$('.single-quiz .quiz-text .number').html((pos + 1) + '/' + single_quiz_params.questions.length);
+					}
+					_after_update_quiz_content();
+				});
 
 
 			function _after_start_quiz() {
@@ -805,7 +896,7 @@ var woof_js_after_ajax_done;
 			function _user_complete_lesson(response, that) {
 				if (response && response.result == 'success') {
 					var $button = that.$('.complete-lesson-button'),
-							$complete_text = $button.data('completed-text');
+						$complete_text = $button.data('completed-text');
 					$button.addClass('completed').prop('disabled', true).html($complete_text);
 					$('.course-item-' + response.id).addClass('item-completed');
 					if (response.course_result) {
@@ -825,9 +916,9 @@ var woof_js_after_ajax_done;
 
 			function _after_update_lesson() {
 				var $course_lesson = $('#learn-press-course-lesson'),
-						$course_content = $('.course-content'),
-						$content_height = $course_content.outerHeight(),
-						$lesson_height = $course_lesson.outerHeight() + 150;
+					$course_content = $('.course-content'),
+					$content_height = $course_content.outerHeight(),
+					$lesson_height = $course_lesson.outerHeight() + 150;
 				if ($content_height < $lesson_height) {
 					$course_content.addClass('loading').animate({
 						height: $lesson_height
@@ -899,9 +990,9 @@ var woof_js_after_ajax_done;
 
 			function _after_update_quiz_content() {
 				var iframe = $(".thim-iframe-quiz iframe", parent.document.body),
-						iframe_H = iframe.contents().find('body').height(),
-						$course_content = iframe.parents('.course-content'),
-						$thim_loading = $course_content.find('.thim-loading-container');
+					iframe_H = iframe.contents().find('body').height(),
+					$course_content = iframe.parents('.course-content'),
+					$thim_loading = $course_content.find('.thim-loading-container');
 				if ($thim_loading.length > 0) {
 					$thim_loading.remove();
 				}
@@ -956,9 +1047,9 @@ var woof_js_after_ajax_done;
 						},
 						resize: function () {
 							var $courseContent = $('.course-content'),
-									$title = $courseContent.find('.popup-title'),
-									position = $('.mfp-content').position() || {top: 0, left: 0},
-									htmlPadding = parseInt($('html').css('margin-top'));
+								$title = $courseContent.find('.popup-title'),
+								position = $('.mfp-content').position() || {top: 0, left: 0},
+								htmlPadding = parseInt($('html').css('margin-top'));
 							$title.css({
 								'left' : position.left,
 								'top'  : position.top + htmlPadding,
@@ -972,8 +1063,8 @@ var woof_js_after_ajax_done;
 			function _before_load_lesson($view) {
 				LearnPress.Hook.removeFilter('learn_press_before_load_item');
 				var $courseContent = $('.course-content'),
-						winH = $(window).outerHeight(),
-						content_H = $('.mfp-content').length > 0 ? $courseContent.outerHeight() : winH * 3 / 4;
+					winH = $(window).outerHeight(),
+					content_H = $('.mfp-content').length > 0 ? $courseContent.outerHeight() : winH * 3 / 4;
 				content_H = ( content_H > winH ) ? winH + 1 : content_H;
 				_show_popup();
 
@@ -986,21 +1077,21 @@ var woof_js_after_ajax_done;
 				LearnPress.Hook.addFilter('learn_press_before_load_item', _before_load_lesson);
 				if ($view.model.get('type') == 'lp_quiz') {
 					var href = $('.course-item-' + $view.model.get('id') + ' a').prop('href'),
-							quiz_index = $('.course-item-' + $view.model.get('id') + ' .index').html(),
-							quiz_title = $('.course-item-' + $view.model.get('id') + ' a').html(),
-							$lesson = $('<div id="learn-press-course-lesson"><div class="thim-iframe-quiz"></div></div>'),
-							$main = $lesson.find('.thim-iframe-quiz'),
+						quiz_index = $('.course-item-' + $view.model.get('id') + ' .index').html(),
+						quiz_title = $('.course-item-' + $view.model.get('id') + ' a').html(),
+						$lesson = $('<div id="learn-press-course-lesson"><div class="thim-iframe-quiz"></div></div>'),
+						$main = $lesson.find('.thim-iframe-quiz'),
 
-							$iframe = $('<iframe />').attr('src', href).appendTo($main).css({
-								width       : '100%',
-								height: 'auto',
-								position: 'relative',
-								'max-height': 'none',
-								'min-height': '100%',
-								padding     : '0',
-								border      : 0,
-								opacity     : 0
-							});
+						$iframe = $('<iframe />').attr('src', href).appendTo($main).css({
+							width       : '100%',
+							height: 'auto',
+							position: 'relative',
+							'max-height': 'none',
+							'min-height': '100%',
+							padding     : '0',
+							border      : 0,
+							opacity     : 0
+						});
 					;
 					$lesson.appendTo($courseContent);
 					$iframe.load(function () {
@@ -1011,7 +1102,7 @@ var woof_js_after_ajax_done;
 						$lesson.find('.popup-title').remove();
 						$lesson.prepend('<h3 class="popup-title">' + '<span class="index"> ' + quiz_index + '</span>' + quiz_title + '<button type="button" class="mfp-close">Close</button></h3>');
 						var bodyHeight = $iframe.contents().find('body').height(),
-								$parent = $('.course-content');
+							$parent = $('.course-content');
 						$iframe.contents().find('.quiz-title, .back-to-course').remove();
 						$iframe.css('min-height', bodyHeight);
 						//console.log('load quiz')
@@ -1038,51 +1129,51 @@ var woof_js_after_ajax_done;
 
 			$(document).ready(function () {
 				LearnPress.Hook
-						.removeFilter('learn_press_before_load_item')
-						.addFilter('learn_press_before_load_item', _before_load_lesson)
-						.addFilter('learn_press_set_item_url', function (url, $view) {
-							if ($view.model.get('type') == 'lp_quiz') {
-								url = false;
-							}
-							return url;
-						})
-						.addAction('learn_press_item_content_loaded', function ($content, that) {
-							if ($content) {
-								var
-										$courseContent = $('.course-content').append($content),
-										$title = $content.find('.popup-title'),
-										$img = $courseContent.find('img'),
-										contentHeight = 0,
-										htmlPadding = parseInt($('html').css('margin-top')),
-										count = $img.length,
-										_resize = function () {
-											contentHeight = $content.outerHeight();
-											$courseContent.addClass('loading').find('.thim-loading-container').remove();
-											$courseContent.animate({
-												height: contentHeight + 150
-											}, 400, function () {
-												var position = $('.mfp-content').position() || {left: 0, top: 0};
-												$title.css({
-													'left': position.left,
-													'top' : position.top + htmlPadding,
-													'width': $courseContent.width() + 60
-												}).find('.index').html($('.course-item-' + that.model.get('id') + ' .index').html());
-												$courseContent.removeClass('loading');
-											});
-										};
-								!count ? _resize() : (function () {
-									var c = 0;
-									$img.each(function () {
-										$(this).hasClass('loaded') ? ( ++c == count ? _resize() : '') : $(this).load(function () {
-											if (++c == count) {
-												_resize();
-											}
-											$(this).addClass('loaded');
-										});
-									})
-								})();
-							}
-						}).addAction('learn_press_course_item_load_failed', function () {
+					.removeFilter('learn_press_before_load_item')
+					.addFilter('learn_press_before_load_item', _before_load_lesson)
+					.addFilter('learn_press_set_item_url', function (url, $view) {
+						if ($view.model.get('type') == 'lp_quiz') {
+							url = false;
+						}
+						return url;
+					})
+					.addAction('learn_press_item_content_loaded', function ($content, that) {
+						if ($content) {
+							var
+								$courseContent = $('.course-content').append($content),
+								$title = $content.find('.popup-title'),
+								$img = $courseContent.find('img'),
+								contentHeight = 0,
+								htmlPadding = parseInt($('html').css('margin-top')),
+								count = $img.length,
+								_resize = function () {
+									contentHeight = $content.outerHeight();
+									$courseContent.addClass('loading').find('.thim-loading-container').remove();
+									$courseContent.animate({
+										height: contentHeight + 150
+									}, 400, function () {
+										var position = $('.mfp-content').position() || {left: 0, top: 0};
+										$title.css({
+											'left': position.left,
+											'top' : position.top + htmlPadding,
+											'width': $courseContent.width() + 60
+										}).find('.index').html($('.course-item-' + that.model.get('id') + ' .index').html());
+										$courseContent.removeClass('loading');
+									});
+								};
+							!count ? _resize() : (function () {
+								var c = 0;
+								$img.each(function () {
+									$(this).hasClass('loaded') ? ( ++c == count ? _resize() : '') : $(this).load(function () {
+										if (++c == count) {
+											_resize();
+										}
+										$(this).addClass('loaded');
+									});
+								})
+							})();
+						}
+					}).addAction('learn_press_course_item_load_failed', function () {
 					alert();
 				}).addFilter('learn_press_load_lesson_content', function (a, item, link) {
 					console.log('12345');
@@ -1090,9 +1181,9 @@ var woof_js_after_ajax_done;
 					if (item) {
 						if (item.get('type') == 'lp_quiz') {
 							var $courseContent = $('.course-content'),
-									$iframe = $('<iframe >').attr('href', link).css("opacity", 0),
-									$loading = $('<div class="thim-loading-container"><div class="thim-loading"></div></div>'),
-									content_H = parseInt($(window).outerHeight() * 3 / 4);
+								$iframe = $('<iframe >').attr('href', link).css("opacity", 0),
+								$loading = $('<div class="thim-loading-container"><div class="thim-loading"></div></div>'),
+								content_H = parseInt($(window).outerHeight() * 3 / 4);
 							$courseContent.outerHeight(content_H).append($iframe).append($loading);
 							$iframe.load(function () {
 								$loading.remove();
@@ -1141,8 +1232,8 @@ var woof_js_after_ajax_done;
 		});
 
 		var $profile_list = $('.learn-press-user-profile .profile-tabs .nav-tabs>li ');
-		if( $profile_list.length > 0 ) {
-			$profile_list.addClass('thim-profile-list-'+$profile_list.length );
+		if ($profile_list.length > 0) {
+			$profile_list.addClass('thim-profile-list-' + $profile_list.length);
 		}
 	});
 
@@ -1690,6 +1781,27 @@ var woof_js_after_ajax_done;
 			}
 		});
 
+		//Validate login submit
+		$('form#loginform').submit(function (event) {
+			var elem = $(this),
+				input_username = elem.find('#thim_login'),
+				input_email = elem.find('#thim_pass');
+
+			if (input_username.length > 0 && input_username.val() == '') {
+				input_username.addClass('invalid');
+				event.preventDefault();
+			}
+
+			if (input_email.length > 0 && input_email.val() == '') {
+				input_email.addClass('invalid');
+				event.preventDefault();
+			}
+		});
+
+		$('#thim_login, #thim_pass').on('focus', function () {
+			$(this).removeClass('invalid');
+		});
+
 		$('#customer_login .register').submit(function (event) {
 			var elem = $(this),
 				input_username = elem.find('#reg_username'),
@@ -1737,8 +1849,8 @@ var woof_js_after_ajax_done;
 		});
 
 		//Widget gallery-posts
-		$(window).load(function() {
-			if( $('.thim-widget-gallery-posts .wrapper-gallery-filter').length > 0 ) {
+		$(window).load(function () {
+			if ($('.thim-widget-gallery-posts .wrapper-gallery-filter').length > 0) {
 				$('.thim-widget-gallery-posts .wrapper-gallery-filter').isotope({filter: '*'});
 			}
 		});
@@ -1761,16 +1873,16 @@ var woof_js_after_ajax_done;
 			$.post(ajaxurl, data, function (response) {
 				elem.removeClass('loading');
 				$('.thim-gallery-show').append(response);
-				if( $('.thim-gallery-show img').length > 0 ) {
+				if ($('.thim-gallery-show img').length > 0) {
 					$('.thim-gallery-show').magnificPopup({
-						mainClass: 'my-mfp-zoom-in',
-						type     : 'image',
-						delegate : 'a',
+						mainClass   : 'my-mfp-zoom-in',
+						type        : 'image',
+						delegate    : 'a',
 						showCloseBtn: false,
-						gallery  : {
+						gallery     : {
 							enabled: true
 						},
-						callbacks: {
+						callbacks   : {
 							open: function () {
 								$.magnificPopup.instance.close = function () {
 									$('.thim-gallery-show').empty();
@@ -1779,15 +1891,15 @@ var woof_js_after_ajax_done;
 							},
 						}
 					}).magnificPopup('open');
-				}else{
+				} else {
 					$.magnificPopup.open({
-						mainClass: 'my-mfp-zoom-in',
-						items    : {
+						mainClass   : 'my-mfp-zoom-in',
+						items       : {
 							src : $('.thim-gallery-show'),
 							type: 'inline'
 						},
 						showCloseBtn: false,
-						callbacks: {
+						callbacks   : {
 							open: function () {
 								$.magnificPopup.instance.close = function () {
 									$('.thim-gallery-show').empty();
@@ -1824,8 +1936,23 @@ var woof_js_after_ajax_done;
 		thim_min_height_carousel($('.thim-carousel-instructors .instructor-item'));
 		thim_min_height_carousel($('.thim-owl-carousel-post .image'));
 		thim_min_height_carousel($('.thim-course-carousel .course-thumbnail'));
+		thim_min_height_carousel($('.thim-row-bg-border-top .thim-bg-border-top'));
+		thim_min_height_carousel($('.thim-testimonial-carousel-kindergarten .item'));
 
 		thim_min_height_content_area();
+
+		// $(' .width-navigation .sub-menu.megacol').each(function (index, value) {
+		// 	var elem = $(value),
+		// 		child = elem.find('> li> .sub-menu'),
+		// 		elem_H = elem.height() - 25;
+		// 	child.css('min-height', elem_H);
+		// });
+
+		$(window).resize(function () {
+			$('.thim-carousel-instructors .instructor-item').css('min-height', 0);
+			$('.thim-owl-carousel-post .image').css('min-height', 0);
+			$('.thim-course-carousel .course-thumbnail').css('min-height', 0);
+		});
 	});
 
 	function thim_min_height_carousel($selector) {
@@ -1903,20 +2030,34 @@ var woof_js_after_ajax_done;
 
 	});
 
-	$(document).ready(function(){
+	$(document).ready(function () {
 		$('.thim-search-light-style').append('<a class="thim-button-down thim-click-to-bottom" href="#"><i class="fa fa-chevron-down"></i></a>');
-		$(document).on('click', '.thim-button-down', function(e) {
+		$(document).on('click', '.thim-button-down', function (e) {
 			e.preventDefault();
-			if( $('#wpadminbar').length > 0 ) {
-				var height = parseInt( $('#wpadminbar').outerHeight() ) + parseInt( $('.thim-search-light-style').outerHeight() ) ;
-			}else{
-				var height = parseInt( $('.thim-search-light-style').outerHeight() ) ;
+			if ($('#wpadminbar').length > 0) {
+				var height = parseInt($('#wpadminbar').outerHeight()) + parseInt($('.thim-search-light-style').outerHeight());
+			} else {
+				var height = parseInt($('.thim-search-light-style').outerHeight());
 			}
-			console.log(height);
 			$('body, html').animate({
 				'scrollTop': height
 			}, 600);
 		});
+
+		$(document).on('click', 'body.page-template-landing-page .current_page_item>a, .thim-top-landing .widget-button', function (e) {
+			if ($('.thim-top-landing').length > 0) {
+				e.preventDefault();
+				if ($('#wpadminbar').length > 0) {
+					var height = parseInt($('#wpadminbar').outerHeight()) + parseInt($('.thim-top-landing').outerHeight());
+				} else {
+					var height = parseInt($('.thim-top-landing').outerHeight());
+				}
+				$('body, html').animate({
+					'scrollTop': height
+				}, 600);
+			}
+		});
+
 	});
 	$(document).ready(function () {
 		//Shop filter color
@@ -1945,5 +2086,23 @@ var woof_js_after_ajax_done;
 		}
 
 	}
+
+
+	//Code for timetable widget
+	$(document).ready(function(){
+		$('.thim-widget-timetable .timetable-item ').each(function () {
+			var elem = $(this),
+					old_style = elem.attr('style'),
+					hover_style = elem.data('hover');
+			elem.on({
+				'mouseenter': function () {
+					elem.attr('style', hover_style);
+				},
+				'mouseleave': function () {
+					elem.attr('style', old_style);
+				}
+			})
+		});
+	});
 
 })(jQuery);

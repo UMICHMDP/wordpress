@@ -7,28 +7,28 @@
  * @version 1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( !user_can( $user->ID, 'edit_lp_courses' ) ){
+if ( !user_can( $user->ID, 'edit_lp_courses' ) ) {
 	return;
 }
 global $post;
 
 ?>
 
-<h3 class="box-title"><?php echo esc_html__( 'Own Courses', 'eduma' ); ?></h3>
+	<h3 class="box-title"><?php echo esc_html__( 'Own Courses', 'eduma' ); ?></h3>
 
 <?php if ( $courses ) : ?>
 
-	<div class="thim-carousel-wrapper thim-course-carousel thim-course-grid" data-visible="3" data-pagination="0" data-navigation="1" >
+	<div class="thim-carousel-wrapper thim-course-carousel thim-course-grid" data-visible="3" data-pagination="0" data-navigation="1">
 
-	<?php foreach( $courses as $post ): ?>
+		<?php foreach ( $courses as $post ): ?>
+			<?php setup_postdata( $post ); ?>
+			<?php learn_press_get_template( 'profile/tabs/courses/loop.php', array( 'subtab' => 'own' ) ); ?>
 
-		<?php learn_press_get_template( 'profile/tabs/courses/loop.php', array( 'subtab' => 'own' ) ); ?>
-
-	<?php endforeach; ?>
+		<?php endforeach; ?>
 
 	</div>
 

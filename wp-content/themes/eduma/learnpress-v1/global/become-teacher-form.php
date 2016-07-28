@@ -7,7 +7,6 @@
  * @version       1.0
  */
 
-$method       = $atts['method'];
 $request      = $method == 'post' ? $_POST : $_REQUEST;
 $is_logged_in = is_user_logged_in();
 $disabled     = ! $is_logged_in ? 'disabled="disabled"' : '';
@@ -17,7 +16,7 @@ $disabled     = ! $is_logged_in ? 'disabled="disabled"' : '';
 	<?php if ( !$is_logged_in ) { ?>
 		<p class="message message-info"><?php printf( __( 'You have to <a href="%s">login</a> to fill out this form', 'eduma' ), add_query_arg( 'redirect_to', get_permalink(), thim_get_login_page_url() ) ); ?></p>
 	<?php } ?>
-	<form name="become-teacher-form" method="<?php echo $method; ?>" enctype="multipart/form-data" action="<?php echo $atts['action']; ?>">
+	<form name="become-teacher-form" method="<?php echo $method; ?>" enctype="multipart/form-data" action="<?php echo esc_url($action); ?>">
 		<?php if ( $fields ): ?>
 			<ul>
 				<?php foreach ( $fields as $name => $option ): ?>
@@ -55,7 +54,7 @@ $disabled     = ! $is_logged_in ? 'disabled="disabled"' : '';
 				<?php endforeach; ?>
 			</ul>
 			<input type="hidden" name="lp-ajax" value="become-a-teacher" />
-			<button type="submit" <?php echo esc_attr( $disabled ); ?> data-text="<?php echo esc_attr( $atts['submit_button_text'] ); ?>" data-text-process="<?php esc_attr_e( 'Processing', 'eduma' ); ?>"><?php echo esc_html( $atts['submit_button_text'] ); ?></button>
+			<button type="submit" <?php echo esc_attr( $disabled ); ?> data-text="<?php echo esc_attr( $submit_button_text ); ?>" data-text-process="<?php esc_attr_e( 'Processing', 'eduma' ); ?>"><?php echo esc_html( $submit_button_text ); ?></button>
 		<?php endif; ?>
 	</form>
 </div>

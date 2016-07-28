@@ -20,6 +20,52 @@ class Thim_Customize_Options {
 
 		/* Unregister Default Customizer Section */
 		add_action( 'customize_register', array( $this, 'unregister' ) );
+
+		/**
+		 * The code below is for auto restore style for customizer
+		 */
+//		add_action( 'switch_theme', array( $this, 'remove_theme_version' ), 10, 3 );
+//		add_action( 'admin_init', array( $this, 'restore_style_if_needed' ) );
+	}
+
+	/**
+	 * Check if version of current theme is changed then restore style in last change
+	 */
+	public function restore_style_if_needed() {
+		$theme_slug  = get_option( 'stylesheet' );
+		$theme       = wp_get_theme( $theme_slug );
+		$old_version = get_option( "theme_{$theme_slug}_version" );
+		$new_version = $theme->get( 'Version' );
+		if ( version_compare( $old_version, $new_version, '<' ) || !$this->style_exists() ) {
+			$this->generate_to_css();
+			update_option( "theme_{$theme_slug}_version", $new_version );
+		}
+	}
+
+	/**
+	 * Check if file style is not exists or is empty
+	 *
+	 * @return bool
+	 */
+	private function style_exists() {
+		if ( is_multisite() ) {
+			$stylesheet = THIM_DIR . 'style-' . get_current_blog_id() . '.css';
+		} else {
+			$stylesheet = THIM_DIR . 'style.css';
+		}
+		return ( file_exists( $stylesheet ) && filesize( $stylesheet ) );
+	}
+
+	/**
+	 * Remove theme version after theme is switched to another
+	 *
+	 * @param $new_name
+	 * @param $new_theme
+	 * @param $old_theme
+	 */
+	public function remove_theme_version( $new_name, $new_theme, $old_theme ) {
+		$theme_slug = get_option( 'theme_switched' );
+		delete_option( "theme_{$theme_slug}_version" );
 	}
 
 	function unregister( $wp_customize ) {
@@ -83,10 +129,12 @@ class Thim_Customize_Options {
 		if ( class_exists( 'THIM_Portfolio' ) ) {
 			include THIM_DIR . "inc/admin/customizer-sections/portfolio.php";
 			include THIM_DIR . "inc/admin/customizer-sections/portfolio-archive.php";
+			include THIM_DIR . "inc/admin/customizer-sections/portfolio-single.php";
 		}
 
 		if ( class_exists( 'TP_Event' ) ) {
 			include THIM_DIR . "inc/admin/customizer-sections/event.php";
+			include THIM_DIR . "inc/admin/customizer-sections/event-archive.php";
 			include THIM_DIR . "inc/admin/customizer-sections/event-single.php";
 		}
 
@@ -95,6 +143,8 @@ class Thim_Customize_Options {
 
 		//include Custom Css
 		include THIM_DIR . "inc/admin/customizer-sections/custom-css.php";
+		//include Custom JS
+		include THIM_DIR . "inc/admin/customizer-sections/custom-js.php";
 		//include Import/Export
 		include THIM_DIR . "inc/admin/customizer-sections/import-export.php";
 		//include Share this in post

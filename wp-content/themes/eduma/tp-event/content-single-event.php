@@ -37,11 +37,13 @@
 			 */
 			do_action( 'tp_event_single_event_content' );
 
+			$time_format = get_option( 'time_format' );
 			$time_from   = get_post_meta( get_the_ID(), 'tp_event_date_start', true ) ? strtotime( get_post_meta( get_the_ID(), 'tp_event_date_start', true ) ) : time();
 			$time_finish = get_post_meta( get_the_ID(), 'tp_event_date_end', true ) ? strtotime( get_post_meta( get_the_ID(), 'tp_event_date_end', true ) ) : time();
-			$time_start  = get_post_meta( get_the_ID(), 'tp_event_time_start', true ) ? get_post_meta( get_the_ID(), 'tp_event_time_start', true ) : '8:00 AM';
-			$time_end    = get_post_meta( get_the_ID(), 'tp_event_time_end', true ) ? get_post_meta( get_the_ID(), 'tp_event_time_end', true ) : '5:00 PM';
-			$location    = get_post_meta( get_the_ID(), 'tp_event_location', true ) ? get_post_meta( get_the_ID(), 'tp_event_location', true ) : 'Birmingham, UK';
+			$time_start = tp_event_start( $time_format );
+			$time_end   = tp_event_end( $time_format );
+
+			$location = get_post_meta( get_the_ID(), 'tp_event_location', true ) ? get_post_meta( get_the_ID(), 'tp_event_location', true ) : 'Birmingham, UK';
 			?>
 			<div class="tp-event-info">
 				<div class="tp-info-box">
@@ -75,14 +77,14 @@
 		<?php $members = get_post_meta( get_the_ID(), 'thim_event_members', true ); ?>
 		<?php if ( $members ) : ?>
 			<div class="tp-event-organizers">
-				<h3 class="title"><?php esc_html_e( 'Who come with us?', 'eduma' ); ?></h3>
+				<h3 class="title"><?php esc_html_e( 'Event Participants', 'eduma' ); ?></h3>
 				<div class="thim-carousel-container">
 					<div class="thim-carousel-wrapper" data-visible="4" data-navigation="1">
 						<?php foreach ( $members as $member ) : ?>
 							<div class="item">
 								<div class="thumbnail"><?php echo thim_get_feature_image( get_post_thumbnail_id( $member ), 'full', 110, 110 ); ?></div>
 								<p class="name"><?php echo get_the_title( $member ); ?></p>
-	
+
 								<p class="regency"><?php echo get_post_meta( $member, 'regency', true ); ?></p>
 							</div>
 						<?php endforeach; ?>
@@ -90,9 +92,9 @@
 				</div>
 			</div>
 		<?php endif; ?>
-		
+
 		<div class="tp-event-single-share">
-		<?php do_action( 'thim_social_share' ); ?>
+			<?php do_action( 'thim_social_share' ); ?>
 		</div>
 
 	</div><!-- .summary -->

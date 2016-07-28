@@ -27,7 +27,14 @@ class Thim_Custom_WC_Widget_Cart extends WC_Widget_Cart {
 		if ( is_cart() || is_checkout() ) {
 			return;
 		}
-		echo ent2ncr($before_widget);
+
+	    echo ent2ncr($before_widget);
+
+	    if ( $instance['title'] ) {
+		    echo ent2ncr( $args['before_title'] . $instance['title'] . $args['after_title'] );
+	    }
+
+
 		$hide_if_empty = empty( $instance['hide_if_empty'] ) ? 0 : 1;
 		echo '<div class="minicart_hover" id="header-mini-cart">';
 		list( $cart_items ) = thim_get_current_cart_info();

@@ -1,8 +1,4 @@
 <?php
-/**
- * Created by: Khoapq
- * Date: 15/10/2015
- */
 class Thim_Accordion_Widget extends Thim_Widget {
 
 	function __construct() {

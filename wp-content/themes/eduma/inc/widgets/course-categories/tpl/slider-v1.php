@@ -12,6 +12,7 @@ $autoplay     = isset( $instance['auto_play'] ) ? $instance['auto_play'] : 0;
 $args_cat = array(
 	'taxonomy' => $taxonomy
 );
+$args_cat = apply_filters( 'thim_query_slider_categories', $args_cat );
 
 $cat_course = get_categories( $args_cat );
 

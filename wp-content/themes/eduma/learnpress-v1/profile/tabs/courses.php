@@ -24,5 +24,5 @@ if ( !$subtabs ) {
 <?php foreach ( $subtabs as $subid => $subtitle ) { ?>
 	<?php
 	//echo '<h3 class="box-title">'.$subtitle.'</h3>';
-	do_action( 'learn_press_profile_tab_courses_' . $subid, $user ); ?>
+	do_action( 'learn_press_profile_tab_courses_' . $subid, $user, $subid ); ?>
 <?php } ?>

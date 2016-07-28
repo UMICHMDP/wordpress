@@ -47,7 +47,7 @@
 	</div>
 <?php } ?>
 
-</div><!-- end wrapper-container and content-pusher-->
+</div><!-- end content-pusher-->
 
 <?php
 if ( isset( $theme_options_data['thim_show_to_top'] ) && $theme_options_data['thim_show_to_top'] == 1 ) { ?>
@@ -59,9 +59,8 @@ if ( isset( $theme_options_data['thim_show_to_top'] ) && $theme_options_data['th
 ?>
 
 
-
-</div>
+</div><!-- end wrapper-container -->
 
 <?php wp_footer(); ?>
-</body >
-</html >
+</body>
+</html>

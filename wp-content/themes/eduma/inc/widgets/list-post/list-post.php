@@ -5,6 +5,7 @@ class Thim_List_Post_Widget extends Thim_Widget {
 		$list_image_size = $this->get_image_sizes();
 		$image_size = array();
 		$image_size['none'] = esc_html__("No Image", 'eduma');
+		$image_size['custom_image'] = esc_html__("Custom Image", 'eduma');
 		if(is_array($list_image_size) && !empty($list_image_size)){
 			foreach( $list_image_size as $key=>$value){
 				if($value['width'] && $value['height']){
@@ -80,7 +81,7 @@ class Thim_List_Post_Widget extends Thim_Widget {
  				),
 				'text_link'        => array(
 					'type'    => 'text',
-					'label'   => esc_html__( 'Text Link', 'eduma' ),
+					'label'   => esc_html__( 'Text Read More', 'eduma' ),
  				),
  				'style'      => array(
 					"type"    => "select",
