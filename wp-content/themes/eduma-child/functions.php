@@ -279,7 +279,7 @@ function create_csubstitutions_hierarchical_taxonomy() {
 
 // Now register the taxonomy
 
-  register_taxonomy('csubstitutions',array('lp_couses'), array(
+  register_taxonomy('csubstitutions',array('lp_course'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
