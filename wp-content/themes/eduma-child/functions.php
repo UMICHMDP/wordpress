@@ -290,3 +290,79 @@ function create_csubstitutions_hierarchical_taxonomy() {
   ));
 
 }
+
+//hook into the init action and call create_book_taxonomies when it fires
+add_action( 'init', 'create_csubstitutions_hierarchical_taxonomy', 0 );
+
+//create a custom taxonomy name it topics for your posts
+
+function create_csubstitutions_hierarchical_taxonomy() {
+
+// Add new taxonomy, make it hierarchical like categories
+//first do the translations part for GUI
+
+  $labels = array(
+    'name' => _x( 'Course Substitutions', 'taxonomy general name' ),
+    'singular_name' => _x( 'Course Substitution', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Course Substitutions' ),
+    'all_items' => __( 'All Course Substitutions' ),
+    'parent_item' => __( 'Parent Course Substitution' ),
+    'parent_item_colon' => __( 'Parent Course Substitution:' ),
+    'edit_item' => __( 'Edit Course Substitution' ), 
+    'update_item' => __( 'Update Course Substitution' ),
+    'add_new_item' => __( 'Add New Course Substitution' ),
+    'new_item_name' => __( 'New Course Substitution Name' ),
+    'menu_name' => __( 'Course Substitutions' ),
+  ); 	
+
+// Now register the taxonomy
+
+  register_taxonomy('csubstitutions',array('lp_course'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'update_count_callback' => '_update_post_term_count',
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'course-substitution' ),
+  ));
+
+}
+
+//hook into the init action and call create_book_taxonomies when it fires
+add_action( 'init', 'create_ptypes_hierarchical_taxonomy', 0 );
+
+//create a custom taxonomy name it topics for your posts
+
+function create_ptypes_hierarchical_taxonomy() {
+
+// Add new taxonomy, make it hierarchical like categories
+//first do the translations part for GUI
+
+  $labels = array(
+    'name' => _x( 'Project Types', 'taxonomy general name' ),
+    'singular_name' => _x( 'Project Type', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Project Types' ),
+    'all_items' => __( 'All Project Types' ),
+    'parent_item' => __( 'Parent Project Type' ),
+    'parent_item_colon' => __( 'Parent Project Type:' ),
+    'edit_item' => __( 'Edit Project Type' ), 
+    'update_item' => __( 'Update Project Type' ),
+    'add_new_item' => __( 'Add New Project Type' ),
+    'new_item_name' => __( 'New Project Type Name' ),
+    'menu_name' => __( 'Project Types' ),
+  ); 	
+
+// Now register the taxonomy
+
+  register_taxonomy('ptypes',array('lp_course'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'update_count_callback' => '_update_post_term_count',
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'project-type' ),
+  ));
+
+}
