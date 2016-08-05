@@ -8,7 +8,7 @@ class Thim_Single_Images_Widget extends Thim_Widget {
 			'single-images',
 			esc_html__( 'Thim: Single Image', 'eduma' ),
 			array(
-				'description'   => esc_html__( 'Add heading text', 'eduma' ),
+				'description'   => esc_html__( 'Display single images.', 'eduma' ),
 				'help'          => '',
 				'panels_groups' => array( 'thim_widget_group' ),
 				'panels_icon'   => 'dashicons dashicons-welcome-learn-more'

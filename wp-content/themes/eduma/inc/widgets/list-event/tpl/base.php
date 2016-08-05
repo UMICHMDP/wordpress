@@ -22,7 +22,6 @@ if ( $events->have_posts() ) {
 		echo '<a class="view-all" href="' . esc_url( $link ) . '">' . $instance['text_link'] . '</a>';
 	}
 
-	//var_dump($events->posts);
 	while ( $events->have_posts() ) {
 
 		$events->the_post();
@@ -36,7 +35,7 @@ if ( $events->have_posts() ) {
 		$date_show  = tp_event_get_time( 'd' );
 		$month_show = tp_event_get_time( 'F' );
 
-		$sorting[ strtotime( tp_event_get_time() ) ] = get_the_ID();
+		$sorting[ get_the_ID() ] = strtotime( tp_event_get_time() );
 		ob_start();
 		?>
 		<div <?php post_class( $class ); ?>>
@@ -81,16 +80,16 @@ if ( $events->have_posts() ) {
 		ob_end_clean();
 	}
 
-	ksort( $sorting );
+	asort( $sorting );
 
 	if ( ! empty( $sorting ) ) {
 		$index = 1;
-		foreach ( $sorting as $value ) {
+		foreach ( $sorting as $key => $value ) {
 			if ( $index > $number_posts ) {
 				break;
 			}
-			if ( $html[ $value ] ) {
-				echo ent2ncr( $html[ $value ] );
+			if ( $html[ $key ] ) {
+				echo ent2ncr( $html[ $key ] );
 			}
 			$index ++;
 		}

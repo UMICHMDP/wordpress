@@ -32,7 +32,7 @@ if ( $instance['tab'] ) {
 		if ( $j == '1' ) {
 			$active = "class='active " . $class . "'";
 		} else {
-			$active = $class;
+			$active = "class='" . $class . "'";
 		}
 		echo '<li role="presentation" ' . $active . '><a href="#thim-widget-tab-' . $j . $rand . '"  role="tab" data-toggle="tab">' . $tab['title'] . '</a></li>';
 		$j ++;

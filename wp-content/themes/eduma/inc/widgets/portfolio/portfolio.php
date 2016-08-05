@@ -53,7 +53,6 @@ if ( class_exists( 'THIM_Portfolio' ) ) {
 					'column'             => array(
 						'type'    => 'select',
 						'label'   => esc_html__( 'Select a column', 'eduma' ),
-						'default' => 'center',
 						'options' => array(
 							'one'   => esc_html__( 'One', 'eduma' ),
 							'two'   => esc_html__( 'Two', 'eduma' ),
@@ -70,7 +69,6 @@ if ( class_exists( 'THIM_Portfolio' ) ) {
 					'item_size'          => array(
 						'type'    => 'select',
 						'label'   => esc_html__( 'Select a item size', 'eduma' ),
-						'default' => 'center',
 						'options' => array(
 							'multigrid' => esc_html__( 'Multigrid', 'eduma' ),
 							'masonry'   => esc_html__( 'Masonry', 'eduma' ),
@@ -80,7 +78,6 @@ if ( class_exists( 'THIM_Portfolio' ) ) {
 					'paging'             => array(
 						'type'    => 'select',
 						'label'   => esc_html__( 'Select a paging', 'eduma' ),
-						'default' => 'center',
 						'options' => array(
 							'all'             => esc_html__( 'Show All', 'eduma' ),
 							'limit'           => esc_html__( 'Limit Items', 'eduma' ),
@@ -91,7 +88,7 @@ if ( class_exists( 'THIM_Portfolio' ) ) {
 					'style-item'         => array(
 						'type'    => 'select',
 						'label'   => esc_html__( 'Select style items', 'eduma' ),
-						'default' => 'style-01',
+						'default' => 'style01',
 						'options' => array(
 							'style01' => esc_html__( 'Caption Hover Effects 01', 'eduma' ),
 							'style02' => esc_html__( 'Caption Hover Effects 02', 'eduma' ),

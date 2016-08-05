@@ -215,8 +215,6 @@ function thim_learnpress_breadcrumb() {
 		echo '</ul>';
 	}
 }
-
-
 //hook into the init action and call create_book_taxonomies when it fires
 add_action( 'init', 'create_events_hierarchical_taxonomy', 0 );
 
@@ -238,7 +236,7 @@ function create_events_hierarchical_taxonomy() {
     'update_item' => __( 'Update Event' ),
     'add_new_item' => __( 'Add New Event' ),
     'new_item_name' => __( 'New Event Name' ),
-    'menu_name' => __( 'Events' )
+    'menu_name' => __( 'Events' ),
   ); 	
 
 // Now register the taxonomy
@@ -248,8 +246,47 @@ function create_events_hierarchical_taxonomy() {
     'labels' => $labels,
     'show_ui' => true,
     'show_admin_column' => true,
+    'update_count_callback' => '_update_post_term_count',
     'query_var' => true,
-    'rewrite' => array( 'slug' => 'event' )
+    'rewrite' => array( 'slug' => 'event' ),
+  ));
+
+}
+
+//hook into the init action and call create_book_taxonomies when it fires
+add_action( 'init', 'create_csubstitutions_hierarchical_taxonomy', 0 );
+
+//create a custom taxonomy name it topics for your posts
+
+function create_csubstitutions_hierarchical_taxonomy() {
+
+// Add new taxonomy, make it hierarchical like categories
+//first do the translations part for GUI
+
+  $labels = array(
+    'name' => _x( 'Course Substitutions', 'taxonomy general name' ),
+    'singular_name' => _x( 'Course Substitution', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Course Substitutions' ),
+    'all_items' => __( 'All Course Substitutions' ),
+    'parent_item' => __( 'Parent Course Substitution' ),
+    'parent_item_colon' => __( 'Parent Course Substitution:' ),
+    'edit_item' => __( 'Edit Course Substitution' ), 
+    'update_item' => __( 'Update Course Substitution' ),
+    'add_new_item' => __( 'Add New Course Substitution' ),
+    'new_item_name' => __( 'New Course Substitution Name' ),
+    'menu_name' => __( 'Course Substitutions' ),
+  ); 	
+
+// Now register the taxonomy
+
+  register_taxonomy('csubstitutions',array('lp_couses'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'update_count_callback' => '_update_post_term_count',
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'course-substitution' ),
   ));
 
 }

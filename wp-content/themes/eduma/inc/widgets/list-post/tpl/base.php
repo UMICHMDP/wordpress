@@ -18,7 +18,9 @@ $query_args = array(
 	'ignore_sticky_posts' => true
 );
 if ( $instance['cat_id'] && $instance['cat_id'] != 'all' ) {
-	$query_args['cat'] = $instance['cat_id'];
+	if ( get_term( $instance['cat_id'], 'category' ) ) {
+		$query_args['cat'] = $instance['cat_id'];
+	}
 }
 switch ( $instance['orderby'] ) {
 	case 'recent' :

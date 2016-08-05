@@ -128,7 +128,7 @@ if ( !function_exists( 'thim_entry_meta' ) ) :
 			if ( isset( $theme_options_data['thim_show_category'] ) && $theme_options_data['thim_show_category'] == 1 && get_the_category() ) {
 				?>
 				<li class="entry-category">
-					<span><?php esc_attr_e( 'Categories', 'eduma' ); ?></span> <?php the_category( ', ', '' ); ?>
+					<span><?php esc_html_e( 'Categories', 'eduma' ); ?></span> <?php the_category( ', ', '' ); ?>
 				</li>
 				<?php
 			}

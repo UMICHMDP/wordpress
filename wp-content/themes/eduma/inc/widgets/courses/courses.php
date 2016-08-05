@@ -9,7 +9,7 @@
  */
 class Thim_Courses_Widget extends Thim_Widget {
 	function __construct() {
-		$all_cat = array( 'all' => 'All' );
+		$all_cat = array( 'all' => esc_html__('All', 'eduma') );
 		parent::__construct(
 			'courses',
 			esc_html__( 'Thim: Courses', 'eduma' ),

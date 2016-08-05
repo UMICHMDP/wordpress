@@ -59,7 +59,7 @@ if( count($co_instructors) < $visible_item ) {
 	$visible_item = count($co_instructors);
 }
 
-$pagination = ( $instance['show_pagination'] == 'yes' ) ? 1 : 0;
+$pagination = ( !empty($instance['show_pagination']) && $instance['show_pagination'] !== 'no' ) ? 1 : 0;
 
 // Using $co_instructors
 if ( ! empty( $co_instructors ) ) {

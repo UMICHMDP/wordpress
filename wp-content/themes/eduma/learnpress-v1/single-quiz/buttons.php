@@ -21,13 +21,13 @@ $status = $user->get_quiz_status( $quiz->id );
 <div class="quiz-buttons">
 
 	<?php if ( !$user->has( 'started-quiz', $quiz->id ) ): ?>
-		<button class="button-start-quiz" data-id="<?php esc_attr_e( $quiz->id ); ?>" data-start-quiz-nonce="<?php esc_attr_e( wp_create_nonce( 'start-quiz-' . $quiz->id ) ); ?>"><?php _e( "Start Quiz", "learnpress" ); ?></button>
+		<button class="button-start-quiz" data-id="<?php echo esc_attr( $quiz->id ); ?>" data-start-quiz-nonce="<?php echo esc_attr( wp_create_nonce( 'start-quiz-' . $quiz->id ) ); ?>"><?php esc_html_e( "Start Quiz", "eduma" ); ?></button>
 	<?php endif; ?>
 
-	<button class="button-finish-quiz<?php echo !$status ? ' hide-if-js' : ''; ?>" data-id="<?php esc_attr_e( $quiz->id ); ?>" data-finish-quiz-nonce="<?php esc_attr_e( wp_create_nonce( 'finish-quiz-' . $quiz->id ) ); ?>"><?php _e( "Finish Quiz", "learnpress" ); ?></button>
+	<button class="button-finish-quiz<?php echo !$status ? ' hide-if-js' : ''; ?>" data-id="<?php echo esc_attr( $quiz->id ); ?>" data-finish-quiz-nonce="<?php echo esc_attr( wp_create_nonce( 'finish-quiz-' . $quiz->id ) ); ?>"><?php esc_html_e( "Finish Quiz", "eduma" ); ?></button>
 
 	<?php if ( $remain = $user->can( 'retake-quiz', $quiz->id ) ): ?>
-		<button class="button-retake-quiz<?php echo $status != 'completed' ? ' hide-if-js' : ''; ?>" data-id="<?php esc_attr_e( $quiz->id ); ?>" data-retake-quiz-nonce="<?php esc_attr_e( wp_create_nonce( 'retake-quiz-' . $quiz->id ) ); ?>"><?php echo sprintf( '%s (+%d)', __( 'Retake', 'eduma' ), $remain ); ?></button>
+		<button class="button-retake-quiz<?php echo $status != 'completed' ? ' hide-if-js' : ''; ?>" data-id="<?php echo esc_attr( $quiz->id ); ?>" data-retake-quiz-nonce="<?php echo esc_attr( wp_create_nonce( 'retake-quiz-' . $quiz->id ) ); ?>"><?php echo sprintf( '%s (+%d)', __( 'Retake', 'eduma' ), $remain ); ?></button>
 	<?php endif; ?>
 
 </div>

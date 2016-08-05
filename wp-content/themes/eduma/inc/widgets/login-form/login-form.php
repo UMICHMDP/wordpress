@@ -14,16 +14,7 @@ class Thim_Login_Form_Widget extends Thim_Widget {
 			),
 			array(),
 			array(
-				'captcha' => array(
-					'type'        => 'radio',
-					'label'       => esc_html__( 'Captcha', 'eduma' ),
-					'description' => esc_html__( 'Use captcha in register form', 'eduma' ),
-					'default'     => 'no',
-					'options'     => array(
-						'no'  => esc_html__( 'No', 'eduma' ),
-						'yes' => esc_html__( 'Yes', 'eduma' ),
-					)
-				),
+				
 			),
 			THIM_DIR . 'inc/widgets/login-form/'
 		);

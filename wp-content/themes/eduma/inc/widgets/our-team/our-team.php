@@ -43,7 +43,7 @@ class Thim_Our_Team_Widget extends Thim_Widget {
 				),
 				'columns'       => array(
 					'type'    => 'select',
-					'label'   => esc_html__( 'Column', 'eduma' ),
+					'label'   => esc_html__( 'Columns', 'eduma' ),
 					'options' => array(
 						'2' => esc_html__( '2', 'eduma' ),
 						'3' => esc_html__( '3', 'eduma' ),
@@ -87,7 +87,7 @@ class Thim_Our_Team_Widget extends Thim_Widget {
 		) );
 
 		$cats        = array();
-		$cats['all'] = 'All';
+		$cats['all'] = esc_html__('All', 'eduma');
 		if ( ! empty( $query ) ) {
 			foreach ( $query as $key => $value ) {
 				$cats[ $value->term_id ] = $value->name;

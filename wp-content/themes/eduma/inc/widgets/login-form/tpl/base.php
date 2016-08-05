@@ -34,6 +34,9 @@ if ( is_user_logged_in() ) {
 			<?php if ( ! empty( $_GET['invalid_username'] ) ) : ?>
 				<?php echo '<p class="message message-error">' . esc_html__( 'The username is invalid. Please try again!', 'eduma' ) . '</p>'; ?>
 			<?php endif; ?>
+			<?php if ( ! empty( $_GET['passwords_not_matched'] ) ) : ?>
+				<?php echo '<p class="message message-error">' . esc_html__( 'Passwords must matched!', 'eduma' ) . '</p>'; ?>
+			<?php endif; ?>
 			<div class="thim-login">
 				<h2 class="title"><?php esc_html_e( 'Register', 'eduma' ); ?></h2>
 
@@ -46,20 +49,17 @@ if ( is_user_logged_in() ) {
 						<input placeholder="<?php esc_attr_e( 'Email', 'eduma' ); ?>" type="email" name="user_email" id="user_email" class="input" />
 					</p>
 
+					<p>
+						<input placeholder="<?php esc_attr_e( 'Password', 'eduma' ); ?>" type="password" name="password" id="password" class="input" />
+					</p>
+					<p>
+						<input placeholder="<?php esc_attr_e( 'Repeat Password', 'eduma' ); ?>" type="password" name="repeat_password" id="repeat_password" class="input" />
+					</p>
+
 					<?php do_action( 'register_form' ); ?>
 
-					<?php if ( isset( $instance['captcha'] ) && $instance['captcha'] == 'yes' ) : ?>
-						<p class="thim-login-captcha">
-							<?php
-							$value_1 = rand( 1, 9 );
-							$value_2 = rand( 1, 9 );
-							?>
-							<input type="text" data-captcha1="<?php echo esc_attr( $value_1 ); ?>" data-captcha2="<?php echo esc_attr( $value_2 ); ?>" placeholder="<?php echo esc_attr( $value_1 . ' &#43; ' . $value_2 . ' &#61;' ); ?>" class="captcha-result" />
-						</p>
-					<?php endif; ?>
-
 					<p>
-						<input type="hidden" name="redirect_to" value="<?php echo esc_attr( add_query_arg( 'result', 'registered', thim_get_login_page_url() ) ); ?>" />
+						<input type="hidden" name="redirect_to" value="<?php echo esc_url( add_query_arg( 'result', 'registered', thim_get_login_page_url() ) ); ?>" />
 					</p>
 
 					<p style="display: none">

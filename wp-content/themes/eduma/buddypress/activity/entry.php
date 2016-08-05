@@ -56,7 +56,7 @@ do_action( 'bp_before_activity_entry' ); ?>
 
 			<?php if ( bp_get_activity_type() == 'activity_comment' ) : ?>
 
-				<a href="<?php bp_activity_thread_permalink(); ?>" class="button view bp-secondary-action" title="<?php esc_attr_e( 'View Conversation', 'eduma' ); ?>"><?php _e( 'View Conversation', 'eduma' ); ?></a>
+				<a href="<?php bp_activity_thread_permalink(); ?>" class="button view bp-secondary-action" title="<?php esc_attr_e( 'View Conversation', 'eduma' ); ?>"><?php esc_html_e( 'View Conversation', 'eduma' ); ?></a>
 
 			<?php endif; ?>
 
@@ -72,11 +72,11 @@ do_action( 'bp_before_activity_entry' ); ?>
 
 					<?php if ( ! bp_get_activity_is_favorite() ) : ?>
 
-						<a href="<?php bp_activity_favorite_link(); ?>" class="button fav bp-secondary-action" title="<?php esc_attr_e( 'Mark as Favorite', 'eduma' ); ?>"><?php _e( 'Favorite', 'eduma' ); ?></a>
+						<a href="<?php bp_activity_favorite_link(); ?>" class="button fav bp-secondary-action" title="<?php esc_attr_e( 'Mark as Favorite', 'eduma' ); ?>"><?php esc_html_e( 'Favorite', 'eduma' ); ?></a>
 
 					<?php else : ?>
 
-						<a href="<?php bp_activity_unfavorite_link(); ?>" class="button unfav bp-secondary-action" title="<?php esc_attr_e( 'Remove Favorite', 'eduma' ); ?>"><?php _e( 'Remove Favorite', 'eduma' ); ?></a>
+						<a href="<?php bp_activity_unfavorite_link(); ?>" class="button unfav bp-secondary-action" title="<?php esc_attr_e( 'Remove Favorite', 'eduma' ); ?>"><?php esc_html_e( 'Remove Favorite', 'eduma' ); ?></a>
 
 					<?php endif; ?>
 
@@ -122,11 +122,11 @@ do_action( 'bp_before_activity_entry' ); ?>
 					<div class="ac-reply-avatar"><?php bp_loggedin_user_avatar( 'width=' . BP_AVATAR_THUMB_WIDTH . '&height=' . BP_AVATAR_THUMB_HEIGHT ); ?></div>
 					<div class="ac-reply-content">
 						<div class="ac-textarea">
-							<label for="ac-input-<?php bp_activity_id(); ?>" class="bp-screen-reader-text"><?php _e( 'Comment', 'eduma' ); ?></label>
+							<label for="ac-input-<?php bp_activity_id(); ?>" class="bp-screen-reader-text"><?php esc_html_e( 'Comment', 'eduma' ); ?></label>
 							<textarea id="ac-input-<?php bp_activity_id(); ?>" class="ac-input bp-suggestions" name="ac_input_<?php bp_activity_id(); ?>"></textarea>
 						</div>
 						<input type="submit" name="ac_form_submit" value="<?php esc_attr_e( 'Post', 'eduma' ); ?>" /> &nbsp;
-						<a href="#" class="ac-reply-cancel"><?php _e( 'Cancel', 'eduma' ); ?></a>
+						<a href="#" class="ac-reply-cancel"><?php esc_html_e( 'Cancel', 'eduma' ); ?></a>
 						<input type="hidden" name="comment_form_id" value="<?php bp_activity_id(); ?>" />
 					</div>
 

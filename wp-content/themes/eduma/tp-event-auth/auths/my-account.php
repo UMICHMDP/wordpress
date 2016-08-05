@@ -51,5 +51,6 @@ if ( $atts->have_posts() ) : ?>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-
+<?php else: ?>
+	<div class="message message-info"><?php esc_html_e('No records.','eduma'); ?></div>
 <?php endif; ?>

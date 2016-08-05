@@ -376,6 +376,7 @@ input[type="checkbox"] {
 .thim-bg-overlay-color-half{
     position: relative;
     &:before {
+        content: '';
         position: absolute;
         background: rgba(red(@thim_body_primary_color), green(@thim_body_primary_color), blue(@thim_body_primary_color), 0.5);
         left: 0;
@@ -384,7 +385,7 @@ input[type="checkbox"] {
         top: 0;
         z-index: 0;
     }
-    > .panel-grid-cell {
+    > div {
         position: relative;
     }
 }
@@ -2293,9 +2294,9 @@ article {
 .message,
 .learn-press .message{
     a{
-        color: @thim_body_primary_color;
+        color: @thim_font_title_color;
         &:hover{
-            color: @thim_body_primary_color;
+            color: @thim_font_title_color;
         }
     }
 }
@@ -2487,7 +2488,8 @@ form#lostpasswordform p input[type=password],
 .thim-login form#loginform input[type=password],
 .thim-login form#registerform input[type=text],
 .thim-login form#loginform input[type=text],
-.thim-login form#resetpassform input[type=text]{
+.thim-login form#resetpassform input[type=text],
+form#registerform input[type=password]{
     &:focus{
         border-color: @thim_body_primary_color;
     }
@@ -3286,6 +3288,11 @@ body.page-template-landing-page .navigation .navbar-nav #magic-line{
                     color: @thim_font_title_color;
                 }
             }
+            .lp_pmpro_title_level{
+                &:before{
+                    background: @thim_body_primary_color;
+                }
+            }
         }
         footer{
             a{
@@ -3395,6 +3402,13 @@ body.page-template-landing-page .navigation .navbar-nav #magic-line{
 }
 
 .thim-search-light-style .thim-widget-courses-searching .courses-searching button{
+    background: @thim_body_primary_color;
+    &:hover{
+        background: @thim_button_hover_color;
+    }
+}
+.thim-button-checkout{
+    color: @thim_font_title_color;
     background: @thim_body_primary_color;
     &:hover{
         background: @thim_button_hover_color;

@@ -81,7 +81,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 									"label"       => esc_html__( "Font Size", 'eduma' ),
 									"suffix"      => "px",
 									"default"     => "14",
-									"description" => esc_html__( "custom font size", 'eduma' ),
+									"description" => esc_html__( "Custom font size", 'eduma' ),
 									"class"       => "color-mini"
 								),
 								'custom_font_weight' => array(
@@ -192,7 +192,6 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 								"title"        => esc_html__( "Box Title", 'eduma' ),
 								"more"         => esc_html__( "Display Read More", 'eduma' )
 							),
-							"description"   => esc_html__( "Select whether to use color for icon or not.", 'eduma' ),
 							'state_emitter' => array(
 								'callback' => 'select',
 								'args'     => array( 'read_more_op' )

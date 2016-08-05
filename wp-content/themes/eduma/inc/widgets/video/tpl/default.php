@@ -28,7 +28,7 @@ if ( $type == 'single' ) {
 			if ( $src_poster ) { ?>
 				<div class="btns">
 					<div class="btn-player"><i class="fa fa-play-circle"></i></div>
-					<p class="watch"><?php echo esc_html__( 'Watch the video', 'youniverse' ) ?></p>
+					<p class="watch"><?php echo esc_html__( 'Watch the video', 'eduma' ) ?></p>
 				</div>
 				<?php
 				echo ' <img src="' . esc_attr( $src_poster[0] ) . '" class="yt-player beauty-bg" data-parallax-trigger=".beauty" data-video="' . esc_attr( $instance['external_video'] ) . '?enablejsapi=1&amp;autoplay=1&amp;modestbranding=1&amp;rel=0&amp;color=white&amp;theme=light">';

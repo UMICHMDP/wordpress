@@ -541,12 +541,10 @@ var woof_js_after_ajax_done;
 				el.css('top', ( win_H - el_H ) / 2);
 			}
 		}
-		$(document).on('click', 'body:not(".loggen-in") .purchase-course .thim-enroll-course-button', function (e) {
-			if ($(window).width() > 767) {
-				if ($('.thim-login-popup .login').length) {
-					e.preventDefault();
-					$('.thim-login-popup .login').trigger('click');
-				}
+		$(document).on('click', 'body:not(".loggen-in") .thim-button-checkout', function (e) {
+			if ($('.thim-login-popup .login').length) {
+				e.preventDefault();
+				$('.thim-login-popup .login').trigger('click');
 			}
 		});
 
@@ -571,7 +569,9 @@ var woof_js_after_ajax_done;
 			}
 		});
 
-		$('#thim-popup-login #loginform').submit(function (event) {
+		$('#thim-popup-login form[name="loginform"]').submit(function (event) {
+			event.preventDefault();
+			console.log('11111111');
 
 			var elem = $('#thim-popup-login .thim-login-container'),
 				input_username = elem.find('#thim_login').val(),
@@ -604,7 +604,7 @@ var woof_js_after_ajax_done;
 				elem.find('.thim-loading-container').remove();
 			});
 
-			event.preventDefault();
+
 			return false;
 		});
 	}
@@ -854,8 +854,8 @@ var woof_js_after_ajax_done;
 	});
 
 	jQuery(function ($) {
-		$('#thim_login').attr('placeholder', thim_placeholder.login);
-		$('#thim_pass').attr('placeholder', thim_placeholder.password);
+		$('.login-username [name="log"]').attr('placeholder', thim_placeholder.login);
+		$('.login-password [name="pwd"]').attr('placeholder', thim_placeholder.password);
 	});
 
 
@@ -1754,7 +1754,11 @@ var woof_js_after_ajax_done;
 			var elem = $(this),
 				input_username = elem.find('#user_login'),
 				input_email = elem.find('#user_email'),
-				input_captcha = $('.thim-login-captcha .captcha-result');
+				input_captcha = $('.thim-login-captcha .captcha-result'),
+				input_pass = elem.find('#password'),
+				input_rppass = elem.find('#repeat_password');
+
+			var email_valid = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 
 			if ($('#registerform #check_spam_register').val() != '') {
 				event.preventDefault();
@@ -1775,8 +1779,14 @@ var woof_js_after_ajax_done;
 				event.preventDefault();
 			}
 
-			if (input_email.length > 0 && input_email.val() == '') {
+			if (input_email.length > 0 && ( input_email.val() == '' || !email_valid.test( input_email.val() ) ) ) {
 				input_email.addClass('invalid');
+				event.preventDefault();
+			}
+
+			if( input_pass.val() !== input_rppass.val() || input_pass.val() == '' ) {
+				input_pass.addClass('invalid');
+				input_rppass.addClass('invalid');
 				event.preventDefault();
 			}
 		});
@@ -1785,15 +1795,15 @@ var woof_js_after_ajax_done;
 		$('form#loginform').submit(function (event) {
 			var elem = $(this),
 				input_username = elem.find('#thim_login'),
-				input_email = elem.find('#thim_pass');
+				input_pass = elem.find('#thim_pass');
 
 			if (input_username.length > 0 && input_username.val() == '') {
 				input_username.addClass('invalid');
 				event.preventDefault();
 			}
 
-			if (input_email.length > 0 && input_email.val() == '') {
-				input_email.addClass('invalid');
+			if (input_pass.length > 0 && input_pass.val() == '' ) {
+				input_pass.addClass('invalid');
 				event.preventDefault();
 			}
 		});
@@ -1807,7 +1817,8 @@ var woof_js_after_ajax_done;
 				input_username = elem.find('#reg_username'),
 				input_email = elem.find('#reg_email'),
 				input_pass = elem.find('#reg_password'),
-				input_captcha = $('#customer_login .register .captcha-result');
+				input_captcha = $('#customer_login .register .captcha-result'),
+				valid_email = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 
 			if (input_captcha.length > 0) {
 				var captcha_1 = parseInt(input_captcha.data('captcha1')),
@@ -1829,13 +1840,13 @@ var woof_js_after_ajax_done;
 				event.preventDefault();
 			}
 
-			if (input_email.length > 0 && input_email.val() == '') {
+			if (input_email.length > 0 && ( input_email.val() == '' || valid_email.test( input_email.val() ) ) ) {
 				input_email.addClass('invalid');
 				event.preventDefault();
 			}
 		});
 
-		$('#customer_login .register, #reg_username, #reg_email, #reg_password, .thim-login-captcha .captcha-result, #registerform #user_login,#registerform #user_email').on('focus', function () {
+		$('#customer_login .register, #reg_username, #reg_email, #reg_password, .thim-login-captcha .captcha-result, #registerform input').on('focus', function () {
 			$(this).removeClass('invalid');
 		});
 

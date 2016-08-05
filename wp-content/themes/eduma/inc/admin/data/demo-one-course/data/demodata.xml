@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/4.5.3" created="2016-07-14 08:56" -->
+<!-- generator="WordPress/4.5.3" created="2016-08-03 03:00" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>Demo One Course</title>
 	<link>http://educationwp.thimpress.com/demo-one-course</link>
 	<description>Education WordPress Theme</description>
-	<pubDate>Thu, 14 Jul 2016 08:56:13 +0000</pubDate>
+	<pubDate>Wed, 03 Aug 2016 03:00:22 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>http://educationwp.thimpress.com/</wp:base_site_url>

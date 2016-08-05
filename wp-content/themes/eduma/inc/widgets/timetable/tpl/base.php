@@ -1,7 +1,5 @@
 <?php
-
 $html       = '';
-$group_id   = 'accordion_' . uniqid();
 $title      = $instance['title'] ? $instance['title'] : '';
 $panel_list = $instance['panel'] ? $instance['panel'] : '';
 ?>

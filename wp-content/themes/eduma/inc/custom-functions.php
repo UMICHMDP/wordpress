@@ -24,7 +24,6 @@ function thim_getCSSAnimation( $css_animation ) {
  *
  * @return array|mixed|string|void
  */
-if (!function_exists('thim_excerpt')){
 function thim_excerpt( $limit ) {
 	$excerpt = explode( ' ', get_the_excerpt(), $limit );
 	if ( count( $excerpt ) >= $limit ) {
@@ -37,7 +36,7 @@ function thim_excerpt( $limit ) {
 
 	return '<p>' . $excerpt . '</p>';
 }
-}
+
 /**
  * Display breadcrumbs
  */
@@ -538,6 +537,43 @@ if ( !function_exists( 'thim_register_failed' ) ) {
 
 	add_action( 'register_post', 'thim_register_failed', 99, 3 );
 }
+
+/**
+ * Process extra register fields
+ *
+ * @param $login
+ * @param $email
+ * @param $errors
+ */
+function thim_check_extra_register_fields( $login, $email, $errors ) {
+	if ( $_POST['password'] !== $_POST['repeat_password'] ) {
+		$errors->add( 'passwords_not_matched', "<strong>ERROR</strong>: Passwords must match" );
+	}
+}
+
+add_action( 'register_post', 'thim_check_extra_register_fields', 10, 3 );
+
+/**
+ * Update password
+ *
+ * @param $user_id
+ */
+function thim_register_extra_fields( $user_id ) {
+	$user_data       = array();
+	$user_data['ID'] = $user_id;
+	if ( !empty( $_POST['password'] ) ) {
+		$user_data['user_pass'] = $_POST['password'];
+	}
+	$new_user_id = wp_update_user( $user_data );
+
+	// Login after registered
+	wp_set_current_user( $user_id );
+	wp_set_auth_cookie( $user_id );
+	wp_redirect( home_url() );
+	exit;
+}
+
+add_action( 'user_register', 'thim_register_extra_fields', 100 );
 
 
 /**
@@ -2613,9 +2649,6 @@ if ( !function_exists( 'thim_remove_create_page_action_event_auth' ) ) {
 	}
 }
 
-add_filter( 'event_auth_login_url', 'thim_get_login_page_url' );
-
-
 add_action( 'wp_head', 'thim_define_ajaxurl', 1000 );
 function thim_define_ajaxurl() {
 	?>
@@ -2746,6 +2779,10 @@ if ( class_exists( 'TP_Event_Authentication' ) ) {
 	remove_action( 'login_form_lostpassword', array( $auth, 'redirect_to_lostpassword' ) );
 	remove_action( 'login_form_rp', array( $auth, 'resetpass' ) );
 	remove_action( 'login_form_resetpass', array( $auth, 'resetpass' ) );
+
+	remove_action( 'wp_logout', array( $auth, 'wp_logout' ) );
+	remove_filter( 'login_url', array( $auth, 'login_url' ) );
+
 }
 
 function thim_redirect_rp_url() {
@@ -2760,6 +2797,7 @@ function thim_redirect_rp_url() {
 				'login'  => rawurlencode( $_REQUEST['login'] )
 			), thim_get_login_page_url()
 		);
+
 		if ( !thim_is_current_url( $reset_link ) ) {
 			wp_redirect( $reset_link );
 			exit();
@@ -2773,7 +2811,12 @@ if ( !function_exists( 'thim_get_current_url' ) ) {
 	function thim_get_current_url() {
 		static $current_url;
 		if ( !$current_url ) {
-			$url = add_query_arg( '__', '0' );
+			if( !empty( $_REQUEST['login'] ) ) {
+				$url = add_query_arg( array( 'login'  => rawurlencode( $_REQUEST['login'] ) ) );
+			}else{
+				$url = add_query_arg();
+			}
+			
 			if ( !preg_match( '!^https?!', $url ) ) {
 				$segs1 = explode( '/', get_site_url() );
 				$segs2 = explode( '/', $url );
@@ -2782,7 +2825,9 @@ if ( !function_exists( 'thim_get_current_url' ) ) {
 					$url   = get_site_url() . '/' . join( '/', $segs2 );
 				}
 			}
-			$current_url = remove_query_arg( '__', $url );
+
+			$current_url = $url;
+
 		}
 
 		return $current_url;
@@ -2901,7 +2946,7 @@ if ( !function_exists( 'thim_login_ajax_callback' ) ) {
 		$user_verify                 = wp_signon( $login_data, false );
 
 
-		$code    = 1;
+		$code = 1;
 
 		if ( is_wp_error( $user_verify ) ) {
 			$message = '<p class="message message-error">' . esc_html__( 'Wrong username or password.', 'eduma' ) . '</p>';
@@ -2936,7 +2981,7 @@ if ( !function_exists( 'thim_update_metabox_settings' ) ) {
 add_filter( 'thim_framework_metabox_settings', 'thim_update_metabox_settings' );
 
 // Turn off Paid Membership pro register redirect
-add_filter('pmpro_register_redirect', '__return_false');
+add_filter( 'pmpro_register_redirect', '__return_false' );
 
 
 if ( !function_exists( 'thim_add_custom_js' ) ) {
@@ -2945,10 +2990,13 @@ if ( !function_exists( 'thim_add_custom_js' ) ) {
 		if ( !empty( $theme_options_data['thim_custom_js'] ) ) {
 			?>
 			<script data-cfasync="false" type="text/javascript">
-				<?php echo ent2ncr($theme_options_data['thim_custom_js']); ?>
+				<?php echo ent2ncr( $theme_options_data['thim_custom_js'] ); ?>
 			</script>
 			<?php
 		}
 	}
 }
 add_action( 'wp_footer', 'thim_add_custom_js' );
+
+// Remove Paid Membership pro login redirect
+remove_filter('login_redirect','pmpro_login_redirect', 10, 3);

@@ -7,7 +7,7 @@
 
 define( 'THIM_DIR', trailingslashit( get_template_directory() ) );
 define( 'THIM_URI', trailingslashit( get_template_directory_uri() ) );
-define( 'THIM_THEME_VERSION', '2.4.2.0' );
+define( 'THIM_THEME_VERSION', '2.4.2.6' );
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -219,9 +219,15 @@ if ( ! function_exists( 'thim_styles' ) ) {
 			wp_enqueue_style( 'thim-style', get_stylesheet_uri(), array(), THIM_THEME_VERSION );
 		}
 
+		if ( isset( $thim_theme_options['thim_page_builder_chosen'] ) && $thim_theme_options['thim_page_builder_chosen'] === 'visual_composer' ) {
+			wp_enqueue_style( 'thim-custom-vc', THIM_URI . 'assets/css/custom-vc.css', array(), THIM_THEME_VERSION );
+		}
+		
 		if ( isset( $theme_options_data['thim_rtl_support'] ) && $theme_options_data['thim_rtl_support'] == '1' ) {
 			wp_enqueue_style( 'thim-rtl', THIM_URI . 'rtl.css', array(), THIM_THEME_VERSION );
 		}
+		
+		
 	}
 
 	add_action( 'wp_enqueue_scripts', 'thim_styles' );
@@ -439,6 +445,13 @@ require_once THIM_DIR . 'inc/header/logo.php';
 
 //custom logo mobile
 require_once THIM_DIR . 'inc/header/logo-mobile.php';
+
+
+//Visual composer shortcodes
+$thim_theme_options = get_theme_mods();
+if ( class_exists( 'Vc_Manager' ) && isset( $thim_theme_options['thim_page_builder_chosen'] ) && $thim_theme_options['thim_page_builder_chosen'] === 'visual_composer' ) {
+	require THIM_DIR . 'vc-shortcodes/vc-shortcodes.php';
+}
 
 /**
  * Testing

@@ -788,7 +788,7 @@ div.woof_info_popup {
                     bottom: 0;
                     z-index: -1;
                     border-radius: 0 0 50% 50%;
-                    background: @thim_body_primary_color;
+                    background: #ffb606;
                 }
             }
             .lp_pmpro_price_level{
@@ -816,11 +816,6 @@ div.woof_info_popup {
                 line-height: 30px;
                 display: inline-block;
                 padding: 5px 25px;
-                background: @thim_body_primary_color;
-                color: @thim_font_title_color;
-                &:hover{
-                    background: @thim_button_hover_color;
-                }
             }
         }
         ul{
@@ -876,10 +871,20 @@ body{
 .user-info .edit-profile{
     text-align: center;
     a{
-        color: @thim_body_primary_color;
         &:hover{
-            color: @thim_body_primary_color;
             text-decoration: underline;
         }
+    }
+}
+
+#learn-press-checkout-user-form{
+    .title{
+        text-transform: uppercase;
+        margin-top: 0;
+    }
+}
+#learn-press-payment{
+    h3{
+        text-transform: uppercase;
     }
 }

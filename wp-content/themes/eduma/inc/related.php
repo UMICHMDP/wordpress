@@ -5,7 +5,7 @@ $related        = thim_get_related_posts( $post->ID, $number_related );
 if ( $related->have_posts() ) {
 	?>
 	<section class="related-archive">
-		<h3 class="single-title"><?php esc_attr_e( 'You may also like', 'eduma' ); ?></h3>
+		<h3 class="single-title"><?php esc_html_e( 'You may also like', 'eduma' ); ?></h3>
 		<?php
 		echo '<ul class="archived-posts">';
 		while ( $related->have_posts() ) {

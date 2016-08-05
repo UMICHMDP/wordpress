@@ -5,13 +5,40 @@
 #
 #: inc/widgets/our-team/our-team.php:11
 #: inc/widgets/testimonials/testimonials.php:9
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:11
+#: vc-shortcodes/inc-map/course-categories.php:47
+#: vc-shortcodes/inc-map/course-categories.php:60
+#: vc-shortcodes/inc-map/course-categories.php:109
+#: vc-shortcodes/inc-map/course-categories.php:122
+#: vc-shortcodes/inc-map/heading.php:15 vc-shortcodes/inc-map/heading.php:24
+#: vc-shortcodes/inc-map/heading.php:127 vc-shortcodes/inc-map/heading.php:136
+#: vc-shortcodes/inc-map/heading.php:146 vc-shortcodes/inc-map/heading.php:155
+#: vc-shortcodes/inc-map/icon-box.php:23
+#: vc-shortcodes/inc-map/icon-box.php:217
+#: vc-shortcodes/inc-map/icon-box.php:226
+#: vc-shortcodes/inc-map/icon-box.php:235
+#: vc-shortcodes/inc-map/icon-box.php:244
+#: vc-shortcodes/inc-map/icon-box.php:253
+#: vc-shortcodes/inc-map/icon-box.php:275
+#: vc-shortcodes/inc-map/icon-box.php:323
+#: vc-shortcodes/inc-map/icon-box.php:332
+#: vc-shortcodes/inc-map/icon-box.php:341
+#: vc-shortcodes/inc-map/icon-box.php:350
+#: vc-shortcodes/inc-map/icon-box.php:359
+#: vc-shortcodes/inc-map/icon-box.php:368
+#: vc-shortcodes/inc-map/our-team.php:53
+#: vc-shortcodes/inc-map/portfolio.php:22
+#: vc-shortcodes/inc-map/portfolio.php:58
+#: vc-shortcodes/inc-map/portfolio.php:118
+#: vc-shortcodes/inc-map/testimonials.php:50
+#: vc-shortcodes/inc-map/testimonials.php:63
+#: vc-shortcodes/inc-map/testimonials.php:76
+#: vc-shortcodes/inc-map/testimonials.php:89
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-15 15:58+0700\n"
+"POT-Creation-Date: 2016-08-03 10:49+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,7 +140,7 @@ msgstr ""
 #: inc/widgets/courses/tpl/slider-v1.php:69
 #: inc/widgets/courses/tpl/slider.php:81
 #: inc/widgets/courses/tpl/tabs-v1.php:62
-#: inc/widgets/icon-box/icon-box.php:224 inc/widgets/icon-box/icon-box.php:746
+#: inc/widgets/icon-box/icon-box.php:223 inc/widgets/icon-box/icon-box.php:745
 #: learnpress/archive-course-content.php:39
 #: learnpress/addons/course-wishlist/wishlist-content.php:9
 #: learnpress/course/thumbnail.php:25
@@ -208,13 +235,14 @@ msgstr ""
 msgid "Sidebar Events"
 msgstr ""
 
-#: functions.php:329 inc/widgets/login-form/tpl/base.php:42
+#: functions.php:335 inc/widgets/login-form/tpl/base.php:45
 #: learnpress-v1/checkout/form-login.php:40
 #: woocommerce/myaccount/form-login.php:98
 msgid "Username"
 msgstr ""
 
-#: functions.php:330 inc/widgets/login-form/tpl/base.php:167
+#: functions.php:336 inc/widgets/login-form/tpl/base.php:53
+#: inc/widgets/login-form/tpl/base.php:167
 #: inc/widgets/login-popup/tpl/base.php:38
 #: learnpress-v1/checkout/form-login.php:44 tp-event-auth/auths/login.php:19
 #: woocommerce/myaccount/form-login.php:50
@@ -424,7 +452,7 @@ msgstr ""
 msgid "Sorry, no members were found."
 msgstr ""
 
-#: inc/custom-functions.php:60 inc/custom-functions.php:1076
+#: inc/custom-functions.php:60 inc/custom-functions.php:1113
 #: inc/learnpress-functions.php:552 inc/learnpress-v1-functions.php:1195
 #: inc/learnpress-v1-functions.php:1278
 msgid "Home"
@@ -498,92 +526,93 @@ msgstr ""
 msgid "Pinterest"
 msgstr ""
 
-#: inc/custom-functions.php:602
+#: inc/custom-functions.php:639
 msgid "Lost Password"
 msgstr ""
 
-#: inc/custom-functions.php:602 woocommerce/myaccount/form-login.php:64
+#: inc/custom-functions.php:639 woocommerce/myaccount/form-login.php:64
 msgid "Lost your password?"
 msgstr ""
 
-#: inc/custom-functions.php:807
+#: inc/custom-functions.php:844
 msgid "Organizers"
 msgstr ""
 
-#: inc/custom-functions.php:834
+#: inc/custom-functions.php:871
 msgid "No members exists. You can create a member data from"
 msgstr ""
 
-#: inc/custom-functions.php:840
+#: inc/custom-functions.php:877
 msgid "Get Members"
 msgstr ""
 
-#: inc/custom-functions.php:851
+#: inc/custom-functions.php:888
 msgid ""
 "Hold down the Ctrl (Windows) / Command (Mac) button to select multiple "
 "options."
 msgstr ""
 
-#: inc/custom-functions.php:860
+#: inc/custom-functions.php:897
 msgid "Current Members: "
 msgstr ""
 
-#: inc/custom-functions.php:862 inc/widgets/button/button.php:178
-#: inc/widgets/icon-box/icon-box.php:457 inc/widgets/icon-box/icon-box.php:501
-#: inc/widgets/icon-box/icon-box.php:944 inc/widgets/icon-box/icon-box.php:988
+#: inc/custom-functions.php:899 inc/widgets/button/button.php:178
+#: inc/widgets/icon-box/icon-box.php:456 inc/widgets/icon-box/icon-box.php:500
+#: inc/widgets/icon-box/icon-box.php:943 inc/widgets/icon-box/icon-box.php:987
+#: vc-shortcodes/inc-map/icon-box.php:378
 msgid "None"
 msgstr ""
 
-#: inc/custom-functions.php:937
+#: inc/custom-functions.php:974
 msgid "Name"
 msgstr ""
 
-#: inc/custom-functions.php:938 inc/widgets/login-form/tpl/base.php:46
+#: inc/custom-functions.php:975 inc/widgets/login-form/tpl/base.php:49
 msgid "Email"
 msgstr ""
 
-#: inc/custom-functions.php:939
+#: inc/custom-functions.php:976
 msgid "Website"
 msgstr ""
 
-#: inc/custom-functions.php:1302
+#: inc/custom-functions.php:1339
 msgid "Someone has requested a password reset for the following account:"
 msgstr ""
 
-#: inc/custom-functions.php:1304
+#: inc/custom-functions.php:1341
 #, php-format
 msgid "Username: %s"
 msgstr ""
 
-#: inc/custom-functions.php:1305
+#: inc/custom-functions.php:1342
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 
-#: inc/custom-functions.php:1306
+#: inc/custom-functions.php:1343
 msgid "To reset your password, visit the following address:"
 msgstr ""
 
-#: inc/custom-functions.php:1371
+#: inc/custom-functions.php:1408
 msgid "Invalid request."
 msgstr ""
 
-#: inc/custom-functions.php:2450
+#: inc/custom-functions.php:2487
 msgid "Related Items"
 msgstr ""
 
-#: inc/custom-functions.php:2498 inc/widgets/portfolio/tpl/base.php:303
+#: inc/custom-functions.php:2535 inc/widgets/portfolio/tpl/base.php:303
 msgid "Zoom"
 msgstr ""
 
-#: inc/custom-functions.php:2539 inc/custom-functions.php:2541
+#: inc/custom-functions.php:2576 inc/custom-functions.php:2578
 msgid "This post doesn't have any gallery images, please add some!"
 msgstr ""
 
-#: inc/custom-functions.php:2906
+#: inc/custom-functions.php:2952
 msgid "Wrong username or password."
 msgstr ""
 
-#: inc/custom-functions.php:2909
+#: inc/custom-functions.php:2955
 msgid "Login successful, redirecting..."
 msgstr ""
 
@@ -641,13 +670,24 @@ msgstr ""
 #: inc/widgets/course-categories/course-categories.php:25
 #: inc/widgets/courses-searching/courses-searching.php:39
 #: inc/widgets/google-map/google-map.php:18
-#: inc/widgets/icon-box/icon-box.php:31 inc/widgets/icon-box/icon-box.php:553
+#: inc/widgets/icon-box/icon-box.php:31 inc/widgets/icon-box/icon-box.php:552
 #: inc/widgets/landing-image/landing-image.php:20
 #: inc/widgets/list-event/list-event.php:18
 #: inc/widgets/list-post/list-post.php:31
 #: inc/widgets/list-post/list-post.php:66 inc/widgets/social/social.php:21
 #: inc/widgets/tab-event/tab-event.php:17
 #: inc/widgets/timetable/timetable.php:19
+#: vc-shortcodes/inc-map/carousel-posts.php:13
+#: vc-shortcodes/inc-map/carousel-posts.php:87
+#: vc-shortcodes/inc-map/course-categories.php:13
+#: vc-shortcodes/inc-map/courses-collection.php:13
+#: vc-shortcodes/inc-map/courses-searching.php:27
+#: vc-shortcodes/inc-map/google-map.php:13
+#: vc-shortcodes/inc-map/heading.php:13 vc-shortcodes/inc-map/icon-box.php:13
+#: vc-shortcodes/inc-map/list-events.php:13
+#: vc-shortcodes/inc-map/tab-event.php:12
+#: vc-shortcodes/inc-map/testimonials.php:12
+#: vc-shortcodes/inc-map/timetable.php:12
 msgid "Title"
 msgstr ""
 
@@ -803,10 +843,12 @@ msgstr ""
 #: inc/widgets/carousel-post/carousel-post.php:44
 #: inc/widgets/carousel-post/carousel-post.php:53
 #: inc/widgets/gallery-images/gallery-images.php:55
-#: inc/widgets/icon-box/icon-box.php:207 inc/widgets/icon-box/icon-box.php:729
+#: inc/widgets/icon-box/icon-box.php:206 inc/widgets/icon-box/icon-box.php:728
 #: inc/widgets/list-post/list-post.php:52
-#: inc/widgets/login-form/login-form.php:24
 #: inc/widgets/one-course-instructors/one-course-instructors.php:27
+#: vc-shortcodes/inc-map/carousel-posts.php:49
+#: vc-shortcodes/inc-map/carousel-posts.php:62
+#: vc-shortcodes/inc-map/gallery-images.php:65
 msgid "Yes"
 msgstr ""
 
@@ -860,15 +902,21 @@ msgstr ""
 #: inc/widgets/counters-box/counters-box.php:73
 #: inc/widgets/gallery-images/gallery-images.php:54
 #: inc/widgets/gallery-images/gallery-images.php:71
-#: inc/widgets/heading/heading.php:134 inc/widgets/icon-box/icon-box.php:206
-#: inc/widgets/icon-box/icon-box.php:535 inc/widgets/icon-box/icon-box.php:728
-#: inc/widgets/icon-box/icon-box.php:1022
+#: inc/widgets/heading/heading.php:134 inc/widgets/icon-box/icon-box.php:205
+#: inc/widgets/icon-box/icon-box.php:534 inc/widgets/icon-box/icon-box.php:727
+#: inc/widgets/icon-box/icon-box.php:1021
 #: inc/widgets/list-post/list-post.php:51
-#: inc/widgets/login-form/login-form.php:23
 #: inc/widgets/one-course-instructors/one-course-instructors.php:26
 #: inc/widgets/our-team/our-team.php:57
 #: inc/widgets/single-images/single-images.php:57
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:132
+#: vc-shortcodes/inc-map/carousel-posts.php:50
+#: vc-shortcodes/inc-map/carousel-posts.php:63
+#: vc-shortcodes/inc-map/counters-box.php:92
+#: vc-shortcodes/inc-map/courses.php:199
+#: vc-shortcodes/inc-map/gallery-images.php:66
+#: vc-shortcodes/inc-map/gallery-images.php:88
+#: vc-shortcodes/inc-map/heading.php:179 vc-shortcodes/inc-map/our-team.php:77
+#: vc-shortcodes/inc-map/single-images.php:62
 msgid "No"
 msgstr ""
 
@@ -947,8 +995,8 @@ msgstr ""
 #: inc/admin/customizer-sections/header-mobile.php:39
 #: inc/admin/customizer-sections/header-stickymenu.php:24
 #: inc/widgets/heading/heading.php:53 inc/widgets/icon-box/icon-box.php:62
-#: inc/widgets/icon-box/icon-box.php:584
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:53
+#: inc/widgets/icon-box/icon-box.php:583 vc-shortcodes/inc-map/heading.php:56
+#: vc-shortcodes/inc-map/icon-box.php:49
 msgid "Custom"
 msgstr ""
 
@@ -1203,28 +1251,28 @@ msgstr ""
 msgid "Demo Kindergarten"
 msgstr ""
 
-#: inc/admin/plugins-require.php:349
+#: inc/admin/plugins-require.php:300
 #: inc/libs/class-tgm-plugin-activation.php:334
 msgid "Install Required Plugins"
 msgstr ""
 
-#: inc/admin/plugins-require.php:350
+#: inc/admin/plugins-require.php:301
 #: inc/libs/class-tgm-plugin-activation.php:335
 msgid "Install Plugins"
 msgstr ""
 
-#: inc/admin/plugins-require.php:351
+#: inc/admin/plugins-require.php:302
 #: inc/libs/class-tgm-plugin-activation.php:337
 #, php-format
 msgid "Installing Plugin: %s"
 msgstr ""
 
-#: inc/admin/plugins-require.php:353
+#: inc/admin/plugins-require.php:304
 #: inc/libs/class-tgm-plugin-activation.php:340
 msgid "Something went wrong with the plugin API."
 msgstr ""
 
-#: inc/admin/plugins-require.php:354
+#: inc/admin/plugins-require.php:305
 #: inc/libs/class-tgm-plugin-activation.php:343
 #, php-format
 msgid "This theme requires the following plugin: %1$s."
@@ -1232,7 +1280,7 @@ msgid_plural "This theme requires the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:356
+#: inc/admin/plugins-require.php:307
 #: inc/libs/class-tgm-plugin-activation.php:349
 #, php-format
 msgid "This theme recommends the following plugin: %1$s."
@@ -1240,7 +1288,7 @@ msgid_plural "This theme recommends the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:358
+#: inc/admin/plugins-require.php:309
 #, php-format
 msgid ""
 "Sorry, but you do not have the correct permissions to install the %s plugin. "
@@ -1253,7 +1301,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:360
+#: inc/admin/plugins-require.php:311
 #: inc/libs/class-tgm-plugin-activation.php:367
 #, php-format
 msgid "The following required plugin is currently inactive: %1$s."
@@ -1261,7 +1309,7 @@ msgid_plural "The following required plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:362
+#: inc/admin/plugins-require.php:313
 #: inc/libs/class-tgm-plugin-activation.php:373
 #, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
@@ -1269,7 +1317,7 @@ msgid_plural "The following recommended plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:364
+#: inc/admin/plugins-require.php:315
 #, php-format
 msgid ""
 "Sorry, but you do not have the correct permissions to activate the %s "
@@ -1282,7 +1330,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:366
+#: inc/admin/plugins-require.php:317
 #: inc/libs/class-tgm-plugin-activation.php:355
 #, php-format
 msgid ""
@@ -1294,7 +1342,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:368
+#: inc/admin/plugins-require.php:319
 #, php-format
 msgid ""
 "Sorry, but you do not have the correct permissions to update the %s plugin. "
@@ -1307,31 +1355,31 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:370
+#: inc/admin/plugins-require.php:321
 #: inc/libs/class-tgm-plugin-activation.php:378
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:371
+#: inc/admin/plugins-require.php:322
 msgid "Activate installed plugin"
 msgid_plural "Activate installed plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin/plugins-require.php:372
+#: inc/admin/plugins-require.php:323
 #: inc/libs/class-tgm-plugin-activation.php:392
 msgid "Return to Required Plugins Installer"
 msgstr ""
 
-#: inc/admin/plugins-require.php:373
+#: inc/admin/plugins-require.php:324
 #: inc/libs/class-tgm-plugin-activation.php:394
 #: inc/libs/class-tgm-plugin-activation.php:3244
 msgid "Plugin activated successfully."
 msgstr ""
 
-#: inc/admin/plugins-require.php:374
+#: inc/admin/plugins-require.php:325
 #, php-format
 msgid "All plugins installed and activated successfully. %s"
 msgstr ""
@@ -1558,6 +1606,11 @@ msgstr ""
 #: inc/widgets/button/button.php:159
 #: inc/widgets/course-categories/course-categories.php:29
 #: inc/widgets/list-event/list-event.php:23
+#: vc-shortcodes/inc-map/course-categories.php:20
+#: vc-shortcodes/inc-map/courses-searching.php:15
+#: vc-shortcodes/inc-map/courses.php:59
+#: vc-shortcodes/inc-map/list-events.php:29
+#: vc-shortcodes/inc-map/testimonials.php:20
 msgid "Layout"
 msgstr ""
 
@@ -1582,6 +1635,8 @@ msgstr ""
 #: inc/admin/metabox-sections/portfolio-background.php:8
 #: inc/widgets/counters-box/counters-box.php:39
 #: inc/widgets/timetable/timetable.php:54
+#: vc-shortcodes/inc-map/counters-box.php:45
+#: vc-shortcodes/inc-map/timetable.php:57
 msgid "Background Color"
 msgstr ""
 
@@ -1616,7 +1671,6 @@ msgid "Footer Text Color"
 msgstr ""
 
 #: inc/admin/customizer-sections/footer-options.php:32
-#: inc/widgets/slider/slider.php:24
 msgid "Background Image"
 msgstr ""
 
@@ -1709,17 +1763,23 @@ msgstr ""
 #: inc/widgets/button/button.php:40
 #: inc/widgets/courses-searching/courses-searching.php:28
 #: inc/widgets/heading/heading.php:52 inc/widgets/icon-box/icon-box.php:61
-#: inc/widgets/icon-box/icon-box.php:488 inc/widgets/icon-box/icon-box.php:583
-#: inc/widgets/icon-box/icon-box.php:975
+#: inc/widgets/icon-box/icon-box.php:487 inc/widgets/icon-box/icon-box.php:582
+#: inc/widgets/icon-box/icon-box.php:974
 #: inc/widgets/list-event/list-event.php:25
 #: inc/widgets/testimonials/testimonials.php:26
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:52
+#: vc-shortcodes/inc-map/courses-searching.php:18
+#: vc-shortcodes/inc-map/heading.php:55 vc-shortcodes/inc-map/icon-box.php:48
+#: vc-shortcodes/inc-map/icon-box.php:417
+#: vc-shortcodes/inc-map/list-events.php:32
+#: vc-shortcodes/inc-map/testimonials.php:23
 msgid "Default"
 msgstr ""
 
 #: inc/admin/customizer-sections/header-mainmenu.php:26
 #: inc/widgets/courses-searching/courses-searching.php:29
-#: inc/widgets/icon-box/icon-box.php:489 inc/widgets/icon-box/icon-box.php:976
+#: inc/widgets/icon-box/icon-box.php:488 inc/widgets/icon-box/icon-box.php:975
+#: vc-shortcodes/inc-map/courses-searching.php:19
+#: vc-shortcodes/inc-map/icon-box.php:418
 msgid "Overlay"
 msgstr ""
 
@@ -1732,8 +1792,7 @@ msgstr ""
 #: inc/admin/customizer-sections/header-mainmenu.php:67
 #: inc/admin/customizer-sections/header-toolbar.php:20
 #: inc/widgets/heading/heading.php:72 inc/widgets/icon-box/icon-box.php:81
-#: inc/widgets/icon-box/icon-box.php:603
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:74
+#: inc/widgets/icon-box/icon-box.php:602
 msgid "Font Size"
 msgstr ""
 
@@ -1786,7 +1845,6 @@ msgstr ""
 #: inc/admin/customizer-sections/header-offcanvas.php:44
 #: inc/widgets/button/button.php:134
 #: inc/widgets/counters-box/counters-box.php:45
-#: inc/widgets/slider/slider.php:38
 msgid "Icon"
 msgstr ""
 
@@ -1937,6 +1995,33 @@ msgstr ""
 msgid "Upload your favicon."
 msgstr ""
 
+#: inc/admin/customizer-sections/page-builder-chosen.php:3
+#: inc/admin/customizer-sections/page-builder.php:3
+msgid "Page Builder"
+msgstr ""
+
+#: inc/admin/customizer-sections/page-builder-chosen.php:7
+msgid "Choose your page builder"
+msgstr ""
+
+#: inc/admin/customizer-sections/page-builder-chosen.php:8
+msgid "Site Origin"
+msgstr ""
+
+#: inc/admin/customizer-sections/page-builder-chosen.php:9
+msgid "Visual Composer"
+msgstr ""
+
+#: inc/admin/customizer-sections/page-builder-chosen.php:14
+msgid "Footer Bottom Background Image"
+msgstr ""
+
+#: inc/admin/customizer-sections/page-builder-chosen.php:17
+msgid ""
+"Choose background image for footer button. This option work with Visual "
+"Composer."
+msgstr ""
+
 #: inc/admin/customizer-sections/portfolio.php:4
 #: inc/templates/heading-top.php:250
 msgid "Portfolio"
@@ -2065,7 +2150,6 @@ msgid "Select Font"
 msgstr ""
 
 #: inc/admin/customizer-sections/typography.php:36
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:20
 msgid "Heading"
 msgstr ""
 
@@ -2135,7 +2219,7 @@ msgid "Setting"
 msgstr ""
 
 #: inc/admin/customizer-sections/woocommerce-setting.php:9
-#: inc/widgets/courses/courses.php:62
+#: inc/widgets/courses/courses.php:62 vc-shortcodes/inc-map/courses.php:64
 msgid "Grid"
 msgstr ""
 
@@ -2580,7 +2664,7 @@ msgstr ""
 msgid "Testimonials"
 msgstr ""
 
-#: inc/widgets/widgets.php:97
+#: inc/widgets/widgets.php:95
 msgid "Extra Class"
 msgstr ""
 
@@ -2663,79 +2747,90 @@ msgstr ""
 
 #: inc/widgets/button/button.php:72 inc/widgets/button/button.php:167
 #: inc/widgets/heading/heading.php:82 inc/widgets/icon-box/icon-box.php:92
-#: inc/widgets/icon-box/icon-box.php:154 inc/widgets/icon-box/icon-box.php:614
-#: inc/widgets/icon-box/icon-box.php:676
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:84
+#: inc/widgets/icon-box/icon-box.php:154 inc/widgets/icon-box/icon-box.php:613
+#: inc/widgets/icon-box/icon-box.php:675 vc-shortcodes/inc-map/heading.php:83
+#: vc-shortcodes/inc-map/heading.php:113 vc-shortcodes/inc-map/icon-box.php:75
+#: vc-shortcodes/inc-map/icon-box.php:150
 msgid "Normal"
 msgstr ""
 
 #: inc/widgets/button/button.php:73 inc/widgets/heading/heading.php:83
 #: inc/widgets/icon-box/icon-box.php:93 inc/widgets/icon-box/icon-box.php:155
-#: inc/widgets/icon-box/icon-box.php:615 inc/widgets/icon-box/icon-box.php:677
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:85
+#: inc/widgets/icon-box/icon-box.php:614 inc/widgets/icon-box/icon-box.php:676
+#: vc-shortcodes/inc-map/heading.php:84 vc-shortcodes/inc-map/icon-box.php:76
+#: vc-shortcodes/inc-map/icon-box.php:151
 msgid "Bold"
 msgstr ""
 
 #: inc/widgets/button/button.php:74 inc/widgets/heading/heading.php:84
 #: inc/widgets/icon-box/icon-box.php:94 inc/widgets/icon-box/icon-box.php:156
-#: inc/widgets/icon-box/icon-box.php:616 inc/widgets/icon-box/icon-box.php:678
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:86
+#: inc/widgets/icon-box/icon-box.php:615 inc/widgets/icon-box/icon-box.php:677
+#: vc-shortcodes/inc-map/heading.php:85 vc-shortcodes/inc-map/icon-box.php:77
+#: vc-shortcodes/inc-map/icon-box.php:152
 msgid "100"
 msgstr ""
 
 #: inc/widgets/button/button.php:75 inc/widgets/heading/heading.php:85
 #: inc/widgets/icon-box/icon-box.php:95 inc/widgets/icon-box/icon-box.php:157
-#: inc/widgets/icon-box/icon-box.php:617 inc/widgets/icon-box/icon-box.php:679
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:87
+#: inc/widgets/icon-box/icon-box.php:616 inc/widgets/icon-box/icon-box.php:678
+#: vc-shortcodes/inc-map/heading.php:86 vc-shortcodes/inc-map/icon-box.php:78
+#: vc-shortcodes/inc-map/icon-box.php:153
 msgid "200"
 msgstr ""
 
 #: inc/widgets/button/button.php:76 inc/widgets/heading/heading.php:86
 #: inc/widgets/icon-box/icon-box.php:96 inc/widgets/icon-box/icon-box.php:158
-#: inc/widgets/icon-box/icon-box.php:618 inc/widgets/icon-box/icon-box.php:680
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:88
+#: inc/widgets/icon-box/icon-box.php:617 inc/widgets/icon-box/icon-box.php:679
+#: vc-shortcodes/inc-map/heading.php:87 vc-shortcodes/inc-map/icon-box.php:79
+#: vc-shortcodes/inc-map/icon-box.php:154
 msgid "300"
 msgstr ""
 
 #: inc/widgets/button/button.php:77 inc/widgets/heading/heading.php:87
 #: inc/widgets/icon-box/icon-box.php:97 inc/widgets/icon-box/icon-box.php:159
-#: inc/widgets/icon-box/icon-box.php:619 inc/widgets/icon-box/icon-box.php:681
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:89
+#: inc/widgets/icon-box/icon-box.php:618 inc/widgets/icon-box/icon-box.php:680
+#: vc-shortcodes/inc-map/heading.php:88 vc-shortcodes/inc-map/icon-box.php:80
+#: vc-shortcodes/inc-map/icon-box.php:155
 msgid "400"
 msgstr ""
 
 #: inc/widgets/button/button.php:78 inc/widgets/heading/heading.php:88
 #: inc/widgets/icon-box/icon-box.php:98 inc/widgets/icon-box/icon-box.php:160
-#: inc/widgets/icon-box/icon-box.php:620 inc/widgets/icon-box/icon-box.php:682
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:90
+#: inc/widgets/icon-box/icon-box.php:619 inc/widgets/icon-box/icon-box.php:681
+#: vc-shortcodes/inc-map/heading.php:89 vc-shortcodes/inc-map/icon-box.php:81
+#: vc-shortcodes/inc-map/icon-box.php:156
 msgid "500"
 msgstr ""
 
 #: inc/widgets/button/button.php:79 inc/widgets/heading/heading.php:89
 #: inc/widgets/icon-box/icon-box.php:99 inc/widgets/icon-box/icon-box.php:161
-#: inc/widgets/icon-box/icon-box.php:621 inc/widgets/icon-box/icon-box.php:683
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:91
+#: inc/widgets/icon-box/icon-box.php:620 inc/widgets/icon-box/icon-box.php:682
+#: vc-shortcodes/inc-map/heading.php:90 vc-shortcodes/inc-map/icon-box.php:82
+#: vc-shortcodes/inc-map/icon-box.php:157
 msgid "600"
 msgstr ""
 
 #: inc/widgets/button/button.php:80 inc/widgets/heading/heading.php:90
 #: inc/widgets/icon-box/icon-box.php:100 inc/widgets/icon-box/icon-box.php:162
-#: inc/widgets/icon-box/icon-box.php:622 inc/widgets/icon-box/icon-box.php:684
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:92
+#: inc/widgets/icon-box/icon-box.php:621 inc/widgets/icon-box/icon-box.php:683
+#: vc-shortcodes/inc-map/heading.php:91 vc-shortcodes/inc-map/icon-box.php:83
+#: vc-shortcodes/inc-map/icon-box.php:158
 msgid "700"
 msgstr ""
 
 #: inc/widgets/button/button.php:81 inc/widgets/heading/heading.php:91
 #: inc/widgets/icon-box/icon-box.php:101 inc/widgets/icon-box/icon-box.php:163
-#: inc/widgets/icon-box/icon-box.php:623 inc/widgets/icon-box/icon-box.php:685
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:93
+#: inc/widgets/icon-box/icon-box.php:622 inc/widgets/icon-box/icon-box.php:684
+#: vc-shortcodes/inc-map/heading.php:92 vc-shortcodes/inc-map/icon-box.php:84
+#: vc-shortcodes/inc-map/icon-box.php:159
 msgid "800"
 msgstr ""
 
 #: inc/widgets/button/button.php:82 inc/widgets/heading/heading.php:92
 #: inc/widgets/icon-box/icon-box.php:102 inc/widgets/icon-box/icon-box.php:164
-#: inc/widgets/icon-box/icon-box.php:624 inc/widgets/icon-box/icon-box.php:686
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:94
+#: inc/widgets/icon-box/icon-box.php:623 inc/widgets/icon-box/icon-box.php:685
+#: vc-shortcodes/inc-map/heading.php:93 vc-shortcodes/inc-map/icon-box.php:85
+#: vc-shortcodes/inc-map/icon-box.php:160
 msgid "900"
 msgstr ""
 
@@ -2799,15 +2894,15 @@ msgstr ""
 msgid "Select the hover background color."
 msgstr ""
 
-#: inc/widgets/button/button.php:140 inc/widgets/icon-box/icon-box.php:298
-#: inc/widgets/icon-box/icon-box.php:328 inc/widgets/icon-box/icon-box.php:358
-#: inc/widgets/icon-box/icon-box.php:817 inc/widgets/icon-box/icon-box.php:846
+#: inc/widgets/button/button.php:140 inc/widgets/icon-box/icon-box.php:297
+#: inc/widgets/icon-box/icon-box.php:327 inc/widgets/icon-box/icon-box.php:357
+#: inc/widgets/icon-box/icon-box.php:816 inc/widgets/icon-box/icon-box.php:845
 msgid "Select Icon:"
 msgstr ""
 
-#: inc/widgets/button/button.php:141 inc/widgets/icon-box/icon-box.php:299
-#: inc/widgets/icon-box/icon-box.php:329 inc/widgets/icon-box/icon-box.php:359
-#: inc/widgets/icon-box/icon-box.php:818 inc/widgets/icon-box/icon-box.php:847
+#: inc/widgets/button/button.php:141 inc/widgets/icon-box/icon-box.php:298
+#: inc/widgets/icon-box/icon-box.php:328 inc/widgets/icon-box/icon-box.php:358
+#: inc/widgets/icon-box/icon-box.php:817 inc/widgets/icon-box/icon-box.php:846
 msgid "Select the icon from the list."
 msgstr ""
 
@@ -2815,9 +2910,9 @@ msgstr ""
 msgid "Icon Size "
 msgstr ""
 
-#: inc/widgets/button/button.php:151 inc/widgets/icon-box/icon-box.php:309
-#: inc/widgets/icon-box/icon-box.php:339 inc/widgets/icon-box/icon-box.php:369
-#: inc/widgets/icon-box/icon-box.php:828 inc/widgets/icon-box/icon-box.php:857
+#: inc/widgets/button/button.php:151 inc/widgets/icon-box/icon-box.php:308
+#: inc/widgets/icon-box/icon-box.php:338 inc/widgets/icon-box/icon-box.php:368
+#: inc/widgets/icon-box/icon-box.php:827 inc/widgets/icon-box/icon-box.php:856
 msgid "Select the icon font size."
 msgstr ""
 
@@ -2846,6 +2941,7 @@ msgid "Very Rounded"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:8
+#: vc-shortcodes/inc-map/carousel-posts.php:5
 msgid "Thim: Carousel Posts"
 msgstr ""
 
@@ -2858,7 +2954,6 @@ msgstr ""
 #: inc/widgets/courses-collection/courses-collection.php:26
 #: inc/widgets/heading/heading.php:19
 #: inc/widgets/testimonials/testimonials.php:18
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:25
 msgid "Heading Text"
 msgstr ""
 
@@ -2870,15 +2965,22 @@ msgstr ""
 #: inc/widgets/courses/courses.php:47
 #: inc/widgets/gallery-posts/gallery-posts.php:25
 #: inc/widgets/list-post/list-post.php:36 inc/widgets/our-team/our-team.php:20
+#: vc-shortcodes/inc-map/carousel-posts.php:20
+#: vc-shortcodes/inc-map/courses.php:46
+#: vc-shortcodes/inc-map/gallery-posts.php:13
+#: vc-shortcodes/inc-map/our-team.php:13
+#: vc-shortcodes/inc-map/portfolio.php:11
 msgid "Select Category"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:30
+#: vc-shortcodes/inc-map/carousel-posts.php:29
 msgid "Posts visible"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:35
 #: inc/widgets/list-event/list-event.php:32
+#: vc-shortcodes/inc-map/carousel-posts.php:37
 msgid "Number posts"
 msgstr ""
 
@@ -2886,6 +2988,10 @@ msgstr ""
 #: inc/widgets/course-categories/course-categories.php:62
 #: inc/widgets/courses/courses.php:130
 #: inc/widgets/testimonials/testimonials.php:81
+#: vc-shortcodes/inc-map/carousel-posts.php:45
+#: vc-shortcodes/inc-map/course-categories.php:58
+#: vc-shortcodes/inc-map/courses.php:86
+#: vc-shortcodes/inc-map/testimonials.php:87
 msgid "Show Navigation"
 msgstr ""
 
@@ -2895,6 +3001,12 @@ msgstr ""
 #: inc/widgets/gallery-images/gallery-images.php:51
 #: inc/widgets/one-course-instructors/one-course-instructors.php:23
 #: inc/widgets/testimonials/testimonials.php:76
+#: vc-shortcodes/inc-map/carousel-posts.php:58
+#: vc-shortcodes/inc-map/course-categories.php:45
+#: vc-shortcodes/inc-map/courses.php:74
+#: vc-shortcodes/inc-map/gallery-images.php:61
+#: vc-shortcodes/inc-map/one-course-instructors.php:21
+#: vc-shortcodes/inc-map/testimonials.php:74
 msgid "Show Pagination"
 msgstr ""
 
@@ -2903,6 +3015,11 @@ msgstr ""
 #: inc/widgets/courses/courses.php:148
 #: inc/widgets/one-course-instructors/one-course-instructors.php:32
 #: inc/widgets/testimonials/testimonials.php:86
+#: vc-shortcodes/inc-map/carousel-posts.php:71
+#: vc-shortcodes/inc-map/course-categories.php:94
+#: vc-shortcodes/inc-map/courses.php:112
+#: vc-shortcodes/inc-map/one-course-instructors.php:33
+#: vc-shortcodes/inc-map/testimonials.php:100
 msgid "Auto Play Speed (in ms)"
 msgstr ""
 
@@ -2911,42 +3028,60 @@ msgstr ""
 #: inc/widgets/courses/courses.php:149
 #: inc/widgets/one-course-instructors/one-course-instructors.php:33
 #: inc/widgets/testimonials/testimonials.php:87
+#: vc-shortcodes/inc-map/carousel-posts.php:74
+#: vc-shortcodes/inc-map/course-categories.php:97
+#: vc-shortcodes/inc-map/courses.php:115
+#: vc-shortcodes/inc-map/one-course-instructors.php:36
+#: vc-shortcodes/inc-map/testimonials.php:103
 msgid "Set 0 to disable auto play."
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:64
-#: inc/widgets/carousel-post/carousel-post.php:74
 #: inc/widgets/list-post/list-post.php:62
 #: inc/widgets/list-post/list-post.php:72
+#: vc-shortcodes/inc-map/carousel-posts.php:81
 msgid "Order by"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:66
 #: inc/widgets/courses/courses.php:35 inc/widgets/list-post/list-post.php:64
+#: vc-shortcodes/inc-map/carousel-posts.php:85
+#: vc-shortcodes/inc-map/courses.php:36
 msgid "Popular"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:67
 #: inc/widgets/list-post/list-post.php:65
+#: vc-shortcodes/inc-map/carousel-posts.php:86
 msgid "Recent"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:69
 #: inc/widgets/list-post/list-post.php:67
+#: vc-shortcodes/inc-map/carousel-posts.php:88
 msgid "Random"
+msgstr ""
+
+#: inc/widgets/carousel-post/carousel-post.php:74
+#: learnpress-v1/profile/tabs/orders.php:15
+#: vc-shortcodes/inc-map/carousel-posts.php:96
+msgid "Order"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:76
 #: inc/widgets/list-post/list-post.php:74
+#: vc-shortcodes/inc-map/carousel-posts.php:100
 msgid "ASC"
 msgstr ""
 
 #: inc/widgets/carousel-post/carousel-post.php:77
 #: inc/widgets/list-post/list-post.php:75
+#: vc-shortcodes/inc-map/carousel-posts.php:101
 msgid "DESC"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:9
+#: vc-shortcodes/inc-map/countdown-box.php:4
 msgid "Thim: Countdown Box"
 msgstr ""
 
@@ -2955,62 +3090,81 @@ msgid "Countdown Box"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:19
+#: vc-shortcodes/inc-map/countdown-box.php:13
 msgid "Text Days"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:20
+#: vc-shortcodes/inc-map/countdown-box.php:15
+#: vc-shortcodes/shortcodes/countdown-box/countdown-box.php:18
 msgid "days"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:24
+#: vc-shortcodes/inc-map/countdown-box.php:21
 msgid "Text Hours"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:25
+#: vc-shortcodes/inc-map/countdown-box.php:23
+#: vc-shortcodes/shortcodes/countdown-box/countdown-box.php:19
 msgid "hours"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:29
+#: vc-shortcodes/inc-map/countdown-box.php:29
 msgid "Text Minutes"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:30
+#: vc-shortcodes/inc-map/countdown-box.php:31
+#: vc-shortcodes/shortcodes/countdown-box/countdown-box.php:20
 msgid "minutes"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:34
+#: vc-shortcodes/inc-map/countdown-box.php:37
 msgid "Text Seconds"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:35
+#: vc-shortcodes/inc-map/countdown-box.php:39
+#: vc-shortcodes/shortcodes/countdown-box/countdown-box.php:21
 msgid "seconds"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:39
+#: vc-shortcodes/inc-map/countdown-box.php:45
 msgid "Year"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:43
+#: vc-shortcodes/inc-map/countdown-box.php:52
 msgid "Month"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:47
+#: vc-shortcodes/inc-map/countdown-box.php:59
 msgid "Day"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:51
+#: vc-shortcodes/inc-map/countdown-box.php:66
 msgid "Hour"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:55
+#: vc-shortcodes/inc-map/countdown-box.php:73
 msgid "Style Color"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:57
+#: vc-shortcodes/inc-map/countdown-box.php:77
 msgid "White"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:58
+#: vc-shortcodes/inc-map/countdown-box.php:78
 msgid "Black"
 msgstr ""
 
@@ -3020,24 +3174,25 @@ msgid "Text Align"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:65
-#: inc/widgets/heading/heading.php:125 inc/widgets/icon-box/icon-box.php:479
-#: inc/widgets/icon-box/icon-box.php:966
+#: inc/widgets/heading/heading.php:125 inc/widgets/icon-box/icon-box.php:478
+#: inc/widgets/icon-box/icon-box.php:965
 msgid "Text Left"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:66
-#: inc/widgets/heading/heading.php:126 inc/widgets/icon-box/icon-box.php:481
-#: inc/widgets/icon-box/icon-box.php:968
+#: inc/widgets/heading/heading.php:126 inc/widgets/icon-box/icon-box.php:480
+#: inc/widgets/icon-box/icon-box.php:967
 msgid "Text Center"
 msgstr ""
 
 #: inc/widgets/countdown-box/countdown-box.php:67
-#: inc/widgets/heading/heading.php:127 inc/widgets/icon-box/icon-box.php:480
-#: inc/widgets/icon-box/icon-box.php:967
+#: inc/widgets/heading/heading.php:127 inc/widgets/icon-box/icon-box.php:479
+#: inc/widgets/icon-box/icon-box.php:966
 msgid "Text Right"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:9
+#: vc-shortcodes/inc-map/counters-box.php:4
 msgid "Thim: Counters Box"
 msgstr ""
 
@@ -3046,26 +3201,32 @@ msgid "Counters Box"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:20
+#: vc-shortcodes/inc-map/counters-box.php:13
 msgid "Counters Label"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:25
+#: vc-shortcodes/inc-map/counters-box.php:21
 msgid "Counters Value"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:30
+#: vc-shortcodes/inc-map/counters-box.php:29
 msgid "View More Text"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:34
+#: vc-shortcodes/inc-map/counters-box.php:37
 msgid "View More Link"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:50
+#: vc-shortcodes/inc-map/counters-box.php:60
 msgid "Border Color Icon"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:55
+#: vc-shortcodes/inc-map/counters-box.php:67
 msgid "Counters Icon Color"
 msgstr ""
 
@@ -3075,72 +3236,95 @@ msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:62
 #: inc/widgets/list-post/list-post.php:91
+#: vc-shortcodes/inc-map/counters-box.php:78
 msgid "Home Page"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:63
+#: vc-shortcodes/inc-map/counters-box.php:79
 msgid "Page About Us"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:64
+#: vc-shortcodes/inc-map/counters-box.php:80
 msgid "Number Left"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:71
 #: inc/widgets/gallery-images/gallery-images.php:69
-#: inc/widgets/heading/heading.php:132 inc/widgets/icon-box/icon-box.php:533
-#: inc/widgets/icon-box/icon-box.php:1020 inc/widgets/our-team/our-team.php:55
+#: inc/widgets/heading/heading.php:132 inc/widgets/icon-box/icon-box.php:532
+#: inc/widgets/icon-box/icon-box.php:1019 inc/widgets/our-team/our-team.php:55
 #: inc/widgets/single-images/single-images.php:55
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:130
 msgid "CSS Animation"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:74
 #: inc/widgets/gallery-images/gallery-images.php:72
-#: inc/widgets/heading/heading.php:135 inc/widgets/icon-box/icon-box.php:536
-#: inc/widgets/icon-box/icon-box.php:1023 inc/widgets/our-team/our-team.php:58
+#: inc/widgets/heading/heading.php:135 inc/widgets/icon-box/icon-box.php:535
+#: inc/widgets/icon-box/icon-box.php:1022 inc/widgets/our-team/our-team.php:58
 #: inc/widgets/single-images/single-images.php:58
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:133
+#: vc-shortcodes/inc-map/counters-box.php:93
+#: vc-shortcodes/inc-map/courses.php:200
+#: vc-shortcodes/inc-map/gallery-images.php:89
+#: vc-shortcodes/inc-map/heading.php:180 vc-shortcodes/inc-map/our-team.php:78
+#: vc-shortcodes/inc-map/single-images.php:63
 msgid "Top to bottom"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:75
 #: inc/widgets/gallery-images/gallery-images.php:73
-#: inc/widgets/heading/heading.php:136 inc/widgets/icon-box/icon-box.php:537
-#: inc/widgets/icon-box/icon-box.php:1024 inc/widgets/our-team/our-team.php:59
+#: inc/widgets/heading/heading.php:136 inc/widgets/icon-box/icon-box.php:536
+#: inc/widgets/icon-box/icon-box.php:1023 inc/widgets/our-team/our-team.php:59
 #: inc/widgets/single-images/single-images.php:59
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:134
+#: vc-shortcodes/inc-map/counters-box.php:94
+#: vc-shortcodes/inc-map/courses.php:201
+#: vc-shortcodes/inc-map/gallery-images.php:90
+#: vc-shortcodes/inc-map/heading.php:181 vc-shortcodes/inc-map/our-team.php:79
+#: vc-shortcodes/inc-map/single-images.php:64
 msgid "Bottom to top"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:76
 #: inc/widgets/gallery-images/gallery-images.php:74
-#: inc/widgets/heading/heading.php:137 inc/widgets/icon-box/icon-box.php:538
-#: inc/widgets/icon-box/icon-box.php:1025 inc/widgets/our-team/our-team.php:60
+#: inc/widgets/heading/heading.php:137 inc/widgets/icon-box/icon-box.php:537
+#: inc/widgets/icon-box/icon-box.php:1024 inc/widgets/our-team/our-team.php:60
 #: inc/widgets/single-images/single-images.php:60
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:135
+#: vc-shortcodes/inc-map/counters-box.php:95
+#: vc-shortcodes/inc-map/courses.php:202
+#: vc-shortcodes/inc-map/gallery-images.php:91
+#: vc-shortcodes/inc-map/heading.php:182 vc-shortcodes/inc-map/our-team.php:80
+#: vc-shortcodes/inc-map/single-images.php:65
 msgid "Left to right"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:77
 #: inc/widgets/gallery-images/gallery-images.php:75
-#: inc/widgets/heading/heading.php:138 inc/widgets/icon-box/icon-box.php:539
-#: inc/widgets/icon-box/icon-box.php:1026 inc/widgets/our-team/our-team.php:61
+#: inc/widgets/heading/heading.php:138 inc/widgets/icon-box/icon-box.php:538
+#: inc/widgets/icon-box/icon-box.php:1025 inc/widgets/our-team/our-team.php:61
 #: inc/widgets/single-images/single-images.php:61
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:136
+#: vc-shortcodes/inc-map/counters-box.php:96
+#: vc-shortcodes/inc-map/courses.php:203
+#: vc-shortcodes/inc-map/gallery-images.php:92
+#: vc-shortcodes/inc-map/heading.php:183 vc-shortcodes/inc-map/our-team.php:81
+#: vc-shortcodes/inc-map/single-images.php:66
 msgid "Right to left"
 msgstr ""
 
 #: inc/widgets/counters-box/counters-box.php:78
 #: inc/widgets/gallery-images/gallery-images.php:76
-#: inc/widgets/heading/heading.php:139 inc/widgets/icon-box/icon-box.php:540
-#: inc/widgets/icon-box/icon-box.php:1027 inc/widgets/our-team/our-team.php:62
+#: inc/widgets/heading/heading.php:139 inc/widgets/icon-box/icon-box.php:539
+#: inc/widgets/icon-box/icon-box.php:1026 inc/widgets/our-team/our-team.php:62
 #: inc/widgets/single-images/single-images.php:62
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:137
+#: vc-shortcodes/inc-map/counters-box.php:97
+#: vc-shortcodes/inc-map/courses.php:204
+#: vc-shortcodes/inc-map/gallery-images.php:93
+#: vc-shortcodes/inc-map/heading.php:184 vc-shortcodes/inc-map/our-team.php:82
+#: vc-shortcodes/inc-map/single-images.php:67
 msgid "Appear from center"
 msgstr ""
 
 #: inc/widgets/course-categories/course-categories.php:15
+#: vc-shortcodes/inc-map/course-categories.php:4
 msgid "Thim: Course Categories"
 msgstr ""
 
@@ -3150,10 +3334,13 @@ msgstr ""
 
 #: inc/widgets/course-categories/course-categories.php:31
 #: inc/widgets/courses/courses.php:61
+#: vc-shortcodes/inc-map/course-categories.php:24
+#: vc-shortcodes/inc-map/courses.php:63
 msgid "Slider"
 msgstr ""
 
 #: inc/widgets/course-categories/course-categories.php:32
+#: vc-shortcodes/inc-map/course-categories.php:25
 msgid "List Categories"
 msgstr ""
 
@@ -3163,11 +3350,12 @@ msgid "Slider Layout Options"
 msgstr ""
 
 #: inc/widgets/course-categories/course-categories.php:52
+#: vc-shortcodes/inc-map/course-categories.php:33
 msgid "Limit categories"
 msgstr ""
 
 #: inc/widgets/course-categories/course-categories.php:67
-#: inc/widgets/courses/courses.php:135
+#: inc/widgets/courses/courses.php:135 vc-shortcodes/inc-map/courses.php:98
 msgid "Items Visible"
 msgstr ""
 
@@ -3176,14 +3364,26 @@ msgid "List Layout Options"
 msgstr ""
 
 #: inc/widgets/course-categories/course-categories.php:102
-msgid "Show course counts"
+#: vc-shortcodes/inc-map/course-categories.php:107
+msgid "Show course count"
 msgstr ""
 
 #: inc/widgets/course-categories/course-categories.php:107
+#: vc-shortcodes/inc-map/course-categories.php:120
 msgid "Show hierarchy"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:15
+#: inc/widgets/courses/courses.php:12
+#: inc/widgets/gallery-posts/gallery-posts.php:7
+#: inc/widgets/gallery-posts/tpl/base.php:74
+#: inc/widgets/our-team/our-team.php:90 inc/widgets/portfolio/portfolio.php:35
+#: inc/widgets/portfolio/tpl/base.php:153 portfolio/archive-portfolio.php:109
+#: vc-shortcodes/vc-functions.php:84 vc-shortcodes/vc-functions.php:188
+#: woocommerce/archive-product.php:59
+msgid "All"
+msgstr ""
+
+#: inc/widgets/courses/courses.php:15 vc-shortcodes/inc-map/courses.php:5
 msgid "Thim: Courses"
 msgstr ""
 
@@ -3195,15 +3395,15 @@ msgstr ""
 msgid "Latest Courses"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:33
+#: inc/widgets/courses/courses.php:33 vc-shortcodes/inc-map/courses.php:32
 msgid "Order By"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:36
+#: inc/widgets/courses/courses.php:36 vc-shortcodes/inc-map/courses.php:37
 msgid "Latest"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:37
+#: inc/widgets/courses/courses.php:37 vc-shortcodes/inc-map/courses.php:38
 msgid "Category"
 msgstr ""
 
@@ -3220,7 +3420,7 @@ msgstr ""
 msgid "Mega Menu"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:65
+#: inc/widgets/courses/courses.php:65 vc-shortcodes/inc-map/courses.php:65
 msgid "Category Tabs"
 msgstr ""
 
@@ -3228,19 +3428,19 @@ msgstr ""
 msgid "Limit number course"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:80
+#: inc/widgets/courses/courses.php:80 vc-shortcodes/inc-map/courses.php:140
 msgid "Text View All Courses"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:91
+#: inc/widgets/courses/courses.php:91 vc-shortcodes/inc-map/courses.php:151
 msgid "View All Position"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:93
+#: inc/widgets/courses/courses.php:93 vc-shortcodes/inc-map/courses.php:155
 msgid "Top"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:94
+#: inc/widgets/courses/courses.php:94 vc-shortcodes/inc-map/courses.php:156
 msgid "Bottom"
 msgstr ""
 
@@ -3251,6 +3451,11 @@ msgstr ""
 #: inc/widgets/courses/courses.php:175
 #: inc/widgets/courses-collection/courses-collection.php:37
 #: inc/widgets/gallery-posts/gallery-posts.php:30
+#: inc/widgets/our-team/our-team.php:46
+#: vc-shortcodes/inc-map/counters-box.php:74
+#: vc-shortcodes/inc-map/courses-collection.php:29
+#: vc-shortcodes/inc-map/gallery-posts.php:22
+#: vc-shortcodes/inc-map/our-team.php:60
 msgid "Columns"
 msgstr ""
 
@@ -3262,7 +3467,7 @@ msgstr ""
 msgid "Limit Items Per Tab"
 msgstr ""
 
-#: inc/widgets/courses/courses.php:214
+#: inc/widgets/courses/courses.php:214 vc-shortcodes/inc-map/courses.php:182
 msgid "Select Category Tabs"
 msgstr ""
 
@@ -3273,10 +3478,12 @@ msgid ""
 msgstr ""
 
 #: inc/widgets/courses-collection/courses-collection.php:15
+#: vc-shortcodes/inc-map/courses-collection.php:4
 msgid "Thim: Courses Collection"
 msgstr ""
 
 #: inc/widgets/courses-collection/courses-collection.php:17
+#: vc-shortcodes/inc-map/courses-collection.php:7
 msgid "Display list courses collection"
 msgstr ""
 
@@ -3285,14 +3492,17 @@ msgid "Collection Courses"
 msgstr ""
 
 #: inc/widgets/courses-collection/courses-collection.php:32
+#: vc-shortcodes/inc-map/courses-collection.php:20
 msgid "Limit collections"
 msgstr ""
 
 #: inc/widgets/courses-collection/courses-collection.php:48
+#: vc-shortcodes/inc-map/courses-collection.php:44
 msgid "Feature Items"
 msgstr ""
 
 #: inc/widgets/courses-searching/courses-searching.php:15
+#: vc-shortcodes/inc-map/courses-searching.php:5
 msgid "Thim: Courses Searching"
 msgstr ""
 
@@ -3305,6 +3515,8 @@ msgid "Search Layout"
 msgstr ""
 
 #: inc/widgets/courses-searching/courses-searching.php:40
+#: vc-shortcodes/inc-map/courses-searching.php:29
+#: vc-shortcodes/shortcodes/courses-searching/courses-searching.php:19
 msgid "Search Courses"
 msgstr ""
 
@@ -3313,14 +3525,14 @@ msgid "Provide the title for search course widget."
 msgstr ""
 
 #: inc/widgets/courses-searching/courses-searching.php:49
-#: inc/widgets/icon-box/icon-box.php:131 inc/widgets/icon-box/icon-box.php:653
-#: inc/widgets/slider/slider.php:64
+#: inc/widgets/icon-box/icon-box.php:131 inc/widgets/icon-box/icon-box.php:652
 #: learnpress/course_content-landing_page.php:19
 #: learnpress/course_content-landing_page.php:79
 #: learnpress/course_content-learning_page.php:18
 #: learnpress-v1/single-course/content-landing.php:28
 #: learnpress-v1/single-course/content-landing.php:83
 #: learnpress-v1/single-course/content-learning.php:26
+#: vc-shortcodes/inc-map/courses-searching.php:39
 msgid "Description"
 msgstr ""
 
@@ -3333,10 +3545,13 @@ msgid "Provide the description for search course widget."
 msgstr ""
 
 #: inc/widgets/courses-searching/courses-searching.php:59
+#: vc-shortcodes/inc-map/courses-searching.php:49
+#: vc-shortcodes/shortcodes/courses-searching/courses-searching.php:21
 msgid "What do you want to learn today?"
 msgstr ""
 
 #: inc/widgets/courses-searching/courses-searching.php:60
+#: vc-shortcodes/inc-map/courses-searching.php:47
 msgid "Placeholder Input"
 msgstr ""
 
@@ -3350,6 +3565,7 @@ msgstr ""
 
 #: inc/widgets/empty-space/empty-space.php:19
 #: inc/widgets/google-map/google-map.php:75
+#: vc-shortcodes/inc-map/google-map.php:70
 msgid "Height"
 msgstr ""
 
@@ -3358,6 +3574,7 @@ msgid "Enter empty space height."
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:9
+#: vc-shortcodes/inc-map/gallery-images.php:5
 msgid "Thim: Gallery Images"
 msgstr ""
 
@@ -3368,45 +3585,58 @@ msgstr ""
 #: inc/widgets/gallery-images/gallery-images.php:20
 #: inc/widgets/landing-image/landing-image.php:25
 #: inc/widgets/single-images/single-images.php:20
+#: vc-shortcodes/inc-map/gallery-images.php:13
+#: vc-shortcodes/inc-map/single-images.php:13
 msgid "Image"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:21
 #: inc/widgets/landing-image/landing-image.php:26
 #: inc/widgets/single-images/single-images.php:21
+#: vc-shortcodes/inc-map/gallery-images.php:14
+#: vc-shortcodes/inc-map/single-images.php:15
 msgid "Select image from media library."
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:26
 #: inc/widgets/single-images/single-images.php:26
+#: vc-shortcodes/inc-map/gallery-images.php:21
+#: vc-shortcodes/inc-map/single-images.php:21
 msgid "Image size"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:27
+#: vc-shortcodes/inc-map/gallery-images.php:23
 msgid ""
 "Enter image size. Example: \"thumbnail\", \"medium\", \"large\", \"full\""
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:31
 #: inc/widgets/single-images/single-images.php:31
+#: vc-shortcodes/inc-map/gallery-images.php:29
+#: vc-shortcodes/inc-map/single-images.php:29
 msgid "Image Link"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:32
+#: vc-shortcodes/inc-map/gallery-images.php:31
 msgid ""
 "Enter URL if you want this image to have a link. These links are separated "
 "by comma (Ex: #,#,#,#)"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:37
+#: vc-shortcodes/inc-map/gallery-images.php:37
 msgid "Visible Items"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:42
+#: vc-shortcodes/inc-map/gallery-images.php:45
 msgid "Tablet Items"
 msgstr ""
 
 #: inc/widgets/gallery-images/gallery-images.php:47
+#: vc-shortcodes/inc-map/gallery-images.php:53
 msgid "Mobile Items"
 msgstr ""
 
@@ -3414,6 +3644,8 @@ msgstr ""
 #: inc/widgets/landing-image/landing-image.php:34
 #: inc/widgets/single-images/single-images.php:36
 #: inc/widgets/social/social.php:61
+#: vc-shortcodes/inc-map/gallery-images.php:73
+#: vc-shortcodes/inc-map/single-images.php:36
 msgid "Link Target"
 msgstr ""
 
@@ -3421,6 +3653,8 @@ msgstr ""
 #: inc/widgets/landing-image/landing-image.php:36
 #: inc/widgets/single-images/single-images.php:38
 #: inc/widgets/social/social.php:63
+#: vc-shortcodes/inc-map/gallery-images.php:77
+#: vc-shortcodes/inc-map/single-images.php:39
 msgid "Same window"
 msgstr ""
 
@@ -3428,15 +3662,9 @@ msgstr ""
 #: inc/widgets/landing-image/landing-image.php:37
 #: inc/widgets/single-images/single-images.php:39
 #: inc/widgets/social/social.php:64
+#: vc-shortcodes/inc-map/gallery-images.php:78
+#: vc-shortcodes/inc-map/single-images.php:40
 msgid "New window"
-msgstr ""
-
-#: inc/widgets/gallery-posts/gallery-posts.php:7
-#: inc/widgets/gallery-posts/tpl/base.php:74
-#: inc/widgets/portfolio/portfolio.php:35
-#: inc/widgets/portfolio/tpl/base.php:153 portfolio/archive-portfolio.php:109
-#: woocommerce/archive-product.php:59
-msgid "All"
 msgstr ""
 
 #: inc/widgets/gallery-posts/gallery-posts.php:15
@@ -3448,6 +3676,7 @@ msgid "Display gallery posts"
 msgstr ""
 
 #: inc/widgets/gallery-posts/gallery-posts.php:42
+#: vc-shortcodes/inc-map/gallery-posts.php:39
 msgid "Show Filter"
 msgstr ""
 
@@ -3460,32 +3689,39 @@ msgid "A Google Maps widget."
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:22
+#: vc-shortcodes/inc-map/google-map.php:21
 msgid "Get Map By"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:24
 #: tp-event/content-single-event.php:69
+#: vc-shortcodes/inc-map/google-map.php:25
 msgid "Address"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:25
 #: inc/widgets/google-map/google-map.php:35
+#: vc-shortcodes/inc-map/google-map.php:26
 msgid "Coordinates"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:45
+#: vc-shortcodes/inc-map/google-map.php:34
 msgid "Lat"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:50
+#: vc-shortcodes/inc-map/google-map.php:46
 msgid "Lng"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:59
+#: vc-shortcodes/inc-map/google-map.php:58
 msgid "Map center"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:60
+#: vc-shortcodes/inc-map/google-map.php:59
 msgid ""
 "The name of a place, town, city, or even a country. Can be an exact address "
 "too."
@@ -3508,18 +3744,22 @@ msgid "A value from 0 (the world) to 21 (street level)."
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:91
+#: vc-shortcodes/inc-map/google-map.php:88
 msgid "Scroll to zoom"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:92
+#: vc-shortcodes/inc-map/google-map.php:89
 msgid "Allow scrolling over the map to zoom in or out."
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:98
+#: vc-shortcodes/inc-map/google-map.php:97
 msgid "Draggable"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:99
+#: vc-shortcodes/inc-map/google-map.php:98
 msgid "Allow dragging the map to move it around."
 msgstr ""
 
@@ -3532,10 +3772,12 @@ msgid "Use markers to identify points of interest on the map."
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:112
+#: vc-shortcodes/inc-map/google-map.php:106
 msgid "Show marker at map center"
 msgstr ""
 
 #: inc/widgets/google-map/google-map.php:117
+#: vc-shortcodes/inc-map/google-map.php:114
 msgid "Marker Icon"
 msgstr ""
 
@@ -3561,7 +3803,6 @@ msgstr ""
 
 #: inc/widgets/heading/heading.php:10
 #: inc/widgets/landing-image/landing-image.php:11
-#: inc/widgets/single-images/single-images.php:11
 msgid "Add heading text"
 msgstr ""
 
@@ -3570,43 +3811,36 @@ msgid "Default value"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:25
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:31
 msgid "Text Heading color"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:29 inc/widgets/icon-box/icon-box.php:46
-#: inc/widgets/icon-box/icon-box.php:568
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:36
+#: inc/widgets/icon-box/icon-box.php:567 vc-shortcodes/inc-map/icon-box.php:30
 msgid "Size Heading"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:31 inc/widgets/icon-box/icon-box.php:49
-#: inc/widgets/icon-box/icon-box.php:571
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:39
+#: inc/widgets/icon-box/icon-box.php:570 vc-shortcodes/inc-map/icon-box.php:33
 msgid "h2"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:32 inc/widgets/icon-box/icon-box.php:50
-#: inc/widgets/icon-box/icon-box.php:572
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:40
+#: inc/widgets/icon-box/icon-box.php:571 vc-shortcodes/inc-map/icon-box.php:34
 msgid "h3"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:33 inc/widgets/icon-box/icon-box.php:51
-#: inc/widgets/icon-box/icon-box.php:573
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:41
+#: inc/widgets/icon-box/icon-box.php:572 vc-shortcodes/inc-map/icon-box.php:35
 msgid "h4"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:34 inc/widgets/icon-box/icon-box.php:52
-#: inc/widgets/icon-box/icon-box.php:574
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:42
+#: inc/widgets/icon-box/icon-box.php:573 vc-shortcodes/inc-map/icon-box.php:36
 msgid "h5"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:35 inc/widgets/icon-box/icon-box.php:53
-#: inc/widgets/icon-box/icon-box.php:575
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:43
+#: inc/widgets/icon-box/icon-box.php:574 vc-shortcodes/inc-map/icon-box.php:37
 msgid "h6"
 msgstr ""
 
@@ -3619,39 +3853,32 @@ msgid "Sub heading color"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:49 inc/widgets/icon-box/icon-box.php:59
-#: inc/widgets/icon-box/icon-box.php:581
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:49
+#: inc/widgets/icon-box/icon-box.php:580
 msgid "Font Heading"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:55 inc/widgets/icon-box/icon-box.php:64
-#: inc/widgets/icon-box/icon-box.php:586
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:55
+#: inc/widgets/icon-box/icon-box.php:585
 msgid "Select Font heading."
 msgstr ""
 
 #: inc/widgets/heading/heading.php:63
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:64
 msgid "Custom Font Heading"
 msgstr ""
 
-#: inc/widgets/heading/heading.php:75 inc/widgets/icon-box/icon-box.php:84
-#: inc/widgets/icon-box/icon-box.php:606
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:77
+#: inc/widgets/heading/heading.php:75 inc/widgets/icon-box/icon-box.php:605
 msgid "custom font size"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:80 inc/widgets/icon-box/icon-box.php:89
-#: inc/widgets/icon-box/icon-box.php:151 inc/widgets/icon-box/icon-box.php:611
-#: inc/widgets/icon-box/icon-box.php:673
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:82
+#: inc/widgets/icon-box/icon-box.php:151 inc/widgets/icon-box/icon-box.php:610
+#: inc/widgets/icon-box/icon-box.php:672
 msgid "Custom Font Weight"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:94 inc/widgets/icon-box/icon-box.php:104
-#: inc/widgets/icon-box/icon-box.php:166 inc/widgets/icon-box/icon-box.php:626
-#: inc/widgets/icon-box/icon-box.php:688
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:96
+#: inc/widgets/icon-box/icon-box.php:166 inc/widgets/icon-box/icon-box.php:625
+#: inc/widgets/icon-box/icon-box.php:687
 msgid "Select Custom Font Weight"
 msgstr ""
 
@@ -3684,7 +3911,8 @@ msgid "Select Custom Font Style"
 msgstr ""
 
 #: inc/widgets/heading/heading.php:114 inc/widgets/icon-box/icon-box.php:124
-#: inc/widgets/icon-box/icon-box.php:646
+#: inc/widgets/icon-box/icon-box.php:645
+#: vc-shortcodes/inc-map/icon-box.php:120
 msgid "Show Separator"
 msgstr ""
 
@@ -3692,322 +3920,333 @@ msgstr ""
 msgid "Color Line"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:7
+#: inc/widgets/icon-box/icon-box.php:7 vc-shortcodes/inc-map/icon-box.php:5
 msgid "Thim: Icon Box"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:9
+#: inc/widgets/icon-box/icon-box.php:9 vc-shortcodes/inc-map/icon-box.php:8
 msgid "Add icon box"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:26 inc/widgets/icon-box/icon-box.php:548
+#: inc/widgets/icon-box/icon-box.php:26 inc/widgets/icon-box/icon-box.php:547
 msgid "Title Options"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:32 inc/widgets/icon-box/icon-box.php:554
+#: inc/widgets/icon-box/icon-box.php:32 inc/widgets/icon-box/icon-box.php:553
 msgid "This is an icon box."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:33 inc/widgets/icon-box/icon-box.php:555
+#: inc/widgets/icon-box/icon-box.php:33 inc/widgets/icon-box/icon-box.php:554
+#: vc-shortcodes/inc-map/icon-box.php:15
 msgid "Provide the title for this icon box."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:42 inc/widgets/icon-box/icon-box.php:564
+#: inc/widgets/icon-box/icon-box.php:42 inc/widgets/icon-box/icon-box.php:563
 msgid "Color Title"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:55 inc/widgets/icon-box/icon-box.php:577
+#: inc/widgets/icon-box/icon-box.php:55 inc/widgets/icon-box/icon-box.php:576
 msgid "Select size heading."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:72 inc/widgets/icon-box/icon-box.php:594
+#: inc/widgets/icon-box/icon-box.php:72 inc/widgets/icon-box/icon-box.php:593
 msgid "Custom Heading Option"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:109 inc/widgets/icon-box/icon-box.php:631
+#: inc/widgets/icon-box/icon-box.php:84 inc/widgets/icon-box/icon-box.php:146
+#: inc/widgets/icon-box/icon-box.php:667
+msgid "Custom font size"
+msgstr ""
+
+#: inc/widgets/icon-box/icon-box.php:109 inc/widgets/icon-box/icon-box.php:630
 msgid "Margin Top"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:116 inc/widgets/icon-box/icon-box.php:638
+#: inc/widgets/icon-box/icon-box.php:116 inc/widgets/icon-box/icon-box.php:637
 msgid "Margin Bottom Value"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:136 inc/widgets/icon-box/icon-box.php:658
+#: inc/widgets/icon-box/icon-box.php:136 inc/widgets/icon-box/icon-box.php:657
 msgid "Add description"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:137 inc/widgets/icon-box/icon-box.php:659
+#: inc/widgets/icon-box/icon-box.php:137 inc/widgets/icon-box/icon-box.php:658
+#: vc-shortcodes/inc-map/icon-box.php:130
 msgid ""
 "Write a short description, that will describe the title or something "
 "informational and useful."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:138 inc/widgets/icon-box/icon-box.php:660
+#: inc/widgets/icon-box/icon-box.php:138 inc/widgets/icon-box/icon-box.php:659
 msgid "Provide the description for this icon box."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:143 inc/widgets/icon-box/icon-box.php:665
+#: inc/widgets/icon-box/icon-box.php:143 inc/widgets/icon-box/icon-box.php:664
 msgid "Custom Font Size"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:146 inc/widgets/icon-box/icon-box.php:668
-msgid "Custom font size"
-msgstr ""
-
-#: inc/widgets/icon-box/icon-box.php:170 inc/widgets/icon-box/icon-box.php:692
+#: inc/widgets/icon-box/icon-box.php:170 inc/widgets/icon-box/icon-box.php:691
 msgid "Color Description"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:177 inc/widgets/icon-box/icon-box.php:699
+#: inc/widgets/icon-box/icon-box.php:177 inc/widgets/icon-box/icon-box.php:698
 msgid "Link Icon Box"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:183 inc/widgets/icon-box/icon-box.php:705
+#: inc/widgets/icon-box/icon-box.php:183 inc/widgets/icon-box/icon-box.php:704
 msgid "Add Link"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:184 inc/widgets/icon-box/icon-box.php:706
+#: inc/widgets/icon-box/icon-box.php:184 inc/widgets/icon-box/icon-box.php:705
+#: vc-shortcodes/inc-map/icon-box.php:178
 msgid "Provide the link that will be applied to this icon box."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:189 inc/widgets/icon-box/icon-box.php:711
+#: inc/widgets/icon-box/icon-box.php:189 inc/widgets/icon-box/icon-box.php:710
 msgid "Apply link to:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:191 inc/widgets/icon-box/icon-box.php:713
+#: inc/widgets/icon-box/icon-box.php:191 inc/widgets/icon-box/icon-box.php:712
+#: vc-shortcodes/inc-map/icon-box.php:189
 msgid "Complete Box"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:192 inc/widgets/icon-box/icon-box.php:714
+#: inc/widgets/icon-box/icon-box.php:192 inc/widgets/icon-box/icon-box.php:713
+#: vc-shortcodes/inc-map/icon-box.php:190
 msgid "Box Title"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:193 inc/widgets/icon-box/icon-box.php:715
+#: inc/widgets/icon-box/icon-box.php:193 inc/widgets/icon-box/icon-box.php:714
+#: vc-shortcodes/inc-map/icon-box.php:191
 msgid "Display Read More"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:195 inc/widgets/icon-box/icon-box.php:717
-msgid "Select whether to use color for icon or not."
-msgstr ""
-
-#: inc/widgets/icon-box/icon-box.php:203 inc/widgets/icon-box/icon-box.php:725
+#: inc/widgets/icon-box/icon-box.php:202 inc/widgets/icon-box/icon-box.php:724
+#: vc-shortcodes/inc-map/icon-box.php:198
 msgid "Show Link To Icon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:213 inc/widgets/icon-box/icon-box.php:735
+#: inc/widgets/icon-box/icon-box.php:212 inc/widgets/icon-box/icon-box.php:734
 msgid "Option Button Read More"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:223 inc/widgets/icon-box/icon-box.php:745
+#: inc/widgets/icon-box/icon-box.php:222 inc/widgets/icon-box/icon-box.php:744
 msgid "Read More Text"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:225 inc/widgets/icon-box/icon-box.php:747
+#: inc/widgets/icon-box/icon-box.php:224 inc/widgets/icon-box/icon-box.php:746
 msgid "Customize the read more text."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:230 inc/widgets/icon-box/icon-box.php:752
+#: inc/widgets/icon-box/icon-box.php:229 inc/widgets/icon-box/icon-box.php:751
 msgid "Text Color Read More"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:231 inc/widgets/icon-box/icon-box.php:251
-#: inc/widgets/icon-box/icon-box.php:753 inc/widgets/icon-box/icon-box.php:773
+#: inc/widgets/icon-box/icon-box.php:230 inc/widgets/icon-box/icon-box.php:250
+#: inc/widgets/icon-box/icon-box.php:752 inc/widgets/icon-box/icon-box.php:772
 msgid "Select whether to use text color for Read More Text or default."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:236 inc/widgets/icon-box/icon-box.php:758
+#: inc/widgets/icon-box/icon-box.php:235 inc/widgets/icon-box/icon-box.php:757
 msgid "Border Color Read More Text:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:237 inc/widgets/icon-box/icon-box.php:759
+#: inc/widgets/icon-box/icon-box.php:236 inc/widgets/icon-box/icon-box.php:758
 msgid "Select whether to use border color for Read More Text or none."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:243 inc/widgets/icon-box/icon-box.php:765
+#: inc/widgets/icon-box/icon-box.php:242 inc/widgets/icon-box/icon-box.php:764
 msgid "Background Color Read More Text:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:244 inc/widgets/icon-box/icon-box.php:766
+#: inc/widgets/icon-box/icon-box.php:243 inc/widgets/icon-box/icon-box.php:765
 msgid "Select whether to use background color for Read More Text or default."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:250 inc/widgets/icon-box/icon-box.php:772
+#: inc/widgets/icon-box/icon-box.php:249 inc/widgets/icon-box/icon-box.php:771
 msgid "Text Hover Color Read More"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:257 inc/widgets/icon-box/icon-box.php:779
+#: inc/widgets/icon-box/icon-box.php:256 inc/widgets/icon-box/icon-box.php:778
 msgid "Background Hover Color Read More Text:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:258 inc/widgets/icon-box/icon-box.php:780
+#: inc/widgets/icon-box/icon-box.php:257 inc/widgets/icon-box/icon-box.php:779
 msgid ""
 "Select whether to use background color when hover Read More Text or default."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:270 inc/widgets/icon-box/icon-box.php:791
+#: inc/widgets/icon-box/icon-box.php:269 inc/widgets/icon-box/icon-box.php:790
 msgid "Icon to display:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:273 inc/widgets/icon-box/icon-box.php:346
-#: inc/widgets/icon-box/icon-box.php:794 inc/widgets/icon-box/icon-box.php:835
+#: inc/widgets/icon-box/icon-box.php:272 inc/widgets/icon-box/icon-box.php:345
+#: inc/widgets/icon-box/icon-box.php:793 inc/widgets/icon-box/icon-box.php:834
+#: vc-shortcodes/inc-map/icon-box.php:273
 msgid "Font Awesome Icon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:274 inc/widgets/icon-box/icon-box.php:795
+#: inc/widgets/icon-box/icon-box.php:273 inc/widgets/icon-box/icon-box.php:794
 msgid "Font 7 stroke Icon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:275
+#: inc/widgets/icon-box/icon-box.php:274
 msgid "Font Icomoon Icon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:276 inc/widgets/icon-box/icon-box.php:796
+#: inc/widgets/icon-box/icon-box.php:275 inc/widgets/icon-box/icon-box.php:795
 #: inc/widgets/list-post/list-post.php:8
+#: vc-shortcodes/inc-map/icon-box.php:266
 msgid "Custom Image"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:286 inc/widgets/icon-box/icon-box.php:806
+#: inc/widgets/icon-box/icon-box.php:285 inc/widgets/icon-box/icon-box.php:805
 msgid "Font 7 Stroke Icon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:306 inc/widgets/icon-box/icon-box.php:336
-#: inc/widgets/icon-box/icon-box.php:366 inc/widgets/icon-box/icon-box.php:825
-#: inc/widgets/icon-box/icon-box.php:854
+#: inc/widgets/icon-box/icon-box.php:305 inc/widgets/icon-box/icon-box.php:335
+#: inc/widgets/icon-box/icon-box.php:365 inc/widgets/icon-box/icon-box.php:824
+#: inc/widgets/icon-box/icon-box.php:853
 msgid "Icon Font Size "
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:316
+#: inc/widgets/icon-box/icon-box.php:315
 msgid "Font Icomoon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:376 inc/widgets/icon-box/icon-box.php:864
+#: inc/widgets/icon-box/icon-box.php:375 inc/widgets/icon-box/icon-box.php:863
 msgid "Custom Image Icon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:388 inc/widgets/icon-box/icon-box.php:875
+#: inc/widgets/icon-box/icon-box.php:387 inc/widgets/icon-box/icon-box.php:874
 msgid "Upload Image Icon:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:389 inc/widgets/icon-box/icon-box.php:876
+#: inc/widgets/icon-box/icon-box.php:388 inc/widgets/icon-box/icon-box.php:875
 msgid "Upload the custom image icon."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:399 inc/widgets/icon-box/icon-box.php:886
+#: inc/widgets/icon-box/icon-box.php:398 inc/widgets/icon-box/icon-box.php:885
 msgid "Width Box Icon"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:404 inc/widgets/icon-box/icon-box.php:891
+#: inc/widgets/icon-box/icon-box.php:403 inc/widgets/icon-box/icon-box.php:890
 msgid "Color Options"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:411 inc/widgets/icon-box/icon-box.php:898
+#: inc/widgets/icon-box/icon-box.php:410 inc/widgets/icon-box/icon-box.php:897
 msgid "Select Icon Color:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:412 inc/widgets/icon-box/icon-box.php:899
+#: inc/widgets/icon-box/icon-box.php:411 inc/widgets/icon-box/icon-box.php:898
+#: vc-shortcodes/inc-map/icon-box.php:324
 msgid "Select the icon color."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:416 inc/widgets/icon-box/icon-box.php:903
+#: inc/widgets/icon-box/icon-box.php:415 inc/widgets/icon-box/icon-box.php:902
 msgid "Icon Border Color:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:417 inc/widgets/icon-box/icon-box.php:904
+#: inc/widgets/icon-box/icon-box.php:416 inc/widgets/icon-box/icon-box.php:903
 msgid "Select the color for icon border."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:422 inc/widgets/icon-box/icon-box.php:909
+#: inc/widgets/icon-box/icon-box.php:421 inc/widgets/icon-box/icon-box.php:908
 msgid "Icon Background Color:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:423 inc/widgets/icon-box/icon-box.php:910
+#: inc/widgets/icon-box/icon-box.php:422 inc/widgets/icon-box/icon-box.php:909
 msgid "Select the color for icon background."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:428 inc/widgets/icon-box/icon-box.php:915
+#: inc/widgets/icon-box/icon-box.php:427 inc/widgets/icon-box/icon-box.php:914
 msgid "Hover Icon Color:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:429 inc/widgets/icon-box/icon-box.php:916
+#: inc/widgets/icon-box/icon-box.php:428 inc/widgets/icon-box/icon-box.php:915
 msgid "Select the color hover for icon."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:434 inc/widgets/icon-box/icon-box.php:921
+#: inc/widgets/icon-box/icon-box.php:433 inc/widgets/icon-box/icon-box.php:920
 msgid "Hover Icon Border Color:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:435 inc/widgets/icon-box/icon-box.php:922
+#: inc/widgets/icon-box/icon-box.php:434 inc/widgets/icon-box/icon-box.php:921
 msgid "Select the color hover for icon border."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:441 inc/widgets/icon-box/icon-box.php:928
+#: inc/widgets/icon-box/icon-box.php:440 inc/widgets/icon-box/icon-box.php:927
 msgid "Hover Icon Background Color:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:442 inc/widgets/icon-box/icon-box.php:929
+#: inc/widgets/icon-box/icon-box.php:441 inc/widgets/icon-box/icon-box.php:928
 msgid "Select the color hover for icon background ."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:449 inc/widgets/icon-box/icon-box.php:936
+#: inc/widgets/icon-box/icon-box.php:448 inc/widgets/icon-box/icon-box.php:935
 msgid "Layout Options"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:455 inc/widgets/icon-box/icon-box.php:942
+#: inc/widgets/icon-box/icon-box.php:454 inc/widgets/icon-box/icon-box.php:941
 msgid "Icon Shape"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:458 inc/widgets/icon-box/icon-box.php:945
+#: inc/widgets/icon-box/icon-box.php:457 inc/widgets/icon-box/icon-box.php:944
+#: vc-shortcodes/inc-map/icon-box.php:379
 msgid "Circle"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:465 inc/widgets/icon-box/icon-box.php:952
+#: inc/widgets/icon-box/icon-box.php:464 inc/widgets/icon-box/icon-box.php:951
 msgid "Box Style:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:468 inc/widgets/icon-box/icon-box.php:955
+#: inc/widgets/icon-box/icon-box.php:467 inc/widgets/icon-box/icon-box.php:954
+#: vc-shortcodes/inc-map/icon-box.php:391
 msgid "Icon at Left"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:469 inc/widgets/icon-box/icon-box.php:956
+#: inc/widgets/icon-box/icon-box.php:468 inc/widgets/icon-box/icon-box.php:955
+#: vc-shortcodes/inc-map/icon-box.php:392
 msgid "Icon at Right"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:470 inc/widgets/icon-box/icon-box.php:957
+#: inc/widgets/icon-box/icon-box.php:469 inc/widgets/icon-box/icon-box.php:956
+#: vc-shortcodes/inc-map/icon-box.php:393
 msgid "Icon at Top"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:472 inc/widgets/icon-box/icon-box.php:959
+#: inc/widgets/icon-box/icon-box.php:471 inc/widgets/icon-box/icon-box.php:958
 msgid ""
 "Select icon position. Icon box style will be changed according to the icon "
 "position."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:477 inc/widgets/icon-box/icon-box.php:964
+#: inc/widgets/icon-box/icon-box.php:476 inc/widgets/icon-box/icon-box.php:963
 msgid "Text Align Shortcode:"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:486 inc/widgets/icon-box/icon-box.php:973
+#: inc/widgets/icon-box/icon-box.php:485 inc/widgets/icon-box/icon-box.php:972
 msgid "Type Icon Box"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:490 inc/widgets/icon-box/icon-box.php:977
+#: inc/widgets/icon-box/icon-box.php:489 inc/widgets/icon-box/icon-box.php:976
+#: vc-shortcodes/inc-map/icon-box.php:419
 msgid "Contact Info"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:498 inc/widgets/icon-box/icon-box.php:985
+#: inc/widgets/icon-box/icon-box.php:497 inc/widgets/icon-box/icon-box.php:984
 msgid "Widget Background"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:502 inc/widgets/icon-box/icon-box.php:989
+#: inc/widgets/icon-box/icon-box.php:501 inc/widgets/icon-box/icon-box.php:988
 msgid "Video Background"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:512 inc/widgets/icon-box/icon-box.php:999
+#: inc/widgets/icon-box/icon-box.php:511 inc/widgets/icon-box/icon-box.php:998
 msgid "Select video"
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:513
-#: inc/widgets/icon-box/icon-box.php:1000
+#: inc/widgets/icon-box/icon-box.php:512 inc/widgets/icon-box/icon-box.php:999
 msgid ""
 "Select an uploaded video in mp4 format. Other formats, such as webm and ogv "
 "will work in some browsers. You can use an online service such as <a "
@@ -4015,9 +4254,13 @@ msgid ""
 "convert.com</a> to convert your videos to mp4."
 msgstr ""
 
-#: inc/widgets/icon-box/icon-box.php:523
-#: inc/widgets/icon-box/icon-box.php:1010
+#: inc/widgets/icon-box/icon-box.php:522
+#: inc/widgets/icon-box/icon-box.php:1009
 msgid "Select cover image"
+msgstr ""
+
+#: inc/widgets/icon-box/icon-box.php:716
+msgid "Select whether to use color for icon or not."
 msgstr ""
 
 #: inc/widgets/landing-image/landing-image.php:9
@@ -4037,6 +4280,7 @@ msgid "Display list events"
 msgstr ""
 
 #: inc/widgets/list-event/list-event.php:26
+#: vc-shortcodes/inc-map/list-events.php:33
 msgid "Layout 2"
 msgstr ""
 
@@ -4045,6 +4289,7 @@ msgid "Text Link All"
 msgstr ""
 
 #: inc/widgets/list-event/list-event.php:38
+#: vc-shortcodes/inc-map/list-events.php:43
 msgid "View All"
 msgstr ""
 
@@ -4089,19 +4334,12 @@ msgid "No Style"
 msgstr ""
 
 #: inc/widgets/login-form/login-form.php:8
+#: vc-shortcodes/inc-map/login-form.php:5
 msgid "Thim: Login Form"
 msgstr ""
 
 #: inc/widgets/login-form/login-form.php:10
 msgid "Add login form"
-msgstr ""
-
-#: inc/widgets/login-form/login-form.php:19
-msgid "Captcha"
-msgstr ""
-
-#: inc/widgets/login-form/login-form.php:20
-msgid "Use captcha in register form"
 msgstr ""
 
 #: inc/widgets/login-form/tpl/base.php:7
@@ -4138,10 +4376,18 @@ msgid "The username is invalid. Please try again!"
 msgstr ""
 
 #: inc/widgets/login-form/tpl/base.php:38
+msgid "Passwords must matched!"
+msgstr ""
+
+#: inc/widgets/login-form/tpl/base.php:41
 #: inc/widgets/login-menu/login-menu.php:24
 #: woocommerce/myaccount/form-login.php:89
 #: woocommerce/myaccount/form-login.php:137
 msgid "Register"
+msgstr ""
+
+#: inc/widgets/login-form/tpl/base.php:56
+msgid "Repeat Password"
 msgstr ""
 
 #: inc/widgets/login-form/tpl/base.php:70
@@ -4326,6 +4572,7 @@ msgid "Show carousel slider instructors of one course feature."
 msgstr ""
 
 #: inc/widgets/one-course-instructors/one-course-instructors.php:18
+#: vc-shortcodes/inc-map/one-course-instructors.php:13
 msgid "Visible instructors"
 msgstr ""
 
@@ -4345,56 +4592,68 @@ msgstr ""
 msgid "The one course has not been publish yet. <a href=\"%s\">Edit</a>."
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:9
+#: inc/widgets/our-team/our-team.php:9 vc-shortcodes/inc-map/our-team.php:4
 msgid "Thim: Our Team"
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:26
+#: inc/widgets/our-team/our-team.php:26 vc-shortcodes/inc-map/our-team.php:22
 msgid "Number Posts"
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:31
+#: inc/widgets/our-team/our-team.php:31 vc-shortcodes/inc-map/our-team.php:31
 msgid "Text Link"
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:32
+#: inc/widgets/our-team/our-team.php:32 vc-shortcodes/inc-map/our-team.php:34
 msgid "Provide the text link that will be applied to box our team."
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:36
+#: inc/widgets/our-team/our-team.php:36 vc-shortcodes/inc-map/our-team.php:41
 msgid "Link Join Team"
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:37
+#: inc/widgets/our-team/our-team.php:37 vc-shortcodes/inc-map/our-team.php:44
 msgid "Provide the link that will be applied to box our team"
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:41
+#: inc/widgets/our-team/our-team.php:41 vc-shortcodes/inc-map/our-team.php:51
 msgid "Enable Link To Member"
 msgstr ""
 
-#: inc/widgets/our-team/our-team.php:46
-msgid "Column"
-msgstr ""
-
 #: inc/widgets/our-team/our-team.php:48
+#: vc-shortcodes/inc-map/course-categories.php:76
+#: vc-shortcodes/inc-map/courses-collection.php:34
+#: vc-shortcodes/inc-map/courses-collection.php:49
+#: vc-shortcodes/inc-map/gallery-posts.php:27
+#: vc-shortcodes/inc-map/our-team.php:63
 msgid "2"
 msgstr ""
 
 #: inc/widgets/our-team/our-team.php:49
+#: vc-shortcodes/inc-map/course-categories.php:77
+#: vc-shortcodes/inc-map/courses-collection.php:35
+#: vc-shortcodes/inc-map/courses-collection.php:50
+#: vc-shortcodes/inc-map/gallery-posts.php:28
+#: vc-shortcodes/inc-map/our-team.php:64
 msgid "3"
 msgstr ""
 
 #: inc/widgets/our-team/our-team.php:50
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:126
+#: vc-shortcodes/inc-map/course-categories.php:78
+#: vc-shortcodes/inc-map/courses-collection.php:36
+#: vc-shortcodes/inc-map/courses-collection.php:51
+#: vc-shortcodes/inc-map/gallery-posts.php:29
+#: vc-shortcodes/inc-map/our-team.php:65
 msgid "4"
 msgstr ""
 
 #: inc/widgets/portfolio/portfolio.php:24
+#: vc-shortcodes/inc-map/portfolio.php:4
 msgid "Thim: Portfolio"
 msgstr ""
 
 #: inc/widgets/portfolio/portfolio.php:26
+#: vc-shortcodes/inc-map/portfolio.php:7
 msgid "Thim Widget Portfolio By thimpress.com"
 msgstr ""
 
@@ -4403,130 +4662,162 @@ msgid "Select a category"
 msgstr ""
 
 #: inc/widgets/portfolio/portfolio.php:40
+#: vc-shortcodes/inc-map/portfolio.php:20
 msgid "Hide Filters?"
 msgstr ""
 
 #: inc/widgets/portfolio/portfolio.php:45
+#: vc-shortcodes/inc-map/portfolio.php:29
 msgid "Select a filter position"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:48 inc/widgets/slider/slider.php:76
+#: inc/widgets/portfolio/portfolio.php:48
+#: vc-shortcodes/inc-map/portfolio.php:32
 msgid "Left"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:49 inc/widgets/slider/slider.php:78
+#: inc/widgets/portfolio/portfolio.php:49
+#: vc-shortcodes/inc-map/portfolio.php:33
 msgid "Center"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:50 inc/widgets/slider/slider.php:77
+#: inc/widgets/portfolio/portfolio.php:50
+#: vc-shortcodes/inc-map/portfolio.php:34
 msgid "Right"
 msgstr ""
 
 #: inc/widgets/portfolio/portfolio.php:55
+#: vc-shortcodes/inc-map/portfolio.php:42
 msgid "Select a column"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:58
+#: inc/widgets/portfolio/portfolio.php:57
+#: vc-shortcodes/inc-map/portfolio.php:45
 msgid "One"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:59
+#: inc/widgets/portfolio/portfolio.php:58
+#: vc-shortcodes/inc-map/portfolio.php:46
 msgid "Two"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:60
+#: inc/widgets/portfolio/portfolio.php:59
+#: vc-shortcodes/inc-map/portfolio.php:47
 msgid "Three"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:61
+#: inc/widgets/portfolio/portfolio.php:60
+#: vc-shortcodes/inc-map/portfolio.php:48
 msgid "Four"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:62
+#: inc/widgets/portfolio/portfolio.php:61
+#: vc-shortcodes/inc-map/portfolio.php:49
 msgid "Five"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:67
+#: inc/widgets/portfolio/portfolio.php:66
+#: vc-shortcodes/inc-map/portfolio.php:56
 msgid "Gutter"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:72
+#: inc/widgets/portfolio/portfolio.php:71
+#: vc-shortcodes/inc-map/portfolio.php:65
 msgid "Select a item size"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:75
+#: inc/widgets/portfolio/portfolio.php:73
 msgid "Multigrid"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:76
+#: inc/widgets/portfolio/portfolio.php:74
 msgid "Masonry"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:77
+#: inc/widgets/portfolio/portfolio.php:75
 msgid "Same size"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:82
+#: inc/widgets/portfolio/portfolio.php:80
+#: vc-shortcodes/inc-map/portfolio.php:77
 msgid "Select a paging"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:85
+#: inc/widgets/portfolio/portfolio.php:82
+#: vc-shortcodes/inc-map/portfolio.php:68
+#: vc-shortcodes/inc-map/portfolio.php:80
 msgid "Show All"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:86
+#: inc/widgets/portfolio/portfolio.php:83
+#: vc-shortcodes/inc-map/portfolio.php:69
+#: vc-shortcodes/inc-map/portfolio.php:81
 msgid "Limit Items"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:87
+#: inc/widgets/portfolio/portfolio.php:84
+#: vc-shortcodes/inc-map/portfolio.php:70
+#: vc-shortcodes/inc-map/portfolio.php:82
 msgid "Paging"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:88
+#: inc/widgets/portfolio/portfolio.php:85
+#: vc-shortcodes/inc-map/portfolio.php:83
 msgid "Infinite Scroll"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:93
+#: inc/widgets/portfolio/portfolio.php:90
+#: vc-shortcodes/inc-map/portfolio.php:90
 msgid "Select style items"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:96
+#: inc/widgets/portfolio/portfolio.php:93
+#: vc-shortcodes/inc-map/portfolio.php:93
 msgid "Caption Hover Effects 01"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:97
+#: inc/widgets/portfolio/portfolio.php:94
+#: vc-shortcodes/inc-map/portfolio.php:94
 msgid "Caption Hover Effects 02"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:98
+#: inc/widgets/portfolio/portfolio.php:95
+#: vc-shortcodes/inc-map/portfolio.php:95
 msgid "Caption Hover Effects 03"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:99
+#: inc/widgets/portfolio/portfolio.php:96
+#: vc-shortcodes/inc-map/portfolio.php:96
 msgid "Caption Hover Effects 04"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:100
+#: inc/widgets/portfolio/portfolio.php:97
+#: vc-shortcodes/inc-map/portfolio.php:97
 msgid "Caption Hover Effects 05"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:101
+#: inc/widgets/portfolio/portfolio.php:98
+#: vc-shortcodes/inc-map/portfolio.php:98
 msgid "Caption Hover Effects 06"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:102
+#: inc/widgets/portfolio/portfolio.php:99
+#: vc-shortcodes/inc-map/portfolio.php:99
 msgid "Caption Hover Effects 07"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:103
+#: inc/widgets/portfolio/portfolio.php:100
+#: vc-shortcodes/inc-map/portfolio.php:100
 msgid "Caption Hover Effects 08"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:108
+#: inc/widgets/portfolio/portfolio.php:105
+#: vc-shortcodes/inc-map/portfolio.php:108
 msgid "Enter a number view"
 msgstr ""
 
-#: inc/widgets/portfolio/portfolio.php:112
+#: inc/widgets/portfolio/portfolio.php:109
+#: vc-shortcodes/inc-map/portfolio.php:116
 msgid "Show Read More?"
 msgstr ""
 
@@ -4539,10 +4830,17 @@ msgid "View More"
 msgstr ""
 
 #: inc/widgets/single-images/single-images.php:9
+#: vc-shortcodes/inc-map/single-images.php:5
 msgid "Thim: Single Image"
 msgstr ""
 
+#: inc/widgets/single-images/single-images.php:11
+#: vc-shortcodes/inc-map/single-images.php:8
+msgid "Display single images."
+msgstr ""
+
 #: inc/widgets/single-images/single-images.php:27
+#: vc-shortcodes/inc-map/single-images.php:23
 msgid ""
 "Enter image size. Example: \"thumbnail\", \"medium\", \"large\", \"full\" or "
 "other sizes defined by current theme. Alternatively enter image size in "
@@ -4550,123 +4848,33 @@ msgid ""
 msgstr ""
 
 #: inc/widgets/single-images/single-images.php:32
+#: vc-shortcodes/inc-map/single-images.php:31
 msgid "Enter URL if you want this image to have a link."
 msgstr ""
 
 #: inc/widgets/single-images/single-images.php:44
+#: vc-shortcodes/inc-map/single-images.php:46
 msgid "Image alignment"
 msgstr ""
 
 #: inc/widgets/single-images/single-images.php:45
+#: vc-shortcodes/inc-map/single-images.php:48
 msgid "Select image alignment."
 msgstr ""
 
 #: inc/widgets/single-images/single-images.php:47
+#: vc-shortcodes/inc-map/single-images.php:50
 msgid "Align Left"
 msgstr ""
 
 #: inc/widgets/single-images/single-images.php:48
+#: vc-shortcodes/inc-map/single-images.php:52
 msgid "Align Right"
 msgstr ""
 
 #: inc/widgets/single-images/single-images.php:49
+#: vc-shortcodes/inc-map/single-images.php:51
 msgid "Align Center"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:7
-msgid "Thim: Slider"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:9
-msgid "Thim Slider"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:18
-msgid "Slider Frames"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:19
-msgid "Frame"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:28
-msgid "Color Overlay images"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:32
-msgid "Content Slider"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:42
-msgid "Heading Slider"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:47
-msgid "Custom Font Size Title"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:53
-msgid "Heading Color Title"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:58
-msgid "line bottom"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:70
-msgid "Description Color"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:74
-msgid "Content Align:"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:87
-msgid "Animation Speed"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:88
-msgid "Animation speed in milliseconds."
-msgstr ""
-
-#: inc/widgets/slider/slider.php:93
-msgid "Timeout"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:94
-msgid "How long each slide is displayed for in milliseconds."
-msgstr ""
-
-#: inc/widgets/slider/slider.php:99
-msgid "Full Screen"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:103
-msgid "Icon Scroll"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:105
-msgid "Show"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:106
-msgid "Hide"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:116
-msgid "Text Before Arrow"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:121
-msgid "Getting started"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:125 tp-event-auth/auths/my-account.php:29
-msgid "ID"
-msgstr ""
-
-#: inc/widgets/slider/slider.php:130
-msgid "id section scoll"
 msgstr ""
 
 #: inc/widgets/social/social.php:10
@@ -4737,7 +4945,7 @@ msgstr ""
 msgid "Thim: Tab events "
 msgstr ""
 
-#: inc/widgets/tab-event/tab-event.php:9
+#: inc/widgets/tab-event/tab-event.php:9 vc-shortcodes/inc-map/tab-event.php:7
 msgid "Show all event with tab"
 msgstr ""
 
@@ -4763,6 +4971,7 @@ msgid "Carousel Slider"
 msgstr ""
 
 #: inc/widgets/testimonials/testimonials.php:37
+#: vc-shortcodes/inc-map/testimonials.php:32
 msgid "Limit Posts"
 msgstr ""
 
@@ -4775,10 +4984,12 @@ msgid "Enter odd number"
 msgstr ""
 
 #: inc/widgets/testimonials/testimonials.php:48
+#: vc-shortcodes/inc-map/testimonials.php:48
 msgid "Auto play"
 msgstr ""
 
 #: inc/widgets/testimonials/testimonials.php:57
+#: vc-shortcodes/inc-map/testimonials.php:61
 msgid "Mousewheel Scroll"
 msgstr ""
 
@@ -4786,31 +4997,7 @@ msgstr ""
 msgid "Carousel Options"
 msgstr ""
 
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:9
-msgid "Thim: Recent Comments"
-msgstr ""
-
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:26
-msgid "Recent Comments"
-msgstr ""
-
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:106
-msgid "Config Color"
-msgstr ""
-
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:112
-msgid "Title Color"
-msgstr ""
-
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:118
-msgid "Meta color"
-msgstr ""
-
-#: inc/widgets/thim-recent-comments/thim-recent-comments.php:125
-msgid "Number Comments"
-msgstr ""
-
-#: inc/widgets/timetable/timetable.php:9
+#: inc/widgets/timetable/timetable.php:9 vc-shortcodes/inc-map/timetable.php:4
 msgid "Thim: Timetable"
 msgstr ""
 
@@ -4824,110 +5011,124 @@ msgstr ""
 
 #: inc/widgets/timetable/timetable.php:30
 #: inc/widgets/timetable/timetable.php:31
+#: vc-shortcodes/inc-map/timetable.php:26
+#: vc-shortcodes/inc-map/timetable.php:27
 msgid "Course Title"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:36
+#: vc-shortcodes/inc-map/timetable.php:33
 msgid "Time Activity"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:37
+#: vc-shortcodes/inc-map/timetable.php:34
 msgid "8:00 AM - 10:00 AM"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:42
+#: vc-shortcodes/inc-map/timetable.php:41
 msgid "Teacher Name"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:43
+#: vc-shortcodes/inc-map/timetable.php:42
 msgid "Mr John Doe"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:48
+#: vc-shortcodes/inc-map/timetable.php:49
 msgid "Location"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:49
+#: vc-shortcodes/inc-map/timetable.php:50
 msgid "Playground"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:59
+#: vc-shortcodes/inc-map/timetable.php:64
 msgid "Background Hover Color"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:64
+#: vc-shortcodes/inc-map/timetable.php:71
 msgid "Color Style"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:67
+#: vc-shortcodes/inc-map/timetable.php:74
 msgid "Light"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:68
+#: vc-shortcodes/inc-map/timetable.php:75
 msgid "Dark"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:69
+#: vc-shortcodes/inc-map/timetable.php:76
 msgid "Gray"
 msgstr ""
 
 #: inc/widgets/timetable/timetable.php:71
+#: vc-shortcodes/inc-map/timetable.php:79
 msgid "Select Color Style."
 msgstr ""
 
-#: inc/widgets/video/video.php:9
+#: inc/widgets/video/video.php:9 vc-shortcodes/inc-map/video.php:4
 msgid "Thim: Video"
 msgstr ""
 
-#: inc/widgets/video/video.php:11
-msgid "A video player widget."
+#: inc/widgets/video/video.php:11 vc-shortcodes/inc-map/video.php:7
+msgid "Display video youtube or vimeo."
 msgstr ""
 
-#: inc/widgets/video/video.php:19
+#: inc/widgets/video/video.php:19 vc-shortcodes/inc-map/video.php:12
 msgid "Width video"
 msgstr ""
 
-#: inc/widgets/video/video.php:20
+#: inc/widgets/video/video.php:20 vc-shortcodes/inc-map/video.php:15
 #, php-format
 msgid "Enter width of video. Example 100% or 600. "
 msgstr ""
 
-#: inc/widgets/video/video.php:24
+#: inc/widgets/video/video.php:24 vc-shortcodes/inc-map/video.php:21
 msgid "Height video"
 msgstr ""
 
-#: inc/widgets/video/video.php:25
+#: inc/widgets/video/video.php:25 vc-shortcodes/inc-map/video.php:24
 #, php-format
 msgid "Enter height of video. Example 100% or 600."
 msgstr ""
 
-#: inc/widgets/video/video.php:29
+#: inc/widgets/video/video.php:29 vc-shortcodes/inc-map/video.php:30
 msgid "Video Source"
 msgstr ""
 
-#: inc/widgets/video/video.php:31
+#: inc/widgets/video/video.php:31 vc-shortcodes/inc-map/video.php:33
 msgid "Vimeo"
 msgstr ""
 
-#: inc/widgets/video/video.php:32
+#: inc/widgets/video/video.php:32 vc-shortcodes/inc-map/video.php:34
 msgid "Youtube"
 msgstr ""
 
-#: inc/widgets/video/video.php:42
+#: inc/widgets/video/video.php:42 vc-shortcodes/inc-map/video.php:42
 msgid "Vimeo Video ID"
 msgstr ""
 
-#: inc/widgets/video/video.php:43
+#: inc/widgets/video/video.php:43 vc-shortcodes/inc-map/video.php:45
 msgid ""
 "Enter vimeo video ID . Example if link video https://player.vimeo.com/"
 "video/61389324 then video ID is 61389324 "
 msgstr ""
 
-#: inc/widgets/video/video.php:52
+#: inc/widgets/video/video.php:52 vc-shortcodes/inc-map/video.php:55
 msgid "Youtube Video ID"
 msgstr ""
 
-#: inc/widgets/video/video.php:53
+#: inc/widgets/video/video.php:53 vc-shortcodes/inc-map/video.php:58
 msgid ""
 "Enter Youtube video ID . Example if link video https://www.youtube.com/watch?"
 "v=orl1nVy4I6s then video ID is orl1nVy4I6s "
@@ -5134,7 +5335,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: learnpress/quiz/nav.php:13 learnpress-v1/lesson/next-button.php:10
+#: learnpress/quiz/nav.php:13 learnpress-v1/lesson/next-button.php:15
 #: learnpress-v1/single-quiz/nav.php:41 woocommerce/loop/pagination.php:37
 msgid "Next"
 msgstr ""
@@ -5195,6 +5396,7 @@ msgstr ""
 #: learnpress-v1/addons/wishlist/user-wishlist.php:31
 #: learnpress-v1/profile/tabs/orders.php:47
 #: learnpress-v1/profile/tabs/quizzes.php:27
+#: tp-event-auth/auths/my-account.php:55
 msgid "No records."
 msgstr ""
 
@@ -5329,11 +5531,23 @@ msgstr ""
 msgid "YOUR ORDER"
 msgstr ""
 
+#: learnpress-v1/checkout/user-form.php:19
+msgid "Login or Register"
+msgstr ""
+
+#: learnpress-v1/checkout/user-form.php:20
+msgid "You must login to checkout courses. Let's click the button bellow"
+msgstr ""
+
+#: learnpress-v1/checkout/user-form.php:21
+msgid "Start Now"
+msgstr ""
+
 #: learnpress-v1/lesson/description.php:26
 msgid "This lesson has not got the content"
 msgstr ""
 
-#: learnpress-v1/lesson/prev-button.php:11 woocommerce/loop/pagination.php:36
+#: learnpress-v1/lesson/prev-button.php:15 woocommerce/loop/pagination.php:36
 msgid "Prev"
 msgstr ""
 
@@ -5420,10 +5634,6 @@ msgstr ""
 #: learnpress-v1/profile/tabs/courses.php:17
 #: learnpress-v1/profile/tabs/courses/own.php:21
 msgid "Own Courses"
-msgstr ""
-
-#: learnpress-v1/profile/tabs/orders.php:15
-msgid "Order"
 msgstr ""
 
 #: learnpress-v1/profile/tabs/orders.php:19
@@ -5600,6 +5810,10 @@ msgstr ""
 msgid "You are not <a href=\"%s\">login</a>"
 msgstr ""
 
+#: tp-event-auth/auths/my-account.php:29
+msgid "ID"
+msgstr ""
+
 #: tp-event-auth/auths/my-account.php:32 tp-event-auth/auths/my-account.php:44
 #: tp-event-auth/events/book_form.php:51
 msgid "Cost"
@@ -5643,6 +5857,593 @@ msgstr ""
 
 #: tp-event-auth/events/book_form.php:99
 msgid "Book Now"
+msgstr ""
+
+#: vc-shortcodes/vc-functions.php:114
+msgid "Sometimes, a picture is worth a thousand words."
+msgstr ""
+
+#: vc-shortcodes/vc-functions.php:171 vc-shortcodes/inc-map/courses.php:49
+msgid "all"
+msgstr ""
+
+#: vc-shortcodes/inc-map/carousel-posts.php:7
+#: vc-shortcodes/inc-map/countdown-box.php:6
+#: vc-shortcodes/inc-map/counters-box.php:6
+#: vc-shortcodes/inc-map/course-categories.php:6
+#: vc-shortcodes/inc-map/courses-collection.php:6
+#: vc-shortcodes/inc-map/courses-searching.php:7
+#: vc-shortcodes/inc-map/courses.php:7
+#: vc-shortcodes/inc-map/gallery-images.php:7
+#: vc-shortcodes/inc-map/gallery-posts.php:7
+#: vc-shortcodes/inc-map/google-map.php:7 vc-shortcodes/inc-map/heading.php:6
+#: vc-shortcodes/inc-map/icon-box.php:7
+#: vc-shortcodes/inc-map/list-events.php:7
+#: vc-shortcodes/inc-map/login-form.php:7
+#: vc-shortcodes/inc-map/one-course-instructors.php:6
+#: vc-shortcodes/inc-map/our-team.php:6 vc-shortcodes/inc-map/portfolio.php:6
+#: vc-shortcodes/inc-map/single-images.php:7
+#: vc-shortcodes/inc-map/tab-event.php:6
+#: vc-shortcodes/inc-map/testimonials.php:6
+#: vc-shortcodes/inc-map/timetable.php:6 vc-shortcodes/inc-map/video.php:6
+msgid "Thim Shortcodes"
+msgstr ""
+
+#: vc-shortcodes/inc-map/carousel-posts.php:8
+msgid "Display posts with carousel."
+msgstr ""
+
+#: vc-shortcodes/inc-map/carousel-posts.php:48
+#: vc-shortcodes/inc-map/carousel-posts.php:61
+#: vc-shortcodes/inc-map/carousel-posts.php:84
+#: vc-shortcodes/inc-map/carousel-posts.php:99
+#: vc-shortcodes/inc-map/countdown-box.php:76
+#: vc-shortcodes/inc-map/countdown-box.php:88
+#: vc-shortcodes/inc-map/counters-box.php:77
+#: vc-shortcodes/inc-map/course-categories.php:23
+#: vc-shortcodes/inc-map/course-categories.php:74
+#: vc-shortcodes/inc-map/courses-collection.php:32
+#: vc-shortcodes/inc-map/courses-collection.php:47
+#: vc-shortcodes/inc-map/courses.php:35 vc-shortcodes/inc-map/courses.php:62
+#: vc-shortcodes/inc-map/courses.php:154
+#: vc-shortcodes/inc-map/gallery-images.php:64
+#: vc-shortcodes/inc-map/gallery-images.php:76
+#: vc-shortcodes/inc-map/gallery-posts.php:25
+#: vc-shortcodes/inc-map/google-map.php:24
+#: vc-shortcodes/inc-map/icon-box.php:74
+#: vc-shortcodes/inc-map/icon-box.php:149
+#: vc-shortcodes/inc-map/icon-box.php:188
+#: vc-shortcodes/inc-map/icon-box.php:264
+#: vc-shortcodes/inc-map/icon-box.php:390
+#: vc-shortcodes/inc-map/icon-box.php:404
+msgid "Select"
+msgstr ""
+
+#: vc-shortcodes/inc-map/countdown-box.php:7
+msgid "Display Countdown Box."
+msgstr ""
+
+#: vc-shortcodes/inc-map/countdown-box.php:85
+#: vc-shortcodes/inc-map/heading.php:163
+#: vc-shortcodes/inc-map/icon-box.php:401
+msgid "Text alignment"
+msgstr ""
+
+#: vc-shortcodes/inc-map/countdown-box.php:89
+#: vc-shortcodes/inc-map/heading.php:167
+#: vc-shortcodes/inc-map/icon-box.php:405
+msgid "Text at left"
+msgstr ""
+
+#: vc-shortcodes/inc-map/countdown-box.php:90
+#: vc-shortcodes/inc-map/heading.php:168
+#: vc-shortcodes/inc-map/icon-box.php:406
+msgid "Text at center"
+msgstr ""
+
+#: vc-shortcodes/inc-map/countdown-box.php:91
+#: vc-shortcodes/inc-map/heading.php:169
+#: vc-shortcodes/inc-map/icon-box.php:407
+msgid "Text at right"
+msgstr ""
+
+#: vc-shortcodes/inc-map/counters-box.php:7
+msgid "Display Counters Box."
+msgstr ""
+
+#: vc-shortcodes/inc-map/counters-box.php:52
+msgid "Select Icon"
+msgstr ""
+
+#: vc-shortcodes/inc-map/counters-box.php:88
+#: vc-shortcodes/inc-map/courses.php:195
+#: vc-shortcodes/inc-map/gallery-images.php:84
+#: vc-shortcodes/inc-map/heading.php:175 vc-shortcodes/inc-map/our-team.php:73
+#: vc-shortcodes/inc-map/single-images.php:58
+msgid "Animation"
+msgstr ""
+
+#: vc-shortcodes/inc-map/counters-box.php:99
+#: vc-shortcodes/inc-map/courses.php:206
+#: vc-shortcodes/inc-map/gallery-images.php:95
+#: vc-shortcodes/inc-map/heading.php:186 vc-shortcodes/inc-map/our-team.php:84
+#: vc-shortcodes/inc-map/single-images.php:69
+msgid ""
+"Select type of animation if you want this element to be animated when it "
+"enters into the browsers viewport. Note: Works only in modern browsers."
+msgstr ""
+
+#: vc-shortcodes/inc-map/course-categories.php:7
+msgid "Display course categories."
+msgstr ""
+
+#: vc-shortcodes/inc-map/course-categories.php:71
+#: vc-shortcodes/inc-map/testimonials.php:40
+msgid "Items visible"
+msgstr ""
+
+#: vc-shortcodes/inc-map/course-categories.php:75
+#: vc-shortcodes/inc-map/courses-collection.php:33
+#: vc-shortcodes/inc-map/courses-collection.php:48
+#: vc-shortcodes/inc-map/gallery-posts.php:26
+msgid "1"
+msgstr ""
+
+#: vc-shortcodes/inc-map/course-categories.php:79
+#: vc-shortcodes/inc-map/gallery-posts.php:30
+msgid "5"
+msgstr ""
+
+#: vc-shortcodes/inc-map/course-categories.php:80
+#: vc-shortcodes/inc-map/gallery-posts.php:31
+msgid "6"
+msgstr ""
+
+#: vc-shortcodes/inc-map/course-categories.php:81
+msgid "7"
+msgstr ""
+
+#: vc-shortcodes/inc-map/course-categories.php:82
+msgid "8"
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses-searching.php:8
+msgid "Display courses search box."
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses-searching.php:41
+#: vc-shortcodes/shortcodes/courses-searching/courses-searching.php:20
+msgid "Description for search course."
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses.php:8
+msgid "Display courses."
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses.php:13
+msgid "Heading text"
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses.php:21
+msgid "Limit"
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses.php:26
+msgid "Limit number courses."
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses.php:41
+msgid "Select order by."
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses.php:126
+msgid "Grid Columns"
+msgstr ""
+
+#: vc-shortcodes/inc-map/courses.php:169
+msgid "Limit Tab"
+msgstr ""
+
+#: vc-shortcodes/inc-map/gallery-images.php:8
+msgid "Display Gallery Images."
+msgstr ""
+
+#: vc-shortcodes/inc-map/gallery-posts.php:5
+msgid "Thim: Gallery Posts"
+msgstr ""
+
+#: vc-shortcodes/inc-map/gallery-posts.php:8
+msgid "Display Gallery Posts."
+msgstr ""
+
+#: vc-shortcodes/inc-map/google-map.php:5
+msgid "Thim: Google Map"
+msgstr ""
+
+#: vc-shortcodes/inc-map/google-map.php:8
+msgid "Display Google Map."
+msgstr ""
+
+#: vc-shortcodes/inc-map/google-map.php:78
+#: vc-shortcodes/inc-map/list-events.php:21
+msgid "Number events display"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:4
+msgid "Thim Heading"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:7
+msgid "Display heading."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:16
+msgid "Write the title for the heading."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:22
+msgid "Title color "
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:25 vc-shortcodes/inc-map/icon-box.php:24
+msgid "Select the title color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:35
+msgid "Heading tag"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:45
+msgid "Choose heading element."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:52
+msgid "Use custom or default title?"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:58
+msgid ""
+"If you select default you will use default title which customized in "
+"typography."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:64
+msgid "Font size "
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:69
+msgid "Custom title font size."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:79
+msgid "Font Weight "
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:82
+msgid "Custom font weight"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:95
+msgid "Custom title font weight."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:105
+msgid "Font style "
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:108
+msgid "Choose the title font style"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:109
+msgid "Italic"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:110
+msgid "Oblique"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:111
+msgid "Initial"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:112
+msgid "Inherit"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:115
+msgid "Custom title font style."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:125
+msgid "Sub heading"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:128
+msgid "Enter sub heading."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:134
+msgid "Sub heading color "
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:137
+msgid "Select the sub heading color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:144
+msgid "Show Separator?"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:148
+msgid "Tick it to show the separator between title and description."
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:153
+msgid "Separator color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/heading.php:156
+msgid "Choose the separator color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:21
+msgid "Title Color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:45
+msgid "Custom title heading"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:57
+msgid "Title Font Size"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:60
+msgid "Custom title font size. Unit is pixel"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:70
+#: vc-shortcodes/inc-map/icon-box.php:145
+msgid "Custom Title Font Weight"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:72
+#: vc-shortcodes/inc-map/icon-box.php:147
+#: vc-shortcodes/inc-map/icon-box.php:186
+msgid "Select Custom Title Font Weight"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:96
+msgid "Title Margin Top"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:108
+msgid "Title Margin Bottom"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:128
+msgid "Description content."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:136
+msgid "Description Font Size"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:138
+msgid "Custom description font size. Unit is pixel"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:167
+msgid "Description Color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:169
+msgid "Select the description color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:175
+msgid "Read more link"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:184
+msgid "Apply read more link to:"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:206
+msgid "Read more text"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:209
+msgid "Provide text read more."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:215
+msgid "Read More Color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:218
+msgid "Select the read more color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:224
+msgid "Read More Border Color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:227
+msgid "Select the read more border color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:233
+msgid "Read More Background Color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:236
+msgid "Select the read more background color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:242
+msgid "Read more text hover color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:245
+msgid "Select the read more text hover color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:251
+msgid "Read More Background Hover Color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:254
+msgid "Select the read more background hover color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:260
+msgid "Icon type"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:262
+msgid "Select icon type to display"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:265
+msgid "Font Awesome"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:276
+msgid "Select icon"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:286
+msgid "Icon Font Size"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:289
+msgid "Custom icon font size. Unit is pixel"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:299
+msgid "Image Icon"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:302
+msgid "Select custom image icon"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:312
+msgid "Width box icon"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:315
+msgid "Custom width box icon. Unit is pixel"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:321
+msgid "Icon color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:330
+msgid "Icon border color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:333
+msgid "Select the icon border color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:339
+msgid "Icon background color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:342
+msgid "Select the icon background color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:348
+msgid "Icon hover color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:351
+msgid "Select the icon hover color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:357
+msgid "Icon border hover color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:360
+msgid "Select icon border hover color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:366
+msgid "Icon background hover color"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:369
+msgid "Select the icon background hover color."
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:375
+msgid "Icon shape"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:387
+msgid "Box style"
+msgstr ""
+
+#: vc-shortcodes/inc-map/icon-box.php:414
+msgid "Type icon box"
+msgstr ""
+
+#: vc-shortcodes/inc-map/list-events.php:5
+msgid "Thim: List Events"
+msgstr ""
+
+#: vc-shortcodes/inc-map/list-events.php:8
+msgid "Display List Events."
+msgstr ""
+
+#: vc-shortcodes/inc-map/list-events.php:41
+msgid "Text View All"
+msgstr ""
+
+#: vc-shortcodes/inc-map/login-form.php:8
+msgid "Display Login Form."
+msgstr ""
+
+#: vc-shortcodes/inc-map/one-course-instructors.php:4
+msgid "Thim: One Course Instructors"
+msgstr ""
+
+#: vc-shortcodes/inc-map/one-course-instructors.php:7
+msgid "Display course instructors."
+msgstr ""
+
+#: vc-shortcodes/inc-map/our-team.php:7
+msgid "Display Our Team."
+msgstr ""
+
+#: vc-shortcodes/inc-map/tab-event.php:4
+msgid "Thim: Tab events"
+msgstr ""
+
+#: vc-shortcodes/inc-map/testimonials.php:4
+msgid "Thim: Testimonial"
+msgstr ""
+
+#: vc-shortcodes/inc-map/testimonials.php:7
+msgid "Display testimonials."
+msgstr ""
+
+#: vc-shortcodes/inc-map/testimonials.php:24
+msgid "Carousel"
+msgstr ""
+
+#: vc-shortcodes/inc-map/timetable.php:7
+msgid "Display Timetable."
+msgstr ""
+
+#: vc-shortcodes/inc-map/timetable.php:20
+msgid "Timetable Items"
 msgstr ""
 
 #: woocommerce/content-single-product-lightbox.php:75

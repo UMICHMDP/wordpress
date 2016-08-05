@@ -99,7 +99,7 @@ class Thim_Course_Categories_Widget extends Thim_Widget {
 					'fields'        => array(
 						'show_counts'  => array(
 							'type'    => 'checkbox',
-							'label'   => esc_html__( 'Show course counts', 'eduma' ),
+							'label'   => esc_html__( 'Show course count', 'eduma' ),
 							'default' => false,
 						),
 						'hierarchical' => array(

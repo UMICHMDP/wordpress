@@ -111,6 +111,9 @@ class Thim_Customize_Options {
 		include THIM_DIR . "inc/admin/customizer-sections/footer-copyright.php";
 		include THIM_DIR . "inc/admin/customizer-sections/footer-options.php";
 
+		include THIM_DIR . "inc/admin/customizer-sections/page-builder.php";
+		include THIM_DIR . "inc/admin/customizer-sections/page-builder-chosen.php";
+
 		//include woocommerce
 		if ( class_exists( 'WooCommerce' ) ) {
 			include THIM_DIR . "inc/admin/customizer-sections/woocommerce.php";

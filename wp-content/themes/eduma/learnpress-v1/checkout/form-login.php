@@ -22,7 +22,7 @@ $subheading = apply_filters( 'learn_press_checkout_login_subheading', __( 'I am 
 
 <div id="learn-press-checkout-user-login" class="learn-press-user-form">
 
-	<?php do_action( 'learn_press_checkout_before_user_login_form' );?>
+	<?php do_action( 'learn_press_checkout_before_user_login_form' ); ?>
 
 	<?php if ( $heading ) { ?>
 		<h3 class="form-heading"><?php echo $heading; ?></h3>
@@ -34,24 +34,24 @@ $subheading = apply_filters( 'learn_press_checkout_login_subheading', __( 'I am 
 
 	<ul class="form-fields">
 
-		<?php do_action( 'learn_press_checkout_user_login_before_form_fields' );?>
+		<?php do_action( 'learn_press_checkout_user_login_before_form_fields' ); ?>
 
 		<li>
-			<label><?php _e( 'Username' ); ?></label>
-			<input type="text" name="user_login" placeholder="Username"/>
+			<label><?php esc_html_e( 'Username', 'eduma' ); ?></label>
+			<input type="text" name="user_login" placeholder="Username" />
 		</li>
 		<li>
-			<label><?php _e( 'Password' ); ?></label>
-			<input type="password" name="user_password" placeholder="Password"/>
+			<label><?php esc_html_e( 'Password', 'eduma' ); ?></label>
+			<input type="password" name="user_password" placeholder="Password" />
 		</li>
 		<li>
-			<button type="submit" id="learn-press-checkout-login-button"><?php _e( 'Login', 'eduma' );?></button>
+			<button type="submit" id="learn-press-checkout-login-button"><?php esc_html_e( 'Login', 'eduma' ); ?></button>
 		</li>
 
-		<?php do_action( 'learn_press_checkout_user_login_after_form_fields' );?>
+		<?php do_action( 'learn_press_checkout_user_login_after_form_fields' ); ?>
 
 	</ul>
 
-	<?php do_action( 'learn_press_checkout_after_user_login_form' );?>
+	<?php do_action( 'learn_press_checkout_after_user_login_form' ); ?>
 
 </div>

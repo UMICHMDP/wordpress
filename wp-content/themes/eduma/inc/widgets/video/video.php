@@ -8,7 +8,7 @@ class Thim_Video_Widget extends Thim_Widget {
 			'video',
 			esc_html__( 'Thim: Video', 'eduma' ),
 			array(
-				'description'   => esc_html__( 'A video player widget.', 'eduma' ),
+				'description'   => esc_html__( 'Display video youtube or vimeo.', 'eduma' ),
 				'help'          => '',
 				'panels_groups' => array( 'thim_widget_group' )
 			),

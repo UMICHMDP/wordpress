@@ -71,7 +71,7 @@ class Thim_Carousel_Post_Widget extends Thim_Widget {
 				),
 				'order'           => array(
 					'type'    => 'select',
-					'label'   => esc_html__( 'Order by', 'eduma' ),
+					'label'   => esc_html__( 'Order', 'eduma' ),
 					'options' => array(
 						'asc'  => esc_html__( 'ASC', 'eduma' ),
 						'desc' => esc_html__( 'DESC', 'eduma' )

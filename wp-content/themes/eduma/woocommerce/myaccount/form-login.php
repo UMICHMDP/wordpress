@@ -41,13 +41,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php do_action( 'woocommerce_login_form_start' ); ?>
 
 			<p class="form-row form-row-wide">
-				<input type="text" class="input-text" name="username" id="username" placeholder="<?php esc_html_e( 'Username or email address', 'eduma' ); ?>" value="<?php if ( ! empty( $_POST['username'] ) ) {
+				<input type="text" class="input-text" name="username" id="username" placeholder="<?php esc_attr_e( 'Username or email address', 'eduma' ); ?>" value="<?php if ( ! empty( $_POST['username'] ) ) {
 					echo esc_attr( $_POST['username'] );
 				} ?>" />
 			</p>
 
 			<p class="form-row form-row-wide">
-				<input class="input-text" type="password" name="password" id="password" placeholder="<?php esc_html_e( 'Password', 'eduma' ); ?>" />
+				<input class="input-text" type="password" name="password" id="password" placeholder="<?php esc_attr_e( 'Password', 'eduma' ); ?>" />
 			</p>
 
 			<?php do_action( 'woocommerce_login_form' ); ?>

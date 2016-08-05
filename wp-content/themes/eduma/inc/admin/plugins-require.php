@@ -195,24 +195,24 @@ if ( ! function_exists( 'thim_tp_register_required_plugins' ) ) {
 				// If set, overrides default API URL and points to an external URL
 			),
 
-			array(
-				'name'               => 'LearnPress Co-Instructor',
-				// The plugin name
-				'slug'               => 'learnpress-co-instructor',
-				// The plugin slug (typically the folder name)
-				'source'             => THIM_DIR . 'inc/plugins/learnpress-co-instructor.zip',
-				// The plugin source
-				'required'           => false,
-				// If false, the plugin is only 'recommended' instead of required
-				'version'            => '1.0.1',
-				// E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
-				'force_activation'   => false,
-				// If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
-				'force_deactivation' => false,
-				// If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-				'external_url'       => '',
-				// If set, overrides default API URL and points to an external URL
-			),
+//			array(
+//				'name'               => 'LearnPress Co-Instructor',
+//				// The plugin name
+//				'slug'               => 'learnpress-co-instructor',
+//				// The plugin slug (typically the folder name)
+//				'source'             => THIM_DIR . 'inc/plugins/learnpress-co-instructor.zip',
+//				// The plugin source
+//				'required'           => false,
+//				// If false, the plugin is only 'recommended' instead of required
+//				'version'            => '1.0.1',
+//				// E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+//				'force_activation'   => false,
+//				// If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
+//				'force_deactivation' => false,
+//				// If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
+//				'external_url'       => '',
+//				// If set, overrides default API URL and points to an external URL
+//			),
 
 			array(
 				'name'               => 'LearnPress Colections',

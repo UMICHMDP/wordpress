@@ -38,9 +38,9 @@ do_action( 'tp_event_archive_description' );
 	<div class="list-tab-event">
 		<ul class="nav nav-tabs">
 			<li class="active">
-				<a href="#tab-happening" data-toggle="tab"><?php esc_html_e( 'Happening Today', 'eduma' ); ?></a></li>
-			<li><a href="#tab-upcoming" data-toggle="tab"><?php esc_html_e( 'Upcoming Events', 'eduma' ); ?></a></li>
-			<li><a href="#tab-expired" data-toggle="tab"><?php esc_html_e( 'Expired Events', 'eduma' ); ?></a></li>
+				<a href="#tab-happening" data-toggle="tab"><?php esc_html_e( 'Happening', 'eduma' ); ?></a></li>
+			<li><a href="#tab-upcoming" data-toggle="tab"><?php esc_html_e( 'Upcoming', 'eduma' ); ?></a></li>
+			<li><a href="#tab-expired" data-toggle="tab"><?php esc_html_e( 'Expired', 'eduma' ); ?></a></li>
 		</ul>
 		<div class="tab-content thim-list-event">
 			<?php

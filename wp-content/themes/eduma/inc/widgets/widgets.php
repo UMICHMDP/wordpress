@@ -12,8 +12,6 @@ include_once( THIM_DIR . '/inc/widgets/tab/tab.php' );
 include_once( THIM_DIR . '/inc/widgets/our-team/our-team.php' );
 include_once( THIM_DIR . '/inc/widgets/testimonials/testimonials.php' );
 include_once( THIM_DIR . '/inc/widgets/login-menu/login-menu.php' );
-include_once( THIM_DIR . '/inc/widgets/thim-recent-comments/thim-recent-comments.php' );
-include_once( THIM_DIR . '/inc/widgets/slider/slider.php' );
 include_once( THIM_DIR . '/inc/widgets/counters-box/counters-box.php' );
 include_once( THIM_DIR . '/inc/widgets/countdown-box/countdown-box.php' );
 include_once( THIM_DIR . '/inc/widgets/carousel-post/carousel-post.php' );

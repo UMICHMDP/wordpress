@@ -4,7 +4,7 @@ global $post;
 $limit             = $instance['limit'];
 $columns           = $instance['grid-options']['columns'];
 $view_all_course   = ( $instance['view_all_courses'] && '' != $instance['view_all_courses'] ) ? $instance['view_all_courses'] : false;
-$view_all_position = ( $instance['view_all_position'] && '' != $instance['view_all_position'] ) ? $instance['view_all_position'] : 'position-top';
+$view_all_position = ( $instance['view_all_position'] && '' != $instance['view_all_position'] ) ? $instance['view_all_position'] : 'top';
 $sort              = $instance['order'];
 
 $condition = array(

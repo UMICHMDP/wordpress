@@ -461,14 +461,14 @@ if ( !function_exists( 'thim_course_info' ) ) {
 						<span class="value"><?php echo esc_html( $course_duration ); ?></span>
 					</li>
 				<?php endif; ?>
-				<?php if ( !empty( $course_duration ) ): ?>
+				<?php if ( !empty( $course_skill_level ) ): ?>
 					<li>
 						<i class="fa fa-level-up"></i>
 						<span class="label"><?php esc_html_e( 'Skill level', 'eduma' ); ?></span>
 						<span class="value"><?php echo esc_html( $course_skill_level ); ?></span>
 					</li>
 				<?php endif; ?>
-				<?php if ( !empty( $course_duration ) ): ?>
+				<?php if ( !empty( $course_language ) ): ?>
 					<li>
 						<i class="fa fa-language"></i>
 						<span class="label"><?php esc_html_e( 'Language', 'eduma' ); ?></span>

@@ -1,0 +1,12 @@
+<?php
+
+vc_map( array(
+
+	'name'        => esc_html__( 'Thim: Login Form', 'eduma' ),
+	'base'        => 'thim-login-form',
+	'category'    => esc_html__( 'Thim Shortcodes', 'eduma' ),
+	'description' => esc_html__( 'Display Login Form.', 'eduma' ),
+	'params'      => array(
+		
+	)
+) );

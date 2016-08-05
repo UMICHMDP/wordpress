@@ -3860,8 +3860,8 @@ footer#colophon .copyright-area .text-right {
 }
 
 .mo-openid-app-icons .btn-block {
-	margin-right: 0;
-	margin-left: 0;
+	margin-right: 15px;
+	margin-left: 15px;
 }
 
 .mo-openid-app-icons .btn-block:last-child {
