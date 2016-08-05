@@ -3,8 +3,8 @@ Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
-Tested up to: 4.5.2
-Stable tag: 3.1.7
+Tested up to: 4.6
+Stable tag: 3.1.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,7 +41,7 @@ MailChimp for WordPress helps you add more subscribers to your MailChimp lists u
 	- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
 	- [MailChimp Activity](https://wordpress.org/plugins/mc4wp-activity/)
 	- [MailChimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
-	- [Scroll Triggered Boxes](https://wordpress.org/plugins/scroll-triggered-boxes/)
+	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
 	- [Captcha](https://wordpress.org/plugins/mc4wp-captcha/)
 	- Third Party:
 	    - [WPBruiser](https://wordpress.org/plugins/goodbye-captcha/)
@@ -146,6 +146,10 @@ You can add your custom CSS to your theme stylesheet or (easier) by using a plug
 If you're getting an `HTTP Error` when trying to connect to your MailChimp account, please contact your webhost and ask them if they have PHP CURL installed and updated to the latest version (7.40.x).
 Also, please ask them to allow requests to `https://api.mailchimp.com/`.
 
+#### How do I show a sign-up form in a pop-up?
+
+We recommend the [Boxzilla pop-up plugin](https://wordpress.org/plugins/boxzilla/) for this. You can use the form shortcode in your pop-up box to show a sign-up form.
+
 #### My question is not listed
 
 Please head over to the [MailChimp for WordPress knowledge base](https://mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq) for more detailed documentation.
@@ -183,6 +187,77 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog == 
 
+
+#### 3.1.12 - July 28. 2016
+
+**Improvements**
+
+- Smarter scrolling after submitting form & reloading page.
+- Format output of `{subscriber_count}` tag.
+- You can now use `<img>` in your form messages.
+- Add MailChimp API error code to debug log lines.
+- Add plugin name + version to User-Agent header for all MailChimp API requests.
+- Make sure value of MC_LANGUAGE field is limited to 2 characters.
+
+
+#### 3.1.11 - July 5, 2016
+
+**Improvements**
+
+- Update JavaScript dependencies for admin screens.
+- Test debug log & show notice when it's not writable.
+
+**Additions**
+
+- Add "placeholder" option for dropdown fields.
+
+
+#### 3.1.10 - June 21, 2016
+
+**Fixes**
+
+- Styles Builder in Premium not building because of incorrect flag in core plugin.
+
+**Improvements**
+
+- Don't show position option for WooCommerce integration when sign-up is implicit.
+- Improvements to form previewer logic.
+- Make sure admin notifications are always shown exactly one time.
+
+#### 3.1.9 - June 7, 2016
+
+**Fixes**
+
+- Placeholder polyfill wasn't loaded (only in IE8 and below).
+
+**Improvements**
+
+- Don't write to debug log if it is not writable.
+- Reset some CSS properties for commonly used class names in Form Editor & Debug Log.
+- Do not unnecessarily register styles which are then immediately enqueued.
+
+**Additions**
+
+- Add "is required field" option for dropdown & radio fields in Field Helper.
+- Link to [Boxzilla plugin](https://boxzillaplugin.com/) from admin sidebar.
+
+
+#### 3.1.8 - May 23, 2016
+
+**Fixes**
+
+- Form Preview mode replaced all titles on that page with "Form Preview".
+- API class fix for [eCommerce360 functionality](https://mc4wp.com/kb/what-is-ecommerce360/).
+
+**Improvements**
+
+- Show dismissible notice when API key is not set.
+- Show empty API key errors in plugin log.
+- Friendlier error message for re-subscribe failures.
+
+**Additions**
+
+- Add `form.reset()` method to JS API.
 
 #### 3.1.7 - May 9, 2016
 

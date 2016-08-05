@@ -77,6 +77,9 @@
 	delete_option( 'mo_openid_digg_share_enable' );
 	delete_option( 'mo_openid_pocket_share_enable' );
 	delete_option( 'mo_openid_vkontakte_share_enable' );
+	delete_option('mo_openid_mail_share_enable');
+	delete_option('mo_openid_print_share_enable');
+	delete_option('mo_openid_whatsapp_share_enable');
 	delete_option( 'mo_openid_admin_customer_valid');
 	delete_option( 'mo_openid_admin_customer_plan');
 	
@@ -90,6 +93,8 @@
 	delete_option('mo_share_options_home_page_position');
 	delete_option('mo_share_options_static_pages_position');
 	delete_option('mo_openid_share_twitter_username');
+	delete_option( 'mo_openid_share_email_subject' );
+	delete_option( 'mo_openid_share_email_body' );
 	delete_option('mo_share_vertical_hide_mobile');
 	
 	delete_option('mo_sharing_icon_custom_size');

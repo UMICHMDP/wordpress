@@ -9,76 +9,52 @@
 class MC4WP_Form_Asset_Manager {
 
 	/**
-	 * @var MC4WP_Form_Output_Manager|null
+	 * @var bool
 	 */
-	protected $output_manager;
+	protected $dummy_printed = false;
 
 	/**
 	 * @var bool
 	 */
-	protected $scripts_loaded = false;
+	protected $load_scripts = false;
 
 	/**
 	 * @var string
 	 */
-	protected $filename_suffix;
+	protected $filename_suffix = '';
 
 	/**
-	 * Constructor
-	 *
-	 * @param MC4WP_Form_Output_Manager $output_manager
+	 * MC4WP_Form_Asset_Manager constructor.
 	 */
-	public function __construct( MC4WP_Form_Output_Manager $output_manager = null ) {
-		$this->output_manager = $output_manager;
-		$this->filename_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-	}
-
-	/**
-	 * Init all form related functionality
-	 */
-	public function initialize() {
-		$this->register_assets();
-		$this->add_hooks();
+	public function __construct() {
+		$this->filename_suffix =( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 	}
 
 	/**
 	 * Add hooks
 	 */
-	public function add_hooks() {
+	public function hook() {
 		// load checkbox css if necessary
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
-		add_action( 'mc4wp_output_form', array( $this, 'load_scripts' ) );
-		add_action( 'wp_footer', array( $this, 'print_javascript' ), 999 );
+		add_action( 'mc4wp_output_form', array( $this, 'before_output_form' ) );
+		add_action( 'wp_footer', array( $this, 'load_scripts' ) );
+
+		$this->register_assets();
 	}
 
 	/**
 	 * Register the various JS files used by the plugin
+	 *
+	 * @deprecated 3.1.9
 	 */
 	public function register_assets() {
-		global $wp_scripts;
-
 		$suffix = $this->filename_suffix;
-
-		// register client-side API script
-		wp_register_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'. $suffix .'.js', array(), MC4WP_VERSION, true );
-
-		// register placeholder script, which will later be enqueued for IE only
-		wp_register_script( 'mc4wp-forms-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
-		$wp_scripts->add_data( 'mc4wp-forms-placeholders', 'conditional', 'lte IE 9' );
-
-		// register stylesheets
-		$stylesheets = array(
-			'basic',
-			'themes'
-		);
-		foreach( $stylesheets as $stylesheet ) {
-			wp_register_style( 'mc4wp-form-' . $stylesheet, $this->get_stylesheet_url( $stylesheet ), array(), MC4WP_VERSION );
-		}
 
 		/**
 		 * Runs right after all assets (scripts & stylesheets) for forms have been registered
 		 *
 		 * @since 3.0
+		 * @deprecated 3.1.9
 		 *
 		 * @param string $suffix The suffix to add to the filename, before the file extension. Is usually set to ".min".
 		 * @ignore
@@ -87,11 +63,45 @@ class MC4WP_Form_Asset_Manager {
 	}
 
 	/**
+	 * @param string $stylesheet
+	 *
+	 * @return bool
+	 */
+	public function is_registered_stylesheet( $stylesheet ) {
+		$stylesheets = $this->get_registered_stylesheets();
+		return in_array( $stylesheet, $stylesheets );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_registered_stylesheets() {
+		return array(
+			'basic',
+			'themes'
+		);
+	}
+
+	/**
+	 * @param string $stylesheet
+	 *
+	 * @return string
+	 */
+	public function get_stylesheet_url( $stylesheet ) {
+		if( ! $this->is_registered_stylesheet( $stylesheet ) ) {
+			return '';
+		}
+
+		$suffix = $this->filename_suffix;
+		return MC4WP_PLUGIN_URL . 'assets/css/form-' . $stylesheet . $suffix . '.css';
+	}
+
+	/**
 	 * Get array of stylesheet handles which should be enqueued.
 	 *
 	 * @return array
 	 */
-	public function get_stylesheets() {
+	public function get_active_stylesheets() {
 		$stylesheets = (array) get_option( 'mc4wp_form_stylesheets', array() );
 
 		/**
@@ -110,26 +120,18 @@ class MC4WP_Form_Asset_Manager {
 	}
 
 	/**
-	 * @param string $handle
-	 *
-	 * @return string
-	 */
-	public function get_stylesheet_url( $handle ) {
-		return MC4WP_PLUGIN_URL . 'assets/css/form-' . $handle . $this->filename_suffix . '.css';
-	}
-
-	/**
 	 * Load the various stylesheets
 	 */
 	public function load_stylesheets( ) {
-		$stylesheets = $this->get_stylesheets();
+		$stylesheets = $this->get_active_stylesheets();
 
 		foreach( $stylesheets as $stylesheet ) {
+			if( ! $this->is_registered_stylesheet( $stylesheet ) ) {
+				continue;
+			}
+
 			$handle = 'mc4wp-form-' . $stylesheet;
-
-			// TODO: check if stylesheet handle is registered?
-			wp_enqueue_style( $handle );
-
+			wp_enqueue_style( $handle, $this->get_stylesheet_url( $stylesheet ), array(), MC4WP_VERSION );
 			add_editor_style( $this->get_stylesheet_url( $stylesheet ) );
 		}
 
@@ -190,24 +192,19 @@ class MC4WP_Form_Asset_Manager {
 	 * Load JavaScript files
 	 * @return bool
 	 */
-	public function load_scripts() {
+	public function before_output_form() {
 
-		if( $this->scripts_loaded ) {
-			return false;
+		// only run once
+		if( $this->dummy_printed ) {
+			return;
 		}
 
 		// print dummy JS
 		$this->print_dummy_javascript();
 
-		// load API script
-		wp_localize_script( 'mc4wp-forms-api', 'mc4wp_forms_config', $this->get_javascript_config() );
-		wp_enqueue_script( 'mc4wp-forms-api' );
-
-		// load placeholder polyfill if browser is Internet Explorer
-		wp_enqueue_script( 'mc4wp-placeholders' );
-
-		$this->scripts_loaded = true;
-		return true;
+		// set flags
+		$this->load_scripts = true;
+		$this->dummy_printed = true;
 	}
 
 	/**
@@ -223,44 +220,37 @@ class MC4WP_Form_Asset_Manager {
 	/**
 	* Outputs the inline JavaScript that is used to enhance forms
 	*/
-	public function print_javascript() {
+	public function load_scripts() {
 
-		// don't print any scripts if this page has no forms
-		if( ! $this->output_manager || empty( $this->output_manager->printed_forms ) ) {
-			return false;
+		$load_scripts = $this->load_scripts;
+
+		/** @ignore */
+		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', $load_scripts );
+		if( ! $load_scripts ) {
+			return;
 		}
 
+		global $wp_scripts;
+
 		// make sure scripts are loaded
-		$this->load_scripts();
+		wp_enqueue_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'.  $this->filename_suffix .'.js', array(), MC4WP_VERSION, true );
+		wp_localize_script( 'mc4wp-forms-api', 'mc4wp_forms_config', $this->get_javascript_config() );
+
+		// load placeholder polyfill if browser is Internet Explorer
+		wp_enqueue_script( 'mc4wp-forms-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
+		$wp_scripts->add_data( 'mc4wp-forms-placeholders', 'conditional', 'lte IE 9' );
 
 		// print inline scripts depending on printed fields
 		echo '<script type="text/javascript">';
 		echo '(function() {';
-
-		// include general form enhancements
-		include  dirname( __FILE__ ) . '/views/js/general-form-enhancements.js';
-
-		// include url fix
-		if( in_array( 'url', $this->output_manager->printed_field_types ) ) {
-			include dirname( __FILE__ ) . '/views/js/url-fields.js';
-		}
-
-		// include date polyfill?
-		if( in_array( 'date', $this->output_manager->printed_field_types ) ) {
-			include dirname( __FILE__ ) . '/views/js/date-fields.js';
-		}
-
+		include dirname( __FILE__ ) . '/views/js/general-form-enhancements.js';
+		include dirname( __FILE__ ) . '/views/js/url-fields.js';
+		include dirname( __FILE__ ) . '/views/js/date-fields.js';
 		echo '})();';
 		echo '</script>';
 
-		/**
-		 * Runs right after inline JavaScript is printed, just before the closing </body> tag.
-		 *
-		 * This function will only run if the current page contains at least one form.
-		 *
-		 * @ignore
-		 */
-		do_action( 'mc4wp_print_forms_javascript' );
+		/** @ignore */
+		do_action( 'mc4wp_load_form_scripts' );
 	}
 
 

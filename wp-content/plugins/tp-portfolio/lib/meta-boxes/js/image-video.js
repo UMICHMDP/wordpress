@@ -240,6 +240,7 @@ jQuery( function ( $ )
                 force_delete: $container.data( 'force_delete' )
             };
 
+        $parent.remove();
         $.post( ajaxurl, data, function( r )
         {
             if ( !r.success )
@@ -248,24 +249,25 @@ jQuery( function ( $ )
                 return;
             }
 
-            $parent.addClass( 'removed' );
+            //$parent.addClass( 'removed' );
+            //
+            //// If transition events not supported
+            //if (
+            //    !( 'ontransitionend' in window )
+            //    && ( 'onwebkittransitionend' in window )
+            //    && !( 'onotransitionend' in myDiv || navigator.appName == 'Opera' )
+            //)
+            //{
+            //    $parent.remove();
+            //    $container.trigger( 'update.thimFile' );
+            //}
+            //
+            //$( '.thim-image-video-uploaded' ).on( 'transitionend webkitTransitionEnd otransitionend', 'li.removed', function()
+            //{
+            //    $( this ).remove();
+            //    $container.trigger( 'update.thimFile' );
+            //} );
 
-            // If transition events not supported
-            if (
-                !( 'ontransitionend' in window )
-                && ( 'onwebkittransitionend' in window )
-                && !( 'onotransitionend' in myDiv || navigator.appName == 'Opera' )
-            )
-            {
-                $parent.remove();
-                $container.trigger( 'update.thimFile' );
-            }
-
-            $( '.thim-image-video-uploaded' ).on( 'transitionend webkitTransitionEnd otransitionend', 'li.removed', function()
-            {
-                $( this ).remove();
-                $container.trigger( 'update.thimFile' );
-            } );
         }, 'json' );
 
         return false;

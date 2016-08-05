@@ -94,7 +94,6 @@ if ( $total == 0 ) {
 	<?php do_action( 'learn_press_after_courses_loop' ); ?>
 
 <?php endif; ?>
-
 <?php //do_action( 'learn_press_after_main_content' ); ?>
 
 <?php //get_footer(); ?>

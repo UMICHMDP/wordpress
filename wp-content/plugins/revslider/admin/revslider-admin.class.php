@@ -173,7 +173,7 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
         ?>
         <tr class="plugin-update-tr"><td colspan="<?php echo $wp_list_table->get_column_count(); ?>" class="plugin-update colspanchange">
             <div class="update-message installer-q-icon">
-            <?php _e('Activate Slider Revolution for <a href="http://revolution.themepunch.com/direct-customer-benefits/" target="_blank">Premium Benefits</a>. You can <a href="'.admin_url('admin.php?page=revslider').'">Enter an existing licence key</a> or <a href="http://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380?ref=themepunch&license=regular&open_purchase_for_item_id=2751380&purchasable=source" target="_blank">Purchase a licence key</a>.', 'revslider'); ?>
+            <?php _e('Activate Slider Revolution for <a href="http://revolution.themepunch.com/direct-customer-benefits/" target="_blank">Premium Benefits (e.g. Live Updates)</a>.', 'revslider'); ?>
             </div>
         </tr>
         <?php 
@@ -1505,7 +1505,11 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 					}else{
 						if($result == 'temp'){
 							self::ajaxResponseSuccessRedirect(__("Purchase Code Temporary Activated",'revslider'), self::getViewUrl(self::VIEW_SLIDERS));
-						} /*elseif($result == 'bad_email'){
+						} 
+						if($result == 'exist'){
+							self::ajaxResponseData(array('error'=>$result,'msg'=> __('Purchase Code already registered!', 'revslider')));
+						}
+						/*elseif($result == 'bad_email'){
 							RevSliderFunctions::throwError(__('Please add an valid E-Mail Address', 'revslider'));
 						}elseif($result == 'email_used'){
 							RevSliderFunctions::throwError(__('E-Mail already in use, please choose a different E-Mail', 'revslider'));

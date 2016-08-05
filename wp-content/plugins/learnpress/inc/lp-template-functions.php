@@ -297,7 +297,16 @@ if ( !function_exists( 'learn_press_single_course_lesson_content' ) ) {
 	 * Display lesson content
 	 */
 	function learn_press_single_course_content_lesson() {
-		learn_press_get_template( 'single-course/content-lesson.php' );
+		//learn_press_get_template( 'single-course/content-lesson.php' );
+	}
+}
+
+if ( !function_exists( 'learn_press_single_course_content_item' ) ) {
+	/**
+	 * Display lesson content
+	 */
+	function learn_press_single_course_content_item() {
+		learn_press_get_template( 'single-course/content-item.php' );
 	}
 }
 
@@ -508,7 +517,7 @@ if ( !function_exists( 'learn_press_profile_tab_courses_all' ) ) {
 	 *
 	 * @param LP_User
 	 */
-	function learn_press_profile_tab_courses_all( $user, $tab ) {
+	function learn_press_profile_tab_courses_all( $user, $tab = null ) {
 		$args              = array(
 			'user'   => $user,
 			'subtab' => $tab
@@ -661,13 +670,25 @@ if ( !function_exists( 'learn_press_user_profile_tabs' ) ) {
 			$quiz_endpoint   => array(
 				'title'    => __( 'Quiz Results', 'learnpress' ),
 				'callback' => 'learn_press_profile_tab_quizzes_content'
-			),
-			$order_endpoint  => array(
-				'title'    => __( 'Orders', 'learnpress' ),
-				'callback' => 'learn_press_profile_tab_orders_content'
 			)
 		);
-		$tabs     = apply_filters( 'learn_press_user_profile_tabs', $defaults, $user );
+
+		if ( $user->id == get_current_user_id() ) {
+			$defaults[$order_endpoint] = array(
+				'title'    => __( 'Orders', 'learnpress' ),
+				'callback' => 'learn_press_profile_tab_orders_content'
+			);
+		}
+
+		$tabs = apply_filters( 'learn_press_user_profile_tabs', $defaults, $user );
+
+		foreach ( $tabs as $slug => $opt ) {
+			if ( !empty( $defaults[$slug] ) ) {
+				continue;
+			}
+			LP()->query_vars[$slug] = $slug;
+			add_rewrite_endpoint( $slug, EP_ROOT | EP_PAGES );
+		}
 
 		return $tabs;
 	}
@@ -1304,6 +1325,18 @@ if ( !function_exists( 'learn_press_generate_template_information' ) ) {
 	}
 }
 
+if ( !function_exists( 'learn_press_course_remaining_time' ) ) {
+	/**
+	 * Show the time remain of a course
+	 */
+	function learn_press_course_remaining_time() {
+		$user = learn_press_get_current_user();
+		if ( !$user->has_finished_course( get_the_ID() ) && $text = $user->get( 'course-remaining-time', get_the_ID() ) ) {
+			learn_press_message( sprintf( __( 'This course will end within %s next', 'learn_press' ), $text ) );
+		}
+	}
+}
+
 add_filter( 'template_include', 'learn_press_permission_view_quiz', 100 );
 function learn_press_permission_view_quiz( $template ) {
 
@@ -1370,3 +1403,61 @@ function learn_press_template_loader( $template ) {
 
 	return $template;
 }
+
+if ( !function_exists( 'learn_press_item_meta_type' ) ) {
+	function learn_press_item_meta_type( $course, $item ) { ?>
+
+		<?php if ( $item->post_type == 'lp_quiz' ) { ?>
+
+			<span class="lp-label lp-label-quiz"><?php _e( 'Quiz', 'learnpress' ); ?></span>
+
+			<?php if ( $course->final_quiz == $item->ID ) { ?>
+
+				<span class="lp-label lp-label-final"><?php _e( 'Final', 'learnpress' ); ?></span>
+
+			<?php } ?>
+
+		<?php } elseif ( $item->post_type == 'lp_lesson' ) { ?>
+
+			<span class="lp-label lp-label-lesson"><?php _e( 'Lesson', 'learnpress' ); ?></span>
+			<?php if ( get_post_meta( $item->ID, '_lp_preview', true ) == 'yes' ) { ?>
+
+				<span class="lp-label lp-label-preview"><?php _e( 'Preview', 'learnpress' ); ?></span>
+
+			<?php } ?>
+
+		<?php } else { ?>
+
+			<?php do_action( 'learn_press_item_meta_type', $course, $item ); ?>
+
+		<?php }
+	}
+}
+
+function learn_press_single_course_js() {
+	if ( !learn_press_is_course() ) {
+		return;
+	}
+	$user   = LP()->user;
+	$course = LP()->course;
+	$js     = array( 'url' => $course->get_permalink(), 'items' => array() );
+	if ( $items = $course->get_curriculum_items() ) {
+		foreach ( $items as $item ) {
+			$item          = array(
+				'id'        => absint( $item->ID ),
+				'type'      => $item->post_type,
+				'title'     => get_the_title( $item->ID ),
+				'url'       => $course->get_item_link( $item->ID ),
+				'current'   => $course->is_viewing_item( $item->ID ),
+				'completed' => false,
+				'viewable'  => $item->post_type == 'lp_quiz' ? ( $user->can_view_quiz( $item->ID, $course->id ) !== false ) : ( $user->can_view_lesson( $item->ID, $course->id ) !== false )
+			);
+			$js['items'][] = $item;
+		}
+	}
+	echo '<script type="text/javascript">';
+	echo 'var SingleCourse_Params = ' . json_encode( $js );
+	echo '</script>';
+}
+
+add_action( 'wp_head', 'learn_press_single_course_js' );

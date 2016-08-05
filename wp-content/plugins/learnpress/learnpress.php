@@ -4,7 +4,7 @@ Plugin Name: LearnPress
 Plugin URI: http://thimpress.com/learnpress
 Description: LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes.
 Author: ThimPress
-Version: 1.0.4
+Version: 1.0.8
 Author URI: http://thimpress.com
 Requires at least: 3.8
 Tested up to: 4.5.2
@@ -25,11 +25,10 @@ if ( !defined( 'LP_PLUGIN_PATH' ) ) {
 	define( 'LP_PLUGIN_FILE', __FILE__ );
 	define( 'LP_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 	define( 'LP_LOG_PATH', $upload_dir['basedir'] . '/learn-press-logs/' );
-	define( 'LEARNPRESS_VERSION', '1.0.4' );
-	define( 'LEARNPRESS_DB_VERSION', '1.0.2' );
+	define( 'LEARNPRESS_VERSION', '1.0.8' );
+	define( 'LP_ENABLE_CART', true );
 	//add_action( 'plugins_loaded', 'learn_press_defines', - 100 );
 }
-
 if ( !class_exists( 'LearnPress' ) ) {
 	/**
 	 * Class LearnPress
@@ -44,13 +43,6 @@ if ( !class_exists( 'LearnPress' ) ) {
 		 * @var string
 		 */
 		public $version = LEARNPRESS_VERSION;
-
-		/**
-		 * Current version of database
-		 *
-		 * @var string
-		 */
-		public $db_version = LEARNPRESS_DB_VERSION;
 
 		/**
 		 * The single instance of the class
@@ -180,7 +172,7 @@ if ( !class_exists( 'LearnPress' ) ) {
 			//do_action( 'learn_press_register_add_ons' );
 		}
 
-		function __get( $key ) {
+		public function __get( $key ) {
 			$return = false;
 			switch ( $key ) {
 				case 'email':
@@ -209,7 +201,7 @@ if ( !class_exists( 'LearnPress' ) ) {
 			return $return;
 		}
 
-		function set_object( $name, $object, $global = false ) {
+		public function set_object( $name, $object, $global = false ) {
 			$this->{$name} = $object;
 			if ( $global ) {
 				$GLOBALS[$name] = $object;
@@ -278,7 +270,7 @@ if ( !class_exists( 'LearnPress' ) ) {
 		 * Define constants used by this plugin
 		 *
 		 */
-		function define_const() {
+		public function define_const() {
 
 			//$this->define( 'LEARNPRESS_VERSION', $this->version );
 			//$this->define( 'LEARNPRESS_DB_VERSION', $this->db_version );
@@ -296,7 +288,7 @@ if ( !class_exists( 'LearnPress' ) ) {
 			$this->define( 'LP_ORDER_CPT', $this->order_post_type );
 		}
 
-		function define_tables() {
+		public function define_tables() {
 			global $wpdb;
 			$tables = array(
 				'learnpress_sections',
@@ -318,7 +310,7 @@ if ( !class_exists( 'LearnPress' ) ) {
 		/**
 		 * Include custom post types
 		 */
-		function include_post_types() {
+		public function include_post_types() {
 			// Register custom-post-type and taxonomies
 			require_once 'inc/custom-post-types/course.php';
 			require_once 'inc/custom-post-types/quiz.php';
@@ -327,13 +319,34 @@ if ( !class_exists( 'LearnPress' ) ) {
 			require_once 'inc/custom-post-types/order.php';
 		}
 
+		private function plugin_basename( $filepath ) {
+			$file          = str_replace( '\\', '/', $filepath ); // sanitize for Win32 installs
+			$file          = preg_replace( '|/+|', '/', $file ); // remove any duplicate slash
+			$plugin_dir    = str_replace( '\\', '/', WP_PLUGIN_DIR ); // sanitize for Win32 installs
+			$plugin_dir    = preg_replace( '|/+|', '/', $plugin_dir ); // remove any duplicate slash
+			$mu_plugin_dir = str_replace( '\\', '/', WPMU_PLUGIN_DIR ); // sanitize for Win32 installs
+			$mu_plugin_dir = preg_replace( '|/+|', '/', $mu_plugin_dir ); // remove any duplicate slash
+			$sp_plugin_dir = dirname( $filepath );
+			$sp_plugin_dir = dirname( $sp_plugin_dir );
+
+			$sp_plugin_dir = str_replace( '\\', '/', $sp_plugin_dir ); // sanitize for Win32 installs
+			$sp_plugin_dir = preg_replace( '|/+|', '/', $sp_plugin_dir ); // remove any duplicate slash
+
+			$file = preg_replace( '#^' . preg_quote( $sp_plugin_dir, '#' ) . '/|^' . preg_quote( $plugin_dir, '#' ) . '/|^' . preg_quote( $mu_plugin_dir, '#' ) . '/#', '', $file ); // get relative path from plugins dir
+			$file = trim( $file, '/' );
+			return strtolower( $file );
+		}
+
 		/**
 		 * Initial common hooks
 		 */
-		function init_hooks() {
+		public function init_hooks() {
 
 			$plugin_file = WP_PLUGIN_DIR . '/' . basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ );
-			register_activation_hook( __FILE__, array( 'LP_Install', 'install' ) );
+
+			//register_activation_hook( $plugin_file, array( 'LP_Install', 'install' ) );
+			$plugin_basename = $this->plugin_basename( __FILE__ );
+			add_action( 'activate_' . $plugin_basename, array( 'LP_Install', 'install' ) );
 
 			//LP_Install::install();
 
@@ -344,10 +357,9 @@ if ( !class_exists( 'LearnPress' ) ) {
 			add_action( 'template_redirect', 'learn_press_handle_purchase_request' );
 
 			add_action( 'after_setup_theme', array( $this, 'setup_theme' ) );
-
 		}
 
-		function _define_plugin_url() {
+		public function _define_plugin_url() {
 			if ( !defined( 'LP_PLUGIN_URL' ) ) {
 				$this->define( 'LP_PLUGIN_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 				$this->define( 'LP_JS_URL', LP_PLUGIN_URL . 'assets/js/' );
@@ -359,8 +371,15 @@ if ( !class_exists( 'LearnPress' ) ) {
 		/**
 		 * Init LearnPress when WP initialises
 		 */
-		function init() {
+		public function init() {
 
+			if ( !empty( $_REQUEST['view-log'] ) ) {
+				$log = $_REQUEST['view-log'];
+				echo '<pre>';
+				@readfile( learn_press_get_log_file_path( $log ) );
+				echo '<pre>';
+				die();
+			}
 			if ( $this->is_request( 'frontend' ) ) {
 				$this->cart = LP_Cart::instance();
 			}
@@ -380,14 +399,14 @@ if ( !class_exists( 'LearnPress' ) ) {
 
 		}
 
-		function get_session() {
+		public function get_session() {
 			if ( !$this->session ) {
 				$this->session = LP_Session::instance();
 			}
 			return $this->session;
 		}
 
-		function get_user( $user_id = 0 ) {
+		public function get_user( $user_id = 0 ) {
 			static $users = array();
 			$user = false;
 			if ( !$this->user ) {
@@ -443,7 +462,7 @@ if ( !class_exists( 'LearnPress' ) ) {
 		/**
 		 * Includes needed files
 		 */
-		function includes() {
+		public function includes() {
 
 			require_once 'inc/lp-deprecated.php';
 			// include core functions
@@ -589,11 +608,11 @@ if ( !class_exists( 'LearnPress' ) ) {
 			return false;
 		}
 
-		function checkout() {
+		public function checkout() {
 			return LP_Checkout::instance();
 		}
 
-		function setup_theme() {
+		public function setup_theme() {
 			if ( !current_theme_supports( 'post-thumbnails' ) ) {
 				add_theme_support( 'post-thumbnails' );
 			}

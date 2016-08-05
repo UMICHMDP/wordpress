@@ -21,20 +21,28 @@ class LP_Assets extends LP_Abstract_Assets {
 		'assets/js/global.js'                  => 'assets/js/global.min.js'
 	);
 
-	static function init() {
+	public static function init() {
 		parent::$caller = __CLASS__;
 		add_action( 'learn_press_print_assets', array( __CLASS__, '_print_assets' ) );
 		add_action( 'wp_footer', array( __CLASS__, 'footer_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'eduma_assets' ), 9999 );
 		/*add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 10, 2 );
 		add_action( 'learn_press_settings_save_general', array( __CLASS__, '_minify_source' ) );*/
 		parent::init();
 	}
 
-	static function footer_scripts() {
+	public static function eduma_assets() {
+		if ( learn_press_is_course() ) {
+			self::enqueue_script( 'eduma-single-course' );
+			self::enqueue_style( 'eduma-single-course' );
+		}
+	}
+
+	public static function footer_scripts() {
 		global $wp_scripts;
 	}
 
-	static function script_loader_src( $src, $handle ) {
+	public static function script_loader_src( $src, $handle ) {
 		if ( LP_Settings::instance()->get( 'debug' ) == 'yes' ) {
 			return $src;
 		}
@@ -48,12 +56,12 @@ class LP_Assets extends LP_Abstract_Assets {
 		return $src;
 	}
 
-	static function _url_to_path( $url, $sub ) {
+	public static function _url_to_path( $url, $sub ) {
 		$path = str_replace( LP_PLUGIN_URL, preg_replace( '/\\\\/', '/', LP_PLUGIN_PATH ), $url );
 		echo preg_replace( '!\?.*!', '', $path );
 	}
 
-	static function _create_file( $src, $des ) {
+	public static function _create_file( $src, $des ) {
 		if ( $src == $des ) {
 			return $src;
 		}
@@ -79,7 +87,7 @@ class LP_Assets extends LP_Abstract_Assets {
 		return $src;
 	}
 
-	static function _minify_source() {
+	public static function _minify_source() {
 		if ( LP_Settings::instance()->get( 'debug' ) == 'yes' ) {
 			return;
 		}
@@ -92,7 +100,7 @@ class LP_Assets extends LP_Abstract_Assets {
 	/**
 	 * Load assets for frontend
 	 */
-	static function load_scripts() {
+	public static function load_scripts() {
 		$deps = array( 'jquery', 'backbone', 'utils', 'course-lesson', 'jalerts' );
 
 		// global
@@ -114,8 +122,14 @@ class LP_Assets extends LP_Abstract_Assets {
 		// lesson
 		self::add_script( 'course-lesson', learn_press_plugin_url( 'assets/js/frontend/course-lesson.js' ) );
 
+
+		$v2 = "";
 		// single course
-		self::add_script( 'single-course', learn_press_plugin_url( 'assets/js/frontend/single-course.js' ), $deps );
+		self::add_script( 'single-course', learn_press_plugin_url( 'assets/js/frontend/single-course' . $v2 . '.js' ), $deps );
+		if ( $v2 && wp_get_theme()->get( 'Name' ) == 'eduma' ) {
+			self::add_script( 'eduma-single-course', learn_press_plugin_url( 'assets/eduma/custom-script.js' ) );
+			self::add_style( 'eduma-single-course', learn_press_plugin_url( 'assets/eduma/custom-style.css' ) );
+		}
 
 		if ( LP()->settings->get( 'ajax_add_to_cart' ) == 'yes' ) {
 			self::add_script( 'learn-press-add-to-cart', learn_press_plugin_url( 'assets/js/frontend/add-to-cart.js' ) );
@@ -132,7 +146,7 @@ class LP_Assets extends LP_Abstract_Assets {
 
 	}
 
-	static function _print_assets() {
+	public static function _print_assets() {
 
 		if ( is_admin() ) {
 			//return;
@@ -156,7 +170,12 @@ class LP_Assets extends LP_Abstract_Assets {
 		// single course
 		if ( learn_press_is_course() ) {
 			self::enqueue_script( 'single-course' );
+
 			$course = LP()->course;
+			if ( $course->load_media == 'yes' ) {
+				wp_enqueue_style( 'wp-mediaelement' );
+				wp_enqueue_script( 'wp-mediaelement' );
+			}
 			if ( $course && $course->is_free() && LP()->settings->get( 'no_checkout_free_course' ) == 'yes' ) {
 			} else {
 				self::enqueue_script( 'learn-press-add-to-cart' );
@@ -182,7 +201,6 @@ class LP_Assets extends LP_Abstract_Assets {
 			self::enqueue_script( 'learn-press' );
 		}
 		do_action( 'learn_press_frontend_after_load_assets' );
-
 	}
 }
 

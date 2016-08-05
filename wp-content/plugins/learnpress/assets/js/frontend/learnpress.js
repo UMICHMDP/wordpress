@@ -36,14 +36,15 @@
 			args = $.extend({
 				delay   : 300,
 				duration: 'slow',
-				offset  : 50
+				offset  : 50,
+				callback: null
 			}, args || {});
 			$('body, html')
 				.fadeIn(10)
 				.delay(args.delay)
 				.animate({
 					scrollTop: $(element).offset().top - args.offset
-				}, args.duration);
+				}, args.duration, args.callback);
 		}
 	}, LearnPress);
 

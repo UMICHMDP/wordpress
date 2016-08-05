@@ -338,6 +338,12 @@ class TitanFrameworkOptionFontColor extends TitanFrameworkOption {
 	 * @since    1.4
 	 */
 	public static function createFontScript() {
+		global $pagenow;
+
+		if('customize.php' !=$pagenow){
+			return;
+		}
+		
 		if ( !self::$firstLoad ) {
 			return;
 		}

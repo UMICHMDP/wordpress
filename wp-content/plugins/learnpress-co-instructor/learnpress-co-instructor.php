@@ -4,7 +4,7 @@ Plugin Name: LearnPress Co-Instructor
 Plugin URI: http://thimpress.com/learnpress
 Description: Building courses with other instructors
 Author: ThimPress
-Version: 1.0
+Version: 1.0.1
 Author URI: http://thimpress.com
 Tags: learnpress, lms, add-on, co-instructor
 Text Domain: learnpress-co-instructor
@@ -40,6 +40,35 @@ class LP_Addon_Co_Instructor {
 		add_filter( 'learn_press_valid_lessons', array( $this, 'co_instructor_valid_lessons' ) );
 		add_filter( 'learn_press_valid_courses', array( $this, 'get_available_courses' ) );
 		add_action( 'init', array( __CLASS__, 'load_text_domain' ) );
+		add_action( 'admin_head-post.php', array( $this, 'process_teacher' ) );
+
+	}
+
+	function process_teacher() {
+		if ( current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		global $post;
+		$post_id = $post->ID;
+
+		if ( current_user_can( LP()->teacher_role ) ) {
+			if ( $post->post_author == get_current_user_id() ) {
+				return;
+			}
+			$courses = apply_filters( 'learn_press_valid_courses', array() );
+			$lessons = apply_filters( 'learn_press_valid_lessons', array() );
+			$quizzes = apply_filters( 'learn_press_valid_quizzes', array() );
+			if ( in_array( $post_id, $courses ) ) {
+				return;
+			}
+			if ( in_array( $post_id, $lessons ) ) {
+				return;
+			}
+			if ( in_array( $post_id, $quizzes ) ) {
+				return;
+			}
+			wp_die( __( 'Sorry! You don\'t have permission to do this action', 'learnpress' ), 403 );
+		}
 	}
 
 	function co_instructor_valid_lessons() {
@@ -151,11 +180,11 @@ class LP_Addon_Co_Instructor {
 						$query->set( 'post__in', $courses );
 					}
 					add_filter( 'views_edit-lpr_course', array( $this, 'restrict_co_items' ), 20 );
-					add_filter( 'views_edit-lp_course', 'learn_press_restrict_co_items', 20 );
+					add_filter( 'views_edit-lp_course', array( $this, 'restrict_co_items' ), 20 );
 					return;
 				}
 				if ( in_array( $post_type, array( 'lpr_lesson', 'lp_lesson' ) ) ) {
-					$lessons = learn_press_get_available_lessons( $courses );
+					$lessons = $this->get_available_lessons( $courses );
 					if ( count( $lessons ) == 0 ) {
 						if ( $post_type === 'lp_lesson' ) {
 							$empty_post_type = 'lp_empty';
@@ -170,7 +199,7 @@ class LP_Addon_Co_Instructor {
 					return;
 				}
 				if ( in_array( $post_type, array( 'lpr_quiz', 'lp_quiz' ) ) ) {
-					$quizzes = learn_press_get_available_quizzes( $courses );
+					$quizzes = $this->get_available_quizzes( $courses );
 					if ( count( $quizzes ) == 0 ) {
 						if ( $post_type === 'lp_quiz' ) {
 							$empty_post_type = 'lp_empty';
@@ -295,7 +324,7 @@ class LP_Addon_Co_Instructor {
 		}
 
 
-		$instructors  = learn_press_course_get_instructors( $post->ID );
+		$instructors  = $this->course_get_instructors( $post->ID );
 		$current_user = wp_get_current_user();
 		if ( array_key_exists( $current_user->ID, $instructors ) ) : var_dump( 1 ); ?>
 
@@ -361,6 +390,30 @@ class LP_Addon_Co_Instructor {
 		return $meta_box;
 	}
 
+	function course_get_instructors( $course_id = null ) {
+		if ( !$course_id ) {
+			$course_id = get_the_ID();
+		}
+		// if not isset course id return empty array
+		if ( !$course_id ) {
+			return array();
+		}
+
+		$co_teacher = array();
+		// get list teachers by post meta _lp_co_teacher
+		$teachers = get_post_meta( $course_id, '_lp_co_teacher' );
+		if ( !$teachers ) {
+			$teachers = get_post_meta( $course_id, '_lpr_co_teacher' );
+		}
+
+		foreach ( $teachers as $key => $teacher ) {
+			$co_teacher[$teacher] = new WP_User( $teacher );
+		}
+
+		// return teachers
+		return $co_teacher;
+	}
+
 	static function install() {
 		$teacher = get_role( 'lp_teacher' );
 		if ( $teacher ) {
@@ -381,7 +434,9 @@ class LP_Addon_Co_Instructor {
 	 * Load text domain
 	 */
 	static function load_text_domain() {
-		if( function_exists('learn_press_load_plugin_text_domain')){ learn_press_load_plugin_text_domain(LP_ADDON_CO_INSTRUCTOR_PATH, true ); }
+		if ( function_exists( 'learn_press_load_plugin_text_domain' ) ) {
+			learn_press_load_plugin_text_domain( LP_ADDON_CO_INSTRUCTOR_PATH, true );
+		}
 	}
 
 	/**
@@ -401,27 +456,3 @@ class LP_Addon_Co_Instructor {
 add_action( 'plugins_loaded', array( 'LP_Addon_Co_Instructor', 'instance' ) );
 register_activation_hook( __FILE__, array( 'LP_Addon_Co_Instructor', 'install' ) );
 register_deactivation_hook( __FILE__, array( 'LP_Addon_Co_Instructor', 'uninstall' ) );
-
-function learn_press_course_get_instructors( $course_id = null ) {
-	if ( !$course_id ) {
-		$course_id = get_the_ID();
-	}
-	// if not isset course id return empty array
-	if ( !$course_id ) {
-		return array();
-	}
-
-	$co_teacher = array();
-	// get list teachers by post meta _lp_co_teacher
-	$teachers = get_post_meta( $course_id, '_lp_co_teacher' );
-	if ( !$teachers ) {
-		$teachers = get_post_meta( $course_id, '_lpr_co_teacher' );
-	}
-
-	foreach ( $teachers as $key => $teacher ) {
-		$co_teacher[$teacher] = new WP_User( $teacher );
-	}
-
-	// return teachers
-	return $co_teacher;
-}

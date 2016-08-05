@@ -145,8 +145,12 @@ jQuery(document).ready(function ($) {
 				setValProgress('.tp_progress_import .meter > span', new_val_progress + 'px', 5000);
 				import_type(next_step, method);
 			},
-			error   : function (html) {
-				$('.tp_progress_error_message .tp-error .content').append('<p>' + html + '</p>');
+			error   : function (err) {
+				if (err.status == 500) {
+					$('.tp_progress_error_message .tp-error .content').append('<p>' + tp_notifications.err + '</p>');
+				} else {
+					$('.tp_progress_error_message .tp-error .content').append('<p>' + err.responseText + '</p>');
+				}
 				tp_import_error();
 			}
 		});

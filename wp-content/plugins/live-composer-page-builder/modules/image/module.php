@@ -16,10 +16,10 @@ class DSLC_Image extends DSLC_Module {
 
 	}
 
-	function options() {	
+	function options() {
 
 		$dslc_options = array(
-			
+
 			array(
 				'label' => __( 'Show On', 'live-composer-page-builder' ),
 				'id' => 'css_show_on',
@@ -131,14 +131,14 @@ class DSLC_Image extends DSLC_Module {
 				'std' => '',
 				'type' => 'text',
 			),
-			
+
 			array(
 				'label' => __( 'Image - TITLE attribute', 'live-composer-page-builder' ),
 				'id' => 'image_title',
 				'std' => '',
 				'type' => 'text',
 			),
-			
+
 
 			/**
 			 * Styling
@@ -150,13 +150,23 @@ class DSLC_Image extends DSLC_Module {
 				'std' => 'center',
 				'type' => 'text_align',
 				'refresh_on_change' => false,
-				'affect_on_change_el' => '.dslc-image',
+				'affect_on_change_el' => '.dslc-image-container',
 				'affect_on_change_rule' => 'text-align',
 				'section' => 'styling',
 			),
 			array(
-				'label' => __( 'BG Color', 'live-composer-page-builder' ),
+				'label' => __( 'BG Color', 'live-composer-page-builder' ) . ' ' . __( '(Block)', 'live-composer-page-builder' ),
 				'id' => 'css_bg_color',
+				'std' => '',
+				'type' => 'color',
+				'refresh_on_change' => false,
+				'affect_on_change_el' => '.dslc-image-container',
+				'affect_on_change_rule' => 'background-color',
+				'section' => 'styling',
+			),
+			array(
+				'label' => __( 'BG Color', 'live-composer-page-builder' ) . ' ' . __( '(Image)', 'live-composer-page-builder' ),
+				'id' => 'css_bg_color_inner',
 				'std' => '',
 				'type' => 'color',
 				'refresh_on_change' => false,
@@ -235,12 +245,26 @@ class DSLC_Image extends DSLC_Module {
 				'section' => 'styling',
 				'ext' => 'px',
 				'min' => -150,
-				'max' => 150
+				'max' => 150,
+			),
+			array(
+				'label' => __( 'Max Width', 'live-composer-page-builder' ),
+				'id' => 'css_max_width',
+				'std' => '',
+				'type' => 'slider',
+				'refresh_on_change' => false,
+				'affect_on_change_el' => '.dslc-image',
+				'affect_on_change_rule' => 'max-width',
+				'section' => 'styling',
+				'ext' => 'px',
+				'min' => 0,
+				'max' => 1400,
+				'increment' => 5
 			),
 			array(
 				'label' => __( 'Minimum Height', 'live-composer-page-builder' ),
 				'id' => 'css_min_height',
-				'std' => '0',
+				'std' => '',
 				'type' => 'slider',
 				'refresh_on_change' => false,
 				'affect_on_change_el' => '.dslc-image',
@@ -350,7 +374,7 @@ class DSLC_Image extends DSLC_Module {
 			array(
 				'label' => __( 'Font Family', 'live-composer-page-builder' ),
 				'id' => 'css_ct_font_family',
-				'std' => 'Open Sans',
+				'std' => '',
 				'type' => 'font',
 				'refresh_on_change' => false,
 				'affect_on_change_el' => '.dslc-image-caption',
@@ -382,7 +406,7 @@ class DSLC_Image extends DSLC_Module {
 				'ext' => 'px',
 				'tab' => __( 'custom text', 'live-composer-page-builder' ),
 			),
-			
+
 			/**
 			 * Responsive Tablet
 			 */
@@ -405,6 +429,35 @@ class DSLC_Image extends DSLC_Module {
 				'section' => 'responsive',
 				'tab' => __( 'tablet', 'live-composer-page-builder' ),
 			),
+
+			array(
+				'label' => __( 'Align', 'live-composer-page-builder' ),
+				'id' => 'css_res_t_align',
+				'std' => 'center',
+				'type' => 'text_align',
+				'refresh_on_change' => false,
+				'affect_on_change_el' => '.dslc-image-container',
+				'affect_on_change_rule' => 'text-align',
+				'section' => 'responsive',
+				'tab' => __( 'tablet', 'live-composer-page-builder' ),
+			),
+
+			array(
+				'label' => __( 'Max Width', 'live-composer-page-builder' ),
+				'id' => 'css_res_t_max_width',
+				'std' => '',
+				'type' => 'slider',
+				'refresh_on_change' => false,
+				'affect_on_change_el' => '.dslc-image',
+				'affect_on_change_rule' => 'max-width',
+				'section' => 'responsive',
+				'tab' => __( 'tablet', 'live-composer-page-builder' ),
+				'ext' => 'px',
+				'min' => 0,
+				'max' => 1400,
+				'increment' => 5
+			),
+
 			array(
 				'label' => __( 'Margin Bottom', 'live-composer-page-builder' ),
 				'id' => 'css_res_t_margin_bottom',
@@ -500,6 +553,35 @@ class DSLC_Image extends DSLC_Module {
 				'section' => 'responsive',
 				'tab' => __( 'phone', 'live-composer-page-builder' ),
 			),
+
+			array(
+				'label' => __( 'Align', 'live-composer-page-builder' ),
+				'id' => 'css_res_p__align',
+				'std' => 'center',
+				'type' => 'text_align',
+				'refresh_on_change' => false,
+				'affect_on_change_el' => '.dslc-image-container',
+				'affect_on_change_rule' => 'text-align',
+				'section' => 'responsive',
+				'tab' => __( 'phone', 'live-composer-page-builder' ),
+			),
+
+			array(
+				'label' => __( 'Max Width', 'live-composer-page-builder' ),
+				'id' => 'css_res_p_max_width',
+				'std' => '',
+				'type' => 'slider',
+				'refresh_on_change' => false,
+				'affect_on_change_el' => '.dslc-image',
+				'affect_on_change_rule' => 'max-width',
+				'section' => 'responsive',
+				'tab' => __( 'phone', 'live-composer-page-builder' ),
+				'ext' => 'px',
+				'min' => 0,
+				'max' => 1400,
+				'increment' => 5
+			),
+
 			array(
 				'label' => __( 'Margin Bottom', 'live-composer-page-builder' ),
 				'id' => 'css_res_p_margin_bottom',
@@ -610,10 +692,10 @@ class DSLC_Image extends DSLC_Module {
 				$anchor_class .= 'dslc-lightbox-image ';
 				$anchor_href = $options['link_lb_image'];
 			}
-		
+
 
 			?>
-
+			<div class="dslc-image-container">
 			<div class="dslc-image"<?php if ( $dslc_is_admin ) echo ' data-exportable-content'; ?>>
 
 				<?php if ( empty( $options['image'] ) && empty( $options['image_url'] ) ) : ?>
@@ -678,7 +760,7 @@ class DSLC_Image extends DSLC_Module {
 				<?php endif; ?>
 
 			</div><!-- .dslc-image -->
-
+			</div>
 			<?php
 
 		/* Module output ends here */

@@ -67,18 +67,7 @@ class LP_WooCommerce_Payment_Gateways extends LP_Gateway_Abstract {
 			return;
 		}
 
-		add_filter( 'learn_press_payment_method', array( $this, 'add_payment' ) );
-		add_action( 'learn_press_section_payments_woocommerce', array( $this, 'payment_settings' ) );
-		add_filter( 'learn_press_payment_gateway_available_woocommerce', array( $this, 'is_available' ), 10, 2 );
-		add_filter( 'learn_press_display_payment_method', array( $this, 'display_payment_method' ), 10, 2 );
-		add_filter( 'woocommerce_product_class', array( $this, 'product_class' ), 10, 4 );
-		add_action( 'woocommerce_order_status_changed', array( $this, 'order_status_changed' ), 10, 3 );
-		add_action( 'woocommerce_checkout_order_processed', array( $this, 'checkout_order_processed' ), 10, 2 );
-		add_filter( 'learn_press_display_payment_method_title', array( $this, 'method_title' ), 10, 2 );
-
-		add_filter( 'learn_press_payment_method_from_slug_woocommerce-payment', array( $this, 'payment_name' ) );
-
-
+		$this->init_hooks();
 		/*add_filter( 'woocommerce_add_to_cart_handler', array( $this, 'add_to_cart_handler' ), 10, 2 );
 		add_action( 'woocommerce_add_to_cart_handler_WC_Product_LPR_Course', array( $this, 'add_to_cart_handler_course' ) );*/
 
@@ -100,6 +89,28 @@ class LP_WooCommerce_Payment_Gateways extends LP_Gateway_Abstract {
 
 		$this->load_text_domain();
 		do_action( __CLASS__ );
+	}
+
+	function init_hooks() {
+		if ( $this->woo_enabled() ) {
+			add_filter( 'learn_press_payment_method', array( $this, 'add_payment' ) );
+			add_action( 'learn_press_section_payments_woocommerce', array( $this, 'payment_settings' ) );
+			add_filter( 'learn_press_payment_gateway_available_woocommerce', array( $this, 'is_available' ), 10, 2 );
+			add_filter( 'learn_press_display_payment_method', array( $this, 'display_payment_method' ), 10, 2 );
+			add_filter( 'woocommerce_product_class', array( $this, 'product_class' ), 10, 4 );
+			add_action( 'woocommerce_order_status_changed', array( $this, 'order_status_changed' ), 10, 3 );
+			add_action( 'woocommerce_checkout_order_processed', array( $this, 'checkout_order_processed' ), 10, 2 );
+			add_filter( 'learn_press_display_payment_method_title', array( $this, 'method_title' ), 10, 2 );
+			add_filter( 'learn_press_payment_method_from_slug_woocommerce-payment', array( $this, 'payment_name' ) );
+		} else {
+			add_action( 'admin_notices', array( $this, 'admin_notice' ) );
+		}
+	}
+
+	function admin_notice() {
+		echo '<div class="error">';
+		echo '<p>' . sprintf( __( 'WooCommerce Payment Gateways require <a href="%s">WooCommerce</a> is installed. Please install and active it before you can using this addon.', 'learnpress-woo-payment' ), 'http://wordpress.org/plugins/woocommerce' ) . '</p>';
+		echo '</div>';
 	}
 
 	function method_title( $title, $id ) {
@@ -233,6 +244,7 @@ class LP_WooCommerce_Payment_Gateways extends LP_Gateway_Abstract {
 	 * Woo Payment output
 	 */
 	function payment_settings() {
+
 		$settings = new LP_Settings_Base();
 		foreach ( $this->get_settings() as $field ) {
 			$settings->output_field( $field );
@@ -396,7 +408,7 @@ class LP_WooCommerce_Payment_Gateways extends LP_Gateway_Abstract {
 	 * @return bool
 	 */
 	function is_purchasable_course( $is_purchasable, $product ) {
-		if ( 'lpr_course' == get_post_type( $product->post->ID ) ) {
+		if ( 'lp_course' == get_post_type( $product->post->ID ) ) {
 			$is_purchasable = true;
 		}
 		return $is_purchasable;
@@ -503,6 +515,17 @@ class LP_WooCommerce_Payment_Gateways extends LP_Gateway_Abstract {
 			);
 	}
 
+	function woo_enabled() {
+		return self::_woo_enabled();
+	}
+
+	static function _woo_enabled() {
+		if ( !function_exists( 'is_plugin_active' ) ) {
+			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+		return class_exists( 'WC_Install' ) && is_plugin_active( 'woocommerce/woocommerce.php' );
+	}
+
 	static function instance() {
 		if ( !self::$_instance ) {
 			self::$_instance = new self();
@@ -517,7 +540,7 @@ class LP_WooCommerce_Payment_Gateways extends LP_Gateway_Abstract {
 	}
 
 	static function init() {
-		add_action( 'init', array( __CLASS__, 'instance' ) );
+		add_action( 'plugins_loaded', array( __CLASS__, 'instance' ) );
 	}
 }
 

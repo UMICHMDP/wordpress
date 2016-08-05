@@ -13,10 +13,15 @@ $group_name      = '_lp_curriculum[__SECTION__][items][' . ( $section_item_id ? 
 
 $support_types = apply_filters(
 	'learn_press_support_item_types', array(
-		'lp_quiz'   => __( 'Quiz', 'learn_press' ),
-		'lp_lesson' => __( 'Lesson', 'learn_press' )
+		'lp_lesson' => __( 'Lesson', 'learnpress' ),
+		'lp_quiz'   => __( 'Quiz', 'learnpress' )
 	)
 );
+if ( !empty( $support_types[$item->post_type] ) ) {
+	$item_selected = $item->post_type;
+} else {
+	$item_selected = key( $support_types );
+}
 ?>
 
 <?php do_action( 'learn_press_admin_before_section_loop_item', $item, $section ); ?>
@@ -24,12 +29,19 @@ $support_types = apply_filters(
 <tr <?php learn_press_admin_section_loop_item_class( $item, $section ); ?> data-text="<?php echo esc_attr( $item->post_title ); ?>" data-item_id="<?php echo $item_id; ?>" data-section_item_id="<?php echo $section_item_id; ?>" data-type="<?php echo $item->post_type; ?>">
 	<?php do_action( 'learn_press_admin_begin_section_item', $item, $section ); ?>
 	<td class="section-item-icon">
-		<?php foreach ( $support_types as $_type => $text ) { ?>
-			<span class="learn-press-icon<?php echo $_type == $item->post_type ? ' item-selected' : ''; ?> item-<?php echo $_type; ?>" title="<?php echo sprintf( __( 'Switch to %s', 'learnpress' ), $text ); ?>" data-type="<?php echo $_type;?>"></span>
-		<?php } ?>
+		<div class="learn-press-dropdown-item-types">
+			<span class="learn-press-icon item-<?php echo $item->post_type; ?>" data-type="<?php echo $item->post_type; ?>"></span>
+			<ul>
+				<?php foreach ( $support_types as $_type => $text ) { ?>
+					<li>
+						<span class="learn-press-icon<?php echo $_type == $item_selected ? ' item-selected' : ''; ?> item-<?php echo $_type; ?>" title="<?php echo sprintf( __( 'Switch to %s', 'learnpress' ), $text ); ?>" data-type="<?php echo $_type; ?>"></span>
+					</li>
+				<?php } ?>
+			</ul>
+		</div>
 	</td>
 	<td class="section-item-input">
-		<input type="text" name="<?php echo $group_name; ?>[name]" class="lp-item-name no-submit" data-field="item-name" value="<?php echo esc_attr( $item->post_title ); ?>" placeholder="<?php _e( 'Enter name of the new item here and press Enter', 'learnpress' ); ?>" />
+		<input type="text" name="<?php echo $group_name; ?>[name]" class="lp-item-name no-submit" data-field="item-name" value="<?php echo esc_attr( $item->post_title ); ?>" placeholder="<?php _e( 'Enter name of new item here and press Enter', 'learnpress' ); ?>" />
 		<input type="hidden" name="<?php echo $group_name; ?>[old_name]" value="<?php echo esc_attr( $item->post_title ); ?>" />
 		<input type="hidden" name="<?php echo $group_name; ?>[item_id]" value="<?php echo $item_id; ?>" />
 		<input type="hidden" name="<?php echo $group_name; ?>[section_item_id]" value="<?php echo $section_item_id; ?>" />

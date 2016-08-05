@@ -17,21 +17,21 @@ class LP_Settings_Profile extends LP_Settings_Base {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->id   = 'profile';
 		$this->text = __( 'Profile', 'learnpress' );
 
 		parent::__construct();
 	}
 
-	function output(){
+	public function output() {
 		$view = learn_press_get_admin_view( 'settings/profile.php' );
 		include_once $view;
 	}
 
-	function get_settings() {
+	public function get_settings() {
 		return apply_filters(
-			'learn_press_checkout_settings',
+			'learn_press_profile_settings',
 			array(
 				array(
 					'title'   => __( 'Profile page', 'learnpress' ),

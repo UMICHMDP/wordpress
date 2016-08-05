@@ -93,6 +93,54 @@ jQuery( function( $ ) {
             }
         });
     });
+
+    // Delete file via Ajax
+    $( document ).on( 'click', '.thim-image-video-uploaded .thim-delete-file', function(event) {
+        event.preventDefault();
+        var $this = $( this ),
+            $parent = $this.parents( 'li' ),
+            $container = $this.closest( '.thim-image-video-uploaded' ),
+            data = {
+                action: 'thim_delete_file',
+                _ajax_nonce: $container.data( 'delete_nonce' ),
+                post_id: $( '#post_ID' ).val(),
+                field_id: $container.data( 'field_id' ),
+                attachment_id: $this.data( 'attachment_id' ),
+                force_delete: $container.data( 'force_delete' )
+            };
+        $parent.remove();
+        $.post( ajaxurl, data, function( r ) {
+            if ( !r.success )
+            {
+                alert( r.data );
+                return;
+            }
+
+            //$parent.addClass( 'removed' );
+            //
+            //// If transition events not supported
+            //if (
+            //    !( 'ontransitionend' in window )
+            //    && ( 'onwebkittransitionend' in window )
+            //    && !( 'onotransitionend' in myDiv || navigator.appName == 'Opera' )
+            //)
+            //{
+            //    $parent.remove();
+            //    $container.trigger( 'update.rwmbFile' );
+            //}
+            //
+            //$( '.thim-image-video-uploaded' ).on( 'transitionend webkitTransitionEnd otransitionend', 'li.removed', function()
+            //{
+            //
+            //    $container.trigger( 'update.rwmbFile' );
+            //} );
+
+
+        }, 'json' );
+
+        return false;
+    });
+
     // Delete file via Ajax
     $( '.thim-uploaded' ).on( 'click', '.thim-delete-file', function() {
         var $this = $( this ),
@@ -107,6 +155,7 @@ jQuery( function( $ ) {
                 force_delete: $container.data( 'force_delete' )
             };
 
+        $parent.remove();
         $.post( ajaxurl, data, function( r ) {
             if ( !r.success )
             {
@@ -114,24 +163,24 @@ jQuery( function( $ ) {
                 return;
             }
 
-            $parent.addClass( 'removed' );
-
-            // If transition events not supported
-            if (
-                !( 'ontransitionend' in window )
-                && ( 'onwebkittransitionend' in window )
-                && !( 'onotransitionend' in myDiv || navigator.appName == 'Opera' )
-            )
-            {
-                $parent.remove();
-                $container.trigger( 'update.rwmbFile' );
-            }
-
-            $( '.thim-uploaded' ).on( 'transitionend webkitTransitionEnd otransitionend', 'li.removed', function()
-            {
-                $( this ).remove();
-                $container.trigger( 'update.rwmbFile' );
-            } );
+            //$parent.addClass( 'removed' );
+            //
+            //// If transition events not supported
+            //if (
+            //    !( 'ontransitionend' in window )
+            //    && ( 'onwebkittransitionend' in window )
+            //    && !( 'onotransitionend' in myDiv || navigator.appName == 'Opera' )
+            //)
+            //{
+            //    $parent.remove();
+            //    $container.trigger( 'update.rwmbFile' );
+            //}
+            //
+            //$( '.thim-uploaded' ).on( 'transitionend webkitTransitionEnd otransitionend', 'li.removed', function()
+            //{
+            //    $( this ).remove();
+            //    $container.trigger( 'update.rwmbFile' );
+            //} );
         }, 'json' );
 
         return false;

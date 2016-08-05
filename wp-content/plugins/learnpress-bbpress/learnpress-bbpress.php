@@ -4,7 +4,7 @@ Plugin Name: LearnPress bbPress Course Forum
 Plugin URI: http://thimpress.com/learnpress
 Description: Using the forum for courses provided by bbPress
 Author: ThimPress
-Version: 1.0
+Version: 1.1
 Author URI: http://thimpress.com
 Tags: learnpress, lms
 Text Domain: learnpress-bbpress
@@ -328,7 +328,7 @@ class LP_Addon_BBPress_Course_Forum {
 	}
 
 	function save_post( $post_id ) {
-		if ( get_post_type() != 'lp_course' ) {
+		if ( get_post_type() != 'lp_course' || wp_is_post_revision( $post_id ) ) {
 			return;
 		}
 		remove_action( 'save_post', array( $this, 'save_post' ) );

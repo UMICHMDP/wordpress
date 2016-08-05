@@ -3,17 +3,21 @@
 
 $max_time_limit = ini_get( 'max_execution_time' );
 if ( intval( $max_time_limit ) < 120 ) {
-	if ( ! ini_get( 'safe_mode' ) ) {
+	if ( ! ini_get( 'safe_mode' ) ) {// PHP < 5.4
 		set_time_limit( 0 );
 	} else {
 		$response = array(
 			'step'    => 'start',
 			'next'    => 'error',
 			'return'  => false,
-			'message' => sprintf( esc_html__( 'Please enable PHP\'s safe mode.', 'thim-framework' ), $demodata_dir ),
+			'message' => esc_html__( 'Please enable PHP\'s safe mode.', 'thim-framework' ),
 		);
 		echo json_encode( $response );
 		exit();
+	}
+
+	if ( set_time_limit( 0 ) ) {
+		set_time_limit( 0 );
 	}
 }
 

@@ -94,7 +94,7 @@ abstract class Thim_Widget extends WP_Widget {
 			if ( isset( $instance['is_preview'] ) && $instance['is_preview'] ) {
 				thim_widget_add_inline_css( $this->get_instance_css( $instance ) );
 			} else {
-				if ( ! file_exists( $upload_dir['basedir'] . '/thim-widgets/' . $css_name . '.css' ) || ( defined( 'SITEORIGIN_WIDGETS_DEBUG' ) && SITEORIGIN_WIDGETS_DEBUG ) ) {
+				if ( !file_exists( $upload_dir['basedir'] . '/thim-widgets/' . $css_name . '.css' ) || ( defined( 'SITEORIGIN_WIDGETS_DEBUG' ) && SITEORIGIN_WIDGETS_DEBUG ) ) {
 					// Attempt to recreate the CSS
 					$this->save_css( $instance );
 				}
@@ -116,10 +116,15 @@ abstract class Thim_Widget extends WP_Widget {
 		$this->enqueue_frontend_scripts();
 		$this->enqueue_instance_frontend_scripts( $instance );
 		extract( $this->get_template_variables( $instance, $args ) );
+		$widget_template       = TP_THEME_THIM_DIR . 'inc/widgets/' . $this->id_base . '/tpl/' . $this->get_template_name( $instance ) . '.php';
+		$child_widget_template = TP_CHILD_THEME_THIM_DIR . 'inc/widgets/' . $this->id_base . '/' . $this->get_template_name( $instance ) . '.php';
+		if ( file_exists( $child_widget_template ) ) {
+			$widget_template = $child_widget_template;
+		}
 
 		echo ent2ncr( $args['before_widget'] );
 		echo '<div class="thim-widget-' . $this->id_base . ' thim-widget-' . $css_name . '">';
-		@ include TP_THEME_THIM_DIR . 'inc/widgets/' . $this->id_base . '/tpl/' . $this->get_template_name( $instance ) . '.php';
+		@ include $widget_template;
 		echo '</div>';
 		echo ent2ncr( $args['after_widget'] );
 	}
@@ -137,7 +142,7 @@ abstract class Thim_Widget extends WP_Widget {
 	}
 
 	public function sub_widget( $class, $args, $instance ) {
-		if ( ! class_exists( $class ) ) {
+		if ( !class_exists( $class ) ) {
 			return;
 		}
 		$widget = new $class;
@@ -161,15 +166,15 @@ abstract class Thim_Widget extends WP_Widget {
 
 		foreach ( $form as $id => $field ) {
 
-			if ( $field['type'] == 'repeater' && ! empty( $instance[ $id ] ) ) {
+			if ( $field['type'] == 'repeater' && !empty( $instance[$id] ) ) {
 
-				foreach ( array_keys( $instance[ $id ] ) as $i ) {
-					$instance[ $id ][ $i ] = $this->add_defaults( $field['fields'], $instance[ $id ][ $i ], $level + 1 );
+				foreach ( array_keys( $instance[$id] ) as $i ) {
+					$instance[$id][$i] = $this->add_defaults( $field['fields'], $instance[$id][$i], $level + 1 );
 				}
 
 			} else {
-				if ( ! isset( $instance[ $id ] ) && isset( $field['default'] ) ) {
-					$instance[ $id ] = $field['default'];
+				if ( !isset( $instance[$id] ) && isset( $field['default'] ) ) {
+					$instance[$id] = $field['default'];
 				}
 			}
 		}
@@ -197,14 +202,14 @@ abstract class Thim_Widget extends WP_Widget {
 				$this->render_field(
 					$field_name,
 					$field,
-					isset( $instance[ $field_name ] ) ? $instance[ $field_name ] : null,
+					isset( $instance[$field_name] ) ? $instance[$field_name] : null,
 					false
 				);
 			}
 			?>
 		</div>
 
-		<?php if ( ! empty( $this->widget_options['help'] ) ) : ?>
+		<?php if ( !empty( $this->widget_options['help'] ) ) : ?>
 			<a href="<?php echo esc_url( $this->widget_options['help'] ) ?>" class="thim-widget-help-link thim-panels-help-link" target="_blank"><?php esc_attr_e( 'Help', 'thim-framework' ) ?></a>
 		<?php endif; ?>
 
@@ -234,7 +239,7 @@ abstract class Thim_Widget extends WP_Widget {
 	 */
 	function enqueue_scripts() {
 
-		if ( ! wp_script_is( 'thim-widget-admin' ) ) {
+		if ( !wp_script_is( 'thim-widget-admin' ) ) {
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_style( 'thim-widget-admin', TP_THEME_FRAMEWORK_URI . 'css/admin/widget-admin.css', array( 'media-views' ), TP_FRAMEWORK_VERSION );
 			wp_enqueue_style( 'thim-awesome', TP_THEME_FRAMEWORK_URI . 'css/font-awesome.min.css', array() );
@@ -254,7 +259,7 @@ abstract class Thim_Widget extends WP_Widget {
 			) );
 		}
 
-		if ( ! wp_script_is( 'thim-widget-admin-posts-selector' ) && $this->using_posts_selector() ) {
+		if ( !wp_script_is( 'thim-widget-admin-posts-selector' ) && $this->using_posts_selector() ) {
 
 			wp_enqueue_script( 'thim-widget-admin-posts-selector', plugin_dir_url( SITEORIGIN_WIDGETS_BASE_PARENT_FILE ) . 'base/js/posts-selector.min.js', array(
 				'jquery',
@@ -287,7 +292,7 @@ abstract class Thim_Widget extends WP_Widget {
 	 */
 	function using_posts_selector() {
 		foreach ( $this->form_options as $field ) {
-			if ( ! empty( $field['type'] ) && $field['type'] == 'posts' ) {
+			if ( !empty( $field['type'] ) && $field['type'] == 'posts' ) {
 				return true;
 			}
 		}
@@ -324,7 +329,7 @@ abstract class Thim_Widget extends WP_Widget {
 			global $wp_filesystem;
 			$upload_dir = wp_upload_dir();
 
-			if ( ! $wp_filesystem->is_dir( $upload_dir['basedir'] . '/thim-widgets/' ) ) {
+			if ( !$wp_filesystem->is_dir( $upload_dir['basedir'] . '/thim-widgets/' ) ) {
 				$wp_filesystem->mkdir( $upload_dir['basedir'] . '/thim-widgets/' );
 			}
 
@@ -335,7 +340,7 @@ abstract class Thim_Widget extends WP_Widget {
 
 			$css = $this->get_instance_css( $instance );
 
-			if ( ! empty( $css ) ) {
+			if ( !empty( $css ) ) {
 				$wp_filesystem->delete( $upload_dir['basedir'] . '/thim-widgets/' . $name );
 				$wp_filesystem->put_contents(
 					$upload_dir['basedir'] . '/thim-widgets/' . $name, $css
@@ -374,11 +379,11 @@ abstract class Thim_Widget extends WP_Widget {
 	public static function clear_file_cache( $force_delete = false ) {
 		// Use this variable to ensure this only runs once
 		static $done = false;
-		if ( $done && ! $force_delete ) {
+		if ( $done && !$force_delete ) {
 			return;
 		}
 
-		if ( ! get_transient( 'ob:cleared' ) || $force_delete ) {
+		if ( !get_transient( 'ob:cleared' ) || $force_delete ) {
 
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 			if ( WP_Filesystem() ) {
@@ -408,7 +413,7 @@ abstract class Thim_Widget extends WP_Widget {
 	 * @return string
 	 */
 	public function get_instance_css( $instance ) {
-		if ( ! class_exists( 'lessc' ) ) //require plugin_dir_path(__FILE__) . 'inc/lessc.inc.php';
+		if ( !class_exists( 'lessc' ) ) //require plugin_dir_path(__FILE__) . 'inc/lessc.inc.php';
 
 		{
 			$style_name = $this->get_style_name( $instance );
@@ -420,7 +425,7 @@ abstract class Thim_Widget extends WP_Widget {
 		$less = thim_file_get_contents( TP_THEME_THIM_DIR . 'inc/widgets/' . $this->id_base . '/style/' . $style_name . '.less' );
 
 		$vars = $this->get_less_variables( $instance );
-		if ( ! empty( $vars ) ) {
+		if ( !empty( $vars ) ) {
 			foreach ( $vars as $name => $value ) {
 				if ( empty( $value ) ) {
 					continue;
@@ -454,8 +459,8 @@ abstract class Thim_Widget extends WP_Widget {
 		}
 
 		foreach ( $fields as $name => $field ) {
-			if ( empty( $instance[ $name ] ) ) {
-				$instance[ $name ] = false;
+			if ( empty( $instance[$name] ) ) {
+				$instance[$name] = false;
 			}
 
 			switch ( $field['type'] ) {
@@ -463,71 +468,71 @@ abstract class Thim_Widget extends WP_Widget {
 					break;
 				case 'radio' :
 					$keys = array_keys( $field['options'] );
-					if ( ! in_array( $instance[ $name ], $keys ) ) {
-						$instance[ $name ] = isset( $field['default'] ) ? $field['default'] : false;
+					if ( !in_array( $instance[$name], $keys ) ) {
+						$instance[$name] = isset( $field['default'] ) ? $field['default'] : false;
 					}
 					break;
 
 				case 'number' :
 				case 'slider':
-					$instance[ $name ] = (float) $instance[ $name ];
+					$instance[$name] = (float) $instance[$name];
 					break;
 
 				case 'textarea':
 					if ( empty( $field['allow_html_formatting'] ) ) {
-						$instance[ $name ] = sanitize_text_field( $instance[ $name ] );
+						$instance[$name] = sanitize_text_field( $instance[$name] );
 					} else {
-						$instance[ $name ] = wp_kses( $instance[ $name ], $field['allow_html_formatting'] );
+						$instance[$name] = wp_kses( $instance[$name], $field['allow_html_formatting'] );
 					}
 					break;
 
 				case 'text' :
 					if ( empty( $field['allow_html_formatting'] ) ) {
-						$instance[ $name ] = sanitize_text_field( $instance[ $name ] );
+						$instance[$name] = sanitize_text_field( $instance[$name] );
 					} else {
-						$instance[ $name ] = wp_kses( $instance[ $name ], $field['allow_html_formatting'] );
+						$instance[$name] = wp_kses( $instance[$name], $field['allow_html_formatting'] );
 					}
 					break;
 
 				case 'color':
-					if ( ! preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $instance[ $name ] ) ) {
-						$instance[ $name ] = false;
+					if ( !preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $instance[$name] ) ) {
+						$instance[$name] = false;
 					}
 					break;
 
 				case 'media' :
 					// Media values should be integer
-					$instance[ $name ] = intval( $instance[ $name ] );
+					$instance[$name] = intval( $instance[$name] );
 					break;
 
 				case 'checkbox':
-					$instance[ $name ] = ! empty( $instance[ $name ] );
+					$instance[$name] = !empty( $instance[$name] );
 					break;
 
 				case 'widget':
-					if ( ! empty( $field['class'] ) && class_exists( $field['class'] ) ) {
+					if ( !empty( $field['class'] ) && class_exists( $field['class'] ) ) {
 						$the_widget = new $field['class'];
 
 						if ( is_a( $the_widget, 'SiteOrigin_Widget' ) ) {
-							$instance[ $name ] = $the_widget->update( $instance[ $name ], $instance[ $name ] );
+							$instance[$name] = $the_widget->update( $instance[$name], $instance[$name] );
 						}
 					}
 					break;
 
 				case 'repeater':
-					if ( ! empty( $instance[ $name ] ) ) {
-						foreach ( $instance[ $name ] as $i => $sub_instance ) {
-							$instance[ $name ][ $i ] = $this->sanitize( $sub_instance, $field['fields'] );
+					if ( !empty( $instance[$name] ) ) {
+						foreach ( $instance[$name] as $i => $sub_instance ) {
+							$instance[$name][$i] = $this->sanitize( $sub_instance, $field['fields'] );
 						}
 					}
 					break;
 
 				case 'section':
-					$instance[ $name ] = $this->sanitize( $instance[ $name ], $field['fields'] );
+					$instance[$name] = $this->sanitize( $instance[$name], $field['fields'] );
 					break;
 
 				default:
-					$instance[ $name ] = sanitize_text_field( $instance[ $name ] );
+					$instance[$name] = sanitize_text_field( $instance[$name] );
 					break;
 			}
 
@@ -535,11 +540,11 @@ abstract class Thim_Widget extends WP_Widget {
 				// This field also needs some custom sanitization
 				switch ( $field['sanitize'] ) {
 					case 'url':
-						$instance[ $name ] = esc_url_raw( $instance[ $name ] );
+						$instance[$name] = esc_url_raw( $instance[$name] );
 						break;
 
 					case 'email':
-						$instance[ $name ] = sanitize_email( $instance[ $name ] );
+						$instance[$name] = sanitize_email( $instance[$name] );
 						break;
 				}
 			}
@@ -599,10 +604,10 @@ abstract class Thim_Widget extends WP_Widget {
 			if ( $is_template ) {
 				return $field_id_base . '-{id}';
 			}
-			if ( ! isset( $this->field_ids[ $field_id_base ] ) ) {
-				$this->field_ids[ $field_id_base ] = 1;
+			if ( !isset( $this->field_ids[$field_id_base] ) ) {
+				$this->field_ids[$field_id_base] = 1;
 			}
-			$curId = $this->field_ids[ $field_id_base ] ++;
+			$curId = $this->field_ids[$field_id_base] ++;
 
 			return $field_id_base . '-' . $curId;
 		}
@@ -621,7 +626,7 @@ abstract class Thim_Widget extends WP_Widget {
 			$value = $field['default'];
 		}
 		$extra_class = '';
-		if ( ! empty( $field['class'] ) ) {
+		if ( !empty( $field['class'] ) ) {
 			$extra_class = $field['class'];
 		}
 		$wrapper_attributes = array(
@@ -633,28 +638,28 @@ abstract class Thim_Widget extends WP_Widget {
 			)
 		);
 
-		if ( ! empty( $field['state_name'] ) ) {
+		if ( !empty( $field['state_name'] ) ) {
 			$wrapper_attributes['class'][] = 'thim-widget-field-state-' . $field['state_name'];
 		}
-		if ( ! empty( $field['hidden'] ) ) {
+		if ( !empty( $field['hidden'] ) ) {
 			$wrapper_attributes['class'][] = 'thim-widget-field-is-hidden';
 		}
-		if ( ! empty( $field['optional'] ) ) {
+		if ( !empty( $field['optional'] ) ) {
 			$wrapper_attributes['class'][] = 'thim-widget-field-is-optional';
 		}
 		$wrapper_attributes['class'] = implode( ' ', array_map( 'sanitize_html_class', $wrapper_attributes['class'] ) );
 
-		if ( ! empty( $field['state_emitter'] ) ) {
+		if ( !empty( $field['state_emitter'] ) ) {
 			// State emitters create new states for the form
 			$wrapper_attributes['data-state-emitter'] = json_encode( $field['state_emitter'] );
 		}
 
-		if ( ! empty( $field['state_handler'] ) ) {
+		if ( !empty( $field['state_handler'] ) ) {
 			// State handlers decide what to do with form states
 			$wrapper_attributes['data-state-handler'] = json_encode( $field['state_handler'] );
 		}
 
-		if ( ! empty( $field['state_handler_initial'] ) ) {
+		if ( !empty( $field['state_handler_initial'] ) ) {
 			// Initial state handlers are only run when the form is first loaded
 			$wrapper_attributes['data-state-handler-initial'] = json_encode( $field['state_handler_initial'] );
 		}
@@ -666,14 +671,14 @@ abstract class Thim_Widget extends WP_Widget {
 
 		$field_id = $this->so_get_field_id( $name, $repeater, $is_template );
 
-		if ( $field['type'] != 'repeater' && $field['type'] != 'checkbox' && $field['type'] != 'separator' && ! empty( $field['label'] ) ) {
+		if ( $field['type'] != 'repeater' && $field['type'] != 'checkbox' && $field['type'] != 'separator' && !empty( $field['label'] ) ) {
 			?>
 			<label for="<?php echo esc_attr( $field_id ) ?>" class="thim-widget-field-label <?php if ( empty( $field['hide'] ) ) {
 				echo 'thim-widget-section-visible';
 			} ?>">
 				<?php
 				echo ent2ncr( $field['label'] );
-				if ( ! empty( $field['optional'] ) ) {
+				if ( !empty( $field['optional'] ) ) {
 					echo ' <span class="field-optional">(' . __( 'Optional', 'thim-framework' ) . ')</span>';
 				}
 				?>
@@ -717,7 +722,7 @@ abstract class Thim_Widget extends WP_Widget {
 			case 'number' :
 				?>
 				<input type="number" name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater ) ) ?>" id="<?php echo esc_attr( $this->so_get_field_id( $name, $repeater ) ) ?>" value="<?php echo esc_attr( $value ) ?>" class="widefat thim-widget-input thim-widget-input-number" /><?php
-				if ( ! empty( $field['suffix'] ) ) {
+				if ( !empty( $field['suffix'] ) ) {
 					echo ' (' . $field['suffix'] . ') ';
 				}
 				break;
@@ -741,7 +746,7 @@ abstract class Thim_Widget extends WP_Widget {
 			case 'textarea' :
 				$this->so_get_field_name( $name, $repeater );
 				?>
-				<textarea type="text" name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater, $is_template ) ) ?>" id="<?php echo esc_attr( $this->so_get_field_id( $name, $repeater ) ) ?>" class="widefat thim-widget-input" rows="<?php echo ! empty( $field['rows'] ) ? intval( $field['rows'] ) : 4 ?>"><?php echo esc_textarea( $value ) ?></textarea><?php
+				<textarea type="text" name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater, $is_template ) ) ?>" id="<?php echo esc_attr( $this->so_get_field_id( $name, $repeater ) ) ?>" class="widefat thim-widget-input" rows="<?php echo !empty( $field['rows'] ) ? intval( $field['rows'] ) : 4 ?>"><?php echo esc_textarea( $value ) ?></textarea><?php
 				break;
 
 			case 'extra_textarea' :
@@ -753,7 +758,7 @@ abstract class Thim_Widget extends WP_Widget {
 			case 'editor' :
 				// The editor field doesn't actually work yet, this is just a placeholder
 				?>
-				<textarea type="text" name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater ) ) ?>" id="<?php echo esc_attr( $this->so_get_field_id( $name, $repeater ) ) ?>" class="widefat thim-widget-input thim-widget-input-editor" rows="<?php echo ! empty( $field['rows'] ) ? intval( $field['rows'] ) : 4 ?>"><?php echo esc_textarea( $value ) ?></textarea><?php
+				<textarea type="text" name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater ) ) ?>" id="<?php echo esc_attr( $this->so_get_field_id( $name, $repeater ) ) ?>" class="widefat thim-widget-input thim-widget-input-editor" rows="<?php echo !empty( $field['rows'] ) ? intval( $field['rows'] ) : 4 ?>"><?php echo esc_textarea( $value ) ?></textarea><?php
 				break;
 			case 'radio':
 				?>
@@ -768,7 +773,7 @@ abstract class Thim_Widget extends WP_Widget {
 
 			case 'slider':
 				?>
-				<div class="thim-widget-slider-value"><?php echo ! empty( $value ) ? $value : 0 ?></div>
+				<div class="thim-widget-slider-value"><?php echo !empty( $value ) ? $value : 0 ?></div>
 				<div class="thim-widget-slider-wrapper">
 					<div class="thim-widget-value-slider"></div>
 				</div>
@@ -776,10 +781,10 @@ abstract class Thim_Widget extends WP_Widget {
 					type="number"
 					name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater ) ) ?>"
 					id="<?php echo esc_attr( $field_id ) ?>"
-					value="<?php echo ! empty( $value ) ? esc_attr( $value ) : 0 ?>"
+					value="<?php echo !empty( $value ) ? esc_attr( $value ) : 0 ?>"
 					min="<?php echo isset( $field['min'] ) ? intval( $field['min'] ) : 0 ?>"
 					max="<?php echo isset( $field['max'] ) ? intval( $field['max'] ) : 100 ?>"
-					data-integer="<?php echo ! empty( $field['integer'] ) ? 'true' : 'false' ?>" />
+					data-integer="<?php echo !empty( $field['integer'] ) ? 'true' : 'false' ?>" />
 				<?php
 				break;
 			case 'select':
@@ -794,10 +799,9 @@ abstract class Thim_Widget extends WP_Widget {
 					?>
 					<?php foreach ( $field['options'] as $key => $val ) : ?>
 						<?php
-						if( is_array( $value ) ) {
+						if ( is_array( $value ) ) {
 							$selected = selected( true, in_array( $key, $value ), false );
-						}
-						else {
+						} else {
 							$selected = selected( $key, $value, false );
 						}
 						?>
@@ -810,7 +814,7 @@ abstract class Thim_Widget extends WP_Widget {
 			case 'checkbox':
 				?>
 				<label for="<?php echo esc_attr( $field_id ) ?>">
-					<input type="checkbox" name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater ) ) ?>" id="<?php echo esc_attr( $field_id ) ?>" class="thim-widget-input" <?php checked( ! empty( $value ) ) ?> />
+					<input type="checkbox" name="<?php echo esc_attr( $this->so_get_field_name( $name, $repeater ) ) ?>" id="<?php echo esc_attr( $field_id ) ?>" class="thim-widget-input" <?php checked( !empty( $value ) ) ?> />
 					<?php echo ent2ncr( $field['label'] ) ?>
 				</label>
 				<?php
@@ -818,7 +822,7 @@ abstract class Thim_Widget extends WP_Widget {
 
 			case 'radio':
 				?>
-				<?php if ( ! isset( $field['options'] ) || empty( $field['options'] ) ) {
+				<?php if ( !isset( $field['options'] ) || empty( $field['options'] ) ) {
 				return;
 			} ?>
 				<?php foreach ( $field['options'] as $k => $v ) : ?>
@@ -834,7 +838,7 @@ abstract class Thim_Widget extends WP_Widget {
 					printf( __( 'You need to <a href="%s">upgrade</a> to WordPress 3.5 to use media fields', 'thim-framework' ), admin_url( 'update-core.php' ) );
 					break;
 				}
-				if ( ! empty( $value ) ) {
+				if ( !empty( $value ) ) {
 					if ( is_array( $value ) ) {
 						$src = $value;
 					} else {
@@ -860,7 +864,7 @@ abstract class Thim_Widget extends WP_Widget {
 									echo "style='display:none'";
 								} ?> />
 						</div>
-						<div class="title"><?php if ( ! empty( $post ) ) {
+						<div class="title"><?php if ( !empty( $post ) ) {
 								echo esc_attr( $post->post_title );
 							} ?></div>
 					</div>
@@ -947,11 +951,11 @@ abstract class Thim_Widget extends WP_Widget {
 				break;
 
 			case 'repeater':
-				if ( ! isset( $field['fields'] ) || empty( $field['fields'] ) ) {
+				if ( !isset( $field['fields'] ) || empty( $field['fields'] ) ) {
 					return;
 				}
 
-				if ( ! $repeater ) {
+				if ( !$repeater ) {
 					$repeater = array();
 				}
 				$repeater[] = array( 'name' => $name, 'type' => 'repeater' ); // instead of $repeater[] = $name
@@ -961,32 +965,32 @@ abstract class Thim_Widget extends WP_Widget {
 					$this->render_field(
 						$sub_field_name,
 						$sub_field,
-						isset( $value[ $sub_field_name ] ) ? $value[ $sub_field_name ] : null,
+						isset( $value[$sub_field_name] ) ? $value[$sub_field_name] : null,
 						$repeater,
 						true
 					);
 					$html[] = ob_get_clean();
 				}
 
-				$this->repeater_html[ $name ] = implode( '', $html );
+				$this->repeater_html[$name] = implode( '', $html );
 
 				$item_label = isset( $field['item_label'] ) ? $field['item_label'] : null;
-				if ( ! empty( $item_label ) ) {
+				if ( !empty( $item_label ) ) {
 					// convert underscore naming convention to camelCase for javascript
 					// and encode as json string
 					$item_label = $this->underscores_to_camel_case( $item_label );
 					$item_label = json_encode( $item_label );
 				}
-				$item_name = ! empty( $field['item_name'] ) ? $field['item_name'] : __( 'Item', 'thim-widgets' );
+				$item_name = !empty( $field['item_name'] ) ? $field['item_name'] : __( 'Item', 'thim-widgets' );
 				?>
-				<div class="thim-widget-field-repeater" data-item-name="<?php echo esc_attr( $field['item_name'] ) ?>" data-repeater-name="<?php echo esc_attr( $name ) ?>" <?php echo ! empty( $item_label ) ? 'data-item-label="' . esc_attr( $item_label ) . '"' : '' ?>>
+				<div class="thim-widget-field-repeater" data-item-name="<?php echo esc_attr( $field['item_name'] ) ?>" data-repeater-name="<?php echo esc_attr( $name ) ?>" <?php echo !empty( $item_label ) ? 'data-item-label="' . esc_attr( $item_label ) . '"' : '' ?>>
 					<div class="thim-widget-field-repeater-top">
 						<div class="thim-widget-field-repeater-expend"></div>
 						<h3><?php echo ent2ncr( $field['label'] ) ?></h3>
 					</div>
 					<div class="thim-widget-field-repeater-items">
 						<?php
-						if ( ! empty( $value ) ) {
+						if ( !empty( $value ) ) {
 							foreach ( $value as $v ) {
 								?>
 								<div class="thim-widget-field-repeater-item ui-draggable">
@@ -1001,7 +1005,7 @@ abstract class Thim_Widget extends WP_Widget {
 											$this->render_field(
 												$sub_field_name,
 												$sub_field,
-												isset( $v[ $sub_field_name ] ) ? $v[ $sub_field_name ] : null,
+												isset( $v[$sub_field_name] ) ? $v[$sub_field_name] : null,
 												$repeater
 											);
 										}
@@ -1021,7 +1025,7 @@ abstract class Thim_Widget extends WP_Widget {
 				// Create the extra form entries
 				$sub_widget = new $field['class'];
 				?>
-				<div class="thim-widget-section <?php if ( ! empty( $field['hide'] ) ) {
+				<div class="thim-widget-section <?php if ( !empty( $field['hide'] ) ) {
 				echo 'thim-widget-section-hide';
 			} ?>"><?php
 				$new   = $repeater;
@@ -1038,7 +1042,7 @@ abstract class Thim_Widget extends WP_Widget {
 					$this->render_field(
 						$sub_name,
 						$sub_field,
-						isset( $value[ $sub_name ] ) ? $value[ $sub_name ] : null,
+						isset( $value[$sub_name] ) ? $value[$sub_name] : null,
 						$new
 					);
 				}
@@ -1890,52 +1894,87 @@ abstract class Thim_Widget extends WP_Widget {
 
 			case 'icon-youniverse' :
 				$icons  = array(
-					'ascendant6',
-					'award52',
-					'bank60',
-					'bars-graphic1',
-					'books30',
-					'cellphone106',
-					'check51',
-					'circulararrow36',
-					'click6',
-					'coffee20',
-					'computer-screen5',
-					'currency13',
-					'customer-service2',
-					'downarrow81',
-					'eye106',
-					'gps45',
-					'heart124',
-					'heart95',
-					'history6',
-					'hot51',
-					'italian-food1',
-					'light-bulb2',
-					'lightning39',
-					'login10',
-					'looking',
-					'marker20',
-					'mirror',
-					'multiple25',
-					'muscle2',
-					'objective',
-					'open-book1',
-					'piechart2',
-					'right11',
-					'sea3',
-					'shield114',
-					'shopping80',
-					'smartphone103',
-					'smiling35',
-					'stack13',
-					'support1',
-					'three115',
-					'thumb54',
-					'tool36',
-					'trophy42',
-					'verified9',
-					'website17'
+					'arrows',
+					'arrows-1',
+					'arrows-2',
+					'arrows-3',
+					'arrows-4',
+					'arrows-5',
+					'arrows-6',
+					'arrows-7',
+					'book',
+					'business',
+					'business-1',
+					'business-2',
+					'check',
+					'check-1',
+					'check-2',
+					'check-3',
+					'check-4',
+					'circle',
+					'clock',
+					'commerce',
+					'computer',
+					'cross',
+					'cup',
+					'cup-1',
+					'drink',
+					'emoticon',
+					'float',
+					'food',
+					'gps',
+					'graphic',
+					'graphic-1',
+					'hand',
+					'interface',
+					'interface-1',
+					'interface-2',
+					'interface-3',
+					'money',
+					'money-1',
+					'paint',
+					'paint-1',
+					'paper',
+					'people',
+					'people-1',
+					'people-2',
+					'power',
+					'school',
+					'science',
+					'sea',
+					'security',
+					'shape',
+					'shapes',
+					'shapes-1',
+					'shop',
+					'shop-1',
+					'shopping',
+					'sign',
+					'social',
+					'sofa',
+					'square',
+					'square-1',
+					'symbol',
+					'symbol-1',
+					'tag',
+					'technology',
+					'technology-1',
+					'technology-2',
+					'technology-3',
+					'technology-4',
+					'technology-5',
+					'technology-6',
+					'three',
+					'thumb',
+					'tool',
+					'tool-1',
+					'tool-2',
+					'tool-3',
+					'transport',
+					'trophy',
+					'web',
+					'web-1',
+					'web-2'
 				);
 				$output = '<div class="wrapper_icon"><input type="hidden" name="' . $this->so_get_field_name( $name, $repeater ) . '" class="wpb_vc_param_value" value="' . esc_attr( $value ) . '" id="trace"/>
 					<div class="icon-preview"><span class="flaticon-' . esc_attr( $value ) . '"></span></div>';
@@ -1982,10 +2021,10 @@ abstract class Thim_Widget extends WP_Widget {
 
 			case 'section' :
 				?>
-				<div class="thim-widget-section <?php if ( ! empty( $field['hide'] ) ) {
+				<div class="thim-widget-section <?php if ( !empty( $field['hide'] ) ) {
 				echo 'thim-widget-section-hide';
 			} ?>"><?php
-				if ( ! isset( $field['fields'] ) || empty( $field['fields'] ) ) {
+				if ( !isset( $field['fields'] ) || empty( $field['fields'] ) ) {
 					return;
 				}
 
@@ -2004,7 +2043,7 @@ abstract class Thim_Widget extends WP_Widget {
 					$this->render_field(
 						$sub_name,
 						$sub_field,
-						isset( $value[ $sub_name ] ) ? $value[ $sub_name ] : null,
+						isset( $value[$sub_name] ) ? $value[$sub_name] : null,
 						$new,
 						false
 					);
@@ -2033,7 +2072,7 @@ abstract class Thim_Widget extends WP_Widget {
 				break;
 		}
 
-		if ( ! empty( $field['description'] ) ) {
+		if ( !empty( $field['description'] ) ) {
 			?>
 			<div class="thim-widget-field-description"><?php echo esc_html( $field['description'] ) ?></div><?php
 		}
@@ -2048,7 +2087,7 @@ abstract class Thim_Widget extends WP_Widget {
 	 * @return string The HTML
 	 */
 	function parse_markdown( $markdown ) {
-		if ( ! class_exists( 'Markdown_Parser' ) ) {
+		if ( !class_exists( 'Markdown_Parser' ) ) {
 			include plugin_dir_path( __FILE__ ) . 'inc/markdown.php';
 		}
 		$parser = new Markdown_Parser();
@@ -2130,7 +2169,7 @@ abstract class Thim_Widget extends WP_Widget {
 	 */
 	function enqueue_registered_scripts() {
 		foreach ( $this->frontend_scripts as $f_script ) {
-			if ( ! wp_script_is( $f_script[0] ) ) {
+			if ( !wp_script_is( $f_script[0] ) ) {
 				wp_enqueue_script(
 					$f_script[0],
 					isset( $f_script[1] ) ? $f_script[1] : false,
@@ -2150,8 +2189,8 @@ abstract class Thim_Widget extends WP_Widget {
 
 	public function register_frontend_styles( $styles ) {
 		foreach ( $styles as $style ) {
-			if ( ! isset( $this->frontend_styles[ $style[0] ] ) ) {
-				$this->frontend_styles[ $style[0] ] = $style;
+			if ( !isset( $this->frontend_styles[$style[0]] ) ) {
+				$this->frontend_styles[$style[0]] = $style;
 			}
 		}
 	}
@@ -2161,7 +2200,7 @@ abstract class Thim_Widget extends WP_Widget {
 	 */
 	function enqueue_registered_styles() {
 		foreach ( $this->frontend_styles as $f_style ) {
-			if ( ! wp_style_is( $f_style[0] ) ) {
+			if ( !wp_style_is( $f_style[0] ) ) {
 				wp_enqueue_style(
 					$f_style[0],
 					isset( $f_style[1] ) ? $f_style[1] : false,
@@ -2205,7 +2244,7 @@ abstract class Thim_Widget extends WP_Widget {
  */
 function thim_widget_register_self( $name, $path ) {
 	global $thim_widgets_registered;
-	$thim_widgets_registered[ $name ] = realpath( $path );
+	$thim_widgets_registered[$name] = realpath( $path );
 }
 
 /**
@@ -2218,7 +2257,7 @@ function thim_widget_register_self( $name, $path ) {
 function thim_widget_get_plugin_path( $name ) {
 	global $thim_widgets_registered;
 
-	return isset( $thim_widgets_registered[ $name ] ) ? $thim_widgets_registered[ $name ] : false;
+	return isset( $thim_widgets_registered[$name] ) ? $thim_widgets_registered[$name] : false;
 }
 
 /**
@@ -2257,17 +2296,17 @@ function thim_widget_render_preview() {
 
 		foreach ( $_POST as $n => $v ) {
 			if ( strpos( $n, 'widget-' ) === 0 ) {
-				$instance = array_pop( $_POST[ $n ] );
+				$instance = array_pop( $_POST[$n] );
 				break;
 			}
 		}
 	}
 
-	if ( ! class_exists( $class ) ) {
+	if ( !class_exists( $class ) ) {
 		exit();
 	}
 	$widget_obj = new $class();
-	if ( ! $widget_obj instanceof SiteOrigin_Widget ) {
+	if ( !$widget_obj instanceof SiteOrigin_Widget ) {
 		exit();
 	}
 
@@ -2296,7 +2335,7 @@ function thim_widget_add_inline_css( $css ) {
  */
 function thim_widget_print_styles() {
 	global $thim_widgets_inline_styles;
-	if ( ! empty( $thim_widgets_inline_styles ) ) {
+	if ( !empty( $thim_widgets_inline_styles ) ) {
 		?>
 		<style type="text/css"><?php echo( $thim_widgets_inline_styles ) ?></style><?php
 	}
@@ -2307,11 +2346,11 @@ function thim_widget_print_styles() {
 add_action( 'wp_head', 'thim_widget_print_styles' );
 add_action( 'wp_footer', 'thim_widget_print_styles' );
 function thim_widget_preview_widget_action() {
-	if ( ! class_exists( $_POST['class'] ) ) {
+	if ( !class_exists( $_POST['class'] ) ) {
 		exit();
 	}
 	$widget = new $_POST['class'];
-	if ( ! is_a( $widget, 'SiteOrigin_Widget' ) ) {
+	if ( !is_a( $widget, 'SiteOrigin_Widget' ) ) {
 		exit();
 	}
 

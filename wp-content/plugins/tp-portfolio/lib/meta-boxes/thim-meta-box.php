@@ -129,7 +129,8 @@ if (!class_exists('THIM_Meta_Box')) {
 		{
 			// Make sure scripts for new media uploader in WordPress 3.5 is enqueued
 			wp_enqueue_media();
-			wp_enqueue_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js', array('jquery'));
+			// wp_enqueue_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js', array('jquery'));
+			wp_enqueue_script( 'jquery-ui-dialog' );
 			// A style available in WP
 			wp_enqueue_style('wp-jquery-ui-dialog', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css', array());
 
@@ -429,7 +430,7 @@ if (!class_exists('THIM_Meta_Box')) {
 			if ($ok)
 				wp_send_json_success();
 			else
-				wp_send_json_error(__('Error: Cannot delete file', 'tp-portfolio'));
+				wp_send_json_error(__('Error: Cannot delete file', 'thimpress'));
 		}
 
 		/******************************/
@@ -526,7 +527,7 @@ if (!class_exists('THIM_Meta_Box')) {
 			if ($ok)
 				wp_send_json_success();
 			else
-				wp_send_json_error(__('Error: Cannot delete file', 'tp-portfolio'));
+				wp_send_json_error(__('Error: Cannot delete file', 'thimpress'));
 		}
 
 		// Save data from meta box
@@ -551,11 +552,13 @@ if (!class_exists('THIM_Meta_Box')) {
 
 			foreach ($this->meta_box['fields'] as $field) {
 				$old = get_post_meta($post_id, $field['id'], true);
-				$new = $_POST[$field['id']];
-				if ($new && $new != $old) {
-					update_post_meta($post_id, $field['id'], $new);
-				} elseif ('' == $new && $old) {
-					delete_post_meta($post_id, $field['id'], $old);
+				if ( isset( $_POST[$field['id']] ) ) {
+					$new = $_POST[$field['id']];
+					if ($new && $new != $old) {
+						update_post_meta($post_id, $field['id'], $new);
+					} elseif ('' == $new && $old) {
+						delete_post_meta($post_id, $field['id'], $old);
+					}
 				}
 			}
 		}

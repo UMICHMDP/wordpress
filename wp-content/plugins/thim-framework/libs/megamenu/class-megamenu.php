@@ -86,6 +86,7 @@ if ( !class_exists( 'tp_megamenu' ) ) {
 				'bg-image',
 				'hide-text',
 				'disable-link',
+				'target-blank',
 				'full-width-dropdown',
 				'submenu-columns',
 				'side-dropdown-elements',
@@ -296,10 +297,11 @@ if ( !class_exists( 'tp_walker' ) ) {
 			//set maxcolumns
 			$hide_text    = get_post_meta( $item->ID, '_menu-item-tp-hide-text', true );
 			$disable_link = get_post_meta( $item->ID, '_menu-item-tp-disable-link', true );
+			$target_blank = get_post_meta( $item->ID, '_menu-item-tp-target-blank', true );
 			$item_output  = $li_text_block_class = $column_class = "";
 
 			$attributes = !empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) . '"' : '';
-			$attributes .= !empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
+			$attributes .= $target_blank ? ' target="_blank"' : '';
 			$attributes .= !empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
 			$attributes .= !empty( $item->url ) ? ' href="' . esc_attr( $item->url ) . '"' : '';
 
@@ -1289,6 +1291,17 @@ if ( !class_exists( 'tp_backend_walker' ) ) {
 					<p class="description description-wide">
 						<label for="edit-<?php echo esc_attr( $key . '-' . $item_id ); ?>">
 							<input type="checkbox" value="active" id="edit-<?php echo esc_attr( $key . '-' . $item_id ); ?>" class=" <?php echo esc_attr( $key ); ?>" name="<?php echo ent2ncr( $key . "[" . $item_id . "]" ); ?>" <?php echo esc_html( $value ); ?> /><?php esc_attr_e('Disable Link', 'thim-framework'); ?>
+						</label>
+					</p>
+
+					<?php
+					$key   = "menu-item-tp-target-blank";
+					$value = get_post_meta( $item->ID, '_' . $key, true );
+					$value = ( $value == 'active' ) ? ' checked="checked" ' : '';
+					?>
+					<p class="description description-wide">
+						<label for="edit-<?php echo esc_attr( $key . '-' . $item_id ); ?>">
+							<input type="checkbox" value="active" id="edit-<?php echo esc_attr( $key . '-' . $item_id ); ?>" class=" <?php echo esc_attr( $key ); ?>" name="<?php echo ent2ncr( $key . "[" . $item_id . "]" ); ?>" <?php echo esc_html( $value ); ?> /><?php esc_attr_e('Target Blank', 'thim-framework'); ?>
 						</label>
 					</p>
 

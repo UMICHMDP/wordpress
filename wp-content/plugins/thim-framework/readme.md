@@ -7,3 +7,10 @@
 //version 1.7 19/02/2016
 + Fixed required import demo.
 + Updated class Thim_Widget
+
+//version 1.9.6 19/02/2016
++ Made metabox settings filterable.
+
+//version 1.9.7 14/07/2016
++ Update font awesome to v4.6.3.
++ Fixed conflict with page gravity form on admin.

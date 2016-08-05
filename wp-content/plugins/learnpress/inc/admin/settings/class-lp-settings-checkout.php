@@ -17,7 +17,7 @@ class LP_Settings_Checkout extends LP_Settings_Base {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->id   = 'checkout';
 		$this->text = __( 'Checkout', 'learnpress' );
 
@@ -29,7 +29,7 @@ class LP_Settings_Checkout extends LP_Settings_Base {
 	 *
 	 * @return mixed
 	 */
-	function get_sections() {
+	public function get_sections() {
 		$sections = array(
 			'general' => array(
 				'id'    => 'general',
@@ -39,36 +39,15 @@ class LP_Settings_Checkout extends LP_Settings_Base {
 		return $sections = apply_filters( 'learn_press_settings_sections_' . $this->id, $sections );
 	}
 
-	function output_section_general() {
+	public function output_section_general() {
 		$view = learn_press_get_admin_view( 'settings/checkout.php' );
 		include_once $view;
 	}
 
-	function get_settings() {
+	public function get_settings() {
 		return apply_filters(
 			'learn_press_checkout_settings',
 			array(
-				array(
-					'title'   => __( 'Enable cart', 'learnpress' ),
-					'desc'    => __( 'Check this option to enable user can purchase multiple course at one time', 'learnpress' ),
-					'id'      => $this->get_field_name( 'enable_cart' ),
-					'default' => 'yes',
-					'type'    => 'checkbox'
-				),
-				array(
-					'title'   => __( 'Add to cart redirect', 'learnpress' ),
-					'desc'    => __( 'Redirect to checkout immediately after add course to cart', 'learnpress' ),
-					'id'      => $this->get_field_name( 'redirect_after_add' ),
-					'default' => 'yes',
-					'type'    => 'checkbox'
-				),
-				array(
-					'title'   => __( 'AJAX add to cart', 'learnpress' ),
-					'desc'    => __( 'Using AJAX to add course to the cart', 'learnpress' ),
-					'id'      => $this->get_field_name( 'ajax_add_to_cart' ),
-					'default' => 'no',
-					'type'    => 'checkbox'
-				),
 				array(
 					'title'   => __( 'No checkout free course', 'learnpress' ),
 					'desc'    => __( 'Check this option to enable user can enroll course immediate without add to cart', 'learnpress' ),
@@ -77,10 +56,11 @@ class LP_Settings_Checkout extends LP_Settings_Base {
 					'type'    => 'checkbox'
 				),
 				array(
-					'title'   => __( 'Cart page', 'learnpress' ),
-					'id'      => $this->get_field_name( 'cart_page_id' ),
-					'default' => '',
-					'type'    => 'pages-dropdown'
+					'title'   => __( 'Disable auto enroll', 'learnpress' ),
+					'desc'    => __( 'Disable auto enroll a user after they bought a course', 'learnpress' ),
+					'id'      => $this->get_field_name( 'disable_auto_enroll' ),
+					'default' => 'no',
+					'type'    => 'checkbox'
 				),
 				array(
 					'title'   => __( 'Checkout page', 'learnpress' ),
@@ -98,7 +78,8 @@ class LP_Settings_Checkout extends LP_Settings_Base {
 					'default' => 'lp-order-received',
 					'type'    => 'text'
 				),
-			)
+			),
+			$this
 		);
 	}
 }

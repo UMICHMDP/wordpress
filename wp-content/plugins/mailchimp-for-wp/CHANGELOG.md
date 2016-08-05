@@ -1,6 +1,77 @@
 Changelog
 =========
 
+#### 3.1.12 - July 28. 2016
+
+**Improvements**
+
+- Smarter scrolling after submitting form & reloading page.
+- Format output of `{subscriber_count}` tag.
+- You can now use `<img>` in your form messages.
+- Add MailChimp API error code to debug log lines.
+- Add plugin name + version to User-Agent header for all MailChimp API requests.
+- Make sure value of MC_LANGUAGE field is limited to 2 characters.
+
+
+#### 3.1.11 - July 5, 2016
+
+**Improvements**
+
+- Update JavaScript dependencies for admin screens.
+- Test debug log & show notice when it's not writable.
+
+**Additions**
+
+- Add "placeholder" option for dropdown fields.
+
+
+#### 3.1.10 - June 21, 2016
+
+**Fixes**
+
+- Styles Builder in Premium not building because of incorrect flag in core plugin.
+
+**Improvements**
+
+- Don't show position option for WooCommerce integration when sign-up is implicit.
+- Improvements to form previewer logic.
+- Make sure admin notifications are always shown exactly one time.
+
+#### 3.1.9 - June 7, 2016
+
+**Fixes**
+
+- Placeholder polyfill wasn't loaded (only in IE8 and below).
+
+**Improvements**
+
+- Don't write to debug log if it is not writable.
+- Reset some CSS properties for commonly used class names in Form Editor & Debug Log.
+- Do not unnecessarily register styles which are then immediately enqueued.
+
+**Additions**
+
+- Add "is required field" option for dropdown & radio fields in Field Helper.
+- Link to [Boxzilla plugin](https://boxzillaplugin.com/) from admin sidebar.
+
+
+#### 3.1.8 - May 23, 2016
+
+**Fixes**
+
+- Form Preview mode replaced all titles on that page with "Form Preview".
+- API class fix for [eCommerce360 functionality](https://mc4wp.com/kb/what-is-ecommerce360/).
+
+**Improvements**
+
+- Show dismissible notice when API key is not set.
+- Show empty API key errors in plugin log.
+- Friendlier error message for re-subscribe failures.
+
+**Additions**
+
+- Add `form.reset()` method to JS API.
+
 #### 3.1.7 - May 9, 2016
 
 **Fixes**

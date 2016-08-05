@@ -102,7 +102,6 @@ abstract class TP_Event_Meta_Box
 					$html[] = '</li>';
 				}
 				$i++;
-
 			}
 			$html[] = '</ul>';
 
@@ -226,16 +225,15 @@ abstract class TP_Event_Meta_Box
 			return;
 
 		foreach ( $_POST as $key => $val ) {
-			if( strpos( $key, $this->_prefix ) !== 0 )
-				continue;
-
-			if( is_string( $val ) )
-			{
-				$val = sanitize_text_field( trim( $val ) );
-			} else if( is_array( $val ) && ! is_array( array_values( $val ) ) ){
-				$val = array_map( 'trim', $val );
+			if( strpos( $key, $this->_prefix ) === 0 || strpos( $key, 'thimpress_event' ) === 0 ) {
+				if( is_string( $val ) )
+				{
+					$val = sanitize_text_field( trim( $val ) );
+				} else if( is_array( $val ) && ! is_array( array_values( $val ) ) ){
+					$val = array_map( 'trim', $val );
+				}
+				update_post_meta( $post_id, $key, $val );
 			}
-			update_post_meta( $post_id, $key, $val );
 		}
 	}
 

@@ -28,13 +28,19 @@ if ( !class_exists( 'LP_Admin' ) ) {
 		 *
 		 * @since 0.9.4
 		 */
-		function plugin_js_settings() {
+		public function plugin_js_settings() {
 			static $did = false;
 			if ( $did || !is_admin() ) return;
 			$js = array(
 				'ajax'       => admin_url( 'admin-ajax.php' ),
 				'plugin_url' => learn_press_plugin_url(),
-				'siteurl' => home_url()
+				'siteurl'    => home_url(),
+				'localize'   => array(
+					'button_ok'     => __( 'OK', 'learnpress' ),
+					'button_cancel' => __( 'Cancel', 'learnpress' ),
+					'button_yes'    => __( 'Yes', 'learnpress' ),
+					'button_no'     => __( 'No', 'learnpress' )
+				)
 			);
 			echo '<script type="text/javascript">var LearnPress_Settings = ' . json_encode( $js ) . '</script>';
 			if( LP_Settings::instance()->get('debug') == 'yes' ){
@@ -46,7 +52,7 @@ if ( !class_exists( 'LP_Admin' ) ) {
 		/**
 		 * Redirect to admin settings page
 		 */
-		function _redirect() {
+		public function _redirect() {
 			$page = isset( $_GET['page'] ) ? $_GET['page'] : '';
 			if ( 'learn_press_settings' == $page ) {
 				$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';

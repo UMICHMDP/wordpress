@@ -1375,8 +1375,26 @@ function mo_openid_other_settings(){
 							onclick="addSelectedApps();" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_odnoklassniki_share_enable') == 1 );?> />
 							<strong>Odnoklassniki</strong>
 						</td>
+						<td style="width:20%">
+							<input type="checkbox" id="mail_share_enable" class="app_enable" name="mo_openid_mail_share_enable" value="1" 
+							onclick="addSelectedApps();moSharingPreview();" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_mail_share_enable') == 1 );?> />
+							<strong>Email</strong>
+						</td>
+						<td style="width:20%">
+							<input type="checkbox" id="print_share_enable" class="app_enable" name="mo_openid_print_share_enable" value="1" 
+							onclick="addSelectedApps();moSharingPreview();" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_print_share_enable') == 1 );?> />
+							<strong>Print</strong>
+						</td>
 					</tr>
-					</table>
+					<tr>
+						<td style="width:20%">
+							<input type="checkbox" id="whatsapp_share_enable" class="app_enable" name="mo_openid_whatsapp_share_enable" value="1" 
+							onclick="addSelectedApps();moSharingPreview();" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_whatsapp_share_enable') == 1 );?> />
+							<strong>Whatsapp</strong>
+						</td>
+					</tr>
+					<tr><td>(Only visible on Mobile Phones)</td></tr>
+				</table>
 			</td>
 		</tr>
 			
@@ -1497,7 +1515,9 @@ function mo_openid_other_settings(){
 					<img class="mo_sharing_icon_preview" id="mo_sharing_icon_preview_digg" src="<?php echo plugins_url( 'includes/images/icons/digg.png', __FILE__ )?>" />
 					<img class="mo_sharing_icon_preview" id="mo_sharing_icon_preview_delicious" src="<?php echo plugins_url( 'includes/images/icons/delicious.png', __FILE__ )?>" />
 					<img class="mo_sharing_icon_preview" id="mo_sharing_icon_preview_odnoklassniki" src="<?php echo plugins_url( 'includes/images/icons/odnoklassniki.png', __FILE__ )?>" />
-					
+					<img class="mo_sharing_icon_preview" id="mo_sharing_icon_preview_mail" src="<?php echo plugins_url( 'includes/images/icons/mail.png', __FILE__ )?>"/>
+					<img class="mo_sharing_icon_preview" id="mo_sharing_icon_preview_print" src="<?php echo plugins_url( 'includes/images/icons/print.png', __FILE__ )?>"/>
+					<img class="mo_sharing_icon_preview" id="mo_sharing_icon_preview_whatsapp" src="<?php echo plugins_url( 'includes/images/icons/whatsapp.png', __FILE__ )?>"/>
 				</div>
 		
 				<div>
@@ -1514,6 +1534,9 @@ function mo_openid_other_settings(){
 					<i class="mo_custom_sharing_icon_preview fa fa-digg" id="mo_custom_sharing_icon_preview_digg"  style="color:#ffffff;text-align:center;margin-top:5px;"></i>
 					<i class="mo_custom_sharing_icon_preview fa fa-delicious" id="mo_custom_sharing_icon_preview_delicious"  style="color:#ffffff;text-align:center;margin-top:5px;"></i>
 					<i class="mo_custom_sharing_icon_preview fa fa-odnoklassniki" id="mo_custom_sharing_icon_preview_odnoklassniki"  style="color:#ffffff;text-align:center;margin-top:5px;"></i>
+					<i class="mo_custom_sharing_icon_preview fa fa-envelope" id="mo_custom_sharing_icon_preview_mail"  style="color:#ffffff;text-align:center;  "></i>
+					<i class="mo_custom_sharing_icon_preview fa fa-print" id="mo_custom_sharing_icon_preview_print"  style="color:#ffffff;text-align:center;  "></i>
+					<i class="mo_custom_sharing_icon_preview fa fa-whatsapp" id="mo_custom_sharing_icon_preview_whatsapp"  style="color:#ffffff;text-align:center;  "></i>
 				</div>
 											
 				<div>
@@ -1530,6 +1553,9 @@ function mo_openid_other_settings(){
 					<i class="mo_custom_sharing_icon_font_preview fa fa-digg" id="mo_custom_sharing_icon_font_preview_digg"  style="text-align:center;margin-top:5px;"></i>
 					<i class="mo_custom_sharing_icon_font_preview fa fa-delicious" id="mo_custom_sharing_icon_font_preview_delicious"  style="text-align:center;margin-top:5px;"></i>
 					<i class="mo_custom_sharing_icon_font_preview fa fa-odnoklassniki" id="mo_custom_sharing_icon_font_preview_odnoklassniki"  style="text-align:center;margin-top:5px;"></i>
+					<i class="mo_custom_sharing_icon_font_preview fa fa-envelope" id="mo_custom_sharing_icon_font_preview_mail"  style="text-align:center;  "></i>
+					<i class="mo_custom_sharing_icon_font_preview fa fa-print" id="mo_custom_sharing_icon_font_preview_print"  style="text-align:center;  "></i>
+					<i class="mo_custom_sharing_icon_font_preview fa fa-whatsapp" id="mo_custom_sharing_icon_font_preview_whatsapp"  style="text-align:center;  "></i>
 				</div>
 	
 			</td>
@@ -1824,8 +1850,49 @@ function mo_openid_other_settings(){
 									jQuery("#mo_custom_sharing_icon_preview_odnoklassniki").hide();
 									jQuery("#mo_custom_sharing_icon_font_preview_odnoklassniki").hide();
 								}
+								if (document.getElementById('mail_share_enable').checked) {
+									flag = 1;
+									if(document.getElementById('mo_openid_default_background_radio').checked)
+											jQuery("#mo_sharing_icon_preview_mail").show();
+									if(document.getElementById('mo_openid_custom_background_radio').checked)
+										jQuery("#mo_custom_sharing_icon_preview_mail").show();
+									if(document.getElementById('mo_openid_no_background_radio').checked)
+										jQuery("#mo_custom_sharing_icon_font_preview_mail").show();
+								} else if(!document.getElementById('mail_share_enable').checked){
+									jQuery("#mo_sharing_icon_preview_mail").hide();
+									jQuery("#mo_custom_sharing_icon_preview_mail").hide();
+									jQuery("#mo_custom_sharing_icon_font_preview_mail").hide();
+								}
+								if (document.getElementById('print_share_enable').checked) {
+									flag = 1;
+									if(document.getElementById('mo_openid_default_background_radio').checked)
+											jQuery("#mo_sharing_icon_preview_print").show();
+									if(document.getElementById('mo_openid_custom_background_radio').checked)
+										jQuery("#mo_custom_sharing_icon_preview_print").show();
+									if(document.getElementById('mo_openid_no_background_radio').checked)
+										jQuery("#mo_custom_sharing_icon_font_preview_print").show();
+								} else if(!document.getElementById('print_share_enable').checked){
+									jQuery("#mo_sharing_icon_preview_print").hide();
+									jQuery("#mo_custom_sharing_icon_preview_print").hide();
+									jQuery("#mo_custom_sharing_icon_font_preview_print").hide();
+								}
+								if (document.getElementById('whatsapp_share_enable').checked) {
+									flag = 1;
+									if(document.getElementById('mo_openid_default_background_radio').checked)
+											jQuery("#mo_sharing_icon_preview_whatsapp").show();
+									if(document.getElementById('mo_openid_custom_background_radio').checked)
+										jQuery("#mo_custom_sharing_icon_preview_whatsapp").show();
+										jQuery("#mo_sharing_button_preview_custom_whatsapp").show();
+									if(document.getElementById('mo_openid_no_background_radio').checked)
+										jQuery("#mo_custom_sharing_icon_font_preview_whatsapp").show();
+									
+								} else if(!document.getElementById('whatsapp_share_enable').checked){
+									jQuery("#mo_sharing_icon_preview_whatsapp").hide();
+									jQuery("#mo_custom_sharing_icon_preview_whatsapp").hide();
+									jQuery("#mo_custom_sharing_icon_font_preview_whatsapp").hide();
+								}
 								
-									if(flag) {
+								if(flag) {
 									jQuery("#no_apps_text").hide();
 								} else {
 									jQuery("#no_apps_text").show();
@@ -1864,6 +1931,23 @@ function mo_openid_other_settings(){
 				&nbsp;
 				<input class="mo_openid_table_textbox" style="width:50%;" type="text" name="mo_openid_share_twitter_username"
 					value="<?php echo get_option('mo_openid_share_twitter_username'); ?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Enter the Email subject (email share):</b>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input class="mo_openid_table_textbox" style="width:50%;" type="text" name="mo_openid_share_email_subject"
+					value="<?php echo get_option('mo_openid_share_email_subject'); ?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Enter the Email body (add ##url## to place the URL):</b>
+				&nbsp;&nbsp;&nbsp;
+				<input class="mo_openid_table_textbox" style="width:50%;" type="text" name="mo_openid_share_email_body"
+					value="<?php echo get_option('mo_openid_share_email_body'); ?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> />
 			</td>
 		</tr>
 		<tr>
@@ -2467,31 +2551,38 @@ function mo_openid_troubleshoot_info(){ ?>
 					<hr>
 		</td></tr>
 		<tr><td>
-				<h3><a  id="openid_question_sharing" class="mo_openid_title_panel" >Social Sharing</a></h3>
-					<div class="mo_openid_help_desc" hidden="" id="openid_question_sharing_desc">
-					<h4><a  id="openid_question6"  >Is it possible to show sharing icons below the post content?</a></h4>
-					<div  id="openid_question6_desc">
-						You can put social sharing icons before the content, after the content or both before and after the content. Go to <b>Sharing tab</b> , check <b>Blog post</b> checkbox and select one of three(before, after, both) options available. Save settings.
-					</div>
-					<hr>
-					
-					<h4><a  id="openid_question10" >Why is sharing with some applications not working?</a></h4>
-					<div  id="openid_question10_desc">
-						This issue arises if your website is not publicly hosted. Facebook, for example looks for the URL to generate its preview for sharing. That does not work on localhost or any privately hosted URL.
-					</div>
-					<hr>
+			<h3><a  id="openid_question_sharing" class="mo_openid_title_panel" >Social Sharing</a></h3>
+				<div class="mo_openid_help_desc" hidden="" id="openid_question_sharing_desc">
+				<h4><a  id="openid_question6"  >Is it possible to show sharing icons below the post content?</a></h4>
+				<div  id="openid_question6_desc">
+					You can put social sharing icons before the content, after the content or both before and after the content. Go to <b>Sharing tab</b> , check <b>Blog post</b> checkbox and select one of three(before, after, both) options available. Save settings.
+				</div>
+				<hr>
+				
+				<h4><a  id="openid_question10" >Why is sharing with some applications not working?</a></h4>
+				<div  id="openid_question10_desc">
+					This issue arises if your website is not publicly hosted. Facebook, for example looks for the URL to generate its preview for sharing. That does not work on localhost or any privately hosted URL.
+				</div>
+				<hr>
 
-					<h4><a  id="openid_question13" >Facebook sharing is showing the wrong image. How do I change the image?</a></h4>
-					<div  id="openid_question13_desc">
-						The image is selected by Facebook and it is a part of Facebook sharing feature. We provide Facebook with webpage URL. It generates the entire preview of webpage using that URL.<br/><br/>
-						To set an image for the page, set it as a meta tag in <head> of your webpage.<br/>
-						<b>< meta property="og:image" content="http://example.com/image.jpg" ></b><br/><br/>
-						You can further debug the issue with Facebook's tool - <a href="https://developers.facebook.com/tools/debug/og/object">https://developers.facebook.com/tools/debug/og/object</a>
-						<br/><br/>
-						If the problem still persists, please contact us using the Support form on the right.
-					</div>
-					</div>
-					<hr>
+				<h4><a  id="openid_question13" >Facebook sharing is showing the wrong image. How do I change the image?</a></h4>
+				<div  id="openid_question13_desc">
+					The image is selected by Facebook and it is a part of Facebook sharing feature. We provide Facebook with webpage URL. It generates the entire preview of webpage using that URL.<br/><br/>
+					To set an image for the page, set it as a meta tag in <head> of your webpage.<br/>
+					<b>< meta property="og:image" content="http://example.com/image.jpg" ></b><br/><br/>
+					You can further debug the issue with Facebook's tool - <a href="https://developers.facebook.com/tools/debug/og/object">https://developers.facebook.com/tools/debug/og/object</a>
+					<br/><br/>
+					If the problem still persists, please contact us using the Support form on the right.
+				</div>
+				<hr>
+				
+				<h4><a  id="openid_question18" >Email share is not working. Why?</a></h4>
+				<div  id="openid_question18_desc">
+					Email share in the plugin is enabled through <b>mailto</b>. mailto is generally configured through desktop or browser so if it is not working, mailto is not setup or improperly configured.<br><br>
+					To set it up properly, search for "mailto settings " followed by your Operating System's name where you have your browser installed.
+				</div>
+				</div>
+				<hr>
 		</td></tr>
 		
 					

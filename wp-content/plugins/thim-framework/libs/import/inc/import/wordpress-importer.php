@@ -26,8 +26,11 @@ if ( ! class_exists( 'WP_Importer' ) ) {
 	}
 }
 
-// include WXR file parsers
-require TP_FRAMEWORK_LIBS_DIR . 'import/inc/import/parsers.php';
+if ( ! class_exists( 'WXR_Parser' ) ) {
+	// include WXR file parsers
+	require TP_FRAMEWORK_LIBS_DIR . 'import/inc/import/parsers.php';
+}
+
 
 /**
  * WordPress Importer class for managing the import process of a WXR file
@@ -934,6 +937,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 				$i ++;
 			}
 
+			do_action( 'thim_framework_after_process_posts', $this->processed_posts );
 			unset( $this->posts );
 
 			return true;
@@ -1184,8 +1188,16 @@ if ( class_exists( 'WP_Importer' ) ) {
 			}
 
 			// fetch the remote url and write it to the placeholder file
-			$headers = wp_get_http( $url, $upload['file'] );
+			// $headers = wp_get_http( $url, $upload['file'] );
+			// wp_get_http has been removed since 4.4
+			$response = wp_remote_get( $url, array(
+				'stream'   => true,
+				'filename' => $upload['file']
+			) );
 
+			$headers = wp_remote_retrieve_headers( $response );
+			/* respone status */
+			$status = wp_remote_retrieve_response_code( $response );
 			// request failed
 			if ( ! $headers ) {
 				@unlink( $upload['file'] );
@@ -1194,10 +1206,10 @@ if ( class_exists( 'WP_Importer' ) ) {
 			}
 
 			// make sure the fetch was successful
-			if ( $headers['response'] != '200' ) {
+			if ( $status != '200' ) {
 				@unlink( $upload['file'] );
 
-				return new WP_Error( 'import_file_error', sprintf( __( 'Remote server returned error response %1$d %2$s', 'thim-framework' ), esc_html( $headers['response'] ), get_status_header_desc( $headers['response'] ) ) );
+				return new WP_Error( 'import_file_error', sprintf( __( 'Remote server returned error response %1$d %2$s', 'thim-framework' ), esc_html( $status ), get_status_header_desc( $status ) ) );
 			}
 
 			$filesize = filesize( $upload['file'] );
@@ -1297,10 +1309,10 @@ if ( class_exists( 'WP_Importer' ) ) {
 					$result = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->postmeta SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key= %s", $from_url, $to_url, 'enclosure' ) );
 				}
 			}
-//			else {
-//				echo 'DEBUG:$this->url_remap isn\'t an array() <pre>'.print_r($this->url_remap, true ).'</pre><br/>';
-//				var_dump($this->url_remap);
-//			}
+			//			else {
+			//				echo 'DEBUG:$this->url_remap isn\'t an array() <pre>'.print_r($this->url_remap, true ).'</pre><br/>';
+			//				var_dump($this->url_remap);
+			//			}
 		}
 
 		/**

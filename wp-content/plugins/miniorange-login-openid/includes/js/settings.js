@@ -64,6 +64,9 @@ jQuery(document).ready(function () {
     jQuery("#openid_question17").click(function () {
         jQuery("#openid_question17_desc").slideToggle(400);
     });
+    jQuery("#openid_question18").click(function () {
+        jQuery("#openid_question18_desc").slideToggle(400);
+    });
 	jQuery("#openid_question_curl").click(function () {
     	jQuery("#openid_question_curl_desc").slideToggle(400);
     });

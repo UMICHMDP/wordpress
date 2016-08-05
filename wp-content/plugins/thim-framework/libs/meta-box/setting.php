@@ -6,7 +6,7 @@ $url = TP_THEME_FRAMEWORK_URI . 'images/admin/';
 
 $mtb_setting = $titan->createMetaBox( array(
 	'name'      => 'Display Setting',
-	'post_type' => array( 'page', 'post', 'portfolio', 'product', 'recipe' ),
+	'post_type' => apply_filters( 'thim_framework_metabox_settings', array( 'page', 'post', 'portfolio', 'product', 'recipe' ) ),
 ) );
 
 $option_name_space = $mtb_setting->owner->optionNamespace;

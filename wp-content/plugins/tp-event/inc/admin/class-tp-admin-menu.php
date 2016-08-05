@@ -2,8 +2,8 @@
 /**
  * @Author: ducnvtt
  * @Date:   2016-02-24 16:21:27
- * @Last Modified by:   ducnvtt
- * @Last Modified time: 2016-03-16 14:31:28
+ * @Last Modified by:   someone
+ * @Last Modified time: 2016-05-10 16:43:22
  */
 
 class TP_Event_Admin_Menu
@@ -37,7 +37,7 @@ class TP_Event_Admin_Menu
 		 */
 		$menus = apply_filters( 'event_admnin_menus', $this->_menus );
 		if ( $menus ) {
-			add_menu_page( $event_menu, $event_menu, 'manage_options', 'tp-event', null, 'dashicons-calendar', 9 );
+			add_menu_page( $event_menu, $event_menu, 'edit_others_tp_events', 'tp-event', null, 'dashicons-calendar', 9 );
 			foreach( $menus as $menu )
 			{
 				call_user_func_array( 'add_submenu_page', $menu);

@@ -4,7 +4,7 @@
 * Plugin Name: Social Login, Social Sharing by miniOrange
 * Plugin URI: http://miniorange.com
 * Description: Allow your users to login, comment and share with Facebook, Google, Twitter, LinkedIn etc using customizable buttons.
-* Version: 4.9.8
+* Version: 5.0.0
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -172,6 +172,8 @@ class Miniorange_OpenID_SSO {
 		add_option( 'mo_openid_user_number',0);
 		add_option( 'mo_openid_login_widget_customize_logout_name_text', 'Howdy, ##username## |' );
 		add_option( 'mo_openid_login_widget_customize_logout_text', 'Logout?' );
+		add_option( 'mo_openid_share_email_subject','I wanted you to see this site' );
+		add_option( 'mo_openid_share_email_body','Check out this site ##url##' );
 	}
 		
 	function mo_openid_deactivate() {
@@ -751,6 +753,11 @@ class Miniorange_OpenID_SSO {
 				update_option( 'mo_openid_odnoklassniki_share_enable', isset( $_POST['mo_openid_odnoklassniki_share_enable']) ? $_POST['mo_openid_odnoklassniki_share_enable'] : 0);
 				update_option( 'mo_openid_digg_share_enable', isset( $_POST['mo_openid_digg_share_enable']) ? $_POST['mo_openid_digg_share_enable'] : 0);
 				update_option( 'mo_openid_pocket_share_enable', isset( $_POST['mo_openid_pocket_share_enable']) ? $_POST['mo_openid_pocket_share_enable'] : 0);
+				
+				update_option( 'mo_openid_mail_share_enable', isset( $_POST['mo_openid_mail_share_enable']) ? $_POST['mo_openid_mail_share_enable'] : 0);
+				update_option( 'mo_openid_print_share_enable', isset( $_POST['mo_openid_print_share_enable']) ? $_POST['mo_openid_print_share_enable'] : 0);
+				update_option( 'mo_openid_whatsapp_share_enable', isset( $_POST['mo_openid_whatsapp_share_enable']) ? $_POST['mo_openid_whatsapp_share_enable'] : 0);
+
 				update_option('mo_share_options_enable_home_page',isset( $_POST['mo_share_options_home_page']) ? $_POST['mo_share_options_home_page'] : 0);
 				update_option('mo_share_options_enable_post',isset( $_POST['mo_share_options_post']) ? $_POST['mo_share_options_post'] : 0);
 				update_option('mo_share_options_enable_static_pages',isset( $_POST['mo_share_options_static_pages']) ? $_POST['mo_share_options_static_pages'] : 0);
@@ -769,6 +776,9 @@ class Miniorange_OpenID_SSO {
 				update_option('mo_share_options_bb_reply',isset( $_POST['mo_share_options_bb_reply']) ? $_POST['mo_share_options_bb_reply'] : 0);
 				update_option('mo_openid_share_widget_customize_text',$_POST['mo_openid_share_widget_customize_text'] );
 				update_option('mo_openid_share_twitter_username', sanitize_text_field($_POST['mo_openid_share_twitter_username'])) ;
+				update_option('mo_openid_share_email_subject', sanitize_text_field($_POST['mo_openid_share_email_subject'])) ;
+				update_option('mo_openid_share_email_body', sanitize_text_field($_POST['mo_openid_share_email_body'])) ;
+				
 				update_option('mo_openid_share_widget_customize_direction_horizontal',isset( $_POST['mo_openid_share_widget_customize_direction_horizontal']) ? $_POST['mo_openid_share_widget_customize_direction_horizontal'] : 0);
 				update_option('mo_openid_share_widget_customize_direction_vertical',isset( $_POST['mo_openid_share_widget_customize_direction_vertical']) ? $_POST['mo_openid_share_widget_customize_direction_vertical'] : 0);
 				update_option('mo_sharing_icon_custom_size',isset( $_POST['mo_sharing_icon_custom_size']) ? $_POST['mo_sharing_icon_custom_size'] : 35);

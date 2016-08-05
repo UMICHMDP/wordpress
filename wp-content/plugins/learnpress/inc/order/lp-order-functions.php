@@ -74,6 +74,7 @@ function learn_press_create_order( $order_data ) {
 		update_post_meta( $order_id, '_payment_method', '' );
 		update_post_meta( $order_id, '_payment_method_title', '' );
 		update_post_meta( $order_id, '_order_version', '1.0' );
+		update_post_meta( $order_id, '_created_via', !empty( $order_data['created_via'] ) ? $order_data['created_via'] : 'checkout' );
 	}
 
 	return LP_Order::instance( $order_id, true );
@@ -717,9 +718,16 @@ function _learn_press_checkout_auto_enroll_free_course( $result, $order_id ) {
 		$user = learn_press_get_user( $order->user_id, true );
 		if ( $order_items = $order->get_items() ) {
 			foreach ( $order_items as $item ) {
+				if ( $user->has( 'enrolled-course', $item['course_id'] ) ) {
+					continue;
+				}
 				if ( $user->enroll( $item['course_id'] ) ) {
 					$enrolled = $item['course_id'];
 				}
+			}
+			if ( !$enrolled ) {
+				$item     = reset( $order_items );
+				$enrolled = $item['course_id'];
 			}
 		}
 	}
@@ -728,6 +736,5 @@ function _learn_press_checkout_auto_enroll_free_course( $result, $order_id ) {
 		$result['redirect'] = get_the_permalink( $enrolled );
 		LP()->cart->empty_cart();
 	}
-
 	return $result;
 }

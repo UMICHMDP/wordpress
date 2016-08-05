@@ -142,7 +142,7 @@ function dslc_plugin_options_init() {
 	global $dslc_plugin_options;
 
 	/**
-	 * Add Sections
+	 * Add Sections and Fields on the settings page
 	 */
 
 	foreach ( $dslc_plugin_options as $section_ID => $section ) {
@@ -159,15 +159,8 @@ function dslc_plugin_options_init() {
 			$section_ID
 		);
 
-	}
-
-	/**
-	 * Add Fields
-	 */
-
-	foreach ( $dslc_plugin_options as $section_ID => $section ) {
-
 		foreach ( $section['options'] as $option_ID => $option ) {
+
 
 			$option['id'] = $option_ID;
 
@@ -205,15 +198,12 @@ function dslc_plugin_options_init() {
 			$option['value'] = $value;
 
 			add_settings_field(
-				$option_ID,
-				$option['label'],
-				function() use ( $option ) {
-
-					$func = 'dslc_plugin_option_display_' . $option['type'];
-					$func( $option );
-				},
-				$section_ID,
-				$section_ID
+				$option_ID, // id
+				$option['label'], //title
+				'dslc_option_display_funcitons_router', //callback
+				$section_ID, //page
+				$section_ID, //section
+				$option //args
 			);
 		}
 
@@ -222,10 +212,33 @@ function dslc_plugin_options_init() {
 
 } add_action( 'admin_init', 'dslc_plugin_options_init' );
 
+
+function dslc_option_display_funcitons_router( $option ) {
+	if ( $option['type'] == 'text' ) {
+		dslc_plugin_option_display_text ($option);
+	} elseif ( $option['type'] == 'textarea' ) {
+		dslc_plugin_option_display_textarea ($option);
+	} elseif ( $option['type'] == 'select' ) {
+		dslc_plugin_option_display_select ($option);
+	} elseif ( $option['type'] == 'checkbox' ) {
+		dslc_plugin_option_display_checkbox ($option);
+	} elseif ( $option['type'] == 'list' ) {
+		dslc_plugin_option_display_list ($option);
+	} elseif ( $option['type'] == 'radio' ) {
+		dslc_plugin_option_display_radio ($option);
+	} elseif ( $option['type'] == 'styling_presets' ) {
+		dslc_plugin_option_display_styling_presets ($option);
+	}
+}
+
 function dslc_plugin_options_display_options( $section ) {
-
-
-
+  /*
+	* Function is required for add_settings_section
+	* even if we don't print any data insite of it.
+	* In our case all the settings fields rendered
+	* by callback from add_settings_field.
+	*
+	*/
 }
 
 /*

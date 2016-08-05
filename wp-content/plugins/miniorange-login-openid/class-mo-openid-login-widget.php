@@ -867,11 +867,13 @@ class mo_openid_sharing_ver_wid extends WP_Widget {
 					$username_user_id = $wpdb->get_var($wpdb->prepare("SELECT user_id FROM $wpdb->usermeta where meta_key = 'moopenid_orignal_username' and meta_value = %s", $orignal_username));
 				}
 
+				mo_openid_start_session();
 				if( isset($email_user_id)) { // user is a member
 					  $user 	= get_user_by('id', $email_user_id );
 					  $user_id 	= $user->ID;
 					  if(get_option('moopenid_social_login_avatar') && isset($user_picture))
 							update_user_meta($user_id, 'moopenid_user_avatar', $user_picture);
+					  $_SESSION['mo_login'] = true;
 					  do_action( 'wp_login', $user->user_login, $user );
 					  wp_set_auth_cookie( $user_id, true );
 				} else if( isset($username_user_id) ) { // user is a member
@@ -879,6 +881,7 @@ class mo_openid_sharing_ver_wid extends WP_Widget {
 					  $user_id 	= $user->ID;
 					  if(get_option('moopenid_social_login_avatar') && isset($user_picture))
 							update_user_meta($user_id, 'moopenid_user_avatar', $user_picture);
+					  $_SESSION['mo_login'] = true;
 					  do_action( 'wp_login', $user->user_login, $user );
 					  wp_set_auth_cookie( $user_id, true );
 				} else { // this user is a guest
@@ -918,6 +921,7 @@ class mo_openid_sharing_ver_wid extends WP_Widget {
 						if(get_option('moopenid_social_login_avatar') && isset($user_picture)){
 							update_user_meta($user_id, 'moopenid_user_avatar', $user_picture);
 						}
+						$_SESSION['mo_login'] = true;
 						do_action( 'wp_login', $user->user_login, $user );
 						wp_set_auth_cookie( $user_id, true );
 					}
@@ -1017,7 +1021,18 @@ class mo_openid_sharing_ver_wid extends WP_Widget {
 			return $logout_url;
 		}
 			
-	}   
+	} 
+
+	function mo_openid_login_redirect($username = '', $user = NULL){
+		mo_openid_start_session();
+		if(is_string($username) && $username && is_object($user) && !empty($user->ID) && ($user_id = $user->ID) && isset($_SESSION['mo_login']) && $_SESSION['mo_login']){
+			$_SESSION['mo_login'] = false;
+			wp_set_auth_cookie( $user_id, true );
+			$redirect_url = mo_openid_get_redirect_url();
+			wp_redirect($redirect_url);
+			exit;
+		}
+	}  
 
 if(get_option('mo_openid_logout_redirection_enable') == 1){
 	add_filter( 'logout_url', 'mo_openid_redirect_after_logout',0,1);
@@ -1029,5 +1044,6 @@ add_action( 'widgets_init', create_function( '', 'return register_widget( "mo_op
 add_action( 'init', 'mo_openid_login_validate' );
 //add_action( 'init', 'mo_openid_start_session' );
 //add_action( 'wp_logout', 'mo_openid_end_session' );
+add_action( 'wp_login', 'mo_openid_login_redirect', 9, 2);
 }
 ?>

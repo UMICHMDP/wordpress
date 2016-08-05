@@ -3,8 +3,8 @@ Contributors: thimpress, kendy73, tunnhn
 Donate link:  
 Tags: lms, elearning, e-learning, learning management system, education, course, courses, quiz, quizzes, questions, training, guru, sell courses  
 Requires at least: 3.8  
-Tested up to: 4.2.2  
-Stable tag: trunk  
+Tested up to: 4.5.2
+Stable tag: 4.5.2
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -33,11 +33,14 @@ Check out [LearnPress](http://docs.thimpress.com/learnpress) sites
 
 == Changelog ==
 
+= 1.0.1 =
++ Fixed notice error in admin section for instructor
+
 = 1.0 =
-Compatible with LearnPress version 1.0
++ Compatible with LearnPress version 1.0
 
 = 0.9.1 =  
-The first beta release.
++ The first beta release.
 
 == Upgrade Notice ==  
 Later :)

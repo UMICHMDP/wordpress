@@ -51,7 +51,7 @@ class TP_Event_Meta_Box_Event extends TP_Event_Meta_Box
 		$event_start = strtotime( $post->event_start );
 		$event_end = strtotime( $post->event_end );
 
-		$time = current_time( 'timestamp', 1 );
+		$time = current_time( 'timestamp' );
 
 		$status = 'draft';
 		if( $event_start && $event_end ) {
@@ -67,7 +67,9 @@ class TP_Event_Meta_Box_Event extends TP_Event_Meta_Box
 			wp_schedule_single_event( $event_end, 'tp_event_schedule_status', array( $post_id, 'tp-event-expired' ) );
 		}
 
-		wp_update_post( array( 'ID' => $post_id, 'post_status' => $status ) );
+		if ( ! in_array( get_post_status( $post_id ), array( 'tp-event-upcoming', 'tp-event-happenning', 'tp-event-expired' ) ) ) {
+			wp_update_post( array( 'ID' => $post_id, 'post_status' => $status ) );
+		}
 
 		add_action( 'save_post', array( $this, 'update' ), 10, 3 );
 	}
@@ -78,17 +80,30 @@ class TP_Event_Meta_Box_Event extends TP_Event_Meta_Box
 		$old_status = get_post_status( $post_id );
 
 		if ( $old_status !== $status && in_array( $status, array( 'tp-event-upcoming', 'tp-event-happenning', 'tp-event-expired' ) ) ) {
+			$post = tp_event_add_property_countdown( get_post( $post_id ) );
+
+			$current_time = current_time( 'timestamp' );
+			$event_start = strtotime( $post->event_start );
+			$event_end = strtotime( $post->event_end );
+			if ( $status === 'tp-event-expired' && $current_time < $event_end ) {
+				return;
+			}
+
+			if ( $status === 'tp-event-happenning' && $current_time < $event_start ) {
+				return;
+			}
+
 			wp_update_post( array( 'ID' => $post_id, 'post_status' => $status ) );
 		}
 	}
 
-	function metabox( $tab_id ) {
+	public function metabox( $tab_id ) {
 		if ( $tab_id === 'general' ) {
 			require_once $this->_layout;
 		}
 	}
 
-	function load_field(){
+	public function load_field(){
 		return array(
 				'general' => array(
 					'title'	=> __( 'General', 'tp-event' )

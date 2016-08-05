@@ -5,17 +5,19 @@ Plugin URI: thimpress.com
 Description: Theme Framework by ThimPress
 Author: ThimPress
 Author URI: thimpress.com
-Version: 1.9.3.1
+Version: 1.9.7
 Text Domain: thim-framework
 Domain Path: /languages
 */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 define( 'TP_THEME_THIM_DIR', trailingslashit( get_template_directory() ) );
 define( 'TP_THEME_THIM_URI', trailingslashit( get_template_directory_uri() ) );
+define( 'TP_CHILD_THEME_THIM_DIR', trailingslashit( get_stylesheet_directory() ) );
+define( 'TP_CHILD_THEME_THIM_URI', trailingslashit( get_stylesheet_directory_uri() ) );
 define( 'TP_THEME_FRAMEWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TP_THEME_FRAMEWORK_URI', plugin_dir_url( __FILE__ ) );
 define( 'TP_FRAMEWORK_LIBS_DIR', TP_THEME_FRAMEWORK_DIR . 'libs/' );
@@ -23,7 +25,7 @@ define( 'TP_FRAMEWORK_LIBS_URI', TP_THEME_FRAMEWORK_URI . 'libs/' );
 define( 'TP_FRAMEWORK_LESS_DIR', TP_THEME_FRAMEWORK_DIR . 'less/' );
 define( 'TP_FRAMEWORK_LESS_URI', TP_THEME_FRAMEWORK_URI . 'less/' );
 define( 'TP_FRAMEWORK_SCSS_DIR', TP_THEME_FRAMEWORK_DIR . 'scss/' );
-define( 'TP_FRAMEWORK_VERSION', '1.9.3' );
+define( 'TP_FRAMEWORK_VERSION', '1.9.7' );
 
 
 /**
@@ -57,8 +59,11 @@ add_action( 'plugins_loaded', 'tp_init' );
  */
 function thim_file_put_contents( $file, $data ) {
 
-	WP_Filesystem();
 	global $wp_filesystem;
+	if ( empty( $wp_filesystem ) ) {
+		require_once( ABSPATH . '/wp-admin/includes/file.php' );
+		WP_Filesystem();
+	}
 
 	return $wp_filesystem->put_contents( $file, $data, FS_CHMOD_FILE );
 }
@@ -72,8 +77,11 @@ function thim_file_put_contents( $file, $data ) {
  */
 function thim_file_get_contents( $file ) {
 
-	WP_Filesystem();
 	global $wp_filesystem;
+	if ( empty( $wp_filesystem ) ) {
+		require_once( ABSPATH . '/wp-admin/includes/file.php' );
+		WP_Filesystem();
+	}
 
 	return $wp_filesystem->get_contents( $file );
 }
@@ -112,7 +120,7 @@ require( TP_FRAMEWORK_LIBS_DIR . 'class-tp-widgets.php' );
 require( TP_FRAMEWORK_LIBS_DIR . 'post-format/post-formats.php' );
 
 $customize = get_theme_mods();
-if ( ! isset( $customize['thim_enable_import_demo'] ) || $customize['thim_enable_import_demo'] ) {
+if ( !isset( $customize['thim_enable_import_demo'] ) || $customize['thim_enable_import_demo'] ) {
 	// Require other processes
 	require_once( TP_FRAMEWORK_LIBS_DIR . 'import/inc/class-import-demo.php' );
 	require_once( TP_FRAMEWORK_LIBS_DIR . 'import/inc/import/functions.php' );

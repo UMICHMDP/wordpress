@@ -157,7 +157,7 @@ function dslc_load_admin_scripts( $hook ) {
 		$current_screen = 'post-editing';
 	}
 
-	if ( strpos( $hook, 'dslc_plugin_options' ) !== false || strpos( $hook, 'dslc_getting_started' ) !== false ) {
+	if ( strpos( $hook, 'dslc_plugin_options' ) !== false || get_admin_page_parent() == 'dslc_plugin_options' || strpos( $hook, 'dslc_getting_started' ) !== false ) {
 		$current_screen = 'dslc-options';
 	}
 

@@ -4,7 +4,7 @@
 	Plugin URI: http://thimpress.com/thim-event
 	Description: Thim event - countdown
 	Author: ThimPress
-	Version: 1.0.2.1
+	Version: 1.4.1.3
 	Author URI: http://thimpress.com
 */
 
@@ -18,7 +18,7 @@ define( 'TP_EVENT_INC', TP_EVENT_PATH . 'inc' );
 define( 'TP_EVENT_INC_URI', TP_EVENT_URI . '/inc' );
 define( 'TP_EVENT_ASSETS_URI', TP_EVENT_URI . '/assets' );
 define( 'TP_EVENT_LIB_URI', TP_EVENT_INC_URI . '/libraries' );
-define( 'TP_EVENT_VER', '1.0.2' );
+define( 'TP_EVENT_VER', '1.4.1.3' );
 
 /**
  * Event class
@@ -44,10 +44,12 @@ class TP_Event {
 		'site'  => array( 'css' => array(), 'js' => array() )
 	);
 
-	function __construct() {
+	public function __construct() {
 		$this->includes();
 
 		$GLOBALS[ 'tp_events_settings' ] = $this->options = TP_Event_Settings::instance();
+
+		add_action( 'admin_init', array( $this, 'add_cap' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueues' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueues' ) );
@@ -199,7 +201,7 @@ class TP_Event {
 	 * load text domain
 	 * @return null
 	 */
-	function text_domain() {
+	public function text_domain() {
 		// Get mo file
 		$text_domain = 'tp-event';
 		$locale      = apply_filters( 'plugin_locale', get_locale(), $text_domain );
@@ -212,6 +214,21 @@ class TP_Event {
 		} else {
 			load_textdomain( $text_domain, TP_EVENT_PATH . '/languages/' . $mo_file );
 		}
+	}
+
+	public function add_cap() {
+		// administrator
+		$admin = get_role( 'administrator' );
+		$event_cap = 'tp_events';
+		$admin->add_cap( 'delete_' . $event_cap );
+		$admin->add_cap( 'delete_published_' . $event_cap );
+		$admin->add_cap( 'edit_' . $event_cap );
+		$admin->add_cap( 'edit_published_' . $event_cap );
+		$admin->add_cap( 'publish_' . $event_cap );
+		$admin->add_cap( 'delete_private_' . $event_cap );
+		$admin->add_cap( 'edit_private_' . $event_cap );
+		$admin->add_cap( 'delete_others_' . $event_cap );
+		$admin->add_cap( 'edit_others_' . $event_cap );
 	}
 
 	static function instance() {

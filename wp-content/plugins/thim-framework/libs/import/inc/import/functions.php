@@ -3,9 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-define( 'TP_RECOMMEND_MEMORY_LIMIT', 128 );
+define( 'TP_RECOMMEND_MEMORY_LIMIT', apply_filters( 'TP_RECOMMEND_MEMORY_LIMIT', 128 ) );
 define( 'TP_RECOMMEND_EXECUTION_TIME', - 1 );
-define( 'TP_RECOMMEND_PHP_VERSION', '5.4.0' );
+define( 'TP_RECOMMEND_PHP_VERSION', apply_filters( 'TP_RECOMMEND_PHP_VERSION', '5.4.0' ) );
 
 /**
  * Import Demo page content
@@ -36,11 +36,16 @@ function tp_page_content() {
 	wp_enqueue_style( 'wp-pointer' );
 
 	$translation_string = array(
-		'welcome' => esc_html__( 'Welcome to Demo Importer!', 'tp' ),
-		'content' => esc_html__( 'In order to Import a demo, please follow the instruction from messages on the top of this screen and reload it then.', 'tp' ),
+		'welcome' => esc_html__( 'Welcome to Demo Importer!', 'thim-framework' ),
+		'content' => esc_html__( 'In order to Import a demo, please follow the instruction from messages on the top of this screen and reload it then.', 'thim-framework' ),
+	);
+
+	$notification_string = array(
+		'err' => esc_html__( 'Sorry to let you know that your server system can not work properly with Demo Importer due to some configs. Please request some support.', 'thim-framework' )
 	);
 
 	wp_localize_script( 'tp-import', 'tp_pointer', $translation_string );
+	wp_localize_script( 'tp-import', 'tp_notifications', $notification_string );
 
 	$memory_limit       = ini_get( 'memory_limit' );
 	$max_execution_time = ini_get( 'max_execution_time' );
@@ -63,7 +68,7 @@ function tp_page_content() {
 	}
 
 	$is_ok = true;
-	if ( intval( $memory_limit ) < TP_RECOMMEND_MEMORY_LIMIT || intval( $max_execution_time ) < TP_RECOMMEND_EXECUTION_TIME ) {
+	if ( intval( $memory_limit ) < TP_RECOMMEND_MEMORY_LIMIT || intval( $max_execution_time ) < TP_RECOMMEND_EXECUTION_TIME || version_compare( phpversion(), TP_RECOMMEND_PHP_VERSION ) < 0 ) {
 		$is_ok = false;
 	}
 
@@ -78,7 +83,7 @@ function tp_page_content() {
 			?>
 			<div class="update-nag tp_notification">
 				<p>
-					<?php _e( '<strong>Warning:</strong> If you have already used this feature before and you want to try it again, your content may be duplicated. Please consider resetting your database back to defaults with <a href="https://wordpress.org/plugins/wordpress-reset/">this plugin</a>.', 'tp' ); ?>
+					<?php _e( '<strong>Warning:</strong> If you have already used this feature before and you want to try it again, your content may be duplicated. Please consider resetting your database back to defaults with <a href="https://wordpress.org/plugins/wordpress-reset/">this plugin</a>.', 'thim-framework' ); ?>
 				</p>
 			</div>
 			<?php
@@ -88,11 +93,11 @@ function tp_page_content() {
 		 * PHP version
 		 */
 		if ( version_compare( phpversion(), TP_RECOMMEND_PHP_VERSION ) < 0 ) { ?>
-			<div class="update-nag tp_notification">
+			<div class="error tp_notification">
 				<p>
 					<?php
 					printf(
-						__( '<strong>Warning:</strong> We found out your system is using PHP version %1$s and it can cause the importer. Please consider upgrading to version 5.4 or higher.', 'tp' ),
+						__( '<strong>Important:</strong> We found out your system is using PHP version %1$s and it can cause the importer. Please consider upgrading to version %2$s or higher.', 'thim-framework' ),
 						phpversion(),
 						TP_RECOMMEND_PHP_VERSION
 					);
@@ -112,7 +117,7 @@ function tp_page_content() {
 						<p>
 							<?php
 							printf(
-								__( '<strong>Important:</strong> The Importer requires memory limit of your system >= %1$sMB. Please follow <a href="%2$s" target="_blank">these guidelines</a> to improve it.', 'tp' ),
+								__( '<strong>Important:</strong> The Importer requires memory limit of your system >= %1$sMB. Please follow <a href="%2$s" target="_blank">these guidelines</a> to improve it.', 'thim-framework' ),
 								TP_RECOMMEND_MEMORY_LIMIT,
 								'//thimpress.com/?p=52957'
 							);
@@ -129,7 +134,7 @@ function tp_page_content() {
 				<?php
 				$attr_button_import = '';
 				if ( ! $is_ok ) {
-					$attr_button_import = 'data-disabled="true" data-title="' . esc_html__( 'You need to upgrade your system follow to the above messages.', 'tp' ) . '"';
+					$attr_button_import = 'data-disabled="true" data-title="' . esc_html__( 'You need to upgrade your system follow to the above messages.', 'thim-framework' ) . '"';
 				}
 				?>
 				<?php
@@ -148,12 +153,12 @@ function tp_page_content() {
 
 						<h2 class="theme-name" id="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $item['title'] ); ?></h2>
 						<div class="theme-actions">
-							<button class="button button-primary tp-btn-import" data-pointer="<?php echo esc_attr( 'wp-pointer-' . $index ); ?>" data-site="<?php echo esc_attr( $key ); ?>" <?php echo $attr_button_import; ?>><?php esc_html_e( 'Import', 'tp' ); ?></button>
+							<button class="button button-primary tp-btn-import" data-pointer="<?php echo esc_attr( 'wp-pointer-' . $index ); ?>" data-site="<?php echo esc_attr( $key ); ?>" <?php echo $attr_button_import; ?>><?php esc_html_e( 'Import', 'thim-framework' ); ?></button>
 
 							<?php if ( $demo_url != '' ) { ?>
-								<a class="button button-secondary" href="<?php echo esc_url( $demo_url ); ?>" target="_blank"><?php esc_html_e( 'Demo', 'tp' ); ?></a>
+								<a class="button button-secondary" href="<?php echo esc_url( $demo_url ); ?>" target="_blank"><?php esc_html_e( 'Demo', 'thim-framework' ); ?></a>
 							<?php } else { ?>
-								<a class="button button-secondary" href="#" disabled="disabled"><?php esc_html_e( 'Demo', 'tp' ); ?></a>
+								<a class="button button-secondary" href="#" disabled="disabled"><?php esc_html_e( 'Demo', 'thim-framework' ); ?></a>
 							<?php } ?>
 						</div>
 
@@ -170,14 +175,14 @@ function tp_page_content() {
 		<div class="container">
 			<div class="wrapper-content">
 				<button type="button" class="notice-dismiss tp-close-import-popup">
-					<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'tp' ); ?></span>
+					<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'thim-framework' ); ?></span>
 				</button>
 
 				<h1><?php esc_html_e( 'Importing', 'tp' ); ?></h1>
 
 				<div class="row">
 					<div class="tp_progress_import">
-						<p class="note"><?php esc_html_e( 'The import process can take about 10 minutes. Enjoy a cup of coffee while you wait for importing :)', 'tp' ); ?></p>
+						<p class="note"><?php esc_html_e( 'The import process can take about 10 minutes. Enjoy a cup of coffee while you wait for importing :)', 'thim-framework' ); ?></p>
 						<div class="meter">
 							<span style="width:0"></span>
 							<p></p>
@@ -186,22 +191,22 @@ function tp_page_content() {
 
 					<div class="tp_progress_error_message">
 						<div class="tp-error">
-							<h4><?php esc_html_e( 'Failed to import!', 'tp' ); ?></h4>
+							<h4><?php esc_html_e( 'Import failed!', 'thim-framework' ); ?></h4>
 							<div class="content text_note tp_notification"></div>
 						</div>
 						<div class="log update-nag tp_notification">
-							<h4><?php esc_html_e( 'Log', 'tp' ); ?></h4>
+							<h4><?php esc_html_e( 'Log', 'thim-framework' ); ?></h4>
 							<div class="content text_note"></div>
 						</div>
-						<a class="button button-primary tp-support" href="//thimpress.com/forums/" target="_blank"><?php esc_html_e( 'Get support', 'tp' ); ?></a>
-						<a class="button button-secondary tp-visit-dashboard" href="<?php echo esc_url( get_admin_url() ); ?>"><?php esc_html_e( 'Dashboard', 'tp' ); ?></a>
+						<a class="button button-primary tp-support" href="//thimpress.com/forums/" target="_blank"><?php esc_html_e( 'Get support', 'thim-framework' ); ?></a>
+						<a class="button button-secondary tp-visit-dashboard" href="<?php echo esc_url( get_admin_url() ); ?>"><?php esc_html_e( 'Dashboard', 'thim-framework' ); ?></a>
 					</div>
 
 					<div class="tp-complete">
 						<h3 class=""><?php esc_html_e( 'Importing is successful!', 'tp' ); ?></h3>
 						<div class="content-message"></div>
-						<a class="button button-primary tp-visit-site" href="<?php echo esc_url( home_url( '/' ) ); ?>" target="_blank"><?php esc_html_e( 'Visit site', 'tp' ); ?></a>
-						<a class="button button-secondary tp-visit-dashboard" href="<?php echo esc_url( get_admin_url() ); ?>"><?php esc_html_e( 'Dashboard', 'tp' ); ?></a>
+						<a class="button button-primary tp-visit-site" href="<?php echo esc_url( home_url( '/' ) ); ?>" target="_blank"><?php esc_html_e( 'Visit site', 'thim-framework' ); ?></a>
+						<a class="button button-secondary tp-visit-dashboard" href="<?php echo esc_url( get_admin_url() ); ?>"><?php esc_html_e( 'Dashboard', 'thim-framework' ); ?></a>
 					</div>
 					<br class="clear">
 				</div>
@@ -271,7 +276,7 @@ function tp_admin_notice_goto_import_demo() {
 		<p><strong>
 				<?php
 				printf(
-					__( '<span><em><a href="%s">Demo Importer</a></em> is ready to use. <em style="color: red; cursor: pointer" class="tp_import_ignore">Ignore</em> notice if you have already used this feature before.</span>', 'tp' ),
+					__( '<span><em><a href="%s">Demo Importer</a></em> is ready to use. <em style="color: red; cursor: pointer" class="tp_import_ignore">Ignore</em> notice if you have already used this feature before.</span>', 'thim-framework' ),
 					esc_url( admin_url( 'tools.php?page=thim-import-demo' ) )
 				);
 				?>

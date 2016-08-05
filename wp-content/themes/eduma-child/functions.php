@@ -215,3 +215,41 @@ function thim_learnpress_breadcrumb() {
 		echo '</ul>';
 	}
 }
+
+
+//hook into the init action and call create_book_taxonomies when it fires
+add_action( 'init', 'create_events_hierarchical_taxonomy', 0 );
+
+//create a custom taxonomy name it topics for your posts
+
+function create_events_hierarchical_taxonomy() {
+
+// Add new taxonomy, make it hierarchical like categories
+//first do the translations part for GUI
+
+  $labels = array(
+    'name' => _x( 'Events', 'taxonomy general name' ),
+    'singular_name' => _x( 'Event', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Events' ),
+    'all_items' => __( 'All Events' ),
+    'parent_item' => __( 'Parent Event' ),
+    'parent_item_colon' => __( 'Parent Event:' ),
+    'edit_item' => __( 'Edit Event' ), 
+    'update_item' => __( 'Update Event' ),
+    'add_new_item' => __( 'Add New Event' ),
+    'new_item_name' => __( 'New Event Name' ),
+    'menu_name' => __( 'Events' )
+  ); 	
+
+// Now register the taxonomy
+
+  register_taxonomy('events',array('tp_event'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'event' )
+  ));
+
+}

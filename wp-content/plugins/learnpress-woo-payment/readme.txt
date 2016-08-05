@@ -33,6 +33,9 @@ Check out <a href="http://docs.thimpress.com/learnpress" target="_blank">LearnPr
 
 == Changelog ==
 
+= 1.0.1 =
++ Fixed error if WooCommerce is not installed
+
 = 1.0 =
 - Compatible with LearnPress 1.0.
 

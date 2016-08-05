@@ -280,15 +280,15 @@ if (typeof window.LearnPress == 'undefined') {
 				var $buttons = $('<div class="message-box-buttons"></div>');
 				switch (buttons) {
 					case 'yesNo':
-						$buttons.append(this._createButton('Yes', 'yes'));
-						$buttons.append(this._createButton('No', 'no'));
+						$buttons.append(this._createButton(LearnPress_Settings.localize.button_yes, 'yes'));
+						$buttons.append(this._createButton(LearnPress_Settings.localize.button_no, 'no'));
 						break;
 					case 'okCancel':
-						$buttons.append(this._createButton('Ok', 'ok'));
-						$buttons.append(this._createButton('Cancel', 'cancel'));
+						$buttons.append(this._createButton(LearnPress_Settings.localize.button_ok, 'ok'));
+						$buttons.append(this._createButton(LearnPress_Settings.localize.button_cancel, 'cancel'));
 						break;
 					default:
-						$buttons.append(this._createButton('Ok', 'ok'));
+						$buttons.append(this._createButton(LearnPress_Settings.localize.button_ok, 'ok'));
 				}
 				$wrap.append($buttons);
 			}
@@ -491,14 +491,15 @@ if (typeof window.LearnPress == 'undefined') {
 			args = $.extend({
 				delay   : 300,
 				duration: 'slow',
-				offset  : 50
+				offset  : 50,
+				callback: null
 			}, args || {});
 			$('body, html')
 				.fadeIn(10)
 				.delay(args.delay)
 				.animate({
 					scrollTop: $(element).offset().top - args.offset
-				}, args.duration);
+				}, args.duration, args.callback);
 		},
 		uniqueId      : function (prefix, more_entropy) {
 			if (typeof prefix === 'undefined') {
@@ -669,10 +670,10 @@ if (typeof window.LearnPress == 'undefined') {
 	}
 
 	$(document).ready(function () {
-		//__initSubtabs();
+		if (typeof $.alerts != 'undefined') {
+			$.alerts.overlayColor = '#000';
+			$.alerts.overlayOpacity = 0.5;
+		}
 	});
-
-	$.alerts.overlayColor = '#000';
-	$.alerts.overlayOpacity = 0.5;
 
 })(jQuery);

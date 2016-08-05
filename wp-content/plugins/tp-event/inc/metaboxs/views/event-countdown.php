@@ -54,7 +54,6 @@
     			date_start = $('#tp_event_datetime_start .date'),
     			time_end = $('#tp_event_datetime_end .time'),
     			date_end = $('#tp_event_datetime_end .date');
-    			// min_date =
 
 		    time_start.timepicker({
 		        showDuration: true,
