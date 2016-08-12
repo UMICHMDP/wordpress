@@ -86,7 +86,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 				</li>
 			</ul>
 			<form>
-			<INPUT style="width: 210px; height: 50px; text-align: center; border: 0px; font-weight: bold; background: #ffcb05; color: #00274c; cursor: pointer; font-size: 100%;" Type="BUTTON" Value="APPLY" Onclick="window.location.href='https://umich.qualtrics.com/SE/?SID=SV_1TViVgTbkMmTyQJ'">
+			<INPUT style="width: 210px; height: 50px; text-align: center; border: 0px; font-weight: bold; background: #ffcb05; color: #00274c; cursor: pointer; font-size: 100%;" Type="BUTTON" Value="APPLY" Onclick="window.location.href='https://umich.qualtrics.com/SE/?SID=SV_2ft3dA8XuKeslbT'">
 			</form>
 			
 			
