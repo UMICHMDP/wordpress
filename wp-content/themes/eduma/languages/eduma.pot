@@ -617,7 +617,7 @@ msgid "Login successful, redirecting..."
 msgstr ""
 
 #: inc/learnpress-functions.php:124 inc/learnpress-v1-functions.php:776
-msgid "No course found"
+msgid "No project found"
 msgstr ""
 
 #: inc/learnpress-functions.php:144 inc/learnpress-v1-functions.php:919
@@ -5401,7 +5401,7 @@ msgid "No records."
 msgstr ""
 
 #: learnpress-v1/addons/collections/archive-collection-course.php:63
-msgid "No course found!"
+msgid "No project found!"
 msgstr ""
 
 #: learnpress-v1/addons/paid-membership-pro/courses.php:32

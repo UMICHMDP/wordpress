@@ -60,7 +60,7 @@ if ( $total == 0 ) {
 		LP_Addon_Collections::$in_loop = false;
 		learn_press_course_paging_nav();
 	} else {
-		learn_press_display_message( esc_html__( 'No course found!', 'eduma' ), 'notice' ) . $id;
+		learn_press_display_message( esc_html__( 'No project found!', 'eduma' ), 'notice' ) . $id;
 	}
 	?>
 	</div>
