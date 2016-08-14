@@ -121,7 +121,7 @@ function thim_courses_searching_callback() {
 		} else {
 			$newdata[] = array(
 				'id'    => '',
-				'title' => '<i>' . esc_html__( 'No course found', 'eduma' ) . '</i>',
+				'title' => '<i>' . esc_html__( 'No project found', 'eduma' ) . '</i>',
 				'guid'  => '#',
 			);
 			echo json_encode( $newdata );
