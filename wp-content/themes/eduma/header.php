@@ -16,6 +16,7 @@ $theme_options_data = get_theme_mods();
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-site-verification" content="IgnAw_8W9fStWJ9iJWBs5SbgJfGd6GBbs2AaU-tLpfs" />
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php esc_url( bloginfo( 'pingback_url' ) ); ?>">
 	<?php
