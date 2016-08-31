@@ -55,7 +55,9 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 			<div class="tab-pane active" id="tab-course-description">
 				<?php do_action( 'learn_press_begin_course_content_course_description' ); ?>
 				<div class="thim-course-content">
-					<?php the_content(); ?>
+					<?php the_content();?>
+					<br>
+					<a href="http://mdp.engin.umich.edu/2017-application-checklist-to-get-started/">How to Apply</a>
 				</div>
 				<?php thim_course_info(); ?>
 				<?php do_action( 'learn_press_end_course_content_course_description' ); ?>
