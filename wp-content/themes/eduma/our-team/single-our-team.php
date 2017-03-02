@@ -18,7 +18,7 @@
 				$linkedin_url = get_post_meta( $team_id, 'linkedin_url', true );
 				$phone        = get_post_meta( $team_id, 'our_team_phone', true );
 				$email        = get_post_meta( $team_id, 'our_team_email', true );
-				echo '<div class="regency">' . esc_attr( $regency ) . '</div>';
+				echo '<div class="regency">' . $regency . '</div>';
 				?>
 				<div class="entry-content">
 					<?php the_content(); ?>
