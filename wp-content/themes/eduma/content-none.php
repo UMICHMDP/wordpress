@@ -10,7 +10,7 @@
 
 <section class="no-results not-found">
     <header class="page-header">
-        <h1 class="page-title"><?php esc_attr_e('Nothing Found', 'eduma'); ?></h1>
+        <h1 class="page-title"><?php esc_attr_e('Projects not available', 'eduma'); ?></h1>
     </header><!-- .page-header -->
 
     <div class="page-content">
@@ -25,7 +25,7 @@
 
         <?php else : ?>
 
-            <p><?php esc_attr_e('It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'eduma'); ?></p>
+            <p><?php esc_attr_e('2018 projects coming soon!', 'eduma'); ?></p>
             <?php get_search_form(); ?>
 
         <?php endif; ?>
