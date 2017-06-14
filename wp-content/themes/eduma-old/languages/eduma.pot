@@ -75,7 +75,7 @@ msgid "Comment"
 msgstr ""
 
 #: content-none.php:13
-msgid "Nothing Found"
+msgid "Projects Not Available"
 msgstr ""
 
 #: content-none.php:19
@@ -86,8 +86,7 @@ msgstr ""
 
 #: content-none.php:23
 msgid ""
-"Sorry, but nothing matched your search terms. Please try again with some "
-"different keywords."
+"2018 projects coming soon!"
 msgstr ""
 
 #: content-none.php:28
