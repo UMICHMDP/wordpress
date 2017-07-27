@@ -84,7 +84,7 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 					<a href="#tab-course-description"><?php esc_html_e( 'Description', 'eduma' ); ?></a>
 				</li>
 				<li>
-					<a href="#tab-course-curriculum"><?php esc_html_e( 'Student Skills', 'eduma' ); ?></a>
+					<a href="#tab-course-curriculum"><?php esc_html_e( 'Project Areas', 'eduma' ); ?></a>
 				</li>
 				<li>
 					<a href="#tab-course-instructor"><?php esc_html_e( 'Faculty & Sponsor', 'eduma' ); ?></a>
