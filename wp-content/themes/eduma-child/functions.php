@@ -79,6 +79,8 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 						if ($price == 1){
 							echo 'Interview Guaranteed';
 						}
+						if($price == 2){
+							echo 'See Complete Description for Details';
 						else {
 							echo 'Summer Funding Application';
 						}
