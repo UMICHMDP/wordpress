@@ -81,6 +81,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 						}
 						if($price == 2){
 							echo 'See Complete Description for Details';
+						
 						}
 						else {
 							echo 'Summer Funding Application';
