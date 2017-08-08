@@ -38,15 +38,7 @@ $review_is_enable = thim_plugin_active( 'learnpress-course-review/learnpress-cou
 					<span><?php esc_html_e( 'Faculty & Sponsor', 'eduma' ); ?></span>
 				</a>
 			</li>
-			<?php/* if ( $review_is_enable ) : ?>
-				<li role="presentation">
-					<a href="#tab-course-review" data-toggle="tab">
-						<i class="fa fa-comments"></i>
-						<span><?php esc_html_e( 'Reviews', 'eduma' ); ?></span>
-						<span><?php echo '(' . learn_press_get_course_rate_total( get_the_ID() ) . ')'; ?></span>
-					</a>
-				</li>
-			<?php endif; */?>
+			<?php?>
 		</ul>
 
 		<div class="tab-content">
