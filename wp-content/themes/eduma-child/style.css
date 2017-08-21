@@ -21,6 +21,6 @@
 .course-item .course-thumbnail .course-wishlist-box {
 	display: none;
 }
-.entry-header .entry-meta li .author{
-	display:none;
+article .entry-header .entry-meta li{
+	display: none;
 }
