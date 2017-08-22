@@ -27,6 +27,6 @@ article .entry-header .entry-meta li{
 div .thim-about-author{
 	display: none;
 }
-article .entry-header .entry-contain{
+.entry-header .entry-contain{
 	float: none;
 }
