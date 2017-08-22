@@ -27,7 +27,7 @@ article .entry-header .entry-meta li{
 div .thim-about-author{
 	display: none;
 }
-.entry-content .entry-header .entry-contain{
-	width: -webkit-calc(100% - 140px);
-	float: none;
+#main .content-inner .entry-content .entry-header .entry-contain{
+width:-webkit-calc(100% - 140px);
+float:none;
 }
