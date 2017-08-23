@@ -21,13 +21,3 @@
 .course-item .course-thumbnail .course-wishlist-box {
 	display: none;
 }
-article .entry-header .entry-meta li{
-	display: none;
-}
-div .thim-about-author{
-	display: none;
-}
-#main .content-inner .entry-content .entry-header .entry-contain{
-width:-webkit-calc(100% - 140px);
-float:none;
-}
