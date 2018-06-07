@@ -20,7 +20,7 @@ if ( ! function_exists( 'thim_course_info' ) ) {
 		$categories = get_the_terms( $post, 'course_category' );
 		?>
 		<div class="thim-course-info" >
-			<h3 class="title"><?php esc_html_e( 'Project Features', 'eduma' ); ?></h3>
+			<h3 class="title"><?php esc_html_e( 'Team Features', 'eduma' ); ?></h3>
 			<ul>
 	
 				<li>
