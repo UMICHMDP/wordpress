@@ -1,10 +1,10 @@
-===  LearnPress Wishlist - WordPress extension for LearnPress ===  
-Contributors: thimpress, kendy73, tunnhn, halink0803
+=== LearnPress - Course Wishlist ===  
+Contributors: thimpress, tunnhn, kendy73
 Donate link:  
 Tags: lms, elearning, e-learning, learning management system, education, course, courses, quiz, quizzes, questions, training, guru, sell courses  
 Requires at least: 3.8  
-Tested up to: 4.2.2  
-Stable tag: 1.0  
+Tested up to: 4.9.4
+Stable tag: 3.0.1
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -32,7 +32,7 @@ Want to see it in action? See our [Educational WordPress Theme](http://themefore
 - <a href="http://thimpress.com/shop/co-instructors-add-on-for-learnpress/" target="_blank">Co-instructors add-on for LearnPress</a> - multiple instructors support for each LMS course.  
 - <a href="http://thimpress.com/shop/collections-add-on-for-learnpress/"  target="_blank">Collections add-on for LearnPress</a> - making LMS courses collection by selecting number of courses, this is helpful if you want to combine multiple LMS courses into a collection for a group of skills.  
 - <a href="http://thimpress.com/shop/stripe-add-on-for-learnpress/"  target="_blank">Stripe Payment method for LearnPress</a> - Stripe payment method for LearnPress WordPress LMS Plugin.  
-- <a href="http://thimpress.com/shop/woocommerce-add-on-for-learnpress/"  target="_blank">WooCommerce add-on for LearnPress</a> - using WooCommerce as payment gateway for LearnPrss WordPress LMS Plugin.  
+- <a href="http://thimpress.com/shop/woocommerce-add-on-for-learnpress/"  target="_blank">WooCommerce add-on for LearnPress</a> - using WooCommerce as payment gateway for LearnPrss WordPress LMS Plugin.
 
 == Installation ==  
 
@@ -53,7 +53,21 @@ Check out <a href="http://docs.thimpress.com/learnpress" target="_blank">LearnPr
 
 1. LearnPress Prerequisite screenshot.  
 
-== Changelog ==  
+== Changelog ==
+
+= 3.0.1 =
++ Fix bug not display Wishlist tab in profile page.
++ Fix bug not display correct thumbnails in Wishlist list.
+
+= 3.0.0 =
++ Compatible with Learnpress 3.0.0
+
+= 2.0.1 =
++ Changed text domain to learnpress
+
+= 2.0 =
++ Updated to be compatible with LearnPress 2.0
++ Added language files for Russian
 
 = 1.0 =
 + Compatible with LearnPress version 1.0

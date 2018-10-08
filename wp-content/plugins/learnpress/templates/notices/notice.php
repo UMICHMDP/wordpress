@@ -10,7 +10,6 @@
 if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 if ( !$messages ) {
 	return;
 }
@@ -18,7 +17,7 @@ if ( !$messages ) {
 ?>
 
 <?php foreach ( $messages as $message ) : ?>
-	<div class="learn-press-notice">
-		<?php echo wp_kses_post( $message ); ?>
+	<div class="learn-press-message notice">
+		<?php echo /*wp_kses_post*/( $message ); ?>
 	</div>
 <?php endforeach; ?>

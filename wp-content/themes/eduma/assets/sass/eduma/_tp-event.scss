@@ -43,6 +43,9 @@
                 background: rgba(0, 0, 0, 0.5);
             }
         }
+        img {
+            width: 100%;
+        }
     }
     .tp_single_event & {
         &:before {

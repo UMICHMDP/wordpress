@@ -41,6 +41,8 @@ switch ( $columns ) {
 		$class_col = "col-sm-4";
 }
 
+$class_col .= ' item_post';
+
 $posts_display = new WP_Query( $query_args );
 
 if ( $posts_display->have_posts() ) :
@@ -59,7 +61,7 @@ if ( $posts_display->have_posts() ) :
 				$categories[$value->term_id] = $value->name;
 			}
 		}
-		$html .= '<div class="' . $class_col . $class . '">';
+		$html .= '<div class="item_gallery ' . $class_col . $class . '">';
 		$html .= apply_filters( 'thim_before_gallery_popup', '', get_the_ID() );
 		$html .= '<a class="thim-gallery-popup" href="#" data-id="' . get_the_ID() . '">' . $img . '</a>';
 		$html .= apply_filters( 'thim_after_gallery_popup', '', get_the_ID() );

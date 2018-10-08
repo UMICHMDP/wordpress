@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit();
 ?>
 
 <?php do_action( 'learn-press/before-course-buttons' ); ?>
-
+<div class="thim-curriculum-buttons">
 <?php
 /**
  * @see learn_press_course_purchase_button - 10
@@ -25,5 +25,5 @@ defined( 'ABSPATH' ) || exit();
  */
 do_action( 'learn-press/course-buttons' );
 ?>
-
+</div>
 <?php do_action( 'learn-press/after-course-buttons' ); ?>

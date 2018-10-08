@@ -32,7 +32,7 @@
     <div class="col-md-3 entry-content-portfolio">
         <div class="entry-content-right">
             <section class="portfolio-description">
-                <h3><?php echo esc_html__( 'Project description', 'eduma' ); ?></h3>
+                <h3><?php the_title();?></h3>
 				<?php the_content(); ?>
             </section>
 			<?php

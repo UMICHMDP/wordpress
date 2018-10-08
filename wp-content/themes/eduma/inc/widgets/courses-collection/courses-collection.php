@@ -27,6 +27,15 @@ class Thim_Courses_Collection_Widget extends Thim_Widget {
 					'default'               => esc_html__( 'Collection Courses', 'eduma' ),
 					'allow_html_formatting' => true
 				),
+                'layout'           => array(
+                    'type'          => 'select',
+                    'label'         => esc_html__( 'Layout', 'eduma' ),
+                    'default'       => 'base',
+                    'options'       => array(
+                        '' => esc_html__( 'Default', 'eduma' ),
+                        'slider' => esc_html__( 'Slider', 'eduma' ),
+                    )
+                ),
 				'limit'         => array(
 					'type'    => 'number',
 					'label'   => esc_html__( 'Limit collections', 'eduma' ),
@@ -61,11 +70,23 @@ class Thim_Courses_Collection_Widget extends Thim_Widget {
 	}
 
 	function get_template_name( $instance ) {
-		if ( thim_is_new_learnpress( '2.0' ) ) {
-			return 'base-v2';
-		}else{
-			return 'base';
-		}
+        if ( isset( $instance['layout'] ) && $instance['layout'] != '' ) {
+            if ( thim_is_new_learnpress( '3.0' ) ) {
+                return $instance['layout'] . '-v3';
+            } elseif ( thim_is_new_learnpress( '2.0' ) ) {
+                return $instance['layout'] . '-v2';
+            }else{
+                return $instance['layout'];
+            }
+        } else {
+            if ( thim_is_new_learnpress( '3.0' ) ) {
+                return 'base-v3';
+            } elseif ( thim_is_new_learnpress( '2.0' ) ) {
+                return 'base-v2';
+            }else{
+                return 'base';
+            }
+        }
 	}
 
 	function get_style_name( $instance ) {

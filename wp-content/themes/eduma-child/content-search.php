@@ -62,7 +62,7 @@ $classes[] = 'col-sm-12';
 				?>
 				<header class="entry-header">
 					<?php
-					if ( isset( $theme_options_data['thim_show_date'] ) && $theme_options_data['thim_show_date'] == 1 ) {
+					if ( !isset( $theme_options_data['thim_show_date'] ) || $theme_options_data['thim_show_date'] == 1 ) {
 						?>
 						<div class="date-meta"><?php echo get_the_date( "d\<\i\>\ F\<\/\i\>\ " ) ?></div>
 						<?php
@@ -86,7 +86,7 @@ $classes[] = 'col-sm-12';
 				?>
 				<header class="entry-header">
 					<?php
-					if ( isset( $theme_options_data['thim_show_date'] ) && $theme_options_data['thim_show_date'] == 1 ) {
+					if ( !isset( $theme_options_data['thim_show_date'] ) || $theme_options_data['thim_show_date'] == 1 ) {
 						?>
 						<div class="date-meta"><?php echo get_the_date( "d\<\i\>\ F\<\/\i\>\ " ) ?></div>
 						<?php

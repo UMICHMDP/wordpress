@@ -21,6 +21,9 @@ footer#colophon .copyright-area .text-copyright a,
 .thim-social li a{
 	color: $thim_thim_footer_color_link;
 }
+footer#colophon.thim-footer-new-eduma .copyright-area .text-copyright a {
+	color: $thim_thim_body_primary_color;
+}
 footer#colophon .footer .thim-footer-location .social a:hover,
 footer#colophon .footer a:hover,
 .thim-social li a:hover{

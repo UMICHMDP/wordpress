@@ -12,7 +12,7 @@
  * @see           http://docs.woothemes.com/document/template-structure/
  * @author        WooThemes
  * @package       WooCommerce/Templates
- * @version       2.0.0
+ * @version       3.3.0
  */
 ?>
 <ul class="product-grid row">

@@ -47,15 +47,15 @@ $user = $profile->get_user();
             ?>
 
             <li class="lp-form-field">
-                <label for="lp-form-field-label"><?php _e( 'Biographical Info', 'learnpress' ); ?></label>
+                <label for="lp-form-field-label"><?php _e( 'Biographical Info', 'eduma' ); ?></label>
                 <div class="lp-form-field-input">
                 <textarea name="description" id="description" rows="5"
                           cols="30"><?php esc_html_e( $user->get_data( 'description' ) ); ?></textarea>
-                    <p class="description"><?php _e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'learnpress' ); ?></p>
+                    <p class="description"><?php _e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'eduma' ); ?></p>
                 </div>
             </li>
             <li class="form-field">
-                <label for="lp-form-field-label"><?php _e( 'First Name', 'learnpress' ); ?></label>
+                <label for="lp-form-field-label"><?php _e( 'First Name', 'eduma' ); ?></label>
                 <div class="lp-form-field-input">
                     <input type="text" name="first_name" id="first_name"
                            value="<?php echo esc_attr( $user->get_data( 'first_name' ) ); ?>"
@@ -63,7 +63,7 @@ $user = $profile->get_user();
                 </div>
             </li>
             <li class="form-field">
-                <label for="lp-form-field-label"><?php _e( 'Last Name', 'learnpress' ); ?></label>
+                <label for="lp-form-field-label"><?php _e( 'Last Name', 'eduma' ); ?></label>
                 <div class="lp-form-field-input">
                     <input type="text" name="last_name" id="last_name"
                            value="<?php echo esc_attr( $user->get_data( 'last_name' ) ); ?>"
@@ -71,7 +71,7 @@ $user = $profile->get_user();
                 </div>
             </li>
             <li class="form-field">
-                <label for="lp-form-field-label"><?php _e( 'Nickname', 'learnpress' ); ?></label>
+                <label for="lp-form-field-label"><?php _e( 'Nickname', 'eduma' ); ?></label>
                 <div class="lp-form-field-input">
                     <input type="text" name="nickname" id="nickname"
                            value="<?php echo esc_attr( $user->get_data( 'nickname' ) ) ?>"
@@ -79,7 +79,7 @@ $user = $profile->get_user();
                 </div>
             </li>
             <li class="form-field">
-                <label for="lp-form-field-label"><?php _e( 'Display name publicly as', 'learnpress' ); ?></label>
+                <label for="lp-form-field-label"><?php _e( 'Display name publicly as', 'eduma' ); ?></label>
                 <div class="lp-form-field-input">
                     <?php learn_press_profile_list_display_names(); ?>
                 </div>
@@ -109,7 +109,7 @@ $user = $profile->get_user();
                    value="<?php echo wp_create_nonce( 'learn-press-save-profile-basic-information' ); ?>"/>
         </p>
 
-        <button type="submit" name="submit"><?php _e( 'Save changes', 'learnpress' ); ?></button>
+        <button type="submit" name="submit"><?php _e( 'Save changes', 'eduma' ); ?></button>
     </div>
 
 </form>

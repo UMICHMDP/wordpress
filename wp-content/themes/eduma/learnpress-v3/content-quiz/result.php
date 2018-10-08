@@ -25,23 +25,23 @@ if ( $quiz_data->is_review_questions() ) {
 
 <div class="quiz-results <?php echo esc_attr( $result['grade'] ); ?>">
 
-    <h3 class="result-title"><?php _e( 'Your Result', 'learnpress' ); ?></h3>
+    <h3 class="result-title"><?php _e( 'Your Result', 'eduma' ); ?></h3>
 
     <div class="result-summary">
         <div class="result-field correct">
-            <span><?php echo _x( 'Correct', 'quiz-result', 'learnpress' ); ?></span>
+            <span><?php echo _x( 'Correct', 'quiz-result', 'eduma' ); ?></span>
             <span class="value"><?php echo $result['question_correct']; ?></span>
         </div>
         <div class="result-field wrong">
-            <span><?php echo _x( 'Wrong', 'quiz-result', 'learnpress' ); ?></span>
+            <span><?php echo _x( 'Wrong', 'quiz-result', 'eduma' ); ?></span>
             <span class="value"><?php echo $result['question_wrong']; ?></span>
         </div>
         <div class="result-field empty">
-            <span><?php echo _x( 'Skipped', 'quiz-result', 'learnpress' ); ?></span>
+            <span><?php echo _x( 'Skipped', 'quiz-result', 'eduma' ); ?></span>
             <span class="value"><?php echo $result['question_empty']; ?></span>
         </div>
         <div class="result-field points">
-            <span><?php echo _x( 'Questions', 'quiz-result', 'learnpress' ); ?></span>
+            <span><?php echo _x( 'Questions', 'quiz-result', 'eduma' ); ?></span>
             <span class="value"><?php echo $quiz->count_questions(); ?></span>
         </div>
         <div class="result-field time">

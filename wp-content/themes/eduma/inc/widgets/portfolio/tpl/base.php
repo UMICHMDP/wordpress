@@ -148,7 +148,7 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 }
 ?>
 <div class="wapper_portfolio <?php echo esc_attr( $item_style ); ?> <?php echo esc_attr( $class_gutter ); ?> <?php echo esc_attr( $item_size ); ?> <?php echo esc_attr( $paging ); ?>">
-	<?php if ( $filter_hiden !== true ) { ?>
+	<?php if ( $filter_hiden != true ) { ?>
 		<div class="portfolio-tabs-wapper filters"<?php echo ent2ncr( $css_filter_position ); ?> >
 			<ul class="portfolio-tabs">
 				<?php if ( empty( $category ) ) { ?>
@@ -250,7 +250,7 @@ if ( is_array( $gallery->posts ) && !empty( $gallery->posts ) && $gallery->post_
 				$item_cats    = get_the_terms( $post->ID, 'portfolio_category' );
 				if ( $item_cats ):
 					foreach ( $item_cats as $item_cat ) {
-						$item_classes .= $item_cat->slug . ' ';
+						$item_classes .= ent2ncr($item_cat->slug) . ' ';
 						$terms_id[] = $item_cat->term_id;
 					}
 				endif;

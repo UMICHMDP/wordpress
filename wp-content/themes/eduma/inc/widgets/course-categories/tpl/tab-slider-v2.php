@@ -40,8 +40,13 @@ if ( $cat_course ) {
 
 		$html .= '<div class="item ' . $active . '">';
 		$html .= '<div class="icon">';
-		if($icon)
-		    $html .= '<img alt="" src="'.$icon['url'].'">';
+        if($icon) {
+            if(is_array($icon)) {
+                $html .= '<img alt="" src="'.$icon['url'].'">';
+            } else {
+                $html .= '<i class="'.$icon.'"></i>';
+            }
+        }
 		$html .= '</div>';
 		$html .= '<h3 class="title"><a href="#' . $value->slug . '">' . $value->name . '</a></h3>';
 		$html .= '</div>';

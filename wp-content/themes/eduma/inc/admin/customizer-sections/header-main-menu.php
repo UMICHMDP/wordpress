@@ -45,6 +45,28 @@ thim_customizer()->add_field(
 	)
 );
 
+// Background Header
+thim_customizer()->add_field(
+    array(
+        'id'        => 'thim_bg_main_menu_color',
+        'type'      => 'color',
+        'label'     => esc_html__( 'Background Color', 'eduma' ),
+        'tooltip'   => esc_html__( 'Allows you can choose background color for your header. ', 'eduma' ),
+        'section'   => 'header_main_menu',
+        'default'   => 'rgba(255,255,255,0)',
+        'priority'  => 20,
+        'choices' => array ('alpha'     => true),
+        'transport' => 'postMessage',
+        'js_vars'   => array(
+            array(
+                'function' => 'css',
+                'element'  => '.site-header, .site-header.header_v2 .width-navigation',
+                'property' => 'background-color',
+            )
+        )
+    )
+);
+
 // Text color
 thim_customizer()->add_field(
 	array(

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-23 15:48+0700\n"
+"POT-Creation-Date: 2018-03-26 09:43+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,66 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: incs/class-lp-addon-wishlist.php:25
-msgid "wishlist"
+#: learnpress-wishlist.php:52
+#, php-format
+msgid ""
+"<strong>%s</strong> addon version %s requires %s version %s or higher is "
+"<strong>installed</strong> and <strong>activated</strong>."
 msgstr ""
 
-#: incs/class-lp-addon-wishlist.php:69
-msgid "You have not permission to do this action"
+#: learnpress-wishlist.php:53
+msgid "LearnPress Wishlist"
 msgstr ""
 
-#: incs/class-lp-addon-wishlist.php:115
-msgid "Remove this course from your wishlist"
+#: learnpress-wishlist.php:55
+msgid "LearnPress"
 msgstr ""
 
-#: incs/class-lp-addon-wishlist.php:115
-msgid "Add this course to your wishlist"
-msgstr ""
-
-#: incs/class-lp-addon-wishlist.php:124
-msgid "This course added to your wishlist"
-msgstr ""
-
-#: incs/class-lp-addon-wishlist.php:124
-msgid "This course removed from your wishlist"
-msgstr ""
-
-#: incs/class-lp-addon-wishlist.php:176 incs/lp-wishlist-functions.php:47
-#: incs/lp-wishlist-functions.php:93 incs/lp-wishlist-functions.php:107
+#: inc/functions.php:114 inc/functions.php:174 inc/functions.php:189
+#: inc/load.php:197
 msgid "Wishlist"
 msgstr ""
 
-#: incs/lp-wishlist-functions.php:129
+#: inc/functions.php:212
 msgid "Your wishlist"
 msgstr ""
 
-#: template/user-wishlist.php:22
+#: inc/load.php:40
+msgid "wishlist"
+msgstr ""
+
+#: inc/load.php:98
+msgid "You have not permission to do this action"
+msgstr ""
+
+#: inc/load.php:134 templates/button.php:22
+msgid "Add to Wishlist"
+msgstr ""
+
+#: inc/load.php:134 templates/button.php:22
+msgid "Remove from Wishlist"
+msgstr ""
+
+#: inc/load.php:145
+msgid "Remove this course from your wishlist"
+msgstr ""
+
+#: inc/load.php:145
+msgid "Add this course to your wishlist"
+msgstr ""
+
+#: inc/load.php:154
+msgid "This course added to your wishlist"
+msgstr ""
+
+#: inc/load.php:154
+msgid "This course removed from your wishlist"
+msgstr ""
+
+#: templates/button.php:21
+msgid "Processing..."
+msgstr ""
+
+#: templates/user-wishlist.php:27
 msgid "No courses in your wishlist!"
 msgstr ""

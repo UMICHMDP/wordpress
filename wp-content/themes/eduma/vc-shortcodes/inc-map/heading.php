@@ -11,15 +11,31 @@ vc_map( array(
 		array(
 			'type'        => 'textarea',
 			'admin_label' => true,
-			'heading'     => esc_html__( 'Heading', 'eduma' ),
+			'heading'     => esc_html__( 'Title', 'eduma' ),
 			'param_name'  => 'title',
 			'value'       => esc_html__( '', 'eduma' ),
 			'description' => esc_html__( 'Write the title for the heading.', 'eduma' )
 		),
+        array(
+            'type'        => 'textarea',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Main Title', 'eduma' ),
+            'param_name'  => 'main_title',
+            'value'       => esc_html__( '', 'eduma' ),
+            'description' => esc_html__( 'Write the Main title for the heading.', 'eduma' )
+        ),
+        array(
+            'type'        => 'checkbox',
+            'admin_label' => false,
+            'heading'     => esc_html__( 'Title Uppercase?', 'eduma' ),
+            'param_name'  => 'title_uppercase',
+            'std'         => true,
+            'description' => esc_html__( 'Title Uppercase?', 'eduma' ),
+        ),
 		//Title color
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Heading color ', 'eduma' ),
 			'param_name'  => 'textcolor',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -29,7 +45,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Heading tag', 'eduma' ),
 			'param_name'  => 'size',
 			'value'       => array(
@@ -47,7 +63,7 @@ vc_map( array(
 		//Use custom or default title?
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Use custom or default title?', 'eduma' ),
 			'param_name'  => 'title_custom',
 			'value'       => array(
@@ -60,7 +76,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'number',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Font size ', 'eduma' ),
 			'param_name'  => 'font_size',
 			'min'         => 0,
@@ -76,7 +92,7 @@ vc_map( array(
 		),
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Font Weight ', 'eduma' ),
 			'param_name'  => 'font_weight',
 			'value'       => array(
@@ -103,7 +119,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Font style ', 'eduma' ),
 			'param_name'  => 'font_style',
 			'value'       => array(
@@ -133,7 +149,7 @@ vc_map( array(
 		//Description color
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Sub heading color ', 'eduma' ),
 			'param_name'  => 'sub_heading_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -142,7 +158,7 @@ vc_map( array(
 
         array(
             'type'        => 'checkbox',
-            'admin_label' => true,
+            'admin_label' => false,
             'heading'     => esc_html__( 'Clone Title?', 'eduma' ),
             'param_name'  => 'clone_title',
             //'value'       => array( esc_html__( '', 'eduma' ) => 'yes' ),
@@ -152,7 +168,7 @@ vc_map( array(
 		//Show separator?
 		array(
 			'type'        => 'checkbox',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Show Separator?', 'eduma' ),
 			'param_name'  => 'line',
 			//'value'       => array( esc_html__( '', 'eduma' ) => 'yes' ),
@@ -171,7 +187,7 @@ vc_map( array(
 		//Alignment
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Text alignment', 'eduma' ),
 			'param_name'  => 'text_align',
 			'value'       => array(
@@ -186,7 +202,7 @@ vc_map( array(
 			'type'        => 'dropdown',
 			'heading'     => esc_html__( 'Animation', 'eduma' ),
 			'param_name'  => 'css_animation',
-			'admin_label' => true,
+			'admin_label' => false,
 			'value'       => array(
 				__( 'No', 'eduma' )                 => '',
 				__( 'Top to bottom', 'eduma' )      => 'top-to-bottom',
@@ -197,5 +213,15 @@ vc_map( array(
 			),
 			'description' => esc_html__( 'Select type of animation if you want this element to be animated when it enters into the browsers viewport. Note: Works only in modern browsers.', 'eduma' )
 		),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 	)
 ) );

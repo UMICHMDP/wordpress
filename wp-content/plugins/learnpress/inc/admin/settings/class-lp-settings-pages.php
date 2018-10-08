@@ -30,16 +30,32 @@ class LP_Settings_Pages extends LP_Settings_Base {
 	}
 
 	public function get_settings() {
+
+		$display_name = array(
+			'nice'      => esc_html__( 'Nicename', 'learnpress' ),
+			'first'     => esc_html__( 'First name', 'learnpress' ),
+			'last'      => esc_html__( 'Last name', 'learnpress' ),
+			'nick'      => esc_html__( 'Nickname', 'learnpress' ),
+			'firstlast' => esc_html__( 'First name + Last name', 'learnpress' ),
+			'lastfirst' => esc_html__( 'Last name + First name', 'learnpress' ),
+
+		);
+
 		return apply_filters(
 			'learn_press_page_settings',
 			array(
 				array( 'section' => 'profile' ),
+				array(
+					'title' => __( 'General', 'learnpress' ),
+					'type'  => 'title'
+				),
 				array(
 					'title'   => __( 'Profile', 'learnpress' ),
 					'id'      => $this->get_field_name( 'profile_page_id' ),
 					'default' => '',
 					'type'    => 'pages-dropdown'
 				),
+
 				array(
 					'title'   => __( 'Add link to admin bar', 'learnpress' ),
 					'id'      => $this->get_field_name( 'admin_bar_link' ),
@@ -82,11 +98,11 @@ class LP_Settings_Pages extends LP_Settings_Base {
 					)
 				),*/
 				array(
-					'title' => __( 'Endpoints', 'learnpress' ),
+					'title' => __( 'Page slug', 'learnpress' ),
 					'type'  => 'title'
 				),
 				array(
-					'title'       => __( 'Tab Courses', 'learnpress' ),
+					'title'       => __( 'Courses', 'learnpress' ),
 					'id'          => $this->get_field_name( 'profile_endpoints[profile-courses]' ),
 					'default'     => 'courses',
 					'type'        => 'text',
@@ -94,7 +110,7 @@ class LP_Settings_Pages extends LP_Settings_Base {
 					'desc'        => __( 'This is a slug and should be unique.', 'learnpress' ) . sprintf( ' %s <code>[profile/admin/courses]</code>', __( 'Example link is', 'learnpress' ) )
 				),
 				array(
-					'title'       => __( 'Tab Quizzes', 'learnpress' ),
+					'title'       => __( 'Quizzes', 'learnpress' ),
 					'id'          => $this->get_field_name( 'profile_endpoints[profile-quizzes]' ),
 					'default'     => 'quizzes',
 					'type'        => 'text',
@@ -102,7 +118,7 @@ class LP_Settings_Pages extends LP_Settings_Base {
 					'desc'        => __( 'This is a slug and should be unique.', 'learnpress' ) . sprintf( ' %s <code>[profile/admin/quizzes]</code>', __( 'Example link is', 'learnpress' ) )
 				),
 				array(
-					'title'       => __( 'Tab Orders', 'learnpress' ),
+					'title'       => __( 'Orders', 'learnpress' ),
 					'id'          => $this->get_field_name( 'profile_endpoints[profile-orders]' ),
 					'default'     => 'orders',
 					'type'        => 'text',
@@ -117,18 +133,23 @@ class LP_Settings_Pages extends LP_Settings_Base {
 					'placeholder' => '',
 					'desc'        => __( 'This is a slug and should be unique.', 'learnpress' ) . sprintf( ' %s <code>[profile/admin/order-details/123]</code>', __( 'Example link is', 'learnpress' ) )
 				),
-				array( 'section' => 'quiz' ),
 				array(
-					'title'   => __( 'Restrict access', 'learnpress' ),
-					'id'      => $this->get_field_name( 'quiz_restrict_access' ),
-					'default' => '404',
-					'type'    => 'select',
-					'desc'    => __( 'Page display if user has not permission to view quiz.', 'learnpress' ),
-					'options' => array(
-						'404'    => __( '404 page', 'learnpress' ),
-						'custom' => __( 'Restrict page', 'learnpress' ),
-					)
+					'title' => __( 'User avatar', 'learnpress' ),
+					'type'  => 'title'
 				),
+				array(
+					'title'   => __( 'Ratio', 'learnpress' ),
+					'id'      => $this->get_field_name( 'profile_picture_thumbnail_size' ),
+					'default' => array( 150, 150, 'yes' ),
+					'type'    => 'image-size'
+				),
+				/*array(
+					'title'   => __( 'Crop', 'learnpress' ),
+					'id'      => $this->get_field_name( 'profile_picture_crop' ),
+					'default' => 'yes',
+					'type'    => 'checkbox'
+				),*/
+				array( 'section' => 'quiz' ),
 				array(
 					'title' => __( 'Endpoints', 'learnpress' ),
 					'type'  => 'title'
@@ -148,7 +169,7 @@ class LP_Settings_Pages extends LP_Settings_Base {
 					'default' => '',
 					'type'    => 'pages-dropdown'
 				)
-			)
+			), $this
 		);
 	}
 

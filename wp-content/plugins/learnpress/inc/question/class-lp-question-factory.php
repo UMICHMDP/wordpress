@@ -60,6 +60,7 @@ class LP_Question_Factory {
 		return self::$_instances[$the_id];
 	}
 
+
 	/**
 	 * @param  string
 	 *
@@ -160,6 +161,7 @@ class LP_Question_Factory {
 		add_action( 'learn_press_after_quiz_question_title', array( __CLASS__, 'show_answer' ), 100, 2 );
 		add_action( 'learn_press_after_question_wrap', array( __CLASS__, 'show_hint' ), 100, 2 );
 		add_action( 'learn_press_after_question_wrap', array( __CLASS__, 'show_explanation' ), 110, 2 );
+		add_action( 'delete_post', array( __CLASS__, 'delete_question' ), 10, 2 );
 
 		LP_Question_Factory::add_template( 'multi-choice-option', LP_Question_Multi_Choice::admin_js_template() );
 		LP_Question_Factory::add_template( 'single-choice-option', LP_Question_Single_Choice::admin_js_template() );
@@ -167,7 +169,21 @@ class LP_Question_Factory {
 		do_action( 'learn_press_question_factory_init', __CLASS__ );
 	}
 
+
+	public static function delete_question( $post_id, $force=false ) {
+		global $wpdb;
+		if( 'lp_question' === get_post_type($post_id) ) {
+			// remove question answears
+			$sql = 'DELETE FROM `'.$wpdb->prefix.'learnpress_question_answers` WHERE `question_id` = '.$post_id;
+			$wpdb->query($sql);
+			// remove question in quiz
+			$sql = 'DELETE FROM `'.$wpdb->prefix.'learnpress_quiz_questions` WHERE `question_id` = '.$post_id;
+			$wpdb->query($sql);
+		}
+	}
+
 	public static function show_answer( $id, $quiz_id ) {
+
 		$quiz   = LP_Quiz::get_quiz( $quiz_id );
 		$status = LP()->user->get_quiz_status( $quiz_id );
 
@@ -176,15 +192,15 @@ class LP_Question_Factory {
 		}
 		$question = LP_Question_Factory::get_question( $id );
 		$user     = LP()->user;
-		$question->render( array( 'answered' => $user->get_question_answers( $quiz_id, $id ), 'check' => true ) );
+		$question->render( array( 'quiz_id' => $quiz->id, 'course_id' => get_the_ID() , 'check' => true ) );
 	}
 
 	public static function show_hint( $id, $quiz_id ) {
-		learn_press_get_template( 'question/hint.php' );
+		learn_press_get_template( 'content-question/hint.php' );
 	}
 
 	public static function show_explanation( $id, $quiz_id ) {
-		learn_press_get_template( 'question/explanation.php' );
+		learn_press_get_template( 'content-question/explanation.php' );
 	}
 
 	public static function save_question( $quiz_id, $user_id ) {
@@ -298,8 +314,8 @@ class LP_Question_Factory {
 	}
 
 	public static function admin_assets() {
-		LP_Admin_Assets::enqueue_style( 'learnpress-question', learn_press_plugin_url( 'assets/css/admin/meta-box-question.css' ) );
-		LP_Admin_Assets::enqueue_script( 'learnpress-question', learn_press_plugin_url( 'assets/js/admin/meta-box-question.js' ), array( 'jquery', 'jquery-ui-sortable' ) );
+		//LP_Assets::enqueue_style( 'learn-press-meta-box-question' );
+		//LP_Assets::enqueue_script( 'learn-press-meta-box-question', false, array( 'learn-press-admin' ) );
 	}
 
 	/**
@@ -323,11 +339,10 @@ class LP_Question_Factory {
 	}
 
 	public static function save( $post_id ) {
-
 		global $post, $pagenow;
 
 		// Ensure that we are editing course in admin side
-		if ( ($pagenow != 'post.php') ) {
+		if ( ( $pagenow != 'post.php' ) ) {
 			return;
 		}
 

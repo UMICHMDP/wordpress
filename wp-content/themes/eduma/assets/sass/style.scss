@@ -4,13 +4,14 @@ Theme URI: http://educationwp.thimpress.com/
 Author: ThimPress
 Author URI: https://thimpress.com
 Description: Premium WordPress LMS theme.
-Version: 3.2.1
+Version: 3.5.3
 License: Split License
 License URI: https://help.market.envato.com/hc/en-us/articles/202501064-What-is-Split-Licensing-and-the-GPL-
 Tags: two-columns, three-columns, left-sidebar, right-sidebar, custom-background, custom-header, custom-menu, editor-style, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready, accessibility-ready
 Text Domain: eduma
 Domain Path: /languages/
 */
+
 
 //Extend plugin use in this theme
 //@import "eduma/extend-plg-miniorange-login";
@@ -27,7 +28,7 @@ Domain Path: /languages/
 // Import style Bootstrap
 @import "bootstrap/bootstrap";
 // Import style awesome
-@import "awesome/font-awesome";
+//@import "awesome/font-awesome";
 // Import Mixins
 @import "mixins/extend";
 @import "mixins/mixins-master";
@@ -50,18 +51,32 @@ Domain Path: /languages/
 
 //Widgets
 @import "widgets/widgets";
-@import "widgets/widget-google-map";
+@import "widgets/widget-accordion";
 @import "widgets/widget-collapse";
-@import "widgets/widget-iconbox";
-@import "widgets/widget-social";
+@import "widgets/widget-countdown-box";
+@import "widgets/widget-counter-box";
+@import "widgets/widget-course-categories";
+@import "widgets/widget-courses";
+@import "widgets/widget-events";
 @import "widgets/widget-button";
 @import "widgets/widget-gallery-images";
+@import "widgets/widget-google-map";
+@import "widgets/widget-heading";
+@import "widgets/widget-iconbox";
+@import "widgets/widget-list-instructors";
+@import "widgets/widget-list-posts";
 @import "widgets/courses-search";
 @import "widgets/widget-one-instructor";
 @import "widgets/courses-collection";
-@import "widgets/widget-video";
-@import "widgets/widget-list-posts";
 @import "widgets/widget-post-carousel";
+@import "widgets/widget-search";
+@import "widgets/widget-social";
+@import "widgets/widget-tabs";
+@import "widgets/widget-team";
+@import "widgets/widget-testimonials";
+@import "widgets/widget-timetable";
+@import "widgets/widget-twitter";
+@import "widgets/widget-video";
 
 // bbPress
 @import "eduma/bbpress-forum";

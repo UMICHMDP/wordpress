@@ -19,6 +19,8 @@ function thim_shortcode_courses( $atts ) {
 		'limit'               => '8',
 		'featured'            => false,
 		'layout'              => 'slider',
+		'thumbnail_width'     => 400,
+		'thumbnail_height'    => 300,
 		'order'               => '',
 		'cat_id'              => '',
 		'slider_pagination'   => '',
@@ -31,6 +33,7 @@ function thim_shortcode_courses( $atts ) {
 		'limit_tab'           => '4',
 		'cat_id_tab'          => '',
 		'css_animation'       => '',
+        'el_class'           => '',
 	), $atts );
 
 	$instance['slider-options']['show_pagination'] = $instance['slider_pagination'];
@@ -47,7 +50,9 @@ function thim_shortcode_courses( $atts ) {
 	$args['before_title'] = '<h3 class="widget-title">';
 	$args['after_title']  = '</h3>';
 
-	if ( thim_is_new_learnpress( '2.0' ) ) {
+    if ( thim_is_new_learnpress( '3.0' ) ) {
+        $layout = $instance['layout'] . '-v3.php';
+    } else if ( thim_is_new_learnpress( '2.0' ) ) {
 		$layout = $instance['layout'] . '-v2.php';
 	} else {
 		$layout = $instance['layout'] . '-v1.php';
@@ -59,9 +64,11 @@ function thim_shortcode_courses( $atts ) {
 		$widget_template = $child_widget_template;
 	}
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-courses">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html = ob_get_contents();
 	ob_end_clean();
 

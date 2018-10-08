@@ -148,4 +148,77 @@ jQuery(document).ready(function(){
 	  jQuery('.wp-editor-expand').removeClass('lc-active');
 	});
 
+	/**
+	 * Hide Template Base
+	 */
+
+	jQuery(document).on('click', '#dslca_single_post_templates input[type="checkbox"], #dslca_archive_index_templates input[type="checkbox"], #dslca_special_page_templates input[type="checkbox"]', function(e) {
+
+		var singleTemplate, archiveTemplate, specialPage;
+
+		singleTemplate = jQuery( '#dslca_single_post_templates input[type="checkbox"]:checked' ).length;
+		archiveTemplate = jQuery( '#dslca_archive_index_templates input[type="checkbox"]:checked' ).length;
+		specialPage = jQuery( '#dslca_special_page_templates input[type="checkbox"]:checked' ).length;
+
+		if ( singleTemplate && archiveTemplate == 0 && specialPage == 0 ) {
+	        jQuery("#post-option-dslc_template_base").show();
+	    } else {
+	        jQuery("#post-option-dslc_template_base").hide();
+	    }
+	});
+
+	if ( jQuery('#dslca_single_post_templates input[type="checkbox"]').is(':checked') ) {
+		jQuery('#post-option-dslc_template_base').show();
+	} else {
+		jQuery('#post-option-dslc_template_base').hide();
+	}
+
+	/**
+	 * Header - Show/Hide extra padding
+	 */
+
+	var headerFor = jQuery("select#dslc_hf_for").val();
+
+	if ( headerFor == 'footer' ) {
+		jQuery("#post-option-dslc_extra_padding").hide();
+		jQuery('#post-option-dslc_extra_padding input[type="checkbox"]').val('');
+	}
+
+	jQuery(document).on('change', 'select#dslc_hf_for', function(e) {
+
+		var option = jQuery(this).val();
+
+	    if ( option == 'footer' ) {
+			jQuery("#post-option-dslc_extra_padding").hide();
+			jQuery('#post-option-dslc_extra_padding input[type="checkbox"]').val('');
+		} else {
+			jQuery('#post-option-dslc_hf_position input[type="radio"]#dslc_hf_position0').prop('checked', true);
+			jQuery('#post-option-dslc_extra_padding input[type="checkbox"]').val('');
+			jQuery('#post-option-dslc_extra_padding input[type="checkbox"]').prop('checked', false);
+		}
+
+		headerFor = jQuery("select#dslc_hf_for").val();
+	});
+
+	jQuery(document).on('change', '#post-option-dslc_hf_position input[type="radio"]', function(e) {
+
+		if ( headerFor == 'header' ) {
+
+			var inputValue = jQuery(this).val();
+
+			if ( inputValue == 'relative' ) {
+				jQuery("#post-option-dslc_extra_padding").hide();
+				jQuery('#post-option-dslc_extra_padding input[type="checkbox"]').val('');
+				jQuery('#post-option-dslc_extra_padding input[type="checkbox"]').prop('checked', false);
+			} else {
+				jQuery("#post-option-dslc_extra_padding").show();
+			}
+
+		}
+	});
+
+	if ( jQuery('#post-option-dslc_hf_position input[type="radio"]#dslc_hf_position0').is(':checked') ) {
+		jQuery('#post-option-dslc_extra_padding').hide();
+	}
+
 }); // jQuery(document).ready

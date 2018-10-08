@@ -11,15 +11,10 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-global $course;
-if( !has_post_thumbnail() ){
-	return;
-}
+$course = LP()->global['course'];
 
 ?>
 
-<a class="course-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true">
-	<?php
-	the_post_thumbnail( 'course_thumbnail', array( 'alt' => get_the_title() ) );
-	?>
-</a>
+<div class="course-thumbnail">
+	<?php echo $course->get_image( 'course_thumbnail' ) ?>
+</div>

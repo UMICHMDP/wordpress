@@ -1,6 +1,7 @@
 <?php
 
 global $post, $wpdb;
+$random = rand(1, 99);
 $limit_tab  = $instance['tabs-options']['limit_tab'] ? $instance['tabs-options']['limit_tab'] : 4;
 $cat_id_tab = $instance['tabs-options']['cat_id_tab'] ? $instance['tabs-options']['cat_id_tab'] : array();
 $limit           = $instance['limit'];
@@ -114,13 +115,13 @@ if ( !empty( $cat_id_tab ) ) {
 	foreach ( $cat_id_tab as $k => $tab ) {
 		$term = get_term_by( 'id', $tab, 'course_category' );
 		if ( $k == 0 ) {
-			$list_tab .= '<li class="active"><a href="#tab-course-' . $tab . '" data-toggle="tab">' . $term->name . '</a></li>';
-			$content_tab .= '<div role="tabpanel" class="tab-pane fade in active" id="tab-course-' . $tab . '">';
+			$list_tab .= '<li class="active"><a href="#tab-course-' . $random . '-' . $tab . '" data-toggle="tab">' . $term->name . '</a></li>';
+			$content_tab .= '<div role="tabpanel" class="tab-pane fade in active" id="tab-course-' . $random . '-' . $tab . '">';
 			$content_tab .= $html[$tab];
 			$content_tab .= '</div>';
 		} else {
-			$list_tab .= '<li><a href="#tab-course-' . $tab . '" data-toggle="tab">' . $term->name . '</a></li>';
-			$content_tab .= '<div role="tabpanel" class="tab-pane fade" id="tab-course-' . $tab . '">';
+			$list_tab .= '<li><a href="#tab-course-' . $random . '-' . $tab . '" data-toggle="tab">' . $term->name . '</a></li>';
+			$content_tab .= '<div role="tabpanel" class="tab-pane fade" id="tab-course-' . $random . '-' . $tab . '">';
 			$content_tab .= $html[$tab];
 			$content_tab .= '</div>';
 		}

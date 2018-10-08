@@ -24,7 +24,25 @@ class LP_Admin_Notice {
 	 * LP_Admin_Notice construct
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'dismiss_notice' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'show_notices' ), 100000 );
+	}
+
+	public function dismiss_notice() {
+		$notice = learn_press_get_request( 'lp-hide-notice' );
+		if ( !$notice ) {
+			return;
+		}
+		if ( $transient = learn_press_get_request( 't' ) ) {
+			set_transient( 'lp-hide-notice-' . $notice, 'yes', $transient );
+		} else {
+			learn_press_update_user_option( 'hide-notice-' . $notice, 'yes' );
+		}
+
+		if ( $redirect = apply_filters( 'learn_press_hide_notice_redirect', remove_query_arg( 'lp-hide-notice' ) ) ) {
+			wp_redirect( untrailingslashit( $redirect ) );
+			exit();
+		}
 	}
 
 	/**
@@ -35,7 +53,7 @@ class LP_Admin_Notice {
 	 * @param string $id      Custom id for html element's ID
 	 * @param        bool
 	 */
-	public static function add( $message, $type = 'updated', $id = '', $redirect = false ) {
+	public static function add( $message, $type = 'success', $id = '', $redirect = false ) {
 		if ( $redirect ) {
 			$notices = get_transient( 'learn_press_redirect_notices' );
 			if ( empty( $notices ) ) {

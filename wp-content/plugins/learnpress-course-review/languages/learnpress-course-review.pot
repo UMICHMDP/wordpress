@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-18 16:57+0700\n"
+"POT-Creation-Date: 2017-12-14 15:51+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,78 +18,171 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: learnpress-course-review.php:80
+#: learnpress-course-review.php:52
+#, php-format
+msgid ""
+"<strong>%s</strong> addon version %s requires %s version %s or higher is "
+"<strong>installed</strong> and <strong>activated</strong>."
+msgstr ""
+
+#: learnpress-course-review.php:53
+msgid "LearnPress Course Review"
+msgstr ""
+
+#: learnpress-course-review.php:55
+msgid "LearnPress"
+msgstr ""
+
+#: inc/load.php:139
 msgid "Please enter the review title"
 msgstr ""
 
-#: learnpress-course-review.php:81
+#: inc/load.php:140
 msgid "Please enter the review content"
 msgstr ""
 
-#: learnpress-course-review.php:82
+#: inc/load.php:141
 msgid "Please select your rating"
 msgstr ""
 
-#: learnpress-course-review.php:109
+#: inc/load.php:167
 msgid "Error"
 msgstr ""
 
-#: learnpress-course-review.php:114
+#: inc/load.php:172
 msgid "Invalid course"
 msgstr ""
 
-#: templates/course-rate.php:13
+#: inc/load.php:204
+msgid "Course review"
+msgstr ""
+
+#: inc/load.php:228
+msgid "Filter by post type"
+msgstr ""
+
+#: inc/load.php:232
+msgid "All post type"
+msgstr ""
+
+#: inc/load.php:233
+msgid "Course comments"
+msgstr ""
+
+#: inc/load.php:291 templates/course-review.php:21
+#: templates/shortcode-course-review.php:21
+msgid "Reviews"
+msgstr ""
+
+#: inc/widgets.php:19
+msgid "Course Review"
+msgstr ""
+
+#: inc/widgets.php:20
+msgid "Display ratings and reviews of course"
+msgstr ""
+
+#: inc/widgets.php:111
+msgid "New title"
+msgstr ""
+
+#: inc/widgets.php:121
+msgid "Pick up 1 course"
+msgstr ""
+
+#: inc/widgets.php:127
+msgid "Title:"
+msgstr ""
+
+#: inc/widgets.php:133
+msgid "Course Id:"
+msgstr ""
+
+#: inc/widgets.php:140
+msgid "Show Rate:"
+msgstr ""
+
+#: inc/widgets.php:146
+msgid "Show Review:"
+msgstr ""
+
+#: inc/widgets.php:152
+msgid "Amount Display:"
+msgstr ""
+
+#: templates/course-rate.php:27
+#, php-format
+msgid " %1.2f average based on "
+msgstr ""
+
+#: templates/course-rate.php:28
+#, php-format
+msgid " %d rating"
+msgid_plural "%d ratings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/course-rate.php:37
+msgid " Star"
+msgstr ""
+
+#: templates/course-review.php:28
+msgid "Loading..."
+msgstr ""
+
+#: templates/course-review.php:35
+msgid "Load More"
+msgstr ""
+
+#: templates/rating-stars.php:17
+#, php-format
+msgid "%s out of 5 stars"
+msgstr ""
+
+#: templates/review-form.php:16 templates/review-form.php:23
+msgid "Write a review"
+msgstr ""
+
+#: templates/review-form.php:29
+msgid "Title"
+msgstr ""
+
+#: templates/review-form.php:33
+msgid "Content"
+msgstr ""
+
+#: templates/review-form.php:37
+msgid "Rating"
+msgstr ""
+
+#: templates/review-form.php:48
+msgid "Add review"
+msgstr ""
+
+#: templates/review-form.php:50
+msgid "Cancel"
+msgstr ""
+
+#: templates/shortcode-course-rate.php:23
 #, php-format
 msgid "%d rating"
 msgid_plural "%d ratings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/course-review.php:12
-msgid "Reviews"
+#: templates/shortcode-course-rate.php:36
+msgid "Star"
 msgstr ""
 
-#: templates/course-review.php:13
+#: templates/shortcode-course-rate.php:37
+msgid "Rate"
+msgstr ""
+
+#: templates/shortcode-course-review.php:22
 #, php-format
 msgid "Average rate: <span>%.1f</span>"
 msgstr ""
 
-#: templates/course-review.php:21
-msgid "Loading..."
-msgstr ""
-
-#: templates/course-review.php:24
+#: templates/shortcode-course-review.php:31
 msgid "No review to load"
-msgstr ""
-
-#: templates/course-review.php:27
-msgid "Load More"
-msgstr ""
-
-#: templates/review-form.php:12 templates/review-form.php:18
-msgid "Write a review"
-msgstr ""
-
-#: templates/review-form.php:24
-msgid "Title"
-msgstr ""
-
-#: templates/review-form.php:28
-msgid "Content"
-msgstr ""
-
-#: templates/review-form.php:32
-msgid "Rating"
-msgstr ""
-
-#: templates/review-form.php:42
-msgid "Add review"
-msgstr ""
-
-#: templates/review-form.php:43
-msgid "Cancel"
-msgstr ""
-
-#: templates/review-form.php:44
-msgid "Please wait..."
 msgstr ""

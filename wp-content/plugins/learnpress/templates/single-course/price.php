@@ -4,22 +4,24 @@
  *
  * @author  ThimPress
  * @package LearnPress/Templates
- * @version 1.0
+ * @version 2.1.4.2
  */
 
 if ( !defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
-global $course;
+$course = LP()->global['course'];
 
 if ( learn_press_is_enrolled_course() ) {
 	return;
 }
-
 ?>
-<?php if ( $price_html = $course->get_price_html() ) : ?>
+<?php if ( $price = $course->get_price_html() ) {
 
-	<span class="course-price"><?php echo $price_html; ?></span>
-
-<?php endif; ?>
+	$origin_price = $course->get_origin_price_html();
+	if ( $course->get_sale_price() !== ''/* $price != $origin_price */ ) {
+		echo '<span class="course-origin-price">' . $origin_price . '</span>';
+	}
+	echo '<span class="course-price">' . $price . '</span>';
+}
+?>

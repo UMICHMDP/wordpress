@@ -713,9 +713,9 @@ if ( !class_exists( 'Tax_Meta_Class' ) ) :
 			$this->show_field_begin( $field, $meta );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_media();
-			$std   = isset( $field['std'] ) ? $field['std'] : array( 'id' => '', 'url' => '' );
+            $std   = ( isset( $field['std'] ) && $field['std'] != '' ) ? $field['std'] : array( 'id' => '', 'url' => '' );
 			$name  = esc_attr( $field['id'] );
-			$value = isset( $meta['id'] ) ? $meta : $std;
+            $value = ( isset( $meta['id'] ) && $meta['id'] != '' ) ? $meta : $std;
 			//backwords capability
 			if ( !isset( $value['url'] ) )
 				$value['url'] = '';

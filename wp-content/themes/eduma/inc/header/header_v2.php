@@ -1,5 +1,5 @@
 <!-- <div class="main-menu"> -->
-<div class="container">
+<div class="<?php echo get_theme_mod( 'thim_header_size', 'default' ) == 'full_width' ? 'header_full' : 'container';?>">
 	<div class="row">
 		<div class="navigation col-sm-12">
 			<div class="tm-table">

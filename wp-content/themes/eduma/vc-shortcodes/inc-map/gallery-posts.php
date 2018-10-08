@@ -16,6 +16,17 @@ vc_map( array(
 			'value'      => thim_sc_get_categories(),
 		),
 
+        array(
+            'type'        => 'dropdown',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Layout', 'eduma' ),
+            'param_name'  => 'layout',
+            'value'       => array(
+                esc_html__( 'Default', 'eduma' ) => '',
+                esc_html__( 'Isotope', 'eduma' )      => 'isotope',
+            ),
+        ),
+
 		array(
 			'type'        => 'dropdown',
 			'admin_label' => true,
@@ -40,5 +51,22 @@ vc_map( array(
 			'std'         => true,
 		),
 
+        array(
+            'type'        => 'number',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Limit', 'eduma' ),
+            'param_name'  => 'limit',
+            'std'         => '8',
+        ),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 	)
 ) );

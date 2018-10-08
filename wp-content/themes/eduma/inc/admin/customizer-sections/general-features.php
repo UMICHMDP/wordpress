@@ -30,6 +30,22 @@ thim_customizer()->add_field(
 	)
 );
 
+// Feature: Auto Login
+thim_customizer()->add_field(
+    array(
+        'type'     => 'switch',
+        'id'       => 'thim_auto_login',
+        'label'    => esc_html__( 'Disable Auto Login', 'eduma' ),
+        'section'  => 'advanced',
+        'default'  => false,
+        'priority' => 15,
+        'choices'  => array(
+            true  => esc_html__( 'On', 'eduma' ),
+            false => esc_html__( 'Off', 'eduma' ),
+        ),
+    )
+);
+
 // Feature: Smoothscroll
 thim_customizer()->add_field(
 	array(

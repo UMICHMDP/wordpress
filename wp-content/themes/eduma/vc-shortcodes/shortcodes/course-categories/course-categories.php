@@ -24,6 +24,7 @@ function thim_shortcode_course_categories( $atts ) {
 		'slider_auto_play'       => '0',
 		'list_show_counts'       => false,
 		'list_hierarchical'      => false,
+        'el_class'           => '',
 	), $atts );
 
 
@@ -39,11 +40,13 @@ function thim_shortcode_course_categories( $atts ) {
 	$args['before_title'] = '<h3 class="widget-title">';
 	$args['after_title']  = '</h3>';
 
-	if ( thim_is_new_learnpress( '2.0' ) ) {
-		$layout = $instance['layout'] . '-v2.php';
-	} else {
-		$layout = $instance['layout'] . '-v1.php';
-	}
+    if ( thim_is_new_learnpress( '3.0' ) ) {
+        $layout = $instance['layout'] . '-v3.php';
+    } else if ( thim_is_new_learnpress( '2.0' ) ) {
+        $layout = $instance['layout'] . '-v2.php';
+    } else {
+        $layout = $instance['layout'] . '-v1.php';
+    }
 
 	$widget_template       = THIM_DIR . 'inc/widgets/course-categories/tpl/' . $layout;
 	$child_widget_template = THIM_CHILD_THEME_DIR . 'inc/widgets/course-categories/' . $layout;
@@ -52,9 +55,11 @@ function thim_shortcode_course_categories( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-course-categories">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

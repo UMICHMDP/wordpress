@@ -14,7 +14,7 @@
  */
 defined( 'ABSPATH' ) || exit();
 
-isset( $question ) or die( __( 'Invalid question!', 'learnpress' ) );
+isset( $question ) or die( __( 'Invalid question!', 'eduma' ) );
 
 if ( ! $answers = $question->get_answers() ) {
 	return;

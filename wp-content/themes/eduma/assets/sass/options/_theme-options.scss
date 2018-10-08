@@ -72,7 +72,8 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .loop-pagination li .page-numbers.next:before,
-.pagination li .page-numbers.next:before {
+.pagination li .page-numbers.next:before,
+.learn-press-pagination li .page-numbers.next:before {
 	font-size: $thim_thim_font_body_font_size;
 }
 
@@ -139,12 +140,14 @@ body,
 #colophon.thim-footer-university-4 .mc4wp-form:after,
 #colophon.thim-footer-university-4 .mc4wp-form.focus-input:after,
 #colophon.thim-footer-university-4 .email a,
+.mc4wp-form .mc4wp-form-fields .newsletter-grad input[type=submit]:hover,
 .thim-footer-info-4 .info .heading {
 	color: $thim_thim_body_secondary_color;
 }
 
 #colophon.thim-footer-university-4 .menu li a:hover,
 #colophon.thim-footer-university-4 .email a:hover,
+.thim-social.style-4 li a:hover,
 #colophon.thim-footer-university-4 .thim-social.style-3 li a:hover {
 	color: $thim_thim_body_secondary_color !important;
 }
@@ -152,4 +155,13 @@ body,
 .thim-simple-wrapper .pagination .item.active,
 .list-event-slider .item-event .event-wrapper .box-time:before{
 	border-color: $thim_thim_body_secondary_color;
+}
+
+.maintenance_mode {
+	.maintenance-wrap {
+		color: $thim_thim_maintenance_text_color;
+		h1 {
+			color: $thim_thim_maintenance_text_color;
+		}
+	}
 }

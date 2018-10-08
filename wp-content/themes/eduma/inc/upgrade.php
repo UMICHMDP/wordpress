@@ -355,6 +355,7 @@ function thim_filter_variables_compile_scss() {
 		'thim_bg_color_toolbar',
 		'thim_text_color_toolbar',
 		'thim_link_color_toolbar',
+        'thim_link_hover_color_toolbar',
 
 		//body
 		'thim_body_bg_color',
@@ -422,6 +423,9 @@ function thim_filter_variables_compile_scss() {
 		'thim_woo_single_bg_color',
 		'thim_woo_single_title_color',
 		'thim_woo_single_sub_title_color',
+
+        'thim_maintenance_text_color',
+        'thim_maintenance_bg_color',
 	);
 
 	$prefix = 'thim_';

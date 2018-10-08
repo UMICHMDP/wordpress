@@ -93,6 +93,29 @@ vc_map( array(
 			'group'       => esc_html__( 'Slider Settings', 'eduma' ),
 		),
 
+        array(
+            'type'        => 'dropdown',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Show Navigation', 'eduma' ),
+            'param_name'  => 'show_navigation',
+            'value'       => array(
+                esc_html__( 'Select', 'eduma' ) => '',
+                esc_html__( 'Yes', 'eduma' )    => 'yes',
+                esc_html__( 'No', 'eduma' )     => 'no',
+            ),
+            'group'       => esc_html__( 'Slider Settings', 'eduma' ),
+        ),
+
+        array(
+            'type'        => 'number',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Auto Play Speed (in ms)', 'eduma' ),
+            'param_name'  => 'auto_play',
+            'std'         => '0',
+            'group'       => esc_html__( 'Slider Settings', 'eduma' ),
+            'description' => esc_html__( 'Set 0 to disable auto play.', 'eduma' )
+        ),
+
 		array(
 			'type'        => 'dropdown',
 			'admin_label' => true,
@@ -120,6 +143,16 @@ vc_map( array(
 			),
 			'description' => esc_html__( 'Select type of animation if you want this element to be animated when it enters into the browsers viewport. Note: Works only in modern browsers.', 'eduma' )
 		),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 
 	)
 ) );

@@ -40,15 +40,15 @@ if ( $testimonial->have_posts() ) {
 			$html .= '<h3 class="title">' . get_the_title() . '</h3>';
 		}
 		$html .= '<div class="regency">' . esc_html( $regency ) . '</div>';
-		$html .= '<div class="description">' . get_the_content() . '</div>';
+		$html .= '<div class="description">' . apply_filters('the_content',get_the_content()) . '</div>';
 		$html .= '</div></div>';
 
 	endwhile;
 	$html .= '</div>';
-}
 
-wp_reset_postdata();
-echo ent2ncr( $html );
+	wp_reset_postdata();
+	echo ent2ncr( $html );
+}
 ?>
 
 

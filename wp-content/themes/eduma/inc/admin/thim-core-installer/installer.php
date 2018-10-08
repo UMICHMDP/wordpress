@@ -384,7 +384,9 @@ if ( ! class_exists( 'Thim_Core_Installer' ) ) {
 				return;
 			}
 
-			ob_end_clean();
+            if ( ob_get_length() > 0 ) {
+                ob_end_clean();
+            }
 			delete_transient( 'thim_core_installer' );
 			wp_safe_redirect( $this->get_link_page() );
 			exit();
@@ -585,7 +587,9 @@ if ( ! class_exists( 'Thim_Core_Installer' ) ) {
 				return;
 			}
 
-			ob_end_clean();
+            if ( ob_get_length() > 0 ) {
+                ob_end_clean();
+            }
 
 			do_action( 'thim_core_install_enqueue_script' );
 

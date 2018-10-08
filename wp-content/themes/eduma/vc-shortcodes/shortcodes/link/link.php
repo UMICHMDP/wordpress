@@ -18,6 +18,7 @@ function thim_shortcode_link( $atts ) {
 		'text'        => '',
 		'link'        => '',
 		'description' => '',
+        'el_class' => '',
 	), $atts );
 
 	$instance['content'] = $instance['description'];
@@ -32,9 +33,11 @@ function thim_shortcode_link( $atts ) {
 		$widget_template = $child_widget_template;
 	}
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-link">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html = ob_get_contents();
 	ob_end_clean();
 

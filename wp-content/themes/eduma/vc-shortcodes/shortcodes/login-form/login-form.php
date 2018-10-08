@@ -16,6 +16,7 @@ function thim_shortcode_login_form( $atts ) {
 
 	$instance = shortcode_atts( array(
 		'captcha' => true,
+        'el_class' => '',
 	), $atts );
 
 
@@ -23,7 +24,7 @@ function thim_shortcode_login_form( $atts ) {
 	$args['before_title'] = '<h3 class="widget-title">';
 	$args['after_title']  = '</h3>';
 
-	$instance['captcha'] = $instance['captcha'] ? 'yes' : 'no';
+    $instance['captcha'] = ( isset($instance['captcha']) && $instance['captcha'] == true ) ? 'yes' : 'no';
 
 	$widget_template       = THIM_DIR . 'inc/widgets/login-form/tpl/base.php';
 	$child_widget_template = THIM_CHILD_THEME_DIR . 'inc/widgets/login-form/base.php';
@@ -32,9 +33,11 @@ function thim_shortcode_login_form( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-login-form">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

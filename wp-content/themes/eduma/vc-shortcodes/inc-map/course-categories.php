@@ -36,7 +36,7 @@ vc_map( array(
 			'std'         => '15',
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'slider',
+                'value'   => array('slider', 'tab-slider'),
 			),
 			'group'       => esc_html__( 'Slider Settings', 'eduma' ),
 		),
@@ -49,7 +49,7 @@ vc_map( array(
 			'std'         => false,
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'slider',
+				'value'   => array('slider', 'tab-slider'),
 			),
 			'group'       => esc_html__( 'Slider Settings', 'eduma' ),
 		),
@@ -63,7 +63,7 @@ vc_map( array(
 			'std'         => true,
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'slider',
+                'value'   => array('slider', 'tab-slider'),
 			),
 			'group'       => esc_html__( 'Slider Settings', 'eduma' ),
 		),
@@ -86,7 +86,7 @@ vc_map( array(
 			),
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'slider',
+                'value'   => array('slider', 'tab-slider'),
 			),
 			'group'       => esc_html__( 'Slider Settings', 'eduma' ),
 		),
@@ -100,7 +100,7 @@ vc_map( array(
 			'description' => esc_html__( 'Set 0 to disable auto play.', 'eduma' ),
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'slider',
+                'value'   => array('slider', 'tab-slider'),
 			),
 			'group'       => esc_html__( 'Slider Settings', 'eduma' ),
 		),
@@ -130,5 +130,15 @@ vc_map( array(
 				'value'   => 'list',
 			),
 		),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 	)
 ) );

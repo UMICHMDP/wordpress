@@ -72,8 +72,12 @@ if ( ! function_exists( 'thim_breadcrumbs' ) ) {
 				echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_post_type_archive_link( 'tp_event' ) ) . '" title="' . esc_attr__( 'Events', 'eduma' ) . '"><span itemprop="name">' . esc_html__( 'Events', 'eduma' ) . '</span></a></li>';
 			}
 
+			if ( get_post_type() == 'our_team' ) {
+				echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_post_type_archive_link( 'our_team' ) ) . '" title="' . esc_attr__( 'Our Team', 'eduma' ) . '"><span itemprop="name">' . esc_html__( 'Our Team', 'eduma' ) . '</span></a></li>';
+			}
+
 			if ( get_post_type() == 'post' ) {
-				if ($blog_id = get_option( 'page_for_posts' )) {
+				if ( $blog_id = get_option( 'page_for_posts' ) ) {
 					echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_permalink( $blog_id ) ) . '" title="' . esc_attr__( 'Blog', 'eduma' ) . '"><span itemprop="name">' . esc_html__( 'Blog', 'eduma' ) . '</span></a></li>';
 
 				}
@@ -87,8 +91,9 @@ if ( ! function_exists( 'thim_breadcrumbs' ) ) {
 
 		} else if ( is_category() ) {
 
+			$current_category = get_queried_object();
 			// Category page
-			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">' . esc_html( $categories[0]->cat_name ) . '</span></li>';
+			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">' . esc_html( $current_category->name ) . '</span></li>';
 
 		} else if ( is_page() ) {
 
@@ -170,10 +175,11 @@ if ( ! function_exists( 'thim_breadcrumbs' ) ) {
 			echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name" title="' . esc_attr__( '404 Page', 'eduma' ) . '">' . esc_html__( '404 Page', 'eduma' ) . '</span></li>';
 		} elseif ( is_archive() ) {
 			if ( get_post_type() == "tp_event" ) {
-				if(get_query_var('taxonomy'))
+				if ( get_query_var( 'taxonomy' ) ) {
 					echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">' . esc_html( get_queried_object()->name ) . '</span></li>';
-				else
+				} else {
 					echo '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name" title="' . esc_attr__( 'Events', 'eduma' ) . '">' . esc_html__( 'Events', 'eduma' ) . '</span></li>';
+				}
 
 			}
 			if ( get_post_type() == "testimonials" ) {
@@ -383,11 +389,11 @@ if ( ! function_exists( 'thim_social_share' ) ) {
 	function thim_social_share() {
 		$theme_options_data = get_theme_mods();
 //var_dump($theme_options_data['group_sharing']);
-		$facebook  = isset( $theme_options_data['group_sharing'] ) && in_array('facebook', $theme_options_data['group_sharing']) ? true : false;
-		$twitter   = isset( $theme_options_data['group_sharing'] ) && in_array('twitter', $theme_options_data['group_sharing']) ? true : false;
-		$pinterest = isset( $theme_options_data['group_sharing'] ) && in_array('pinterest', $theme_options_data['group_sharing']) ? true : false;
-		$google    = isset( $theme_options_data['group_sharing'] ) && in_array('google', $theme_options_data['group_sharing']) ? true : false;
-		$linkedin    = isset( $theme_options_data['group_sharing'] ) && in_array('linkedin', $theme_options_data['group_sharing']) ? true : false;
+		$facebook  = isset( $theme_options_data['group_sharing'] ) && in_array( 'facebook', $theme_options_data['group_sharing'] ) ? true : false;
+		$twitter   = isset( $theme_options_data['group_sharing'] ) && in_array( 'twitter', $theme_options_data['group_sharing'] ) ? true : false;
+		$pinterest = isset( $theme_options_data['group_sharing'] ) && in_array( 'pinterest', $theme_options_data['group_sharing'] ) ? true : false;
+		$google    = isset( $theme_options_data['group_sharing'] ) && in_array( 'google', $theme_options_data['group_sharing'] ) ? true : false;
+		$linkedin  = isset( $theme_options_data['group_sharing'] ) && in_array( 'linkedin', $theme_options_data['group_sharing'] ) ? true : false;
 
 		if ( $facebook || $twitter || $pinterest || $google || $linkedin ) {
 			echo '<ul class="thim-social-share">';
@@ -471,6 +477,9 @@ if ( ! function_exists( 'thim_login_failed' ) ) {
 		if ( ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'thim_login_ajax' ) || ( isset( $_REQUEST['lp-ajax'] ) && $_REQUEST['lp-ajax'] == 'login' ) || ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return;
 		}
+		if ( is_user_logged_in() ) {
+			return;
+		}
 		wp_redirect( add_query_arg( 'result', 'failed', thim_get_login_page_url() ) );
 		exit;
 	}
@@ -491,6 +500,9 @@ if ( ! function_exists( 'thim_get_register_url' ) ) {
 
 		return $url;
 	}
+}
+if ( ! is_multisite() ) {
+	add_filter( 'register_url', 'thim_get_register_url' );
 }
 
 /**
@@ -530,8 +542,10 @@ if ( ! function_exists( 'thim_register_failed' ) ) {
  */
 if ( ! function_exists( 'thim_check_extra_register_fields' ) ) {
 	function thim_check_extra_register_fields( $login, $email, $errors ) {
-		if ( $_POST['password'] !== $_POST['repeat_password'] ) {
-			$errors->add( 'passwords_not_matched', "<strong>ERROR</strong>: Passwords must match" );
+		if ( empty( $theme_options_data['thim_auto_login'] ) || ( isset( $theme_options_data['thim_auto_login'] ) && $theme_options_data['thim_auto_login'] == '0' ) ) {
+			if ( $_POST['password'] !== $_POST['repeat_password'] ) {
+				$errors->add( 'passwords_not_matched', "<strong>ERROR</strong>: Passwords must match" );
+			}
 		}
 	}
 }
@@ -544,58 +558,61 @@ add_action( 'register_post', 'thim_check_extra_register_fields', 10, 3 );
  */
 if ( ! function_exists( 'thim_register_extra_fields' ) ) {
 	function thim_register_extra_fields( $user_id ) {
-		$user_data       = array();
-		$user_data['ID'] = $user_id;
-		if ( ! empty( $_POST['password'] ) ) {
-			$user_data['user_pass'] = $_POST['password'];
-			add_filter( 'send_password_change_email', '__return_false' );
-		}
-		$new_user_id = wp_update_user( $user_data );
-
-		// Login after registered
-		if ( ! is_admin() ) {
-			wp_set_current_user( $user_id );
-			wp_set_auth_cookie( $user_id );
-			wp_new_user_notification( $user_id, null, 'both' );
-
-			if( isset($_POST['level']) && $_POST['level'] && isset($_POST['token']) && $_POST['token'] && isset($_POST['gateway']) && $_POST['gateway'] ) {
-				return;
+		$theme_options_data = get_theme_mods();
+		if ( empty( $theme_options_data['thim_auto_login'] ) || ( isset( $theme_options_data['thim_auto_login'] ) && $theme_options_data['thim_auto_login'] == '0' ) ) {
+			$user_data       = array();
+			$user_data['ID'] = $user_id;
+			if ( ! empty( $_POST['password'] ) ) {
+				$user_data['user_pass'] = $_POST['password'];
+				add_filter( 'send_password_change_email', '__return_false' );
 			}
+			$new_user_id = wp_update_user( $user_data );
 
-			if( isset($_REQUEST['level']) && $_REQUEST['level'] && isset($_REQUEST['review']) && $_REQUEST['review'] && isset($_REQUEST['token']) && $_REQUEST['token'] && isset($_REQUEST['PayerID']) && $_REQUEST['PayerID'] ) {
-				return;
-			}
+			// Login after registered
+			if ( ! is_admin() ) {
+				wp_set_current_user( $user_id );
+				wp_set_auth_cookie( $user_id );
+				wp_new_user_notification( $user_id, null, 'both' );
 
-			if ( ( isset( $_POST['billing_email'] ) && ! empty( $_POST['billing_email'] ) ) || ( isset( $_POST['bconfirmemail'] ) && ! empty( $_POST['bconfirmemail'] ) ) ) {
-				return;
-			} else {
-				if ( ! empty( $_REQUEST['redirect_to'] ) ) {
-					wp_redirect( $_REQUEST['redirect_to'] );
-				} else {
-					$theme_options_data = get_theme_mods();
-					if ( ! empty( $_REQUEST['option'] ) && $_REQUEST['option'] == 'moopenid' ) {
-						if ( isset( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ) {
-							$http = "https://";
-						} else {
-							$http = "http://";
-						}
-						$redirect_url = urldecode( html_entity_decode( esc_url( $http . $_SERVER["HTTP_HOST"] . str_replace( '?option=moopenid', '', $_SERVER['REQUEST_URI'] ) ) ) );
-						if ( html_entity_decode( esc_url( remove_query_arg( 'ss_message', $redirect_url ) ) ) == wp_login_url() || strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) !== false || strpos( $_SERVER['REQUEST_URI'], 'wp-admin' ) !== false ) {
-							$redirect_url = site_url() . '/';
-						}
-
-						wp_redirect( $redirect_url );
-
-						return;
-					}
-
-					if ( ! empty( $theme_options_data['thim_register_redirect'] ) ) {
-						wp_redirect( $theme_options_data['thim_register_redirect'] );
-					} else {
-						wp_redirect( home_url() );
-					}
+				if ( isset( $_POST['level'] ) && $_POST['level'] && isset( $_POST['token'] ) && $_POST['token'] && isset( $_POST['gateway'] ) && $_POST['gateway'] ) {
+					return;
 				}
-				exit();
+
+				if ( isset( $_REQUEST['level'] ) && $_REQUEST['level'] && isset( $_REQUEST['review'] ) && $_REQUEST['review'] && isset( $_REQUEST['token'] ) && $_REQUEST['token'] && isset( $_REQUEST['PayerID'] ) && $_REQUEST['PayerID'] ) {
+					return;
+				}
+
+				if ( ( isset( $_POST['billing_email'] ) && ! empty( $_POST['billing_email'] ) ) || ( isset( $_POST['bconfirmemail'] ) && ! empty( $_POST['bconfirmemail'] ) ) ) {
+					return;
+				} else {
+					if ( ! empty( $_REQUEST['redirect_to'] ) ) {
+						wp_redirect( $_REQUEST['redirect_to'] );
+					} else {
+						$theme_options_data = get_theme_mods();
+						if ( ! empty( $_REQUEST['option'] ) && $_REQUEST['option'] == 'moopenid' ) {
+							if ( isset( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ) {
+								$http = "https://";
+							} else {
+								$http = "http://";
+							}
+							$redirect_url = urldecode( html_entity_decode( esc_url( $http . $_SERVER["HTTP_HOST"] . str_replace( '?option=moopenid', '', $_SERVER['REQUEST_URI'] ) ) ) );
+							if ( html_entity_decode( esc_url( remove_query_arg( 'ss_message', $redirect_url ) ) ) == wp_login_url() || strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) !== false || strpos( $_SERVER['REQUEST_URI'], 'wp-admin' ) !== false ) {
+								$redirect_url = site_url() . '/';
+							}
+
+							wp_redirect( $redirect_url );
+
+							return;
+						}
+
+						if ( ! empty( $theme_options_data['thim_register_redirect'] ) ) {
+							wp_redirect( $theme_options_data['thim_register_redirect'] );
+						} else {
+							wp_redirect( home_url() );
+						}
+					}
+					exit();
+				}
 			}
 		}
 	}
@@ -613,20 +630,20 @@ add_action( 'user_register', 'thim_register_extra_fields', 1000 );
 if ( ! function_exists( 'thim_multisite_register_redirect' ) ) {
 	function thim_multisite_register_redirect( $url ) {
 
-	    if( !is_user_logged_in() ) {
-            if ( is_multisite() ) {
-                $url = add_query_arg( 'action', 'register', thim_get_login_page_url() );
-            }
+		if ( ! is_user_logged_in() ) {
+			if ( is_multisite() ) {
+				$url = add_query_arg( 'action', 'register', thim_get_login_page_url() );
+			}
 
-            $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : '';
-            $user_email = isset( $_POST['user_email'] ) ? $_POST['user_email'] : '';
-            $errors     = register_new_user( $user_login, $user_email );
-            if ( ! is_wp_error( $errors ) ) {
-                $redirect_to = ! empty( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : 'wp-login.php?checkemail=registered';
-                wp_safe_redirect( $redirect_to );
-                exit();
-            }
-        }
+			$user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : '';
+			$user_email = isset( $_POST['user_email'] ) ? $_POST['user_email'] : '';
+			$errors     = register_new_user( $user_login, $user_email );
+			if ( ! is_wp_error( $errors ) ) {
+				$redirect_to = ! empty( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : 'wp-login.php?checkemail=registered';
+				wp_safe_redirect( $redirect_to );
+				exit();
+			}
+		}
 
 		return $url;
 	}
@@ -1059,7 +1076,7 @@ add_filter( 'wp_page_menu_args', 'thim_page_menu_args' );
  */
 if ( ! function_exists( 'thim_body_classes' ) ) {
 	function thim_body_classes( $classes ) {
-        $item_only = ! empty( $_REQUEST['content-item-only'] ) ? $_REQUEST['content-item-only'] : false;
+		$item_only = ! empty( $_REQUEST['content-item-only'] ) ? $_REQUEST['content-item-only'] : false;
 		// Adds a class of group-blog to blogs with more than 1 published author.
 		if ( is_multi_author() ) {
 			$classes[] = 'group-blog';
@@ -1073,8 +1090,12 @@ if ( ! function_exists( 'thim_body_classes' ) ) {
 			$classes[] = 'rtl';
 		}
 
-		if ( get_theme_mod( 'thim_preload', true ) && empty( $item_only ) ) {
-			$classes[] = 'thim-body-preload';
+		if ( get_theme_mod( 'thim_preload', true ) && empty( $item_only ) && ! is_page_template( 'page-templates/blank-page.php' ) ) {
+			if ( isset( $_GET['post_type'] ) && $_GET['post_type'] === 'tve_lead_shortcode' && isset( $_GET['tve'] ) && $_GET['tve'] === 'true' ) {
+				# do nothings
+			} else {
+				$classes[] = 'thim-body-preload';
+			}
 		} else {
 			$classes[] = 'thim-body-load-overlay';
 		}
@@ -1094,8 +1115,8 @@ if ( ! function_exists( 'thim_body_classes' ) ) {
 		}
 
 		if ( get_theme_mod( 'thim_layout_content_page', 'normal' ) != 'normal' ) {
-            $classes[] = 'thim-style-content-' . get_theme_mod( 'thim_layout_content_page', '' );
-        }
+			$classes[] = 'thim-style-content-' . get_theme_mod( 'thim_layout_content_page', '' );
+		}
 
 		return $classes;
 	}
@@ -1290,7 +1311,14 @@ if ( ! function_exists( 'thim_related_our_team' ) ) {
 			'post_type'           => 'our_team',
 			'post__not_in'        => array( $post_id ),
 			'ignore_sticky_posts' => true,
-			'category__in'        => wp_get_post_categories( $post_id )
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'our_team_category',   // taxonomy name
+					'field' => 'term_id',           // term_id, slug or name
+					'operator' => 'IN',
+					'terms' => wp_get_post_terms( $post_id, 'our_team_category', array("fields" => "ids") ),                  // term id, term slug or term name
+				)
+			),
 		) );
 		$query = new WP_Query( $args );
 
@@ -1637,16 +1665,16 @@ if ( ! function_exists( 'thim_gallery_popup' ) ) {
 
 if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) {
 	//filter learnpress hooks
-    if ( thim_is_new_learnpress( '3.0' ) ) {
+	if ( thim_is_new_learnpress( '3.0' ) ) {
 
-        function thim_new_learnpress_template_path( $slash ) {
-            return 'learnpress-v3';
-        }
+		function thim_new_learnpress_template_path( $slash ) {
+			return 'learnpress-v3';
+		}
 
-        add_filter( 'learn_press_template_path', 'thim_new_learnpress_template_path', 999 );
-        require_once THIM_DIR . 'inc/learnpress-v3-functions.php';
+		add_filter( 'learn_press_template_path', 'thim_new_learnpress_template_path', 999 );
+		require_once THIM_DIR . 'inc/learnpress-v3-functions.php';
 
-    } else if ( thim_is_new_learnpress( '2.0' ) ) {
+	} else if ( thim_is_new_learnpress( '2.0' ) ) {
 
 		function thim_new_learnpress_template_path( $slash ) {
 			return 'learnpress-v2';
@@ -1681,6 +1709,84 @@ function thim_is_new_learnpress( $version ) {
 	} else {
 		return version_compare( get_option( 'learnpress_version' ), $version, '>=' );
 	}
+}
+
+/**
+ * Check new version of addons LearnPress woo
+ *
+ * @return mixed
+ */
+function thim_is_version_addons_woo( $version ) {
+	if ( defined( 'LP_ADDON_WOO_PAYMENT_VER' ) ) {
+		return ( version_compare( LP_ADDON_WOO_PAYMENT_VER, $version, '>=' ) && version_compare( LP_ADDON_WOO_PAYMENT_VER, (int) $version + 1, '<' ) );
+	}
+
+	return false;
+}
+
+/**
+ * Check new version of addons LearnPress course review
+ *
+ * @return mixed
+ */
+function thim_is_version_addons_review( $version ) {
+	if ( defined( 'LP_ADDON_COURSE_REVIEW_VER' ) ) {
+		return ( version_compare( LP_ADDON_COURSE_REVIEW_VER, $version, '>=' ) && version_compare( LP_ADDON_COURSE_REVIEW_VER, (int) $version + 1, '<' ) );
+	}
+
+	return false;
+}
+
+/**
+ * Check new version of addons LearnPress bbpress
+ *
+ * @return mixed
+ */
+function thim_is_version_addons_bbpress( $version ) {
+	if ( defined( 'LP_ADDON_BBPRESS_VER' ) ) {
+		return ( version_compare( LP_ADDON_BBPRESS_VER, $version, '>=' ) && version_compare( LP_ADDON_BBPRESS_VER, (int) $version + 1, '<' ) );
+	}
+
+	return false;
+}
+
+/**
+ * Check new version of addons LearnPress certificate
+ *
+ * @return mixed
+ */
+function thim_is_version_addons_certificates( $version ) {
+	if ( defined( 'LP_ADDON_CERTIFICATES_VER' ) ) {
+		return ( version_compare( LP_ADDON_CERTIFICATES_VER, $version, '>=' ) && version_compare( LP_ADDON_CERTIFICATES_VER, (int) $version + 1, '<' ) );
+	}
+
+	return false;
+}
+
+/**
+ * Check new version of addons LearnPress wishlist
+ *
+ * @return mixed
+ */
+function thim_is_version_addons_wishlist( $version ) {
+	if ( defined( 'LP_ADDON_WISHLIST_VER' ) ) {
+		return ( version_compare( LP_ADDON_WISHLIST_VER, $version, '>=' ) && version_compare( LP_ADDON_WISHLIST_VER, (int) $version + 1, '<' ) );
+	}
+
+	return false;
+}
+
+/**
+ * Check new version of addons LearnPress Co-instructor
+ *
+ * @return mixed
+ */
+function thim_is_version_addons_instructor( $version ) {
+	if ( defined( 'LP_ADDON_CO_INSTRUCTOR_VER' ) ) {
+		return ( version_compare( LP_ADDON_CO_INSTRUCTOR_VER, $version, '>=' ) && version_compare( LP_ADDON_CO_INSTRUCTOR_VER, (int) $version + 1, '<' ) );
+	}
+
+	return false;
 }
 
 //Action call reload page when change font on preview box
@@ -1741,30 +1847,48 @@ add_action( 'wp_head', 'thim_define_ajaxurl', 1000 );
 if ( ! function_exists( 'thim_js_inline_windowload' ) ) {
 	function thim_js_inline_windowload() {
 		$item_only = ! empty( $_REQUEST['content-item-only'] ) ? $_REQUEST['content-item-only'] : false;
-		if ( get_theme_mod( 'thim_preload', true ) && empty( $item_only ) ) {
+		if ( get_theme_mod( 'thim_preload', true ) && empty( $item_only ) && ! is_admin() ) {
 			?>
             <script data-cfasync="false" type="text/javascript">
                 window.onload = function () {
-                    setTimeout(function () {
-                        var body = document.getElementById("thim-body"),
-                            thim_preload = document.getElementById("preload"),
-                            len = body.childNodes.length,
-                            class_name = body.className.replace(/(?:^|\s)thim-body-preload(?!\S)/, '').replace(/(?:^|\s)thim-body-load-overlay(?!\S)/, '');
+                    var thim_preload = document.getElementById("preload");
+                    if (thim_preload) {
+                        setTimeout(function () {
+                            var body = document.getElementById("thim-body"),
+                                len = body.childNodes.length,
+                                class_name = body.className.replace(/(?:^|\s)thim-body-preload(?!\S)/, '').replace(/(?:^|\s)thim-body-load-overlay(?!\S)/, '');
 
-                        body.className = class_name;
-                        if (typeof thim_preload !== 'undefined' && thim_preload !== null) {
-                            for (var i = 0; i < len; i++) {
-                                if (body.childNodes[i].id !== 'undefined' && body.childNodes[i].id == "preload") {
-                                    body.removeChild(body.childNodes[i]);
-                                    break;
+                            body.className = class_name;
+                            if (typeof thim_preload !== 'undefined' && thim_preload !== null) {
+                                for (var i = 0; i < len; i++) {
+                                    if (body.childNodes[i].id !== 'undefined' && body.childNodes[i].id == "preload") {
+                                        body.removeChild(body.childNodes[i]);
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                    }, 500);
+                        }, 500);
+                    }
                 };
             </script>
 			<?php
 		}
+		?>
+        <script>
+            window.addEventListener('load', function () {
+                /**
+                 * Fix issue there is an empty spacing between image and title of owl-carousel
+                 */
+                setTimeout(function () {
+                    var $ = jQuery;
+                    var $carousel = $('.thim-owl-carousel-post').each(function () {
+                        $(this).find('.image').css('min-height', 0);
+                        $(window).trigger('resize');
+                    });
+                }, 500);
+            })
+        </script>
+		<?php
 	}
 }
 add_action( 'wp_footer', 'thim_js_inline_windowload' );
@@ -1930,31 +2054,70 @@ if ( ! function_exists( 'thim_is_current_url' ) ) {
 
 
 //Filter post_status tp_event
-if ( !function_exists( 'thim_get_upcoming_events' ) ) {
+if ( ! function_exists( 'thim_get_upcoming_events' ) ) {
 	function thim_get_upcoming_events( $args = array() ) {
-		if( is_tax( 'tp_event_category' ) ) {
-			$args = wp_parse_args(
-				$args,
-				array(
-					'post_type'   => 'tp_event',
-					'post_status' => 'tp-event-upcoming',
-					'tax_query' => array(
-						array (
-							'taxonomy' => 'tp_event_category',
-							'field' => 'slug',
-							'terms' => get_query_var('term'),
-						)
-					),
-				)
-			);
+		if ( is_tax( 'tp_event_category' ) ) {
+			if ( version_compare( WPEMS_VER, '2.1.5', '>=' ) ) {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'  => 'tp_event',
+						'meta_query' => array(
+							array(
+								'key'     => 'tp_event_status',
+								'value'   => 'upcoming',
+								'compare' => '=',
+							),
+						),
+						'tax_query'  => array(
+							array(
+								'taxonomy' => 'tp_event_category',
+								'field'    => 'slug',
+								'terms'    => get_query_var( 'term' ),
+							)
+						),
+					)
+				);
+			} else {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'   => 'tp_event',
+						'post_status' => 'tp-event-upcoming',
+						'tax_query'   => array(
+							array(
+								'taxonomy' => 'tp_event_category',
+								'field'    => 'slug',
+								'terms'    => get_query_var( 'term' ),
+							)
+						),
+					)
+				);
+			}
 		} else {
-			$args = wp_parse_args(
-				$args,
-				array(
-					'post_type'   => 'tp_event',
-					'post_status' => 'tp-event-upcoming',
-				)
-			);
+			if ( version_compare( WPEMS_VER, '2.1.5', '>=' ) ) {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'  => 'tp_event',
+						'meta_query' => array(
+							array(
+								'key'     => 'tp_event_status',
+								'value'   => 'upcoming',
+								'compare' => '=',
+							),
+						),
+					)
+				);
+			} else {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'   => 'tp_event',
+						'post_status' => 'tp-event-upcoming',
+					)
+				);
+			}
 		}
 
 
@@ -1962,62 +2125,140 @@ if ( !function_exists( 'thim_get_upcoming_events' ) ) {
 	}
 }
 
-if ( !function_exists( 'thim_get_expired_events' ) ) {
+if ( ! function_exists( 'thim_get_expired_events' ) ) {
 	function thim_get_expired_events( $args = array() ) {
-		if( is_tax( 'tp_event_category' ) ) {
-			$args = wp_parse_args(
-				$args,
-				array(
-					'post_type'   => 'tp_event',
-					'post_status' => 'tp-event-expired',
-					'tax_query' => array(
-						array (
-							'taxonomy' => 'tp_event_category',
-							'field' => 'slug',
-							'terms' => get_query_var('term'),
-						)
-					),
-				)
-			);
+		if ( is_tax( 'tp_event_category' ) ) {
+			if ( version_compare( WPEMS_VER, '2.1.5', '>=' ) ) {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'  => 'tp_event',
+						'meta_query' => array(
+							array(
+								'key'     => 'tp_event_status',
+								'value'   => 'expired',
+								'compare' => '=',
+							),
+						),
+						'tax_query'  => array(
+							array(
+								'taxonomy' => 'tp_event_category',
+								'field'    => 'slug',
+								'terms'    => get_query_var( 'term' ),
+							)
+						),
+					)
+				);
+			} else {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'   => 'tp_event',
+						'post_status' => 'tp-event-expired',
+						'tax_query'   => array(
+							array(
+								'taxonomy' => 'tp_event_category',
+								'field'    => 'slug',
+								'terms'    => get_query_var( 'term' ),
+							)
+						),
+					)
+				);
+			}
 		} else {
-			$args = wp_parse_args(
-				$args,
-				array(
-					'post_type'   => 'tp_event',
-					'post_status' => 'tp-event-expired',
-				)
-			);
+			if ( version_compare( WPEMS_VER, '2.1.5', '>=' ) ) {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'  => 'tp_event',
+						'meta_query' => array(
+							array(
+								'key'     => 'tp_event_status',
+								'value'   => 'expired',
+								'compare' => '=',
+							),
+						),
+					)
+				);
+			} else {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'   => 'tp_event',
+						'post_status' => 'tp-event-expired',
+					)
+				);
+			}
 		}
 
 		return new WP_Query( $args );
 	}
 }
 
-if ( !function_exists( 'thim_get_happening_events' ) ) {
+if ( ! function_exists( 'thim_get_happening_events' ) ) {
 	function thim_get_happening_events( $args = array() ) {
-		if( is_tax( 'tp_event_category' ) ) {
-			$args = wp_parse_args(
-				$args,
-				array(
-					'post_type'   => 'tp_event',
-					'post_status' => 'tp-event-happenning',
-					'tax_query' => array(
-						array (
-							'taxonomy' => 'tp_event_category',
-							'field' => 'slug',
-							'terms' => get_query_var('term'),
-						)
-					),
-				)
-			);
+		if ( is_tax( 'tp_event_category' ) ) {
+			if ( version_compare( WPEMS_VER, '2.1.5', '>=' ) ) {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'  => 'tp_event',
+						'meta_query' => array(
+							array(
+								'key'     => 'tp_event_status',
+								'value'   => 'happening',
+								'compare' => '=',
+							),
+						),
+						'tax_query'  => array(
+							array(
+								'taxonomy' => 'tp_event_category',
+								'field'    => 'slug',
+								'terms'    => get_query_var( 'term' ),
+							)
+						),
+					)
+				);
+			} else {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'   => 'tp_event',
+						'post_status' => 'tp-event-happenning',
+						'tax_query'   => array(
+							array(
+								'taxonomy' => 'tp_event_category',
+								'field'    => 'slug',
+								'terms'    => get_query_var( 'term' ),
+							)
+						),
+					)
+				);
+			}
 		} else {
-			$args = wp_parse_args(
-				$args,
-				array(
-					'post_type'   => 'tp_event',
-					'post_status' => 'tp-event-happenning',
-				)
-			);
+			if ( version_compare( WPEMS_VER, '2.1.5', '>=' ) ) {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'  => 'tp_event',
+						'meta_query' => array(
+							array(
+								'key'     => 'tp_event_status',
+								'value'   => 'happening',
+								'compare' => '=',
+							),
+						),
+					)
+				);
+			} else {
+				$args = wp_parse_args(
+					$args,
+					array(
+						'post_type'   => 'tp_event',
+						'post_status' => 'tp-event-happenning',
+					)
+				);
+			}
 		}
 
 		return new WP_Query( $args );
@@ -2224,75 +2465,68 @@ if ( ! function_exists( 'thim_add_custom_js' ) ) {
 		}
 
 		//Add code js to open login-popup if not logged in.
-		if(thim_plugin_active( 'learnpress/learnpress.php' )) {
-			$enable_single_popup = get_theme_mod('thim_learnpress_single_popup', true);
-			if ($enable_single_popup && is_singular('lp_course')) {
-				$woo_enable = thim_plugin_active('learnpress-woo-payment/learnpress-woo-payment.php') ? LP()->settings->get('woo_payment_enabled') : false;
-				//if ( !empty( $woo_enable ) || $woo_enable != 'yes' ) {
+		if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) {
+			if ( thim_is_new_learnpress( '3.0' ) ) {
+				$enable_single_popup = get_theme_mod( 'thim_learnpress_single_popup', true );
 				global $post;
-				$course = LP()->global['course'];
-				if ($post->ID && get_option('permalink_structure')) {
-					if (empty($woo_enable) || $woo_enable != 'yes') {
-						$redirect_url = add_query_arg(array(
-							'purchase-course' => $post->ID,
-						), get_the_permalink($post->ID));
-					} else {
-						if (LP()->settings->get('woo_purchase_button') == 'single') {
-							//$redirect_url = get_the_permalink( $post->ID ) . '?purchase-course=' . $post->ID;
-							$redirect_url = add_query_arg(array(
-								'purchase-course' => $post->ID,
-								'single-purchase' => 'yes',
-								'add-to-cart' => $post->ID,
-							), get_the_permalink($post->ID));
-						} elseif (LP()->settings->get('woo_purchase_button') == 'cart') {
-							$redirect_url = get_the_permalink($post->ID) . '?add-to-cart=' . $post->ID;
-						} else {
-							$redirect_url = add_query_arg(array(
-								'purchase-course' => $post->ID,
-							), get_the_permalink($post->ID));
-						}
-					}
-				} else {
-					$redirect_url = '';
+				if ( ! $post || ! isset( $post->ID ) ) {
+					return;
 				}
-				$login_url = wp_login_url( $redirect_url ); 
-				?>
-				<script data-cfasync="true" type="text/javascript">
-					(function ($) {
-						"use strict";
-						$(document).on('click', 'body:not(".logged-in") .purchase-course .thim-enroll-course-button:not(.external-link)', function (e) {
-							if ($(window).width() > 767) {
-								if ($('.thim-login-popup .login').length > 0) {
-									e.preventDefault();
-									$('#thim-popup-login #loginform [name="redirect_to"]').val('<?php echo $redirect_url; ?>');
-									$('.thim-login-popup .login').trigger('click');
-								} else {
+				$redirect_url = '';
+				if ( ! empty( $post->ID ) && get_option( 'permalink_structure' ) ) {
+					$redirect_url = add_query_arg( array(
+						'enroll-course' => $post->ID,
+					), get_the_permalink( $post->ID ) );
+				}
+				if ( $enable_single_popup && is_singular( 'lp_course' ) ) {
+					?>
+                    <script data-cfasync="true" type="text/javascript">
+                        (function ($) {
+                            "use strict";
+                            $(document).on('click', 'body:not(".logged-in") .enroll-course .button-enroll-course, body:not(".logged-in") form.purchase-course:not(".guest_checkout") .button', function (e) {
+                                if ($(window).width() > 767) {
+                                    if ($('.thim-login-popup .login').length > 0) {
+                                        e.preventDefault();
+                                        $('#thim-popup-login #loginform [name="redirect_to"]').val('<?php echo $redirect_url; ?>');
+                                        $('.thim-login-popup .login').trigger('click');
+                                    }
+                                } else {
                                     e.preventDefault();
-                                    $(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo urlencode($redirect_url); ?>');
+                                    $(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo urlencode( $redirect_url ); ?>');
                                     var redirect = $(this).parent().find('[name="redirect_to"]').val();
                                     window.location = redirect;
                                 }
-							} else {
-								e.preventDefault();
-								$(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo urlencode($redirect_url); ?>');
-								var redirect = $(this).parent().find('[name="redirect_to"]').val();
-								window.location = redirect;
-							}
-							if ($('#thim-popup-login .register').length > 0) {
-								$('#thim-popup-login .register').each(function () {
-									var link = $(this).attr('href'),
-										new_link = link + '<?php echo ! empty( $redirect_url ) ? '&redirect_to=' . urlencode( $redirect_url ) : ''; ?>';
-									$(this).prop('href', new_link);
-								});
-							}
-						});
-					})(jQuery);
-				</script>
-				<?php
-				//}
+                                if ($('#thim-popup-login .register').length > 0) {
+                                    $('#thim-popup-login .register').each(function () {
+                                        var link = $(this).attr('href'),
+                                            new_link = link + '<?php echo ! empty( $redirect_url ) ? '&redirect_to=' . $redirect_url : ''; ?>';
+                                        $(this).prop('href', new_link);
+                                    });
+                                }
+                            });
+                        })(jQuery);
+                    </script>
+					<?php
+				} else {
+					?>
+                    <script data-cfasync="true" type="text/javascript">
+                        (function ($) {
+                            "use strict";
+                            $(document).on('click', 'body:not(".logged-in") .enroll-course .button-enroll-course, body:not(".logged-in") .purchase-course:not(".guest_checkout, .learn-press-pmpro-buy-membership") .button', function (e) {
+                                e.preventDefault();
+                                $(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo $redirect_url; ?>');
+                                var redirect = $(this).parent().find('[name="redirect_to"]').val();
+                                window.location = redirect;
+                            });
+                        })(jQuery);
+                    </script>
+					<?php
+				}
 			} else {
-				if( is_singular( 'lp_course' ) ) {
-                    $woo_enable = thim_plugin_active('learnpress-woo-payment/learnpress-woo-payment.php') ? LP()->settings->get('woo_payment_enabled') : false;
+				$enable_single_popup = get_theme_mod( 'thim_learnpress_single_popup', true );
+				if ( $enable_single_popup && is_singular( 'lp_course' ) ) {
+					$woo_enable = thim_plugin_active( 'learnpress-woo-payment/learnpress-woo-payment.php' ) ? LP()->settings->get( 'woo_payment_enabled' ) : false;
+					//if ( !empty( $woo_enable ) || $woo_enable != 'yes' ) {
 					global $post;
 					$course = LP()->global['course'];
 					if ( $post->ID && get_option( 'permalink_structure' ) ) {
@@ -2306,32 +2540,101 @@ if ( ! function_exists( 'thim_add_custom_js' ) ) {
 								$redirect_url = add_query_arg( array(
 									'purchase-course' => $post->ID,
 									'single-purchase' => 'yes',
-									'add-to-cart' => $post->ID,
+									'add-to-cart'     => $post->ID,
 								), get_the_permalink( $post->ID ) );
 							} elseif ( LP()->settings->get( 'woo_purchase_button' ) == 'cart' ) {
 								$redirect_url = get_the_permalink( $post->ID ) . '?add-to-cart=' . $post->ID;
 							} else {
-								//$redirect_url = add_query_arg( array(
-								//	'purchase-course' => $post->ID,
-								//), get_the_permalink( $post->ID ) );
+								$redirect_url = add_query_arg( array(
+									'purchase-course' => $post->ID,
+								), get_the_permalink( $post->ID ) );
 							}
 						}
 					} else {
 						$redirect_url = '';
 					}
+					$login_url = wp_login_url( $redirect_url );
 					?>
-					<script data-cfasync="false" type="text/javascript">
-						(function ($) {
-							"use strict";
-							$(document).on('click', 'body:not(".logged-in") .purchase-course .thim-enroll-course-button:not(.external-link)', function (e) {
-								e.preventDefault();
-								$(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo $redirect_url; ?>');
-								var redirect = $(this).parent().find('[name="redirect_to"]').val();
-								window.location = redirect;
-							});
-						})(jQuery);
-					</script>
+                    <script data-cfasync="true" type="text/javascript">
+                        (function ($) {
+                            "use strict";
+                            $(document).on('click', 'body:not(".logged-in") .purchase-course .thim-enroll-course-button:not(.external-link)', function (e) {
+                                if ($(window).width() > 767) {
+                                    if ($('.thim-login-popup .login').length > 0) {
+                                        e.preventDefault();
+                                        if ($(this).parent().hasClass('learn-press-pmpro-buy-membership')) {
+                                            $('#thim-popup-login #loginform [name="redirect_to"]').val($(this).attr('href'));
+                                        } else {
+                                            $('#thim-popup-login #loginform [name="redirect_to"]').val('<?php echo $redirect_url; ?>');
+                                        }
+                                        $('.thim-login-popup .login').trigger('click');
+                                    } else {
+                                        e.preventDefault();
+                                        $(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo urlencode( $redirect_url ); ?>');
+                                        var redirect = $(this).parent().find('[name="redirect_to"]').val();
+                                        window.location = redirect;
+                                    }
+                                } else {
+                                    e.preventDefault();
+                                    $(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo urlencode( $redirect_url ); ?>');
+                                    var redirect = $(this).parent().find('[name="redirect_to"]').val();
+                                    window.location = redirect;
+                                }
+                                if ($('#thim-popup-login .register').length > 0) {
+                                    $('#thim-popup-login .register').each(function () {
+                                        var link = $(this).attr('href'),
+                                            new_link = link + '<?php echo ! empty( $redirect_url ) ? '&redirect_to=' . urlencode( $redirect_url ) : ''; ?>';
+                                        $(this).prop('href', new_link);
+                                    });
+                                }
+                            });
+                        })(jQuery);
+                    </script>
 					<?php
+					//}
+				} else {
+					if ( is_singular( 'lp_course' ) ) {
+						$woo_enable = thim_plugin_active( 'learnpress-woo-payment/learnpress-woo-payment.php' ) ? LP()->settings->get( 'woo_payment_enabled' ) : false;
+						global $post;
+						$course = LP()->global['course'];
+						if ( $post->ID && get_option( 'permalink_structure' ) ) {
+							if ( empty( $woo_enable ) || $woo_enable != 'yes' ) {
+								$redirect_url = add_query_arg( array(
+									'purchase-course' => $post->ID,
+								), get_the_permalink( $post->ID ) );
+							} else {
+								if ( LP()->settings->get( 'woo_purchase_button' ) == 'single' ) {
+									//$redirect_url = get_the_permalink( $post->ID ) . '?purchase-course=' . $post->ID;
+									$redirect_url = add_query_arg( array(
+										'purchase-course' => $post->ID,
+										'single-purchase' => 'yes',
+										'add-to-cart'     => $post->ID,
+									), get_the_permalink( $post->ID ) );
+								} elseif ( LP()->settings->get( 'woo_purchase_button' ) == 'cart' ) {
+									$redirect_url = get_the_permalink( $post->ID ) . '?add-to-cart=' . $post->ID;
+								} else {
+									//$redirect_url = add_query_arg( array(
+									//	'purchase-course' => $post->ID,
+									//), get_the_permalink( $post->ID ) );
+								}
+							}
+						} else {
+							$redirect_url = '';
+						}
+						?>
+                        <script data-cfasync="false" type="text/javascript">
+                            (function ($) {
+                                "use strict";
+                                $(document).on('click', 'body:not(".logged-in") .purchase-course .thim-enroll-course-button:not(.external-link)', function (e) {
+                                    e.preventDefault();
+                                    $(this).parent().find('[name="redirect_to"]').val('<?php echo thim_get_login_page_url(); ?>?redirect_to=<?php echo urlencode( $redirect_url ); ?>');
+                                    var redirect = $(this).parent().find('[name="redirect_to"]').val();
+                                    window.location = redirect;
+                                });
+                            })(jQuery);
+                        </script>
+						<?php
+					}
 				}
 			}
 		}
@@ -2661,7 +2964,7 @@ if ( ! function_exists( 'thim_check_is_course_taxonomy' ) ) {
  */
 if ( ! function_exists( 'thim_override_demo_image_tp_chameleon' ) ) {
 	function thim_override_demo_image_tp_chameleon() {
-		return THIM_URI . 'images/all-demo-06-02.png';
+		return THIM_URI . 'images/eduma-chameleon-gradschool3.png';
 	}
 }
 add_filter( 'tp_chameleon_get_image_sprite_demos', 'thim_override_demo_image_tp_chameleon' );
@@ -2818,7 +3121,7 @@ if ( ! function_exists( 'thim_add_marketing_code' ) ) {
                     m.parentNode.insertBefore(a, m)
                 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-                ga('create', '<?php echo esc_html($theme_options_data['thim_google_analytics']); ?>', 'auto');
+                ga('create', '<?php echo esc_html( $theme_options_data['thim_google_analytics'] ); ?>', 'auto');
                 ga('send', 'pageview');
             </script>
 			<?php
@@ -2827,7 +3130,7 @@ if ( ! function_exists( 'thim_add_marketing_code' ) ) {
 			?>
             <script>
                 !function (f, b, e, v, n, t, s) {
-                    if (f.fbq)return;
+                    if (f.fbq) return;
                     n = f.fbq = function () {
                         n.callMethod ?
                             n.callMethod.apply(n, arguments) : n.queue.push(arguments)
@@ -2844,12 +3147,12 @@ if ( ! function_exists( 'thim_add_marketing_code' ) ) {
                     s.parentNode.insertBefore(t, s)
                 }(window, document, 'script',
                     'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '<?php echo esc_html($theme_options_data['thim_facebook_pixel']); ?>');
+                fbq('init', '<?php echo esc_html( $theme_options_data['thim_facebook_pixel'] ); ?>');
                 fbq('track', 'PageView');
             </script>
             <noscript>
                 <img height="1" width="1" style="display:none"
-                     src="https://www.facebook.com/tr?id=<?php echo esc_attr($theme_options_data['thim_facebook_pixel']); ?>&ev=PageView&noscript=1"/>
+                     src="https://www.facebook.com/tr?id=<?php echo esc_attr( $theme_options_data['thim_facebook_pixel'] ); ?>&ev=PageView&noscript=1"/>
             </noscript>
 			<?php
 		}
@@ -2865,8 +3168,8 @@ add_filter( 'wc_add_to_cart_message_html', 'thim_add_to_cart_message', 10, 2 );
 if ( ! function_exists( 'thim_add_to_cart_message' ) ) {
 	function thim_add_to_cart_message( $message, $product_id ) {
 		$course_id = 0;
-		if(is_array($product_id)){
-			$keys =  array_keys($product_id);
+		if ( is_array( $product_id ) ) {
+			$keys      = array_keys( $product_id );
 			$course_id = $keys[0];
 		} else {
 			$course_id = $product_id;
@@ -2929,43 +3232,43 @@ add_filter( 'tp_event_filter_event_location_map', 'thim_filter_event_map' );
 if ( ! function_exists( 'thim_get_prefix_page_title' ) ) {
 	function thim_get_prefix_page_title() {
 
-        if ( is_tax() ) {
-            $queried_object = get_queried_object();
-            //var_dump( $queried_object->taxonomy );
-            if ( $queried_object->taxonomy == "product_cat" ) {
-                $prefix = 'thim_woo';
-            } elseif ( $queried_object->taxonomy == 'course_category' ) {
-                $prefix = 'thim_learnpress';
-            } elseif ( $queried_object->taxonomy == 'tp_event_category' ) {
-                $prefix = 'thim_event';
-            } elseif ( $queried_object->taxonomy == 'our_team_category' ) {
-                $prefix = 'thim_team';
-            } else {
-                $prefix = 'thim_archive';
-            }
-        } else {
-            if ( get_post_type() == "product" ) {
-                $prefix = 'thim_woo';
-            } elseif ( get_post_type() == "lpr_course" || get_post_type() == "lpr_quiz" || get_post_type() == "lp_course" || get_post_type() == "lp_quiz" || thim_check_is_course_taxonomy() ) {
-                $prefix = 'thim_learnpress';
-            } elseif ( get_post_type() == "lp_collection" ) {
-                $prefix = 'thim_collection';
-            } elseif ( get_post_type() == "tp_event" ) {
-                $prefix = 'thim_event';
-            } elseif ( get_post_type() == "our_team" ) {
-                $prefix = 'thim_team';
-            } elseif ( get_post_type() == "testimonials" ) {
-                $prefix = 'thim_testimonials';
-            } elseif ( get_post_type() == "portfolio" ) {
-                $prefix = 'thim_portfolio';
-            } elseif ( get_post_type() == "forum" ) {
-                $prefix = 'thim_forum';
-            } elseif ( is_front_page() || is_home() ) {
-                $prefix = 'thim';
-            } else {
-                $prefix = 'thim_archive';
-            }
-        }
+		if ( is_tax() ) {
+			$queried_object = get_queried_object();
+			//var_dump( $queried_object->taxonomy );
+			if ( $queried_object->taxonomy == "product_cat" ) {
+				$prefix = 'thim_woo';
+			} elseif ( $queried_object->taxonomy == 'course_category' ) {
+				$prefix = 'thim_learnpress';
+			} elseif ( $queried_object->taxonomy == 'tp_event_category' ) {
+				$prefix = 'thim_event';
+			} elseif ( $queried_object->taxonomy == 'our_team_category' ) {
+				$prefix = 'thim_team';
+			} else {
+				$prefix = 'thim_archive';
+			}
+		} else {
+			if ( get_post_type() == "product" ) {
+				$prefix = 'thim_woo';
+			} elseif ( get_post_type() == "lpr_course" || get_post_type() == "lpr_quiz" || get_post_type() == "lp_course" || get_post_type() == "lp_quiz" || thim_check_is_course() || thim_check_is_course_taxonomy() ) {
+				$prefix = 'thim_learnpress';
+			} elseif ( get_post_type() == "lp_collection" ) {
+				$prefix = 'thim_collection';
+			} elseif ( get_post_type() == "tp_event" ) {
+				$prefix = 'thim_event';
+			} elseif ( get_post_type() == "our_team" ) {
+				$prefix = 'thim_team';
+			} elseif ( get_post_type() == "testimonials" ) {
+				$prefix = 'thim_testimonials';
+			} elseif ( get_post_type() == "portfolio" ) {
+				$prefix = 'thim_portfolio';
+			} elseif ( get_post_type() == "forum" ) {
+				$prefix = 'thim_forum';
+			} elseif ( is_front_page() || is_home() ) {
+				$prefix = 'thim';
+			} else {
+				$prefix = 'thim_archive';
+			}
+		}
 
 		return $prefix;
 	}
@@ -2978,7 +3281,9 @@ if ( ! function_exists( 'thim_get_prefix_inner_page_title' ) ) {
 	function thim_get_prefix_inner_page_title() {
 		if ( is_page() || is_single() ) {
 			$prefix_inner = '_single_';
-			if( is_page() && get_post_type() == "portfolio" ) $prefix_inner = '_cate_';
+			if ( is_page() && get_post_type() == "portfolio" ) {
+				$prefix_inner = '_cate_';
+			}
 		} else {
 			if ( is_front_page() || is_home() ) {
 				$prefix_inner = '_front_page_';
@@ -3037,7 +3342,11 @@ if ( ! function_exists( 'thim_get_page_title' ) ) {
 	function thim_get_page_title( $custom_title, $front_title ) {
 		$heading_title = esc_html__( 'Page title', 'eduma' );
 		if ( get_post_type() == 'product' ) {
-			$heading_title = woocommerce_page_title( false );
+			if ( ! empty( $custom_title ) ) {
+				$heading_title = $custom_title;
+			} else {
+				$heading_title = woocommerce_page_title( false );
+			}
 		} elseif ( get_post_type() == 'lpr_course' || get_post_type() == 'lpr_quiz' || get_post_type() == 'lp_course' || get_post_type() == 'lp_quiz' || thim_check_is_course() || thim_check_is_course_taxonomy() ) {
 			if ( is_single() ) {
 				if ( ! empty( $custom_title ) ) {
@@ -3070,16 +3379,21 @@ if ( ! function_exists( 'thim_get_page_title' ) ) {
 				if ( $custom_title ) {
 					$heading_title = $custom_title;
 				} else {
+					$heading_title = get_the_title();
 					if ( get_post_type() == 'post' ) {
-						$category      = get_the_category();
-						$category_id   = get_cat_ID( $category[0]->cat_name );
-						$heading_title = get_category_parents( $category_id, false, " " );
+						$category = get_the_category();
+						if ( $category ) {
+							//$category_id   = get_cat_ID( $category[0]->cat_name );
+							$heading_title = $category[0]->cat_name;
+						} else {
+							$heading_title = get_the_title();
+						}
 					}
 					if ( get_post_type() == 'tp_event' ) {
 						$heading_title = esc_html__( 'Events', 'eduma' );
 					}
 					if ( get_post_type() == 'portfolio' ) {
-						$heading_title = esc_html__( 'Portfolio', 'eduma' );
+						//$heading_title = esc_html__( 'Portfolio', 'eduma' );
 					}
 					if ( get_post_type() == 'our_team' ) {
 						$heading_title = esc_html__( 'Our Team', 'eduma' );
@@ -3214,12 +3528,11 @@ add_action( 'thim_before_body', 'thim_print_preload' );
  * Function add h1 tag
  */
 if ( ! function_exists( 'thim_add_tag_h1' ) ) {
-    function thim_add_tag_h1()
-    {
-        if(is_front_page()) {
-            echo '<h1 class="title">'.get_bloginfo('name').'</h1>';
-        }
-    }
+	function thim_add_tag_h1() {
+		if ( is_front_page() ) {
+			echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
+		}
+	}
 }
 add_action( 'thim_before_body', 'thim_add_tag_h1' );
 
@@ -3269,15 +3582,16 @@ if ( ! function_exists( 'thim_header_class' ) ) {
  */
 if ( ! function_exists( 'thim_footer_bottom' ) ) {
 	function thim_footer_bottom() {
-        $theme_options_data = get_theme_mods();
-        $style_content = isset($theme_options_data['thim_layout_content_page']) ? $theme_options_data['thim_layout_content_page'] : 'normal';
-		if ( is_active_sidebar( 'footer_bottom' ) && $style_content != 'new-1' ) {
+		$theme_options_data = get_theme_mods();
+		$style_content      = isset( $theme_options_data['thim_layout_content_page'] ) ? $theme_options_data['thim_layout_content_page'] : 'normal';
+		$style_header       = isset( $theme_options_data['thim_header_style'] ) ? $theme_options_data['thim_header_style'] : 'header_v1';
+		if ( ( is_active_sidebar( 'footer_bottom' ) && $style_content != 'new-1' ) || ( is_active_sidebar( 'footer_bottom' ) && $style_header != 'header_v4' ) ) {
 			?>
             <div class="footer-bottom">
 
-                    <div class="container">
-						<?php dynamic_sidebar( 'footer_bottom' ); ?>
-                    </div>
+                <div class="container">
+					<?php dynamic_sidebar( 'footer_bottom' ); ?>
+                </div>
 
             </div>
 		<?php }
@@ -3285,20 +3599,32 @@ if ( ! function_exists( 'thim_footer_bottom' ) ) {
 }
 add_action( 'thim_end_content_pusher', 'thim_footer_bottom' );
 if ( ! function_exists( 'thim_above_footer_area_fnc' ) ) {
-    function thim_above_footer_area_fnc() {
-        $theme_options_data = get_theme_mods();
-        $style_content = isset($theme_options_data['thim_layout_content_page']) ? $theme_options_data['thim_layout_content_page'] : 'normal';
-        if ( is_active_sidebar( 'footer_bottom' ) && $style_content == 'new-1' ) {
-            ?>
+	function thim_above_footer_area_fnc() {
+		$theme_options_data = get_theme_mods();
+		$style_content      = isset( $theme_options_data['thim_layout_content_page'] ) ? $theme_options_data['thim_layout_content_page'] : 'normal';
+		$style_header       = isset( $theme_options_data['thim_header_style'] ) ? $theme_options_data['thim_header_style'] : 'header_v1';
+		if ( is_active_sidebar( 'footer_top' ) ) {
+			?>
             <div class="footer-bottom-above">
 
                 <div class="container">
-                    <?php dynamic_sidebar( 'footer_bottom' ); ?>
+					<?php dynamic_sidebar( 'footer_top' ); ?>
                 </div>
 
             </div>
-        <?php }
-    }
+		<?php } else {
+			if ( is_active_sidebar( 'footer_bottom' ) && $style_content == 'new-1' && $style_header == 'header_v4' ) {
+				?>
+                <div class="footer-bottom-above">
+
+                    <div class="container">
+						<?php dynamic_sidebar( 'footer_bottom' ); ?>
+                    </div>
+
+                </div>
+			<?php }
+		}
+	}
 }
 add_action( 'thim_above_footer_area', 'thim_above_footer_area_fnc' );
 
@@ -3353,12 +3679,14 @@ add_action( 'thim_copyright_area', 'thim_print_copyright' );
  */
 if ( ! function_exists( 'thim_footer_class' ) ) {
 	function thim_footer_class() {
-        $theme_options_data = get_theme_mods();
-        $style_content = isset($theme_options_data['thim_layout_content_page']) ? $theme_options_data['thim_layout_content_page'] : 'normal';
-		$custom_class    = get_theme_mod( 'thim_footer_custom_class', '' ) . ' site-footer';
-		$footer_bg_image = get_theme_mod( 'thim_footer_background_img', '' );
-		$custom_class    .= ! empty( $footer_bg_image ) ? ' footer-bg-image' : '';
-		$footer_class    = ( is_active_sidebar( 'footer_bottom' ) && $style_content != 'new-1' ) ? $custom_class . ' has-footer-bottom' : $custom_class;
+		$theme_options_data = get_theme_mods();
+		$style_content      = isset( $theme_options_data['thim_layout_content_page'] ) ? $theme_options_data['thim_layout_content_page'] : 'normal';
+		$style_header       = isset( $theme_options_data['thim_header_style'] ) ? $theme_options_data['thim_header_style'] : 'header_v1';
+		$custom_class       = get_theme_mod( 'thim_footer_custom_class', '' ) . ' site-footer';
+		$footer_bg_image    = get_theme_mod( 'thim_footer_background_img', '' );
+		$custom_class       .= ! empty( $footer_bg_image ) ? ' footer-bg-image' : '';
+		$footer_class       = ( ( is_active_sidebar( 'footer_bottom' ) && $style_content != 'new-1' ) || ( is_active_sidebar( 'footer_bottom' ) && $style_header != 'header_v4' ) ) ? $custom_class . ' has-footer-bottom' : $custom_class;
+
 
 		echo esc_attr( $footer_class );
 	}
@@ -3473,7 +3801,7 @@ if ( ! function_exists( 'thim_import_demo_page_builder' ) ) {
 if ( ! function_exists( 'thim_import_add_basic_settings' ) ) {
 	function thim_import_add_basic_settings( $settings ) {
 		$settings[] = 'learn_press_archive_course_limit';
-        $settings[] = 'siteorigin_panels_settings';
+		$settings[] = 'siteorigin_panels_settings';
 		//$settings[] = 'wpb_js_margin';
 		//$settings[] = 'users_can_register';
 		//$settings[] = 'permalink_structure';
@@ -3722,6 +4050,31 @@ function thim_eduma_register_meta_boxes_portfolio( $meta_boxes ) {
 
 add_filter( 'rwmb_meta_boxes', 'thim_eduma_register_meta_boxes_portfolio' );
 
+function thim_eduma_register_meta_boxes_post( $meta_boxes ) {
+    $prefix       = 'thim_';
+    $meta_boxes[] = array(
+        'id'         => 'post_gallery',
+        'title'      => __( 'Post Layout', 'eduma' ),
+        'post_types' => 'post',
+        'fields'     => array(
+            array(
+                'name' => __( 'Layout Grid', 'eduma' ),
+                'id'   => $prefix . 'post_gallery_layout',
+                'type'     => 'select',
+                'options' => array(
+                    'size11' => "Size 1x1(225 x 225)",
+                    'size32' => "Size 3x2(900 x 450)",
+                    'size22' => "Size 2x2(450 x 450)"
+                ),
+            ),
+        )
+    );
+
+    return $meta_boxes;
+}
+
+add_filter( 'rwmb_meta_boxes', 'thim_eduma_register_meta_boxes_post' );
+
 function thim_eduma_after_switch_theme() {
 	update_option( 'thim_eduma_version', THIM_THEME_VERSION );
 }
@@ -3729,30 +4082,165 @@ function thim_eduma_after_switch_theme() {
 add_action( 'after_switch_theme', 'thim_eduma_after_switch_theme' );
 
 //add icon for level membership
-if( thim_plugin_active( 'paid-memberships-pro/paid-memberships-pro.php' ) ) {
-    add_action('pmpro_membership_level_after_other_settings', 'thim_add_icon_package_membership',11,1);
-    function thim_add_icon_package_membership() {
-        $val = get_option('thim_level_'.$_GET['edit']) ? get_option('thim_level_'.$_GET['edit']) : '';
-        ?>
+if ( thim_plugin_active( 'paid-memberships-pro/paid-memberships-pro.php' ) ) {
+	add_action( 'pmpro_membership_level_after_other_settings', 'thim_add_icon_package_membership', 11, 1 );
+	function thim_add_icon_package_membership() {
+		$val = get_option( 'thim_level_' . $_GET['edit'] ) ? get_option( 'thim_level_' . $_GET['edit'] ) : '';
+		?>
         <table class="form-table">
             <tbody>
             <tr class="membership_categories">
                 <th scope="row" valign="top"><label><?php _e( 'Select Icon ', 'eduma' ); ?>:</label></th>
                 <td>
-                    <input type="text" name="image_level" id="image_level" size="30" value="<?php echo $val;?>">
+                    <input type="text" name="image_level" id="image_level" size="30" value="<?php echo $val; ?>">
                 </td>
             </tr>
             </tbody>
         </table>
-        <?php
+		<?php
+	}
+
+	add_action( 'pmpro_save_membership_level', 'thim_save_icon_package_membership', 10, 1 );
+	function thim_save_icon_package_membership( $level_id ) {
+		$img = isset( $_POST['image_level'] ) ? $_POST['image_level'] : '';
+		if ( get_option( 'thim_level_' . $level_id ) !== false ) {
+			update_option( 'thim_level_' . $level_id, $img );
+		} else {
+			add_option( 'thim_level_' . $level_id, $img );
+		}
+	}
+}
+
+/*
+ * Check is Maintenance Mode
+ */
+/*
+if( !function_exists( 'thim_is_maintenance_mode' ) ) {
+    function thim_is_maintenance_mode() {
+        $maintenance_mode = false;
+        $theme_options_data = get_theme_mods();
+        $day = ( isset($theme_options_data['thim_maintenance_date']) && $theme_options_data['thim_maintenance_date'] != '' ) ? (int) ( $theme_options_data['thim_maintenance_date'] ) : date( "d", time() );
+        $month = ( isset($theme_options_data['thim_maintenance_month']) && $theme_options_data['thim_maintenance_month'] != '' ) ? (int) ( $theme_options_data['thim_maintenance_month'] ) : date( "m", time() );
+        $year = ( isset($theme_options_data['thim_maintenance_year']) && $theme_options_data['thim_maintenance_year'] != '' ) ? (int) ( $theme_options_data['thim_maintenance_year'] ) : date( "Y", time() );
+        $hour = ( isset($theme_options_data['thim_maintenance_hour']) && $theme_options_data['thim_maintenance_hour'] != '' ) ? (int) ( $theme_options_data['thim_maintenance_hour'] ) : date( "G", time() );
+        $date = $year . '/' . $month . '/' . $day;
+        if( ( isset( $theme_options_data['thim_maintenance_show'] ) && $theme_options_data['thim_maintenance_show'] == true && strtotime($date) > strtotime(date('Y/n/d G:00')) && !is_user_logged_in() ) || is_page_template( 'page-templates/maintenance.php' ) ) {
+            $maintenance_mode = true;
+        }
+        return $maintenance_mode;
     }
-    add_action( 'pmpro_save_membership_level', 'thim_save_icon_package_membership',10, 1 );
-    function thim_save_icon_package_membership( $level_id ) {
-        $img = isset($_POST['image_level'])?$_POST['image_level']:'';
-        if( get_option('thim_level_'.$level_id) )
-            update_option( 'thim_level_'.$level_id, $img);
-        else
-            add_option( 'thim_level_'.$level_id, $img );
+}
+*/
+
+/*
+ * Filter list font Flaticon
+ */
+if ( ! function_exists( 'thim_get_list_font_flaticon' ) ) {
+	function thim_get_list_font_flaticon( $icon ) {
+		$new_icon = array(
+			'school-material',
+			'book',
+			'blackboard',
+			'mortarboard',
+			'science-1',
+			'apple',
+			'idea',
+			'books-1',
+			'pencil-case',
+			'medal',
+			'library',
+			'open-book',
+			'microscope-1',
+			'microscope',
+			'notebook',
+			'drawing',
+			'diploma',
+			'online',
+			'technology-2',
+			'internet',
+			'technology-1',
+			'school',
+			'book-1',
+			'technology',
+			'education',
+			'homework',
+			'code',
+			'login',
+			'notes',
+			'learning-2',
+			'search',
+			'learning-1',
+			'statistics',
+			'test',
+			'learning',
+			'study',
+			'basketball-player',
+			'biology',
+			'students',
+			'diploma-1',
+			'books',
+			'networking',
+			'teacher',
+			'graduate',
+			'reading',
+			'online-learning',
+			'innovation',
+			'research',
+			'geography',
+			'science',
+		);
+
+		return $new_icon;
+	}
+}
+add_filter( 'thim_core_widget_flat_icons', 'thim_get_list_font_flaticon' );
+
+if ( !function_exists( 'thim_time_ago' ) ) {
+    function thim_time_ago( $time ) {
+        $periods = array(
+            esc_html__( 'second', 'eduma' ),
+            esc_html__( 'minute', 'eduma' ),
+            esc_html__( 'hour', 'eduma' ),
+            esc_html__( 'day', 'eduma' ),
+            esc_html__( 'week', 'eduma' ),
+            esc_html__( 'month', 'eduma' ),
+            esc_html__( 'year', 'eduma' ),
+            esc_html__( 'decade', 'eduma' ),
+        );
+        $lengths = array(
+            '60',
+            '60',
+            '24',
+            '7',
+            '4.35',
+            '12',
+            '10'
+        );
+
+
+        $now = time();
+
+        $difference = $now - $time;
+        $tense      = esc_html__( 'ago', 'eduma' );
+
+        for ( $j = 0; $difference >= $lengths[ $j ] && $j < count( $lengths ) - 1; $j ++ ) {
+            $difference /= $lengths[ $j ];
+        }
+
+        $difference = round( $difference );
+
+        if ( $difference != 1 ) {
+            $periods[ $j ] .= "s";
+        }
+
+        return "$difference $periods[$j] $tense";
     }
 }
 
+/**
+ * Add Thim VC templates.
+ *
+ */
+if( thim_plugin_active( 'js_composer/js_composer.php' ) ) {
+    require THIM_DIR . 'inc/admin/thim-vc-tempate.php';
+}

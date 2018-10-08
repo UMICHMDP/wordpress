@@ -1,0 +1,184 @@
+/*
+Theme Name: Eduma Child 02
+Theme URI: http://educationwp.thimpress.com/
+Template: eduma
+Author: ThimPress
+Author URI: http://thimpress.com
+Description: Eduma Child Theme
+Version: 3.0.0.1519339660
+Updated: 2018-02-22 22:47:40
+
+*/
+.thim-widget-courses-searching .courses-searching button {
+    background: #e6a303;
+}
+
+.breadcrumbs-wrapper #breadcrumbs, .breadcrumbs-wrapper .thim-breadcrumbs, .breadcrumbs-wrapper .woocommerce-breadcrumb {
+    display: none;
+}
+.entry-navigation-post {
+    display: none;
+}
+.thim-course-grid .course-item .thim-course-content .course-author {
+    display: none;
+}
+.thim-course-grid .course-item .thim-course-content .course-meta .value {
+    display: none;
+}
+.thim-course-list .course-item .thim-course-content .course-price .value {
+    display: none;
+}
+.learn-press .thim-enroll-course-button {
+    display: none;
+}
+.learn-press .course-payment .course-price, .learn-press .thim-course-landing-button .course-price {
+    display: none;
+}
+#main .content-inner .entry-content .entry-header .entry-contain {
+    float: none;
+    width: -webkit-calc(100% - 140px);
+}
+#main .content-inner .post-formats-wrapper .post-image img {
+    height: auto;
+    max-width: 50%;
+}
+#main .page-content .page-content-inner .entry-header .entry-meta {
+    display: none;
+}
+#thim-body.archive.tax-ptypes.term-partner-sponsored .content-inner .entry-content .entry-summary {
+    display: block;
+    display: -webkit-box;
+    position: relative;
+    height: 45;
+    overflow: hidden;
+    font-size: 15;
+    text-overflow: ellipsis;
+    max-width: 600px;
+    line-height: 1.2em;
+    max-height: 3.6em;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.entry-header .entry-meta {
+    display: none;
+}
+.learn-press .course-meta .course-author {
+    display: none;
+}
+#thim-body.archive.tax-ptypes.term-faculty-research-project .content-inner .entry-content .entry-summary {
+    display: none;
+}
+.thumbnail:hover {
+    display: block;
+    width: 500px;
+    position: relative;
+    top: -25px;
+    height: auto;
+    left: -35px;
+    z-index: 999;
+}
+a.lightbox img {
+    width: 400px;
+    border: 3px solid white;
+    -moz-box-shadow: 0 0 8px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 0 8px rgba(0,0,0,.3);
+    -o-box-shadow: 0 0 8px rgba(0,0,0,.3);
+    box-shadow: 0 0 8px rgba(0,0,0,.3);
+    margin: 94px 20px 20px;
+}
+.lightbox-target {
+    width: 100%;
+    position: fixed;
+    top: -100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.7);
+    -moz-transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+    -o-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    opacity: 0;
+}
+.lightbox-target img {
+    width: 650px;
+    position: absolute;
+    top: 0;
+    border: 3px solid white;
+    -moz-box-shadow: 0 0 8px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 0 8px rgba(0,0,0,.3);
+    -o-box-shadow: 0 0 8px rgba(0,0,0,.3);
+    box-shadow: 0 0 8px rgba(0,0,0,.3);
+    height: 1700px;
+    right: 0;
+    left: 0;
+    max-width: 0%;
+    max-height: 0%;
+    bottom: 0;
+    -moz-transition: .5s ease-in-out;
+    -webkit-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: auto;
+}
+a.lightbox-close {
+    display: block;
+    width: 50px;
+    position: absolute;
+    top: -80px;
+    height: 50px;
+    right: 0;
+    background-color: white;
+    color: black;
+    -moz-transition: .5s ease-in-out;
+    -webkit-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    text-decoration: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a.lightbox-close:before {
+    display: block;
+    width: 1px;
+    position: absolute;
+    top: 10px;
+    height: 30px;
+    left: 26px;
+    background-color: black;
+    content: "";
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+a.lightbox-close:after {
+    display: block;
+    width: 1px;
+    position: absolute;
+    top: 10px;
+    height: 30px;
+    left: 26px;
+    background-color: black;
+    content: "";
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+.lightbox-target:target {
+    top: 0;
+    bottom: 0;
+    opacity: 1;
+}
+.lightbox-target:target img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.lightbox-target:target a.lightbox-close {
+    top: 0;
+}

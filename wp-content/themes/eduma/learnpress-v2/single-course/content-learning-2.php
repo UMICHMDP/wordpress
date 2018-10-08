@@ -32,44 +32,50 @@ $arr_variable['review'] = array("title"=>esc_html__( 'Review', 'eduma' ), "icon"
 </div>
 <div id="course-learning">
     <div class="menu_content_course">
-        <div id="tab-course-description" class="row_content_course">
-            <div class="sc_heading clone_title  text-left">
-                <h2 class="title"><?php echo esc_html__( 'About this Courses', 'eduma' );?></h2>
-                <div class="clone"><?php echo esc_html__( 'About this Courses', 'eduma' );?></div>
-            </div>
-            <?php do_action( 'learn_press_begin_course_content_course_description' ); ?>
-            <div class="thim-course-content">
-                <?php the_content(); ?>
-            </div>
-            <?php thim_course_info(); ?>
-            <?php do_action( 'learn_press_end_course_content_course_description' ); ?>
-        </div>
-        <div id="tab-course-curriculum" class="row_content_course">
-            <div class="sc_heading clone_title  text-left">
-                <h2 class="title"><?php echo esc_html__( 'Course Curriculum', 'eduma' );?></h2>
-                <div class="clone"><?php echo esc_html__( 'Course Curriculum', 'eduma' );?></div>
-            </div>
-            <?php learn_press_course_curriculum(); ?>
-        </div>
-        <div id="tab-course-instructor" class="row_content_course">
-            <div class="sc_heading clone_title  text-left">
-                <h2 class="title"><?php echo esc_html__( 'Instructors', 'eduma' );?></h2>
-                <div class="clone"><?php echo esc_html__( 'Instructors', 'eduma' );?></div>
-            </div>
-            <?php thim_about_author(); ?>
-        </div>
-        <?php if ( $review_is_enable ) : ?>
-            <div class="tab-pane <?php if($active_tab=='review') echo 'active';?>" id="tab-course-review">
-                <div class="sc_heading clone_title  text-left">
-                    <h2 class="title"><?php echo esc_html__( 'Reviews', 'eduma' );?></h2>
-                    <div class="clone"><?php echo esc_html__( 'Reviews', 'eduma' );?></div>
+        <?php for( $i=0; $i<count($group_tab); $i++ ) {?>
+            <?php if( $group_tab[$i]!='review' || ( $group_tab[$i]=='review' && $review_is_enable ) ) {?>
+                <div id="tab-course-<?php echo $group_tab[$i];?>" class="row_content_course">
+                    <div class="sc_heading clone_title  text-left">
+                        <h2 class="title"><?php echo $arr_variable[$group_tab[$i]]["title"]; ?></h2>
+                        <div class="clone"><?php echo $arr_variable[$group_tab[$i]]["title"]; ?></div>
+                    </div>
+                    <div class="tab-content-<?php echo $group_tab[$i];?>">
+                        <?php
+                        switch ($group_tab[$i]) {
+                            case 'description':
+                                ?>
+                                <?php do_action( 'learn_press_begin_course_content_course_description' ); ?>
+                                <div class="thim-course-content">
+                                    <?php the_content(); ?>
+                                </div>
+                                <?php thim_course_info(); ?>
+                                <?php do_action( 'learn_press_end_course_content_course_description' ); ?>
+                                <?php
+                                break;
+                            case 'curriculum':
+                                learn_press_course_curriculum();
+                                break;
+                            case 'instructor':
+                                thim_about_author();
+                                break;
+                            case 'review':
+                                thim_course_review();
+                                break;
+                        }
+                        ?>
+                    </div>
                 </div>
-                <?php thim_course_review(); ?>
-            </div>
-        <?php endif; ?>
+            <?php }?>
+        <?php }?>
         <?php if ( $student_list_enable ) : ?>
             <div id="tab-course-student-list" class="row_content_course">
-                <?php learn_press_course_students_list(); ?>
+                <div class="sc_heading clone_title  text-left">
+                    <h2 class="title"><?php esc_html_e( 'Student List', 'eduma' ); ?></h2>
+                    <div class="clone"><?php esc_html_e( 'Student List', 'eduma' ); ?></div>
+                </div>
+                <div id="tab-course-student-list" class="row_content_course">
+                    <?php learn_press_course_students_list(); ?>
+                </div>
             </div>
         <?php endif; ?>
     </div>

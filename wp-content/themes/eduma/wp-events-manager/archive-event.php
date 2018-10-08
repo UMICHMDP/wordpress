@@ -14,6 +14,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 global $wp_query;
 $_wp_query = $wp_query;
+
+$default_tab       = array( 'happening', 'upcoming', 'expired' );
+$default_tab_title = array(
+	'happening' => esc_html__( 'Happening', 'eduma' ),
+	'upcoming'  => esc_html__( 'Upcoming', 'eduma' ),
+	'expired'   => esc_html__( 'Expired', 'eduma' )
+);
+$output_tab        = array();
+
+$customize_order_tab = get_theme_mod( 'thim_event_change_order_tab', array() );
+if ( ! $customize_order_tab ) { // set default value for the first time
+	$customize_order_tab = $default_tab;
+}
+
+foreach ( $customize_order_tab as $tab_key ) {
+	$output_tab[ $tab_key ] = $default_tab_title[ $tab_key ];
+}
 ?>
 
 <?php
@@ -35,21 +52,31 @@ do_action( 'tp_event_before_main_content' );
  */
 do_action( 'tp_event_archive_description' );
 ?>
-    <div class="list-tab-event">
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="#tab-happening" data-toggle="tab"><?php esc_html_e( 'Happening', 'eduma' ); ?></a></li>
-            <li><a href="#tab-upcoming" data-toggle="tab"><?php esc_html_e( 'Upcoming', 'eduma' ); ?></a></li>
-            <li><a href="#tab-expired" data-toggle="tab"><?php esc_html_e( 'Expired', 'eduma' ); ?></a></li>
-        </ul>
-        <div class="tab-content thim-list-event">
+	<div class="list-tab-event">
+		<ul class="nav nav-tabs">
 			<?php
-			foreach ( array( 'happening', 'upcoming', 'expired' ) as $type ) :
+			$first_tab = true;
+			foreach ( $output_tab as $k => $v ) {
+				if ( $first_tab ) {
+					$first_tab = false;
+					echo '<li class="active"><a href="#tab-' . ( $k ) . '" data-toggle="tab">' . ( $v ) . '</a></li>';
+				} else {
+					echo '<li><a href="#tab-' . ( $k ) . '" data-toggle="tab">' . ( $v ) . '</a></li>';
+				}
+				?>
+				<?php
+			}
+			?>
+		</ul>
+
+		<div class="tab-content thim-list-event">
+			<?php
+			foreach ( $output_tab as $type => $title ) :
 				get_template_part( 'wp-events-manager/archive-event', $type );
 			endforeach;
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 
 <?php
 /**

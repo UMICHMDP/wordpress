@@ -1,11 +1,26 @@
 <?php
 
-$query_args = array(
-	'post_type'           => 'tp_event',
-	'posts_per_page'      => - 1,
-	'ignore_sticky_posts' => true,
-	'post_status'         => array( 'tp-event-happenning', 'tp-event-upcoming', 'tp-event-expired'),
-);
+if( version_compare(WPEMS_VER, '2.1.5', '>=') ) {
+    $query_args = array(
+        'post_type'           => 'tp_event',
+        'posts_per_page'      => - 1,
+        'meta_query' => array(
+            array(
+                'key'     => 'tp_event_status',
+                'value'   => array( 'happening', 'upcoming' ),
+                'compare' => 'IN',
+            ),
+        ),
+        'ignore_sticky_posts' => true
+    );
+} else {
+    $query_args = array(
+        'post_type'           => 'tp_event',
+        'posts_per_page'      => - 1,
+        'post_status'         => array( 'tp-event-happenning', 'tp-event-upcoming' ),
+        'ignore_sticky_posts' => true
+    );
+}
 
 $events = new WP_Query( $query_args );
 
@@ -17,7 +32,11 @@ if ( $events->have_posts() ) {
 	while ( $events->have_posts() ) {
 
 		$events->the_post();
-		$event_status = get_post_status( get_the_ID() );
+        if( version_compare(WPEMS_VER, '2.1.5', '>=') ) {
+            $event_status = get_post_meta( get_the_ID(), 'tp_event_status', true);
+        } else {
+            $event_status = get_post_status( get_the_ID() );
+        }
 		$class        = 'item-event';
 
 		$time_from = tp_event_start( 'g:i A' );

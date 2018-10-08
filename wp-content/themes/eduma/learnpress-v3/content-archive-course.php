@@ -14,7 +14,7 @@
  */
 defined( 'ABSPATH' ) || exit();
 
-global $post, $wp_query, $lp_tax_query, $wp_query;
+global $post, $wp_query, $lp_tax_query;
 
 $show_description = get_theme_mod( 'thim_learnpress_cate_show_description' );
 $show_desc   = !empty( $show_description ) ? $show_description : '';

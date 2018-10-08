@@ -2,11 +2,7 @@
 	<?php if ( is_user_logged_in() ): ?>
 		<?php if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) : ?>
 			<?php if ( thim_is_new_learnpress( '1.0' ) ) : ?>
-				<?php 
-				$profile_endpoints = LP()->settings->get('profile_endpoints');
-				$profile_endpoints_course = isset( $profile_endpoints['profile-courses'] ) ?$profile_endpoints['profile-courses'] : '';
-				?>
-				<a class="profile" href="<?php echo esc_url( learn_press_user_profile_link( 0, $profile_endpoints_course ) ); ?>"><?php esc_html_e( 'Profile', 'eduma' ); ?></a>
+				<a class="profile" href="<?php echo esc_url( learn_press_user_profile_link() ); ?>"><?php esc_html_e( 'Profile', 'eduma' ); ?></a>
 			<?php else: ?>
 				<a class="profile" href="<?php echo esc_url( apply_filters( 'learn_press_instructor_profile_link', '#', get_current_user_id(), '' ) ); ?>"><?php esc_html_e( 'Profile', 'eduma' ); ?></a>
 			<?php endif; ?>

@@ -13,7 +13,13 @@
     }
 }
 
-.wpcf7-form {
+.yikes-mailchimp-container {
+    .edit-link {
+        display: none;
+
+    }
+}
+.wpcf7-form, form.yikes-easy-mc-form {
     input[type="text"],
     input[type="email"],
     input[type="tel"],
@@ -21,6 +27,7 @@
     input[type="date"],
     select,
     textarea {
+
         width: 100%;
         background: #fff;
         border: 1px solid #e5e5e5;
@@ -29,6 +36,7 @@
         min-height: 40px;
         padding: 10px;
         line-height: 20px;
+        font-weight: 400;
         font-size: 13px;
         @include transition(all 0.3s ease-in-out);
         .thim-register-now-form & {
@@ -42,6 +50,7 @@
                 color: #999;
             }
 
+
             &::-moz-placeholder { /* Firefox 19+ */
                 color: #999;
             }
@@ -51,6 +60,7 @@
             }
         }
         &:focus {
+
             outline: none;
             &::-webkit-input-placeholder {
                 color: transparent;
@@ -128,7 +138,8 @@
         background: #f2dede;
     }
     .wpcf7-validation-errors{
-        display: none !important;
+        //display: none !important;
+
     }
     div.wpcf7-mail-sent-ok{
         color: #3c763d;
@@ -140,6 +151,41 @@
     input.wpcf7-not-valid {
         border-color: #ff6666;
     }
+    .subscribe_here {
+        .your-name,
+        .your-email {
+            width: 100%;
+            float: none;
+            margin-left: 0;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            font-size: 16px;
+            padding: 15px 25px;
+        }
+        .wpcf7-submit {
+            width: 100%;
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: 400;
+            margin-top: 0;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+        .ajax-loader {
+            bottom: -45px;
+            left: 50%;
+            margin-left: -15px;
+        }
+    }
 }
 
 .thim-register-now-form {
@@ -149,6 +195,19 @@
     max-width: 400px;
     float: right;
     min-height: 453px;
+    .yikes-easy-mc-form {
+        .wpcf7-submit {
+            margin-top: 0;
+        }
+    }
+    .yikes-mailchimp-container {
+        .yikes-easy-mc-success-message, yikes-easy-mc-error-message {
+            margin-left: 50px;
+            margin-right: 50px;
+            text-align: center;
+            font-size: 14px;
+        }
+    }
     &.top-homepage {
         margin: 61px 0;
     }
@@ -179,7 +238,7 @@
     }
     .wpcf7-form {
         position: relative;
-        padding: 0 50px 20px;
+        padding: 0 50px 40px;
         p {
             margin-bottom: 10px;
         }
@@ -328,7 +387,7 @@ form.wpcf7-form{
     }
     .mc4wp-form {
         position: relative;
-        .mc4wp-form-fields {
+        .mc4wp-form-fields, .label-inline {
             input[type="text"],
             input[type="email"] {
                 background: #fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAUCAMAAACgaw2xAAAAdVBMVEVMaXHMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMw+R8MhAAAAJnRSTlMAovqp9Cm63QM7Cqbn8uKG6c0GVOiMUwlm9x2tIJtyWJq2M8UTSQAt0usAAACdSURBVHhebcnpEoMgDIXRICpQV7S2Lt2X+/6PWGvNTOpwfzDhO8Rz9dlSYK4AlA13IbIrExAXz0nhXrDITj0mxyI7PZDTLJnddGoGjFKaAtPvfKIlKSnyZDk6dCRlx3JFWb1fX9H/MkYAYDKNrZz6m18QyIhln6ynu2gDDI0UXoWoJZIiO++Yok64H7hK6bhrs64E4uUdvj9NHsH5D86uE93k9eHmAAAAAElFTkSuQmCC') no-repeat center right 10px;
@@ -366,6 +425,7 @@ form.wpcf7-form{
                 border: none;
                 padding: 10px 25px;
                 margin-left: -5px;
+                vertical-align: top;
                 font-weight: 700;
                 line-height: 30px;
                 &:hover{
@@ -404,6 +464,23 @@ form.wpcf7-form{
              margin-top: 10px;
              max-width: 490px;
          }
+        &.yikes-easy-mc-form {
+            padding-right: 100px;
+            padding-left: 100px;
+            .label-inline {
+                padding-right: 0;
+                input[type="text"],
+                input[type="email"] {
+                    width: 100%;
+                }
+            }
+            .yikes-easy-mc-submit-button {
+                min-height: 50px;
+                font-size: 13px;
+                font-weight: 700;
+                border-radius: 0;
+            }
+        }
     }
 }
 
@@ -425,7 +502,7 @@ form.wpcf7-form{
             background: transparent;
             border: 1px solid #fff;
             line-height: 30px;
-            height: 40px;
+            //height: 40px;
             padding: 5px 10px;
             max-width: 425px;
             margin-left: 0px;
@@ -472,14 +549,15 @@ form.wpcf7-form{
         input[type="submit"] {
             text-transform: uppercase;
             font-size: 13px;
-            height: 40px;
+            //height: 40px;
             line-height: 30px;
             border: none;
             padding: 5px 25px;
             font-weight: 700;
-            margin-left: -1px;
+            margin-left: -5px;
             border-radius: 0;
             box-shadow: none;
+            border: 1px solid #ffb606;
             &:hover{
                 @include opacity(0.9);
             }

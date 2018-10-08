@@ -24,6 +24,8 @@ if ( class_exists( 'THIM_Testimonials' ) ) {
 						'label'         => esc_html__( 'Widget Layout', 'eduma' ),
 						'options'       => array(
 							'default'  => esc_html__( 'Default', 'eduma' ),
+                            'slider'  => esc_html__( 'Slider', 'eduma' ),
+                            'slider-2'  => esc_html__( 'Slider 2', 'eduma' ),
 							'carousel' => esc_html__( 'Carousel Slider', 'eduma' ),
 						),
 						'default'       => 'default',
@@ -37,6 +39,18 @@ if ( class_exists( 'THIM_Testimonials' ) ) {
 						'label'   => esc_html__( 'Limit Posts', 'eduma' ),
 						'default' => '7'
 					),
+                    'activepadding'     => array(
+                        'type'    => 'number',
+                        'label'   => esc_html__( 'Item padding', 'eduma' ),
+                        'desc'    => esc_html__( 'Enter number', 'eduma' ),
+                        'default' => '0',
+                        'state_handler' => array(
+                            'layout_type[default]'  => array( 'hide' ),
+                            'layout_type[slider]'  => array( 'show' ),
+                            'layout_type[slider-2]'  => array( 'show' ),
+                            'layout_type[carousel]' => array( 'hide' ),
+                        ),
+                    ),
 					'item_visible'     => array(
 						'type'    => 'number',
 						'label'   => esc_html__( 'Item visible', 'eduma' ),
@@ -55,6 +69,8 @@ if ( class_exists( 'THIM_Testimonials' ) ) {
 						'default'       => false,
 						'state_handler' => array(
 							'layout_type[default]'  => array( 'show' ),
+                            'layout_type[slider]'  => array( 'show' ),
+                            'layout_type[slider-2]'  => array( 'show' ),
 							'layout_type[carousel]' => array( 'hide' ),
 						),
 					),
@@ -64,6 +80,8 @@ if ( class_exists( 'THIM_Testimonials' ) ) {
 						'default'       => false,
 						'state_handler' => array(
 							'layout_type[default]'  => array( 'show' ),
+                            'layout_type[slider]'  => array( 'show' ),
+                            'layout_type[slider-2]'  => array( 'show' ),
 							'layout_type[carousel]' => array( 'hide' ),
 						),
 					),
@@ -75,6 +93,8 @@ if ( class_exists( 'THIM_Testimonials' ) ) {
 						'state_handler' => array(
 							'layout_type[carousel]' => array( 'show' ),
 							'layout_type[default]'  => array( 'hide' ),
+                            'layout_type[slider]'  => array( 'hide' ),
+                            'layout_type[slider-2]'  => array( 'hide' ),
 						),
 						'fields'        => array(
 							'show_pagination' => array(
@@ -115,8 +135,8 @@ if ( class_exists( 'THIM_Testimonials' ) ) {
 
 
 		function get_template_name( $instance ) {
-			if ( isset( $instance['layout'] ) && $instance['layout'] == 'carousel' ) {
-				return 'carousel';
+			if ( isset( $instance['layout'] ) && $instance['layout'] != 'default' ) {
+				return $instance['layout'];
 			} else {
 				return 'base';
 			}

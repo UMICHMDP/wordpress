@@ -1,10 +1,10 @@
-===  LearnPress Course Review - WordPress extension for LearnPress===  
-Contributors: thimpress, halink0803, tunnhn  
+=== LearnPress - Course Review ===  
+Contributors: thimpress, tunnhn, kendy73
 Donate link:  
 Tags: lms, elearning, e-learning, learning management system, education, course, courses, quiz, quizzes, questions, training, guru, sell courses  
 Requires at least: 3.8  
-Tested up to: 4.2.2  
-Stable tag: 1.0  
+Tested up to: 4.9.6
+Stable tag: 3.0.3
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -33,7 +33,7 @@ Review add-on for LearnPress is using on some WordPress Themes: [Education WordP
 - <a href="http://thimpress.com/shop/co-instructors-add-on-for-learnpress/" target="_blank">Co-instructors add-on for LearnPress</a> - multiple instructors support for each LMS course.  
 - <a href="http://thimpress.com/shop/collections-add-on-for-learnpress/"  target="_blank">Collections add-on for LearnPress</a> - making LMS courses collection by selecting number of courses, this is helpful if you want to combine multiple LMS courses into a collection for a group of skills.  
 - <a href="http://thimpress.com/shop/stripe-add-on-for-learnpress/"  target="_blank">Stripe Payment method for LearnPress</a> - Stripe payment method for LearnPress WordPress LMS Plugin.  
-- <a href="http://thimpress.com/shop/woocommerce-add-on-for-learnpress/"  target="_blank">WooCommerce add-on for LearnPress</a> - using WooCommerce as payment gateway for LearnPrss WordPress LMS Plugin.  
+- <a href="http://thimpress.com/shop/woocommerce-add-on-for-learnpress/"  target="_blank">WooCommerce add-on for LearnPress</a> - using WooCommerce as payment gateway for LearnPrss WordPress LMS Plugin.
 
 == Installation ==  
 
@@ -44,9 +44,9 @@ Review add-on for LearnPress is using on some WordPress Themes: [Education WordP
 
 **From WordPress.org**  
 1. Search, select and download LearnPress Course Review.  
-2. Activate the plugin through the 'Plugins' menu in WordPress Dashboard.  
+2. Activate the plugin through the 'Plugins' menu in WordPress Dashboard.
 
-== Frequently Asked Questions ==  
+== Frequently Asked Questions ==
 
 Check out <a href="http://docs.thimpress.com/learnpress" target="_blank">LearnPress</a> sites.  
 
@@ -54,7 +54,37 @@ Check out <a href="http://docs.thimpress.com/learnpress" target="_blank">LearnPr
 
 1. LearnPress Course Review screenshot.  
 
-== Changelog == 
+== Changelog ==
+
+= 3.0.3 =
++ Fixed displayed name of reviews in Back End Comments page.
+
+= 3.0.2 =
++ Used Select2 field in Widget to avoid memory limit issue when querying too large number of courses.
++ Hidden Reply action in back end.
++ Fixed bug "Can't use function return value in write context".
+
+= 3.0.1 =
++ Fixed bug with AJAX call when load more reviews.
+
+= 3.0.0 =
++ Compatible with Learnpress 3.0.0
+
+= 2.1.1 =
+~ Add notices upgrading addon for LP 3.0
+
+= 2.1 =
+~ Allow all user and guest user can view reviewed
+~ Only allow enrolled user can write new review
+
+= 2.0.1 =
++ Changed text domain to learnpress
+
+= 2.0 =
++ Updated to be compatible with LearnPress 2.0
+
+= 1.1 =
++ Fixed comments do not show in admin
 
 = 1.0 =
 + Compatible with LearnPress version 1.0

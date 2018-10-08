@@ -26,6 +26,15 @@ class Thim_Login_Popup_Widget extends Thim_Widget {
 					'label'   => esc_html__( 'Logout Label', 'eduma' ),
 					'default' => 'Logout',
 				),
+                'layout'           => array(
+                    'type'          => 'select',
+                    'label'         => esc_html__( 'Layout', 'eduma' ),
+                    'default'       => 'base',
+                    'options'       => array(
+                        '' => esc_html__( 'Default', 'eduma' ),
+                        'icon' => esc_html__( 'Icon', 'eduma' ),
+                    ),
+                ),
 				'shortcode'    => array(
 					'type'        => 'text',
 					'label'       => esc_html__( 'Shortcode', 'eduma' ),
@@ -44,7 +53,11 @@ class Thim_Login_Popup_Widget extends Thim_Widget {
 
 
 	function get_template_name( $instance ) {
-		return 'base';
+        if ( isset( $instance['layout'] ) && $instance['layout'] != '' ) {
+            return $instance['layout'];
+        } else {
+            return 'base';
+        }
 	}
 
 	function get_style_name( $instance ) {

@@ -9,6 +9,12 @@
 	body.single-lp_quiz &{
 		display: none;
 	}
+	a.close {
+		position: absolute;
+		top: 5px;
+		right: 15px;
+		color: #333;
+	}
 }
 
 #popup_title {

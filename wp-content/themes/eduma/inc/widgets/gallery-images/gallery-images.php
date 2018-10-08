@@ -60,15 +60,30 @@ class Thim_Gallery_Images_Widget extends Thim_Widget {
 						'no'  => esc_html__( 'No', 'eduma' ),
 					)
 				),
-				'show_pagination' => array(
+                'show_pagination' => array(
+                    'type'    => 'radio',
+                    'label'   => esc_html__( 'Show Pagination', 'eduma' ),
+                    'default' => 'no',
+                    'options' => array(
+                        'yes' => esc_html__( 'Yes', 'eduma' ),
+                        'no'  => esc_html__( 'No', 'eduma' ),
+                    )
+                ),
+				'show_navigation' => array(
 					'type'    => 'radio',
-					'label'   => esc_html__( 'Show Pagination', 'eduma' ),
+					'label'   => esc_html__( 'Show Navigation', 'eduma' ),
 					'default' => 'no',
 					'options' => array(
 						'yes' => esc_html__( 'Yes', 'eduma' ),
 						'no'  => esc_html__( 'No', 'eduma' ),
 					)
 				),
+                'auto_play'       => array(
+                    'type'        => 'number',
+                    'label'       => esc_html__( 'Auto Play Speed (in ms)', 'eduma' ),
+                    'description' => esc_html__( 'Set 0 to disable auto play.', 'eduma' ),
+                    'default'     => '0'
+                ),
 				'link_target'     => array(
 					"type"    => "select",
 					"label"   => esc_html__( "Link Target", 'eduma' ),

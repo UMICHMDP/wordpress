@@ -28,6 +28,7 @@ function thim_shortcode_social( $atts ) {
 		'link_youtube'   => '',
 		'link_snapchat'  => '',
 		'link_target'    => '_self',
+        'el_class' => '',
 	), $atts );
 
 
@@ -42,9 +43,11 @@ function thim_shortcode_social( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-social">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

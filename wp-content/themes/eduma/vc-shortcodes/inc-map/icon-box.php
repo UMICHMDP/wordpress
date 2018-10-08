@@ -18,7 +18,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Heading color', 'eduma' ),
 			'param_name'  => 'title_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -27,7 +27,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Size heading', 'eduma' ),
 			'param_name'  => 'title_size',
 			'value'       => array(
@@ -42,7 +42,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Custom heading', 'eduma' ),
 			'param_name'  => 'title_font_heading',
 			'value'       => array(
@@ -54,7 +54,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'number',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Font size', 'eduma' ),
 			'param_name'  => 'title_custom_font_size',
 			'std'         => '14',
@@ -68,7 +68,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Font Weight', 'eduma' ),
 			'param_name'  => 'title_custom_font_weight',
 			'description' => esc_html__( 'Select Custom Title Font Weight', 'eduma' ),
@@ -95,7 +95,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'number',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Margin Top', 'eduma' ),
 			'param_name'  => 'title_custom_mg_top',
 			'std'         => '0',
@@ -108,7 +108,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'number',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Margin Bottom', 'eduma' ),
 			'param_name'  => 'title_custom_mg_bt',
 			'std'         => '0',
@@ -121,7 +121,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'checkbox',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Show separator', 'eduma' ),
 			'param_name'  => 'line_after_title',
 			'std'         => false,
@@ -129,7 +129,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'textarea',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Description', 'eduma' ),
 			'param_name'  => 'desc_content',
 			'std'         => esc_html__( 'Write a short description, that will describe the title or something informational and useful.', 'eduma' ),
@@ -137,7 +137,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'number',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Description size', 'eduma' ),
 			'param_name'  => 'custom_font_size_desc',
 			'description' => esc_html__( 'Custom description font size. Unit is pixel', 'eduma' ),
@@ -146,7 +146,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Description font weight', 'eduma' ),
 			'param_name'  => 'custom_font_weight_desc',
 			'description' => esc_html__( 'Select custom description font weight', 'eduma' ),
@@ -168,7 +168,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Description color', 'eduma' ),
 			'param_name'  => 'color_desc',
 			'description' => esc_html__( 'Select the description color.', 'eduma' ),
@@ -176,7 +176,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'textfield',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Link', 'eduma' ),
 			'param_name'  => 'read_more_link',
 			'value'       => '',
@@ -186,7 +186,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Apply read more link to:', 'eduma' ),
 			'param_name'  => 'read_more_link_to',
 			'description' => esc_html__( 'Select Custom Title Font Weight', 'eduma' ),
@@ -201,7 +201,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Target link', 'eduma' ),
 			'param_name'  => 'read_more_target',
 			'value'       => array(
@@ -215,7 +215,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'checkbox',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Show Link To Icon', 'eduma' ),
 			'param_name'  => 'link_to_icon',
 			'std'         => false,
@@ -224,7 +224,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'textfield',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Read more text', 'eduma' ),
 			'param_name'  => 'read_more_text',
 			'value'       => '',
@@ -234,7 +234,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Text color', 'eduma' ),
 			'param_name'  => 'read_more_text_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -244,7 +244,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Border color', 'eduma' ),
 			'param_name'  => 'read_more_border_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -254,7 +254,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Background color', 'eduma' ),
 			'param_name'  => 'read_more_bg_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -264,7 +264,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Text hover color', 'eduma' ),
 			'param_name'  => 'read_more_text_hover_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -274,7 +274,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Background hover color', 'eduma' ),
 			'param_name'  => 'read_more_bg_hover_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -284,13 +284,14 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon type', 'eduma' ),
 			'param_name'  => 'icon_type',
 			'description' => esc_html__( 'Select icon type to display', 'eduma' ),
 			'value'       => array(
 				esc_html__( 'Select', 'eduma' )       => '',
 				esc_html__( 'Font Awesome', 'eduma' ) => 'font-awesome',
+                esc_attr__( "Ionicons", 'eduma' )          => "font_ionicons",
 				esc_html__( 'Custom Image', 'eduma' ) => 'custom',
 			),
 			'group'       => esc_html__( 'Icon Settings', 'eduma' ),
@@ -298,7 +299,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'iconpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Font Awesome Icon', 'eduma' ),
 			'param_name'  => 'font_awesome_icon',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -310,23 +311,39 @@ vc_map( array(
 			'group'       => esc_html__( 'Icon Settings', 'eduma' ),
 		),
 
+        // Ionicons Picker
+        array(
+            "type"             => "iconpicker",
+            "heading"          => esc_attr__( "Font Ionicons Icon", 'eduma' ),
+            "param_name"       => "font_ionicons",
+            "settings"         => array(
+                'emptyIcon' => true,
+                'type'      => 'ionicons',
+            ),
+            'dependency'       => array(
+                'element' => 'icon_type',
+                'value'   => array( 'font_ionicons' ),
+            ),
+            'group'       => esc_html__( 'Icon Settings', 'eduma' ),
+        ),
+
 		array(
 			'type'        => 'number',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon Font Size', 'eduma' ),
 			'param_name'  => 'font_awesome_icon_size',
 			'std'         => '14',
 			'description' => esc_html__( 'Custom icon font size. Unit is pixel', 'eduma' ),
 			'dependency'  => array(
 				'element' => 'icon_type',
-				'value'   => 'font-awesome',
+				'value'   => array('font-awesome','font_ionicons'),
 			),
 			'group'       => esc_html__( 'Icon Settings', 'eduma' ),
 		),
 
 		array(
 			'type'        => 'attach_image',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Image Icon', 'eduma' ),
 			'param_name'  => 'custom_image_icon',
 			'std'         => '14',
@@ -340,7 +357,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'number',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Width box icon', 'eduma' ),
 			'param_name'  => 'width_icon_box',
 			'std'         => '100',
@@ -348,9 +365,19 @@ vc_map( array(
 			'group'       => esc_html__( 'Icon Settings', 'eduma' ),
 		),
 
+        array(
+            'type'        => 'number',
+            'admin_label' => false,
+            'heading'     => esc_html__( 'Height box icon', 'eduma' ),
+            'param_name'  => 'height_icon_box',
+            'std'         => '',
+            'description' => esc_html__( 'Custom height box icon. Unit is pixel', 'eduma' ),
+            'group'       => esc_html__( 'Icon Settings', 'eduma' ),
+        ),
+
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon color', 'eduma' ),
 			'param_name'  => 'icon_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -360,7 +387,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon border color', 'eduma' ),
 			'param_name'  => 'icon_border_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -370,7 +397,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon background color', 'eduma' ),
 			'param_name'  => 'icon_bg_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -380,7 +407,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon hover color', 'eduma' ),
 			'param_name'  => 'icon_hover_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -390,7 +417,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon border hover color', 'eduma' ),
 			'param_name'  => 'icon_border_hover_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -400,7 +427,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'colorpicker',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon background hover color', 'eduma' ),
 			'param_name'  => 'icon_bg_hover_color',
 			'value'       => esc_html__( '', 'eduma' ),
@@ -410,7 +437,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Icon shape', 'eduma' ),
 			'param_name'  => 'layout_box_icon_style',
 			'value'       => array(
@@ -422,7 +449,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Box style', 'eduma' ),
 			'param_name'  => 'layout_pos',
 			'value'       => array(
@@ -435,7 +462,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Text alignment', 'eduma' ),
 			'param_name'  => 'layout_text_align_sc',
 			'value'       => array(
@@ -448,7 +475,7 @@ vc_map( array(
 
 		array(
 			'type'        => 'dropdown',
-			'admin_label' => true,
+			'admin_label' => false,
 			'heading'     => esc_html__( 'Type icon box', 'eduma' ),
 			'param_name'  => 'layout_style_box',
 			'value'       => array(
@@ -459,6 +486,36 @@ vc_map( array(
 			),
 			'group'       => esc_html__( 'Icon Settings', 'eduma' ),
 		),
+
+        array(
+            'type'        => 'dropdown',
+            'admin_label' => false,
+            'heading'     => esc_html__( 'Widget Background', 'eduma' ),
+            'param_name'  => 'widget_background',
+            'value'       => array(
+                esc_html__( 'None', 'eduma' )      => 'none',
+                esc_html__( 'Background Color', 'eduma' )      => 'bg_color',
+            ),
+            'group'       => esc_html__( 'Layout Settings', 'eduma' ),
+        ),
+        array(
+            'type'        => 'colorpicker',
+            'admin_label' => false,
+            'heading'     => esc_html__( 'Background Color', 'eduma' ),
+            'param_name'  => 'bg_box_color',
+            'value'       => esc_html__( '', 'eduma' ),
+            'description' => esc_html__( 'Select the color background for box.', 'eduma' ),
+        ),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 
 	)
 ) );

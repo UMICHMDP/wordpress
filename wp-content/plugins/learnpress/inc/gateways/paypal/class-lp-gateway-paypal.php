@@ -81,9 +81,9 @@ class LP_Gateway_Paypal extends LP_Gateway_Abstract {
 	 *
 	 */
 	public function __construct() {
-		$this->id          = 'paypal';
+		$this->id = 'paypal';
 
-		$this->method_title = 'Paypal';
+		$this->method_title       = 'Paypal';
 		$this->method_description = 'Make payment via Paypal';
 
 		$this->title       = 'Paypal';
@@ -275,7 +275,22 @@ class LP_Gateway_Paypal extends LP_Gateway_Abstract {
 	}
 
 	public function get_payment_form() {
-		return $this->get_description();
+		$output = $this->get_description();;
+		$error  = false;
+		if ( $this->settings->get( 'paypal_sandbox' ) == 'yes' ) {
+			if ( false == is_email( $this->settings->get( 'paypal_sandbox_email' ) ) ) {
+				$error = true;
+			}
+		} else {
+			if ( false == is_email( $this->settings->get( 'paypal_email' ) ) ) {
+				$error = true;
+			}
+		}
+		if ( $error ) {
+			$output .= learn_press_get_message( __( 'Paypal settings is not setup', 'learnpress' ), 'error' );
+			$output .= '<input type="hidden" name="payment_method_paypal-error" value="yes" />';
+		}
+		return $output;
 	}
 
 	public function process_order_paypal_standard() {
@@ -327,7 +342,7 @@ class LP_Gateway_Paypal extends LP_Gateway_Abstract {
 								)
 							);
 
-							wp_redirect( ( $confirm_page_id = learn_press_get_page_id( 'taken_course_confirm' ) ) && get_post( $confirm_page_id ) ? learn_press_get_order_confirm_url( $order_id ) : get_site_url() );
+							wp_redirect( ( $confirm_page_id = learn_press_get_page_id( 'taken_course_confirm' ) ) && get_post( $confirm_page_id ) ? learn_press_get_order_confirm_url( $order_id ) : get_home_url() /* SITE_URL */ );
 							die();
 						}
 
@@ -341,7 +356,7 @@ class LP_Gateway_Paypal extends LP_Gateway_Abstract {
 			}
 		}
 
-		wp_redirect( get_site_url() );
+		wp_redirect( get_home_url() /* SITE_URL */ );
 		die();
 	}
 
@@ -401,7 +416,7 @@ class LP_Gateway_Paypal extends LP_Gateway_Abstract {
 
 	protected function prepare_line_items() {
 		$this->line_items = array();
-		if ( $items = LP()->cart->get_items() ) {
+		if ( $items = LP()->get_checkout_cart()->get_items() ) {
 			foreach ( $items as $item ) {
 				$this->add_line_item( get_the_title( $item['item_id'] ), $item['quantity'], $item['total'] );
 			}
@@ -453,11 +468,11 @@ class LP_Gateway_Paypal extends LP_Gateway_Abstract {
 				'rm'            => is_ssl() ? 2 : 1,
 				'upload'        => 1,
 				'return'        => esc_url( $this->get_return_url( $order ) ),
-				'cancel_return' => esc_url( learn_press_is_enable_cart() ? learn_press_get_page_link( 'cart' ) : get_site_url() ),
+				'cancel_return' => esc_url( learn_press_is_enable_cart() ? learn_press_get_page_link( 'cart' ) : get_home_url() /* SITE_URL */ ),
 				'bn'            => 'LearnPress_Cart',
 				//'invoice'       => $order->id,
 				'custom'        => json_encode( $custom ),
-				'notify_url'    => get_site_url() . '/?' . learn_press_get_web_hook( 'paypal' ) . '=1',
+				'notify_url'    => get_home_url() /* SITE_URL */ . '/?' . learn_press_get_web_hook( 'paypal' ) . '=1',
 				'email'         => $user->user_email
 			),
 			$this->get_item_lines()

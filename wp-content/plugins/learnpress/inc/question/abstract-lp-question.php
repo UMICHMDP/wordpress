@@ -32,6 +32,8 @@ class LP_Abstract_Question {
 	 */
 	public $question_type = null;
 
+	public $content = '';
+
 	/**
 	 * @var bool
 	 */
@@ -80,6 +82,30 @@ class LP_Abstract_Question {
 	protected function _init() {
 		//add_action( 'save_post', array( $this, 'save' ) );
 		add_filter( 'learn_press_question_answers', array( $this, '_get_default_answers' ), 10, 2 );
+	}
+
+	public function get_title() {
+		return get_the_title( $this->id );
+	}
+
+	public function get_content() {
+		if ( !did_action( 'learn_press_get_content_' . $this->id ) ) {
+			global $post, $wp_query;
+			$post  = get_post( $this->id );
+			//$posts = apply_filters( 'the_posts', array( $post ), $wp_query );
+			$posts = apply_filters_ref_array( 'the_posts', array( array( $post ), &$wp_query ) );
+
+			if ( $posts ) {
+				$post = $posts[0];
+			}
+			setup_postdata( $post );
+			ob_start();
+			the_content();
+			$this->content = ob_get_clean();
+			wp_reset_postdata();
+			do_action( 'learn_press_get_content_' . $this->id );
+		}
+		return $this->content;
 	}
 
 	/**
@@ -134,6 +160,8 @@ class LP_Abstract_Question {
 		 * Allows add more type of question to save with the rules below
 		 */
 		$types = apply_filters( 'learn_press_save_default_question_types', array( 'true_or_false', 'multi_choice', 'single_choice' ) );
+		//echo $this->type;
+		///print_r($post_data);die();
 		if ( in_array( $this->type, $types ) ) {
 
 			$this->empty_answers();
@@ -173,7 +201,6 @@ class LP_Abstract_Question {
 				$this->mark = 1;
 				update_post_meta( $this->id, '_lp_mark', 1 );
 			}
-
 		}
 		do_action( 'learn_press_update_question_answer', $this, $post_data );
 	}
@@ -188,8 +215,14 @@ class LP_Abstract_Question {
 	public function get_answers( $field = null, $exclude = null ) {
 		global $wpdb;
 		$answers = array();
-		//if ( empty( $answers ) ) {
-			if ( !empty( $GLOBALS['learnpress_question_answers'][$this->id] ) ) {
+		/**
+		 * Question post type should be cached
+		 */
+		if ( $question_post = get_post( $this->id ) ) {
+			$answers = !empty( $question_post->answers ) ? maybe_unserialize( $question_post->answers ) : array();
+		}
+
+		/*	if ( !empty( $GLOBALS['learnpress_question_answers'][$this->id] ) ) {
 				if ( array_key_exists( $this->id, $GLOBALS['learnpress_question_answers'] ) ) {
 					$answers = $GLOBALS['learnpress_question_answers'][$this->id];
 				}
@@ -208,8 +241,7 @@ class LP_Abstract_Question {
 					}
 				}
 				$GLOBALS['learnpress_question_answers'][$this->id] = $answers;
-			}
-		//}
+			}*/
 		if ( $answers && ( $field || $exclude ) ) {
 			if ( $field ) settype( $field, 'array' );
 			if ( $exclude ) settype( $exclude, 'array' );
@@ -377,7 +409,7 @@ class LP_Abstract_Question {
 				array(
 					'ID'          => $post_id,
 					'post_title'  => $this->get( 'post_title' ),
-					'post_type'   => LP()->question_post_type,
+					'post_type'   => LP_QUESTION_CPT,
 					'post_status' => 'publish'
 
 				)
@@ -386,7 +418,7 @@ class LP_Abstract_Question {
 			$post_id = wp_insert_post(
 				array(
 					'post_title'  => $this->get( 'post_title' ),
-					'post_type'   => LP()->question_post_type,
+					'post_type'   => LP_QUESTION_CPT,
 					'post_status' => 'publish'
 				)
 			);
@@ -430,7 +462,7 @@ class LP_Abstract_Question {
 
 	public function save_user_answer( $answer, $quiz_id, $user_id = null ) {
 		if ( $user_id ) {
-			$user = LP_User::get_user( $user_id );
+			$user = LP_User_Factory::get_user( $user_id );
 		} else {
 			$user = learn_press_get_current_user();
 		}
@@ -460,6 +492,37 @@ class LP_Abstract_Question {
 			'mark'    => 0
 		);
 		return $return;
+	}
+
+	public function get_user_answered( $args ) {
+		$args     = wp_parse_args(
+			$args,
+			array(
+				'history_id' => 0,
+				'quiz_id'    => 0,
+				'course_id'  => 0,
+				'force'      => false
+			)
+		);
+		$answered = null;
+		if ( $args['history_id'] ) {
+			$user_meta = learn_press_get_user_item_meta( $args['history_id'], 'question_answers', true );
+			if ( $user_meta && array_key_exists( $this->id, $user_meta ) ) {
+				$answered = $user_meta[$this->id];
+			}
+		} elseif ( $args['quiz_id'] && $args['course_id'] ) {
+			$user    = learn_press_get_current_user();
+			$history = $user->get_quiz_results( $args['quiz_id'], $args['course_id'], $args['force'] );
+
+			if ( $history ) {
+				$user_meta = learn_press_get_user_item_meta( $history->history_id, 'question_answers', true );
+
+				if ( $user_meta && array_key_exists( $this->id, $user_meta ) ) {
+					$answered = $user_meta[$this->id];
+				}
+			}
+		}
+		return $answered;
 	}
 }
 
@@ -597,16 +660,6 @@ class LP_Question extends LP_Abstract_Question {
 				<a href="" data-action="expand" class="<?php echo !$is_collapse ? "hide-if-js" : ""; ?>"><?php _e( 'Expand', 'learnpress' ); ?></a>
 				<a href="" data-action="collapse" class="<?php echo $is_collapse ? "hide-if-js" : ""; ?>"><?php _e( 'Collapse', 'learnpress' ); ?></a>
 			</p>
-			<!--<select name="lpr_question[<?php echo $post_id; ?>][type]" data-type="<?php echo $this->get_type(); ?>">
-				<?php if ( $questions ) foreach ( $questions as $type ): ?>
-					<?php $question = LPR_Question_Factory::instance()->get_question( $type ); ?>
-					<?php if ( $question ) { ?>
-						<option value="<?php echo $type; ?>" <?php selected( $this->get_type() == $type ? 1 : 0, 1 ); ?>>
-							<?php echo $question->get_name(); ?>
-						</option>
-					<?php } ?>
-				<?php endforeach; ?>
-			</select>-->
 			<span class="lpr-question-title"><input class="inactive" type="text" name="lpr_question[<?php echo $this->get( 'ID' ); ?>][text]" value="<?php echo esc_attr( $this->post->post_title ); ?>" /></span>
 		</div>
 		<div class="lpr-question-content<?php echo $is_collapse ? " hide-if-js" : ""; ?>">

@@ -37,10 +37,10 @@ $passed            = $current >= $passing_condition;
     <div class="items-progress course-progress" style="display: none">
 
         <div class="lp-course-progress" data-value="<?php echo $course_results['completed_items']; ?>" data-passing-condition="<?php echo $course_results['count_items']; ?>">
-            <?php if ( false !== ( $heading = apply_filters( 'learn-press/course/items-completed-heading', __( 'Items completed', 'learnpress' ) ) ) ) { ?>
+            <?php if ( false !== ( $heading = apply_filters( 'learn-press/course/items-completed-heading', __( 'Items completed', 'eduma' ) ) ) ) { ?>
                 <label class="lp-course-progress-heading"><?php esc_html( $heading ); ?>
                     <span class="value result">
-                        <?php printf( __( '%d of %d items', 'learnpress' ), $course_results['completed_items'], $course->count_items('', false) ); ?>
+                        <?php printf( __( '%d of %d items', 'eduma' ), $course_results['completed_items'], $course->count_items('', true) ); ?>
                     </span>
                 </label>
             <?php } ?>
@@ -54,7 +54,7 @@ $passed            = $current >= $passing_condition;
 
     <div class="course-progress">
         <div class="lp-course-progress<?php echo $passed ? ' passed' : ''; ?>" data-value="<?php echo $current; ?>" data-passing-condition="<?php echo $passing_condition; ?>">
-		<?php if ( false !== ( $heading = apply_filters( 'learn-press/course/result-heading', __( 'Course results', 'learnpress' ) ) ) ) { ?>
+		<?php if ( false !== ( $heading = apply_filters( 'learn-press/course/result-heading', __( 'Course results', 'eduma' ) ) ) ) { ?>
             <label class="lp-course-progress-heading"><?php echo $heading; ?>
                 <span class="value result"><b class="number">
                         <?php echo $current; ?></b>%

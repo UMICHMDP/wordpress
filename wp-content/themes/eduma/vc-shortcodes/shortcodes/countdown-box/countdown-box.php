@@ -23,8 +23,10 @@ function thim_shortcode_countdown_box( $atts ) {
 		'time_month'   => '',
 		'time_day'     => '',
 		'time_hour'    => '',
+        'layout'       => '',
 		'style_color'  => '',
 		'text_align'   => '',
+        'el_class'           => '',
 	), $atts );
 
 
@@ -32,16 +34,24 @@ function thim_shortcode_countdown_box( $atts ) {
 	$args['before_title'] = '<h3 class="widget-title">';
 	$args['after_title']  = '</h3>';
 
-	$widget_template       = THIM_DIR . 'inc/widgets/countdown-box/tpl/base.php';
-	$child_widget_template = THIM_CHILD_THEME_DIR . 'inc/widgets/countdown-box/base.php';
+    if ( isset($instance['layout']) && '' != $instance['layout'] ) {
+        $layout = $instance['layout'];
+    } else {
+        $layout = 'base';
+    }
+
+	$widget_template       = THIM_DIR . 'inc/widgets/countdown-box/tpl/' . $layout . '.php';
+	$child_widget_template = THIM_CHILD_THEME_DIR . 'inc/widgets/countdown-box/' . $layout . '.php';
 	if ( file_exists( $child_widget_template ) ) {
 		$widget_template = $child_widget_template;
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-countdown-box">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

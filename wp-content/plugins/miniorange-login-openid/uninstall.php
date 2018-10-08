@@ -35,7 +35,10 @@
 	delete_option('mo_openid_login_redirect_url');
 	delete_option('moopenid_social_login_avatar');
 	delete_option('moopenid_user_attributes');
-
+	delete_option('mo_openid_auto_register_enable');
+	delete_option('mo_openid_account_linking_enable');
+	delete_option('mo_openid_email_enable');
+    delete_option( 'mo_openid_user_number');
 	delete_option( 'mo_openid_social_comment_fb');
 	delete_option( 'mo_openid_social_comment_google' );
 	delete_option( 'mo_openid_social_comment_default' );
@@ -82,6 +85,7 @@
 	delete_option('mo_openid_whatsapp_share_enable');
 	delete_option( 'mo_openid_admin_customer_valid');
 	delete_option( 'mo_openid_admin_customer_plan');
+	delete_option( 'mo_openid_share_widget_customize_text_color');
 	
 	delete_option('mo_login_icon_custom_size');
 	delete_option('mo_login_icon_space' );
@@ -102,14 +106,57 @@
 	delete_option('mo_openid_share_custom_theme');
 	delete_option('mo_sharing_icon_custom_font');
 	delete_option('mo_sharing_icon_space');
-	delete_option( 'mo_openid_message');
+	delete_option('mo_openid_message');
 	delete_option('mo_openid_logout_redirect');
 	delete_option('mo_openid_logout_redirection_enable');
 	delete_option('mo_openid_logout_redirect_url');
 	delete_option('mo_openid_sms_otp_count');
 	delete_option('mo_openid_email_otp_count');
 	delete_option('mo_openid_login_role_mapping');
+    delete_option('moopenid_logo_check');
 	
 	delete_option( 'mo_openid_login_widget_customize_logout_name_text');
 	delete_option( 'mo_openid_login_widget_customize_logout_text');
+	delete_option( 'mo_login_openid_login_widget_customize_textcolor');
+	delete_option('mo_openid_oauth');
+    delete_option('mo_openid_apps_list');
+	delete_option('mo_openid_enable_profile_completion');
+
+    //woocommerce display options
+    delete_option( 'mo_openid_woocommerce_login_form');
+    delete_option( 'mo_openid_woocommerce_before_login_form');
+    delete_option( 'mo_openid_woocommerce_center_login_form');
+    delete_option( 'mo_openid_woocommerce_register_form_start');
+    delete_option( 'mo_openid_woocommerce_center_register_form');
+    delete_option( 'mo_openid_woocommerce_register_form_end');
+    delete_option( 'mo_openid_woocommerce_before_checkout_billing_form');
+    delete_option( 'mo_openid_woocommerce_after_checkout_billing_form');
+    // delete_option( 'mo_openid_woocommerce_edit_account_form_start');
+    // delete_option( 'mo_openid_woocommerce_edit_account_form_end');
+
+    //buddypress display options
+    delete_option( 'mo_openid_bp_before_register_page');
+    delete_option( 'mo_openid_bp_before_account_details_fields');
+    delete_option( 'mo_openid_bp_after_register_page');
+    delete_option('mo_openid_relative_login_redirect_url');
+
+    //Custom app switch button option
+    delete_option( 'mo_openid_enable_custom_app_google');
+    delete_option( 'mo_openid_enable_custom_app_facebook');
+    delete_option( 'mo_openid_enable_custom_app_twitter');
+
+    //GDPR options
+    delete_option('mo_openid_gdpr_consent_enable');
+    delete_option( 'mo_openid_privacy_policy_text');
+    delete_option( 'mo_openid_gdpr_consent_message');
+    delete_option( 'mo_openid_privacy_policy_url');
+    //error message options
+    delete_option('mo_registration_error_message');
+    delete_option('mo_email_failure_message');
+    delete_option( 'mo_existing_username_error_message');
+    delete_option( 'mo_manual_login_error_message');
+    delete_option('mo_delete_user_error_message');
+    delete_option('mo_account_linking_message');
+
+    delete_option( 'mo_openid_feedback_form' );
 ?>

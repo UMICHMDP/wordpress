@@ -14,7 +14,7 @@ $settings = LP()->settings;
 ?>
 <h3><?php _e( 'New order', 'learnpress' ); ?></h3>
 <p class="description">
-	<?php _e( 'Send email to specific address when a new order is placed', 'learnpress' ); ?>
+	<?php _e( 'Send email to a specific address when a new order is placed.', 'learnpress' ); ?>
 </p>
 <table class="form-table">
 	<tbody>
@@ -64,14 +64,14 @@ $settings = LP()->settings;
 			</p>
 		</td>
 	</tr>
-	<tr>
+	<!--<tr>
 		<th scope="row">
 			<label for="learn-press-emails-new-order-email-format"><?php _e( 'Email format', 'learnpress' ); ?></label>
 		</th>
 		<td>
 			<?php learn_press_email_formats_dropdown( array( 'name' => $settings_class->get_field_name( 'emails_new_order[email_format]' ), 'id' => 'learn_press_email_formats', 'selected' => $settings->get( 'emails_new_order.email_format', $default ) ) ); ?>
 		</td>
-	</tr>
+	</tr>-->
 	<?php
 	$view = learn_press_get_admin_view( 'settings/emails/email-template.php' );
 	include_once $view;

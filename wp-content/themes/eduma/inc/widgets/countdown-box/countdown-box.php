@@ -51,6 +51,15 @@ class Thim_Countdown_Box_Widget extends Thim_Widget {
 					'type'  => 'text',
 					'label' => esc_html__( 'Hour', 'eduma' ),
 				),
+                'layout'   => array(
+                    'type'    => 'select',
+                    'label'   => esc_html__( 'Layout', 'eduma' ),
+                    'options' => array(
+                        ''   => esc_html__( 'Default', 'eduma' ),
+                        'pie' => esc_html__( 'Pie', 'eduma' ),
+                        'pie-gradient' => esc_html__( 'Pie Gradient', 'eduma' ),
+                    ),
+                ),
 				'style_color'  => array(
 					'type'    => 'select',
 					'label'   => esc_html__( 'Style Color', 'eduma' ),
@@ -78,12 +87,18 @@ class Thim_Countdown_Box_Widget extends Thim_Widget {
 	 */
 
 	function get_template_name( $instance ) {
-		return 'base';
+        if ( isset($instance['layout']) && '' != $instance['layout'] ) {
+            return $instance['layout'];
+        } else {
+            return 'base';
+        }
 	}
 
 	function get_style_name( $instance ) {
+        //wp_enqueue_script( 'jquery-classycountdown', plugin_dir_url(__FILE__) . 'js/jquery.classycountdown.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		return false;
 	}
+
 }
 
 function thim_countdown_box_widget() {

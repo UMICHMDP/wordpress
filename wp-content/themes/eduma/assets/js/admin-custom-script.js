@@ -6,8 +6,47 @@ jQuery(function ($) {
 
         thim_eduma_30_install_demo();
 
-        thim_eduma_edit_term()
+        thim_eduma_edit_term();
+
+        thim_vc_template_ui.init();
     });
+
+    var thim_vc_template_ui = window.thim_vc_template_ui = {
+
+        init: function () {
+            this.vc_filter_template();
+            this.vc_effect_add_template();
+        },
+
+        /**
+         * Filter category
+         */
+        vc_filter_template: function () {
+            $('.cat-filter').on('click', 'li', function (e) {
+                var catslug = $(this).attr('data-filter');
+                $('.cat-filter li').removeClass('active');
+                $(this).addClass('active');
+                $('[data-tab=default_templates]').find('.vc_ui-template').hide();
+                console.log(catslug);
+                $('[data-tab=default_templates]').find('.' + catslug).show();
+            });
+
+        },
+
+        /**
+         * Add loading when click on add template button.
+         */
+        vc_effect_add_template: function () {
+            $('.vc_ui-list-bar-item-actions').on('click', function () {
+                $(this).addClass('adding');
+            });
+            $(document).ajaxComplete(function () {
+                $('.vc_ui-list-bar-item-actions').removeClass('adding');
+            });
+        },
+
+
+    };
 
 
     function thim_custom_admin_select() {

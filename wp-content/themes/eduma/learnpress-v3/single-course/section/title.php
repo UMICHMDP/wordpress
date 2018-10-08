@@ -21,7 +21,7 @@ $user_course = $user->get_course_data( get_the_ID() );
 if ( ! isset( $section ) ) {
 	return;
 }
-//var_dump($section);die();
+
 $title = $section->get_title();
 ?>
 
@@ -30,7 +30,11 @@ $title = $section->get_title();
         <span class="collapse"></span>
         <?php echo $title; ?>
         <span class="meta">
-                <span class="step"><?php printf( __( '%d/%d', 'learnpress' ), $user_course->get_completed_items( '', false, $section->get_id() ), $section->count_items( '', false ) ); ?></span>
+		<?php if ( $user->has_enrolled_course( $section->get_course_id() ) ) { ?>
+			<span class="step"><?php printf( __( '%d/%d', 'eduma' ), $user_course->get_completed_items( '', false, $section->get_id() ), $section->count_items( '', false ) ); ?></span>
+		<?php } else { ?>
+			<span class="step"><?php printf( __( '%d', 'eduma' ), $section->count_items( '', false ) ); ?></span>
+		<?php } ?>
             </span>
     </h4>
     <?php if ( $description = $section->get_description() ) { ?>

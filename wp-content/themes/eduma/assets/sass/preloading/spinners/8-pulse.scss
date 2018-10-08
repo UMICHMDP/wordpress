@@ -13,6 +13,9 @@
   background-color: $spinkit-spinner-color;
   border-radius: 100%;
   animation: sk-pulseScaleOut 1.0s infinite ease-in-out;
+  position: absolute;
+  top: 50%;
+  transform:translate(0,-50%);
 }
 
 @keyframes sk-pulseScaleOut {

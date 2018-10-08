@@ -28,6 +28,7 @@ function thim_shortcode_our_team( $atts ) {
 		'link_member'     => false,
 		'columns'         => '1',
 		'css_animation'   => '',
+        'el_class' => '',
 	), $atts );
 
 
@@ -48,9 +49,11 @@ function thim_shortcode_our_team( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-our-team">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

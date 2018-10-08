@@ -18,15 +18,28 @@ function ts_map_vc_shortcodes() {
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'counters-box.php' );
 
-	include_once( THIM_DIR_SHORTCODES_MAP . 'course-categories.php' );
+    if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) {
 
-	include_once( THIM_DIR_SHORTCODES_MAP . 'courses.php' );
+        include_once( THIM_DIR_SHORTCODES_MAP . 'course-categories.php' );
 
-	if ( thim_plugin_active( 'learnpress-collections/learnpress-collections.php' ) ) {
-		include_once( THIM_DIR_SHORTCODES_MAP . 'courses-collection.php' );
-	}
+        include_once( THIM_DIR_SHORTCODES_MAP . 'courses.php' );
 
-	include_once( THIM_DIR_SHORTCODES_MAP . 'courses-searching.php' );
+        include_once( THIM_DIR_SHORTCODES_MAP . 'courses-searching.php' );
+
+        if ( thim_plugin_active( 'learnpress-collections/learnpress-collections.php' ) ) {
+            include_once( THIM_DIR_SHORTCODES_MAP . 'courses-collection.php' );
+        }
+
+        if ( thim_plugin_active( 'learnpress-co-instructor/learnpress-co-instructor.php' ) ) {
+
+
+            include_once( THIM_DIR_SHORTCODES_MAP . 'one-course-instructors.php' );
+
+            include_once( THIM_DIR_SHORTCODES_MAP . 'list-instructors.php' );
+
+        }
+
+    }
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'gallery-images.php' );
 
@@ -44,11 +57,15 @@ function ts_map_vc_shortcodes() {
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'timetable.php' );
 
+    include_once( THIM_DIR_SHORTCODES_MAP . 'tab.php' );
+
 	include_once( THIM_DIR_SHORTCODES_MAP . 'video.php' );
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'our-team.php' );
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'icon-box.php' );
+
+    include_once( THIM_DIR_SHORTCODES_MAP . 'image-box.php' );
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'single-images.php' );
 
@@ -59,10 +76,6 @@ function ts_map_vc_shortcodes() {
 	include_once( THIM_DIR_SHORTCODES_MAP . 'button.php' );
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'list-post.php' );
-
-	include_once( THIM_DIR_SHORTCODES_MAP . 'one-course-instructors.php' );
-
-    include_once( THIM_DIR_SHORTCODES_MAP . 'list-instructors.php' );
 
 	include_once( THIM_DIR_SHORTCODES_MAP . 'carousel-categories.php' );
 

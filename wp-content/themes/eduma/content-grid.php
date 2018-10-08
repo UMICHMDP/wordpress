@@ -23,7 +23,7 @@ switch ($columns) {
 <article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?>>
 	<div class="content-inner">
 		<?php
-		do_action( 'thim_entry_top', $arr_size ); ?>
+		do_action( 'thim_entry_top', 'full' ); ?>
 		<div class="entry-content">
 			<?php
 			if ( has_post_format( 'link' ) && thim_meta( 'thim_url' ) && thim_meta( 'thim_text' ) ) {

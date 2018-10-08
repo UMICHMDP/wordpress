@@ -19,6 +19,8 @@ $arr_variable = array();
 $arr_variable['description'] = array("title"=>esc_html__( 'Description', 'eduma' ), "icon"=>"fa-bookmark");
 $arr_variable['curriculum'] = array("title"=>esc_html__( 'Curriculum', 'eduma' ), "icon"=>"fa-cube");
 $arr_variable['instructor'] = array("title"=>esc_html__( 'Instructors', 'eduma' ), "icon"=>"fa-user");
+if ( $student_list_enable )
+    $arr_variable['students-list'] = array("title"=>esc_html__( 'Student list', 'eduma' ), "icon"=>"fa-list");
 $arr_variable['review'] = array("title"=>esc_html__( 'Review', 'eduma' ), "icon"=>"fa-comments");
 ?>
 
@@ -36,15 +38,17 @@ $arr_variable['review'] = array("title"=>esc_html__( 'Review', 'eduma' ), "icon"
 		<ul class="nav nav-tabs">
 			<?php for( $i=0; $i<count($group_tab); $i++ ) {?>
 				<?php if( $group_tab[$i]!='review' || ( $group_tab[$i]=='review' && $review_is_enable ) ) {?>
-					<li role="presentation" <?php if($active_tab==$group_tab[$i]) echo 'class="active"';?>>
-						<?php
-						//var_dump($arr_variable[$group_tab[$i]]["title"]);
-						?>
-						<a href="#tab-course-<?php echo $group_tab[$i];?>" data-toggle="tab">
-							<i class="fa <?php echo $arr_variable[$group_tab[$i]]["icon"];?>"></i>
-							<span><?php echo $arr_variable[$group_tab[$i]]["title"]; ?></span>
-						</a>
-					</li>
+                    <?php if( !empty( $arr_variable[$group_tab[$i]] )) {?>
+                        <li role="presentation" <?php if($active_tab==$group_tab[$i]) echo 'class="active"';?>>
+                            <?php
+                            //var_dump($arr_variable[$group_tab[$i]]["title"]);
+                            ?>
+                            <a href="#tab-course-<?php echo $group_tab[$i];?>" data-toggle="tab">
+                                <i class="fa <?php echo $arr_variable[$group_tab[$i]]["icon"];?>"></i>
+                                <span><?php echo $arr_variable[$group_tab[$i]]["title"]; ?></span>
+                            </a>
+                        </li>
+                    <?php }?>
 				<?php }?>
 			<?php }?>
 			<?php if ( $student_list_enable ) : ?>
@@ -92,9 +96,11 @@ $arr_variable['review'] = array("title"=>esc_html__( 'Review', 'eduma' ), "icon"
 			<ul class="thim-course-landing-tab">
 				<?php for( $i=0; $i<count($group_tab); $i++ ) {?>
 					<?php if( $group_tab[$i]!='review' || ( $group_tab[$i]=='review' && $review_is_enable ) ) {?>
-						<li>
-							<a href="#tab-course-<?php echo $group_tab[$i];?>"><?php echo $arr_variable[$group_tab[$i]]["title"]; ?></a>
-						</li>
+                        <?php if( !empty( $arr_variable[$group_tab[$i]] )) {?>
+                            <li>
+                                <a href="#tab-course-<?php echo $group_tab[$i];?>"><?php echo $arr_variable[$group_tab[$i]]["title"]; ?></a>
+                            </li>
+                        <?php }?>
 					<?php }?>
 				<?php }?>
 			</ul>

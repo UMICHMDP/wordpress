@@ -18,6 +18,9 @@
   margin-bottom: 0;
   overflow: visible;
 }
+.thim-style-content-new-1 .vc_row.wpb_row.vc_parallax {
+  overflow: hidden;
+}
 .thim-style-content-new-1 .vc_parallax_right.vc_parallax {
   background-position-x: right;
   background-position-y: 10%;
@@ -240,6 +243,27 @@ body .vc_tta.vc_tta-spacing-1 .vc_tta-tab {
   float: left;
   height: 50px;
   width: 33.3333333%;
+}
+body .vc_tta.vc_tta-spacing-1.vc_tta-tabs-position-left .vc_tta-tabs-list {
+  display: block;
+  height: auto;
+  margin: 0;
+}
+body .vc_tta.vc_tta-spacing-1.vc_tta-tabs-position-left .vc_tta-tab {
+  width: 100%;
+}
+body .vc_tta.vc_tta-spacing-1.vc_tta-tabs-position-left .vc_tta-tab a {
+  margin-right: 0;
+}
+body .vc_tta.vc_tta-spacing-1.vc_tta-tabs-position-left .vc_tta-tab.vc_active:after {
+  background-color: #eeeeee;
+}
+body .vc_tta.vc_tta-spacing-1.vc_tta-tabs-position-left .vc_tta-tab:before {
+  left: auto;
+  right: 0;
+  width: 4px;
+  height: auto;
+  bottom: 0;
 }
 body .vc_tta.vc_tta-spacing-1 .vc_tta-tab:before {
   content: '';

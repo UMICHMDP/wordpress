@@ -1,9 +1,17 @@
-@media (min-width: 1300px) {
+.wrapper-container {
+    overflow-x: hidden;
+}
+@media (min-width: 1400px) {
     body.size_wide .container {
-        width: 1392px;
+        width: 1355px;
         max-width: 100%;
     }
-
+    .margin-top-collection {
+        margin-top: -103px;
+    }
+    .feature-icon-box:after {
+        right: 125px;
+    }
 }
 h1.title {
     display: none;
@@ -30,6 +38,9 @@ h1.title {
     -webkit-transition-timing-function: ease;
     transition-timing-function: ease;
 }
+.text-center {
+    text-align: center;
+}
 a {
     color: #337ab7;
     text-decoration: none;
@@ -47,6 +58,10 @@ body{
     overflow-x: hidden;
     .cp-affilate-link{
         display: none;
+    }
+    &.body-grad-layout {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }
 .tp-table {
@@ -232,7 +247,7 @@ button {
 body .pagination{
     text-align: left;
 }
-.loop-pagination, .pagination {
+.loop-pagination, .pagination, .learn-press-pagination {
     text-align: left;
     display: inline-block;
     width: 100%;
@@ -516,8 +531,15 @@ body .pagination{
     transition: all 0.3s !important;
     white-space: nowrap !important;
 }
-.thim-click-to-bottom{
-    animation: moveDown 1.3s cubic-bezier(0.07, 0.5, 0.58, 1) infinite;
+.thim-click-to-bottom, .have_scroll_bottom .scroll_slider_tab .to_bottom i{
+    -webkit-animation: bounce 2s infinite;
+    -moz-animation: bounce 2s infinite;
+    -ms-animation: bounce 2s infinite;
+    -o-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+}
+.thim-click-to-bottom, .have_scroll_bottom .scroll_slider_tab .to_bottom svg {
+    margin-bottom: 20px;
 }
 
 
@@ -972,7 +994,7 @@ Flexslider
             }
             .banner-description {
                 font-size: 18px;
-                font-weight: 300;
+                font-weight: 200;
                 font-style: normal;
                 margin-top: 15px;
                 color: #cccccc!important;
@@ -1026,7 +1048,6 @@ Flexslider
                 span {
                     color: #cccccc;
                     font-size: 14px;
-                    font-weight: 400;
                 }
                 a {
                     margin-right: 5px;
@@ -1358,6 +1379,23 @@ input[type="checkbox"] {
         position: relative;
     }
 }
+.thim-bg-overlay-70 {
+    position: relative;
+    &:before {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.7);
+        left: 0;
+        display: block;
+        content: "";
+        right: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 0;
+    }
+    > .panel-grid-cell {
+        position: relative;
+    }
+}
 
 /** Thim get 100s **/
 .thim-get-100s {
@@ -1381,7 +1419,7 @@ input[type="checkbox"] {
 }
 
 .thim-best-industry {
-    margin: -263px -2px 81px;
+    margin: -263px -2px 120px;
     position: relative;
 }
 
@@ -1447,9 +1485,11 @@ input[type="checkbox"] {
         left: 0;
         right: 0;
         bottom: 0;
+        content: "";
         background: #ffb606;
         @include opacity(0.6);
     }
+
     >div{
         position: relative;
         z-index: 2;
@@ -1633,10 +1673,92 @@ input[type="checkbox"] {
             font-weight: 700;
         }
     }
-    .wrapper-gallery-filter{
+    .wrapper-gallery-filter {
         >.thim-col-5,
         >[class*="col-sm-"]{
             padding-bottom: 30px;
+        }
+        &.isotope-layout {
+            .item_gallery {
+                float: left;
+                width: 16.66667%;
+                //padding: 0 5px;
+                margin: 5px 0;
+
+                .thim-gallery-popup {
+                    overflow: hidden;
+                    color: #ffffff;
+                    img {
+                        max-width: none;
+                        width: auto;
+                        //height: 100%;
+                    }
+                    &:before, &:after {
+                        display: none;
+                    }
+                    .info_post {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        content: "";
+                        background: rgba(53,56,102,0.75);
+
+                        @include opacity(0);
+                        @include transition(all 0.4s ease-in-out);
+                        z-index: 9;
+                        text-align: center;
+                        font-size: 18px;
+                        font-weight: 400;
+                        display: table;
+                        width: 100%;
+                        height: 100%;
+                        .inner-info {
+                            display: table-cell;
+                            vertical-align: middle;
+                        }
+                        i {
+                            -ms-transform: rotateY(0deg);
+                            -webkit-transform: rotateY(0deg);
+                            transform: rotateY(0deg);
+                            @include transition(all 0.4s ease-in-out);
+                            font-size: 30px;
+                            display: block;
+                            margin-bottom: 8px;
+                        }
+                        &:before {
+                            display: table-cell;
+                            content: "";
+                            vertical-align: middle;
+                        }
+                    }
+                    &:hover{
+                        .info_post {
+                            @include opacity(1);
+                            i {
+                                -ms-transform: rotateY(180deg);
+                                -webkit-transform: rotateY(180deg);
+                                transform: rotateY(180deg);
+                            }
+                        }
+                    }
+                    &.loading {
+                        .info_post {
+                            i {
+                                -webkit-animation: fa-spin 2s infinite linear;
+                                animation: fa-spin 2s infinite linear;
+
+                                &:before {
+                                    content: "\f110";
+                                    font-family: FontAwesome;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     .thim-gallery-show{
@@ -1741,7 +1863,7 @@ body.thim-body-load-overlay{
             border-radius: 50%;
             border: 2px solid #82888d;
             display: inline-block;
-            margin: 0 10px;
+            margin: 0 5px;
         }
     }
 }
@@ -2179,6 +2301,11 @@ input.cptch_input {
         z-index: 0;
         @include opacity(0.5);
     }
+    &.vc_row {
+        &:before {
+            display: block;
+        }
+    }
     > div {
         position: relative;
     }
@@ -2223,7 +2350,7 @@ input.cptch_input {
     }
 }
 
-.wpcf7-form {
+.wpcf7-form, form.yikes-easy-mc-form {
     input[type="text"],
     input[type="email"],
     input[type="tel"],
@@ -2347,11 +2474,14 @@ aside{
         &.header_v2 {
             .navbar-nav {
                 li {
-                    .sub-menu {
-                        .sub-menu {
-                            left: calc(100% + 30px);
-                        }
+                    > .sub-menu.mega-sub-menu {
+                        right: 0;
+                        width: auto;
                     }
+                }
+
+                & > li {
+                    position: static;
                 }
             }
         }
@@ -2474,7 +2604,7 @@ body input[type=checkbox]:checked:before{
     display: flex;
 }
 
-.thim_overlay_gradient {
+.thim_overlay_gradient, .thim_overlay_gradient_2 {
     .textwidget {
         p {
             margin-bottom: 0;
@@ -2526,6 +2656,42 @@ body input[type=checkbox]:checked:before{
         }
     }
 }
+.thim_overlay_gradient_2 {
+    .rev_slider {
+        li {
+            .slotholder {
+                position: relative;
+                &:before {
+                    background: #6a11cb; /* Old browsers */
+                    background: -moz-linear-gradient(left, #6a11cb 0%, #2575fc 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(left, #6a11cb 0%,#2575fc 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to right, #6a11cb 0%,#2575fc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6a11cb', endColorstr='#2575fc',GradientType=1 ); /* IE6-9 */
+                    @include opacity(.9);
+                }
+            }
+        }
+    }
+}
+.thim_image_overlay_bottom {
+    position: relative;
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        height: 200px;
+        background-image: url(images/bg_slider_edtech.png);
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        z-index: 7;
+    }
+    > div {
+        position: relative;
+        z-index: 5;
+    }
+}
 .rev_slider {
     .tp-tabs {
         &.hebe {
@@ -2543,11 +2709,16 @@ body input[type=checkbox]:checked:before{
                 }
             }
             .tp-tab-desc {
-                font-weight: 400;
+                font-weight: 300;
             }
             .tp-tab {
-                display: table;
+                position: inherit;
+                padding: 45px 0;
+                display: table-cell;
                 padding-left: 45px;
+                padding-right: 10px;
+                width: 25%!important;
+                left: unset!important;
                 opacity: 1;
                 border-top: 4px solid transparent;
                 &:before {
@@ -2617,6 +2788,13 @@ body input[type=checkbox]:checked:before{
     background-repeat: no-repeat!important;
     background-position-y: 65px;
 }
+
+.thim_bg_left_bottom {
+    background-position-x: left!important;
+    background-repeat: no-repeat!important;
+    background-position-y: bottom;
+
+}
 .thim_overlay_dark_30 {
     position: relative;
     > .panel-grid-cell {
@@ -2680,6 +2858,13 @@ body input[type=checkbox]:checked:before{
     border-bottom: 1px solid #eeeeee;
 }
 .thim-style-content-new-1  {
+    &.blog {
+        .post-formats-wrapper {
+            img {
+                width: 100%;
+            }
+        }
+    }
     .mc4wp-form {
         .mc4wp-response {
             left: 30px;
@@ -2860,6 +3045,7 @@ body input[type=checkbox]:checked:before{
             }
             .time-from {
                 width: 130px;
+                margin-right: 0;
                 .date {
                     font-size: 50px;
                     font-weight: 300;
@@ -2927,7 +3113,7 @@ body input[type=checkbox]:checked:before{
         .copyright-area {
             .text-copyright {
                 a {
-                    font-weight: 700;
+                    font-weight: 400;
                 }
             }
         }
@@ -2948,5 +3134,334 @@ body input[type=checkbox]:checked:before{
         &:last-child {
             width: 34%;
         }
+    }
+}
+.select2-container--default {
+    .select2-selection--single {
+        border-color: #eeeeee;
+        border-radius: 0;
+        height: 40px;
+        .select2-selection__rendered {
+            line-height: 38px;
+        }
+        .select2-selection__arrow {
+            height: 38px;
+            width: 30px;
+        }
+    }
+}
+.maintenance_mode {
+    height: 100%;
+    body {
+        height: 100%;
+        display: table;
+        width: 100%;
+        .maintenance-wrap {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            #coming-soon-counter {
+                margin-top: 60px;
+            }
+        }
+    }
+}
+.thim_countdown_newletter_box {
+    width: 435px;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    border: 7px solid rgba(0,0,0,0.25);
+
+    > .panel-layout, > .wpb_column {
+        background-color: #ffffff;
+        padding: 45px 30px 0;
+    }
+    .form_developer_course {
+        .content {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+.thim-bg-overlay-75 {
+    position: relative;
+    clear: both;
+    &:before {
+        content: '';
+        position: absolute;
+        background: rgba(17, 17, 17, 0.75);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 0;
+    }
+    &.vc_row {
+        &:before {
+            z-index: 1;
+            display: block;
+        }
+    }
+    > .panel-grid-cell, > .wpb_column {
+        position: relative;
+        z-index: 1;
+    }
+}
+.thim-border-left-event {
+    position: relative;
+    &:before {
+        position: absolute;
+        left: -45px;
+        top: 50px;
+        bottom: 0;
+        width: 1px;
+        content: "";
+        background-color: rgba(124,124,124,.2);
+    }
+}
+.grad-slider {
+    .custom {
+        &.tparrows {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            background-color: rgba(235,235,235,0.1);
+            border-radius: 50%;
+            @include transition();
+            &:before {
+                line-height: 80px;
+                font-family: "Ionicons";
+                font-size: 40px;
+                color: #afafaf;
+            }
+            &:hover {
+                &:before {
+                    color: #ffffff;
+                }
+            }
+            &.tp-leftarrow {
+                &:before {
+                    content: "\f3d2";
+                }
+            }
+            &.tp-rightarrow {
+                &:before {
+                    content: "\f3d3";
+                }
+            }
+        }
+    }
+}
+.body-grad-layout {
+    #back-to-top {
+        width: 60px;
+        line-height: 60px;
+        height: 60px;
+        bottom: 65px;
+        right: 55px;
+        i {
+            font-family: "Ionicons";
+            font-size: 30px;
+            line-height: 60px;
+            color: #ffffff;
+            &:before {
+                content: "\f3d7";
+            }
+
+        }
+    }
+    .vc_row {
+        .sc_heading {
+            strong {
+                font-weight: 600;
+            }
+        }
+    }
+    .thim-course-grid .course-item .thim-course-content .course-title,
+    .widget-area .thim-course-list-sidebar .thim-course-content .course-title,
+    .thim-course-grid .course-item .thim-course-content .course-meta>div.course-price .value,
+    .learn-press-pagination li .page-numbers,
+    .loop-pagination li .page-numbers,
+    .widget-area aside .widget-title,
+    .widget-area .thim-course-list-sidebar .course-price,
+    .learn-press .entry-title,
+    .learn-press .course-meta .value,
+    .learn-press .course-payment .course-price,
+    .learn-press .thim-course-landing-button .course-price,
+    .learn-press .course-tabs .nav-tabs li a,
+    #learn-press-course-description .thim-course-info ul li .value,
+    #tab-course-description .thim-course-info ul li .value,
+    #tab-overview .thim-course-info ul li .value,
+    #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .quiz-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .quiz-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .quiz-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .quiz-title,
+    #learn-press-course-curriculum ul.curriculum-sections .section-header,
+    .thim-about-author .author-bio .name,
+    #tab-course-review .course-rating>h3, #tab-re.widget-titleviews .course-rating>h3,
+    .thim-course-megamenu .course-title,
+    .list-tab-event .nav-tabs li a,
+    .top_site_main .page-title-wrapper h1, .top_site_main .page-title-wrapper h2,
+    .tp_single_event .entry-title h1,
+    .widget-area.sidebar-events .book-title,
+    .tp-event-info .tp-info-box .heading,
+    .tp-event-organizers .title,
+    #respond.comment-respond .comment-reply-title,
+    .widget-area.sidebar-events .widget_book-event ul li .value,
+    .thim-widget-gallery-posts .wrapper-filter-controls a,
+    article .entry-header .entry-title,
+    article .entry-header .date-meta,
+    article .entry-header .entry-meta li span,
+    .entry-tag-share .post-tag,
+    .product-grid .product__title .price, .product-grid .product__title a.title,
+    .related-archive .single-title, .share-post .single-title,
+    .sc_heading .title,
+    .thim-list-event .item-event .event-wrapper .title,
+    .thim-list-event .item-event .time-from .date,
+    .thim-list-event .item-event .event-wrapper .meta,
+    .thim-widget-icon-box .wrapper-box-icon.contact_info .heading__primary,
+    .entry-navigation-post .next-post .title, .entry-navigation-post .prev-post .title,
+    article .entry-header .entry-meta li a, article .entry-header .entry-meta li span.value,
+    #tab-course-review .course-rating .detailed-rating .stars>div.key, #tab-reviews .course-rating .detailed-rating .stars>div.key,
+    .pagination li .page-numbers {
+        font-weight: 500;
+    }
+    .woocommerce div.product .product_title, .woocommerce-page div.product .product_title,
+    .woocommerce div.product p.price ins, .woocommerce div.product span.price ins,
+    .woocommerce div.product .woocommerce-tabs .tabs.wc-tabs li a,
+    .woocommerce-page div.product .woocommerce-tabs .tabs.wc-tabs li a,
+    .woocommerce div.product .related-products>h2,
+    .woocommerce div.product .upsells-products>h2,
+    .woocommerce-page div.product .related-products>h2,
+    .woocommerce-page div.product .upsells-products>h2 {
+        font-weight: 500;
+    }
+    .widget-area aside.widget ul li a,
+    .learn-press .course-meta label {
+        font-weight: 400;
+    }
+    .thim-course-grid .course-item .thim-course-content .course-author .value {
+        font-weight: 300;
+    }
+    .learn-press .course-meta>div .value {
+        line-height: 24px;
+    }
+    .course-meta .course-review .review-stars-rated {
+        margin-right: 5px;
+    }
+    .thim-course-grid .course-item .thim-course-content .course-meta>div.course-price .value,
+    .switch-layout-container .courses-searching form input[type=text],
+    .learn-press-pagination li .page-numbers,
+    .loop-pagination li .page-numbers,
+    .pagination li .page-numbers,
+    .breadcrumbs-wrapper #breadcrumbs li,
+    .breadcrumbs-wrapper .thim-breadcrumbs li,
+    .breadcrumbs-wrapper .woocommerce-breadcrumb li,
+    .widget-area .thim-course-list-sidebar .thim-course-content .course-title,
+    .widget-area aside.widget ul li a,
+    .widget-area .thim-course-list-sidebar .course-price,
+    .thim-course-grid .course-item .thim-course-content .course-author .value,
+    .learn-press .course-meta label,
+    .learn-press .course-meta .value,
+    .add-review .review-stars-rated .review-stars>li span,
+    .course-review .review-stars-rated .review-stars>li span,
+    .rating-box .review-stars-rated .review-stars>li span,
+    button,
+    input[type=submit],
+    .learn-press .course-tabs .nav-tabs li a,
+    #learn-press-course-description .thim-course-info ul li,
+    #tab-course-description .thim-course-info ul li,
+    #tab-overview .thim-course-info ul li,
+    .tp-event-info .tp-info-box .heading,
+    .list-tab-event .nav-tabs li a,
+    .tp-event-info .tp-info-box p,
+    .thim-widget-gallery-posts .wrapper-filter-controls a,
+    .search-form label .search-field,
+    .thim-product-switch-wrap .woocommerce-result-count,
+    .thim-product-switch-wrap form.woocommerce-ordering select,
+    .wpcf7-form input[type=date], .wpcf7-form input[type=email], .wpcf7-form input[type=text], .wpcf7-form input[type=tel], .wpcf7-form input[type=number], .wpcf7-form select, .wpcf7-form textarea,
+    #learn-press-course-curriculum ul.curriculum-sections .section-header,
+    #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .quiz-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .quiz-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .quiz-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .assignment-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .lesson-title, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .quiz-title,
+    #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .index, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .index, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .index, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .index,
+    #learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .meta, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item-lp_lesson .meta, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .meta, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .meta,
+    .switch-layout-container .course-index {
+        font-size: 16px;
+    }
+    .wpcf7-form select, .wpcf7-form textarea {
+        font-size: 16px;
+    }
+    article .entry-header .entry-meta li span,
+    article .entry-header .entry-meta li a, article .entry-header .entry-meta li span.value {
+        font-size: 14px;
+    }
+    .learn-press-pagination li .page-numbers.next, .learn-press-pagination li .page-numbers.prev, .loop-pagination li .page-numbers.next, .loop-pagination li .page-numbers.prev, .pagination li .page-numbers.next, .pagination li .page-numbers.prev {
+        font-size: 0;
+    }
+    .lp-single-course .learn-press .course-thumbnail img,
+    article .post-formats-wrapper img {
+        width: 100%;
+    }
+    .toolbar .widget_shopping_cart {
+        float: right;
+        width: 48px;
+        border-left: 1px solid rgba(183,183,183,.1);
+        .minicart_hover {
+            .cart-items-number {
+                text-align: center;
+                color: #aeaeae!important;
+                &:hover {
+                    color: #ffffff!important;
+                }
+                i {
+                    margin-right: 15px;
+                }
+                span.wrapper-items-number {
+                    bottom: 21px;
+                    left: 21px;
+                }
+            }
+        }
+    }
+}
+.row_relative.vc_row {
+    position: relative;
+    overflow: hidden;
+    &[data-vc-full-width] {
+        overflow: visible;
+    }
+}
+.tp-preview-images {
+    right: 296px;
+}
+#tp_style_selector {
+    width: 296px;
+    .style-toggle {
+        left: -50px;
+    }
+}
+.tp_style_selector_container {
+    width: 100%;
+    overflow-x: hidden;
+    .tp-chameleon-demos-wrapper {
+        width: 294px;
+        padding-bottom: 0;
+    }
+    .tp_chameleon_demos {
+        &:after {
+            clear: both;
+            content: "";
+            display: table;
+        }
+    }
+}
+.tp_demo {
+    width: 142px;
+    &:last-child {
+        overflow: visible;
+        span {
+            width: 284px!important;
+        }
+    }
+    &:first-child {
+        width: 284px;
     }
 }

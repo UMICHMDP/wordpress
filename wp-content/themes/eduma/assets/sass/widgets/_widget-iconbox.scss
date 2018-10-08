@@ -299,6 +299,12 @@
 	}
 	.wrapper-box-icon{
 		&.circle{
+			.iconbox-top {
+				.content-inner {
+					padding-left: 15px;
+					padding-right: 15px;
+				}
+			}
 			.content-inner{
 				padding-left: 15px;
 				padding-right: 50px;
@@ -318,7 +324,7 @@
 	.wrapper-box-icon.has_custom_image{
 		&:not(.overlay){
 			.boxes-icon{
-				height: auto !important;
+				//height: auto !important;
 			}
 			.smicon-read{
 				border: 0;
@@ -416,7 +422,7 @@
 			color: #fff;
 			line-height: 30px;
 			margin: 20px 0 10px;
-			padding-right: 42px;
+			padding-right: 40px;
 		}
 		.boxes-icon {
 			border: 0;
@@ -479,7 +485,7 @@
 			}
 		}
 		&:nth-child(2){
-			padding-left: 30px !important;
+			//padding-left: 30px !important;
 		}
 	}
 	.sc_heading{
@@ -544,7 +550,7 @@
 }
 
 .thim-bg-border-top{
-
+	overflow: hidden;
 	.thim-widget-icon-box{
 		.boxes-icon{
 			float: left;
@@ -580,6 +586,44 @@
 
 		.boxes-icon{
 			@include scale(1.05, 1.05);
+		}
+	}
+}
+.feature-icon-box {
+	position: relative;
+	&:before {
+		position: absolute;
+		left: -16px;
+		width: 50px;
+		height: 150px;
+		content: "";
+		top: 0;
+		background-color: #2ec4b6;
+		-ms-transform: rotate(12deg);
+		-webkit-transform: rotate(12deg);
+		transform: rotate(12deg);
+	}
+	&:after {
+		position: absolute;
+		width: 1px;
+		top: 35px;
+		bottom: 35px;
+		right: 89px;
+		background-color: rgba(255,255,255,.15);
+		content: "";
+	}
+	.content-inner {
+		//border-right: 1px solid rgba(255,255,255,0.15);
+	}
+	.boxes-icon {
+		i {
+			line-height: 44px!important;
+			&.pe-7s-angle-right {
+              &:before {
+				  content: "\f3d6";
+				  font-family: "Ionicons";
+			  }
+            }
 		}
 	}
 }

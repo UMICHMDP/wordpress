@@ -23,7 +23,7 @@ do_action( 'learn-press/before-single-item' );
 <div id="course-curriculum-popup" class="course-summary">
     <div id="popup-sidebar">
         <?php
-        do_action( 'thim_before_curiculumn_item' );
+        //do_action( 'thim_before_curiculumn_item' );
         /**
          * @since 3.0.0
          *

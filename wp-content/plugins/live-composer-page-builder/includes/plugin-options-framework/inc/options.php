@@ -1,8 +1,15 @@
 <?php
 
+// Prevent direct access to the file.
+if ( ! defined( 'ABSPATH' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	exit;
+}
 
+add_action( 'plugins_loaded', 'dslc_plugin_options_add', 20 );
+function dslc_plugin_options_add() {
 
-	global $content_width;
+	global $content_width, $dslc_plugin_options;
 
 	$dslc_plugin_options['dslc_plugin_options'] = array(
 		'title' => __( 'General Options', 'live-composer-page-builder' ),
@@ -17,6 +24,24 @@
 				'descr' => __( 'The width of the modules section when row is set to wrapped. If not set the $content_width variable from theme will be used.', 'live-composer-page-builder' ),
 			),
 
+			'lc_section_paddings' => array(
+
+			   'section' => 'dslc_plugin_options',
+				'label' => __( 'Section Paddings <br>(horizontal)', 'live-composer-page-builder' ),
+				'std' => '4%',
+				'type' => 'text',
+				'descr' => __( 'Spacing to add on the left and right side of the each row. Used to prevent the content from touching the sides of the window. Default: 4%', 'live-composer-page-builder' ),
+			),
+
+			'lc_section_padding_vertical' => array(
+
+				'section' => 'dslc_plugin_options',
+				 'label' => __( 'Section Paddings <br>(vertical)', 'live-composer-page-builder' ),
+				 'std' => '80',
+				 'type' => 'text',
+				 'descr' => __( 'Spacing to add on the top and bottom side of the each row. Default: 80px', 'live-composer-page-builder' ),
+			 ),
+
 			'lc_force_important_css' => array(
 
 				'section' => 'dslc_plugin_options',
@@ -27,13 +52,13 @@
 				'choices' => array(
 					array(
 						'label' => __( 'Enabled', 'live-composer-page-builder' ),
-						'value' => 'enabled'
+						'value' => 'enabled',
 					),
 					array(
 						'label' => __( 'Disabled', 'live-composer-page-builder' ),
-						'value' => 'disabled'
-					)
-				)
+						'value' => 'disabled',
+					),
+				),
 			),
 
 			'lc_css_position' => array(
@@ -46,15 +71,15 @@
 				'choices' => array(
 					array(
 						'label' => __( 'End of &lt;head&gt;', 'live-composer-page-builder' ),
-						'value' => 'head'
+						'value' => 'head',
 					),
 					array(
 						'label' => __( 'End of &lt;body&gt;', 'live-composer-page-builder' ),
-						'value' => 'body'
-					)
-				)
-			)
-		)
+						'value' => 'body',
+					),
+				),
+			),
+		),
 	);
 
 	$dslc_plugin_options['dslc_plugin_options_widgets_m'] = array(
@@ -65,9 +90,9 @@
 				'section' => 'dslc_plugin_options_widgets_m',
 				'label' => __( 'Sidebars', 'live-composer-page-builder' ),
 				'std' => '',
-				'type' => 'list'
+				'type' => 'list',
 			),
-		)
+		),
 	);
 
 	$dslc_plugin_options['dslc_plugin_options_cpt_slugs'] = array(
@@ -90,8 +115,8 @@
 					array(
 						'label' => 'Disabled',
 						'value' => 'disabled',
-					)
-				)
+					),
+				),
 			),
 
 			'projects_slug' => array(
@@ -99,7 +124,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Project</strong> Slug', 'live-composer-page-builder' ),
 				'std' => 'project-view',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'projects_cats_slug' => array(
@@ -107,7 +132,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Projects</strong> Category Slug', 'live-composer-page-builder' ),
 				'std' => 'dslc_projects_cats',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'galleries_slug' => array(
@@ -115,7 +140,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Gallery</strong> Slug', 'live-composer-page-builder' ),
 				'std' => 'gallery-view',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'galleries_cats_slug' => array(
@@ -123,7 +148,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Galleries</strong> Category Slug', 'live-composer-page-builder' ),
 				'std' => 'dslc_galleries_cats',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'downloads_slug' => array(
@@ -131,7 +156,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Download</strong> Slug', 'live-composer-page-builder' ),
 				'std' => 'download-view',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'downloads_cats_slug' => array(
@@ -139,7 +164,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Downloads</strong> Categories Slug', 'live-composer-page-builder' ),
 				'std' => 'dslc_downloads_cat',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'downloads_tags_slug' => array(
@@ -147,7 +172,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Downloads</strong> Tags Slug', 'live-composer-page-builder' ),
 				'std' => 'dslc_downloads_tag',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'staff_slug' => array(
@@ -155,7 +180,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Staff</strong> Slug', 'live-composer-page-builder' ),
 				'std' => 'staff-view',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'staff_cats_slug' => array(
@@ -163,7 +188,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Staff</strong> Categories Slug', 'live-composer-page-builder' ),
 				'std' => 'dslc_staff_cats',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'partners_slug' => array(
@@ -171,7 +196,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Partner</strong> Slug', 'live-composer-page-builder' ),
 				'std' => 'partner-view',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'partners_cats_slug' => array(
@@ -179,7 +204,7 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Partners</strong> Categories Slug', 'live-composer-page-builder' ),
 				'std' => 'dslc_partners_cats',
-				'type' => 'text'
+				'type' => 'text',
 			),
 
 			'testimonials_slug' => array(
@@ -187,22 +212,22 @@
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Testimonials</strong> Slug', 'live-composer-page-builder' ),
 				'std' => 'testimonial-view',
-				'type' => 'text'
+				'type' => 'text',
 			),
 			'testimonials_cats_slug' => array(
 
 				'section' => 'dslc_plugin_options_cpt_slugs',
 				'label' => __( '<strong>Testimonials</strong> Categories Slug', 'live-composer-page-builder' ),
 				'std' => 'dslc_testimonials_cats',
-				'type' => 'text'
-			)
-		)
+				'type' => 'text',
+			),
+		),
 	);
+}
 
 /**
  * Feature Control
  */
-
 function dslc_feature_control_settings() {
 
 	global $dslc_var_modules;
@@ -258,7 +283,6 @@ function dslc_feature_control_unregister() {
  *
  * @since 1.0
  */
-
 function dslc_plugin_opts_other() {
 
 	global $dslc_plugin_options;
@@ -282,8 +306,8 @@ function dslc_plugin_opts_other() {
 					array(
 						'label' => 'Visual Only',
 						'value' => 'visual',
-					)
-				)
+					),
+				),
 			),
 
 			'lc_default_opts_section' => array(
@@ -301,46 +325,8 @@ function dslc_plugin_opts_other() {
 					array(
 						'label' => 'Styling',
 						'value' => 'styling',
-					)
-				)
-			),
-
-			'lc_numeric_opt_type' => array(
-
-				'section' => 'dslc_plugin_options_other',
-				'label' => __( 'Numeric Option Type', 'live-composer-page-builder' ),
-				'std' => 'slider',
-				'type' => 'select',
-				'descr' => __( 'Choose the type of option used for numeric options.', 'live-composer-page-builder' ),
-				'choices' => array(
-					array(
-						'label' => 'Slider',
-						'value' => 'slider',
 					),
-					array(
-						'label' => 'Field',
-						'value' => 'field',
-					)
-				)
-			),
-
-			'lc_module_listing_order' => array(
-
-				'section' => 'dslc_plugin_options_other',
-				'label' => __( 'Modules Listing Order', 'live-composer-page-builder' ),
-				'std' => 'original',
-				'type' => 'select',
-				'descr' => __( 'Choose how the modules should be ordered in the listing ( when in builder mode ).', 'live-composer-page-builder' ),
-				'choices' => array(
-					array(
-						'label' => 'Original',
-						'value' => 'original',
-					),
-					array(
-						'label' => 'Alphabetic',
-						'value' => 'alphabetic',
-					)
-				)
+				),
 			),
 
 			'lc_module_activate_button_pos' => array(
@@ -358,10 +344,55 @@ function dslc_plugin_opts_other() {
 					array(
 						'label' => 'Right',
 						'value' => 'right',
-					)
-				)
-			)
-		)
+					),
+				),
+			),
+		),
 	);
 
 } add_action( 'dslc_hook_register_options', 'dslc_plugin_opts_other', 50 );
+
+/**
+ * Register Archives Options
+ *
+ * @since 1.0
+ */
+function dslc_plugin_opts_archives() {
+
+	global $dslc_plugin_options;
+
+	$module_opts_array = array();
+
+	$args = array(
+		'post_type' => 'dslc_templates',
+		'post_status' => 'publish',
+		'numberposts' => -1,
+	);
+
+	$templates = get_posts( $args );
+
+	foreach ( $templates as $template ) {
+		$custom_fields = get_post_meta( $template->ID, 'dslc_template_for', false );
+
+		foreach ( $custom_fields as $custom_field ) {
+			if ( ! empty( $custom_field ) ) {
+				if ( 'author' == $custom_field || 'search_results' == $custom_field || '404_page' == $custom_field || strripos( $custom_field, '_archive' ) ) {
+
+					$module_opts_array[ $custom_field ] = array(
+
+						'section' => 'dslc_plugin_options_archives',
+						'label' => '' . $template->post_title . '',
+						'std' => '' . $template->ID . '',
+						'type' => 'text',
+					);
+				}
+			}
+		}
+	}
+
+	$dslc_plugin_options['dslc_plugin_options_archives'] = array(
+		'title' => __( 'Archives', 'live-composer-page-builder' ),
+		'options' => $module_opts_array,
+	);
+
+} add_action( 'dslc_hook_register_options', 'dslc_plugin_opts_archives', 999 );

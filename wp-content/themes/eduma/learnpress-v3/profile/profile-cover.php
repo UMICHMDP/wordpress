@@ -43,6 +43,13 @@ $user = $profile->get_user();
                 </li>
             <?php endif; ?>
 
+            <?php if ( isset( $lp_info['instagram'] ) && $lp_info['instagram'] ) : ?>
+                <li>
+                    <a href="<?php echo esc_url( $lp_info['instagram'] ); ?>" class="instagram"><i
+                                class="fa fa-instagram"></i></a>
+                </li>
+            <?php endif; ?>
+
             <?php if ( isset( $lp_info['google'] ) && $lp_info['google'] ) : ?>
                 <li>
                     <a href="<?php echo esc_url( $lp_info['google'] ); ?>" class="google-plus"><i class="fa fa-google-plus"></i></a>

@@ -7,6 +7,8 @@ $view_all_course   = ( $instance['view_all_courses'] && '' != $instance['view_al
 $view_all_position = ( $instance['view_all_position'] && '' != $instance['view_all_position'] ) ? $instance['view_all_position'] : 'top';
 $sort              = $instance['order'];
 $feature        = !empty( $instance['featured'] ) ? true : false ;
+$thumb_w = ( $instance['thumbnail_width'] && '' != $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : apply_filters('thim_course_thumbnail_width', 450);
+$thumb_h = ( $instance['thumbnail_height'] && '' != $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : apply_filters('thim_course_thumbnail_height', 400);
 
 $condition = array(
 	'post_type'           => 'lp_course',
@@ -74,16 +76,22 @@ if ( $the_query->have_posts() ) :
 	<div class="thim-course-grid">
 		<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 			<?php _learn_press_count_users_enrolled_courses( array( $post->ID ) ); ?>
+            <?php
+            $course_rate   = learn_press_get_course_rate( get_the_ID() );
+            ?>
 			<div class="lpr_course <?php echo 'course-grid-' . $columns; ?>">
 				<div class="course-item">
-					<?php
-					echo '<div class="course-thumbnail">';
-						echo '<a class="" href="' . esc_url( get_the_permalink() ) . '" >';
-							echo thim_get_feature_image( get_post_thumbnail_id( $post->ID ), 'full', apply_filters( 'thim_course_thumbnail_width', 320 ), apply_filters( 'thim_course_thumbnail_height', 220 ), get_the_title() );
-						echo '</a>';
-						//echo '<a class="course-readmore" href="' . esc_url( get_the_permalink() ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>';
-					echo '</div>';
-					?>
+                    <div class="course-thumbnail">
+                        <a href="<?php echo esc_url(get_the_permalink( get_the_ID() ));?>">
+                            <?php echo thim_get_feature_image(get_post_thumbnail_id( get_the_ID() ), 'full', $thumb_w, $thumb_h, get_the_title());?>
+                        </a>
+                        <?php do_action( 'thim_inner_thumbnail_course' );?>
+                        <div class="rate">
+                            <i class="lnr icon-star"></i>
+                            <span class="number_rate"><?php echo ( $course_rate ) ? esc_html( round( $course_rate, 1 ) ) : 0; ?></span>
+                        </div>
+                        <a class="course-readmore" href="<?php echo esc_url(get_the_permalink( get_the_ID() ));?>"><?php echo esc_html__('Read More', 'eduma');?></a>
+                    </div>
 					<div class="thim-course-content">
 						<div class="author">
 							<a href="<?php echo esc_url( learn_press_user_profile_link( $post->post_author ) ); ?>">

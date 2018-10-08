@@ -7,17 +7,21 @@
  * @version       1.0
  */
 
-$request = $method == 'post' ? $_POST : $_REQUEST;
-$form_id = uniqid( 'become-teacher-form-' );
-
+$request                    = $method == 'post' ? $_POST : $_REQUEST;
+$form_id                    = uniqid( 'become-teacher-form-' );
+$submit_button_process_text = __( 'Submitting...', 'learnpress' );
+$submit_button_text         = __( 'Submit', 'learnpress' );
 ?>
-<div class="become-teacher-form">
-	<?php if ( $code != 0 ): ?>
-		<?php learn_press_display_message( $message ); ?>
-	<?php else: ?>
-		<form id="<?php echo $form_id; ?>" name="become-teacher-form" method="<?php echo $method; ?>" enctype="multipart/form-data" action="<?php echo $action; ?>">
+<div id="learn-press-become-teacher-form" class="learn-press-become-teacher-form">
+	<?php if ( $message ) {
+		learn_press_display_message( $message );
+	}
+	?>
+	<?php if ( ! learn_press_become_teacher_sent() ): ?>
+        <form id="<?php echo $form_id; ?>" name="become-teacher-form" method="<?php echo $method; ?>"
+              enctype="multipart/form-data" <?php echo $action ? "action=$action" : ''; ?>>
 			<?php if ( $fields ): ?>
-				<ul>
+                <ul class="become-teacher-fields">
 					<?php foreach ( $fields as $name => $option ): ?>
 						<?php
 						$option        = wp_parse_args(
@@ -29,7 +33,7 @@ $form_id = uniqid( 'become-teacher-form-' );
 								'placeholder' => ''
 							)
 						);
-						$value         = !empty( $request[$name] ) ? $request[$name] : ( !empty( $option['def'] ) ? $option['def'] : '' );
+						$value         = ! empty( $request[ $name ] ) ? $request[ $name ] : ( ! empty( $option['def'] ) ? $option['def'] : '' );
 						$requested     = strtolower( $_SERVER['REQUEST_METHOD'] ) == $method;
 						$error_message = null;
 						if ( $requested ) {
@@ -37,8 +41,8 @@ $form_id = uniqid( 'become-teacher-form-' );
 						}
 
 						?>
-						<li>
-							<label><?php echo $option['title']; ?></label>
+                        <li>
+                            <label><?php echo $option['title']; ?></label>
 							<?php
 							switch ( $option['type'] ) {
 								case 'text':
@@ -50,12 +54,15 @@ $form_id = uniqid( 'become-teacher-form-' );
 								learn_press_display_message( $error_message );
 							}
 							?>
-						</li>
+                        </li>
 					<?php endforeach; ?>
-				</ul>
-				<input type="hidden" name="lp-ajax" value="become-a-teacher" />
-				<button type="submit" data-text="<?php echo esc_attr( $submit_button_text ); ?>" data-text-process="<?php esc_attr( $submit_button_process_text ); ?>"><?php echo esc_html( $submit_button_text ); ?></button>
+                    <li>
+                        <button type="submit" data-text="<?php echo esc_attr( $submit_button_text ); ?>"
+                                data-text-process="<?php echo esc_attr( $submit_button_process_text ); ?>"><?php echo esc_html( $submit_button_text ); ?></button>
+                    </li>
+                </ul>
+                <input type="hidden" name="lp-ajax" value="become-a-teacher"/>
 			<?php endif; ?>
-		</form>
+        </form>
 	<?php endif; ?>
 </div>

@@ -15,6 +15,18 @@ if ( !class_exists( 'Thim_Tab_Widget' ) ) {
 				),
 				array(),
 				array(
+                    'layout'            => array(
+                        'type'          => 'select',
+                        'label'         => esc_html__( 'Widget Layout', 'eduma' ),
+                        'options'       => array(
+                            ''       => esc_html__( 'Default', 'eduma' ),
+                            'step'         => esc_html__( 'Step', 'eduma' ),
+                        ),
+                        'state_emitter' => array(
+                            'callback' => 'select',
+                            'args'     => array( 'layout_type' )
+                        ),
+                    ),
 					'tab' => array(
 						'type'      => 'repeater',
 						'label'     => esc_html__( 'Tab', 'eduma' ),
@@ -42,11 +54,23 @@ if ( !class_exists( 'Thim_Tab_Widget' ) ) {
 									'b'      => array(),
 								)
 							),
+                            'bg_title'   => array(
+                                'type'  => 'color',
+                                'hide'  => true,
+                                'label' => esc_html__( 'Background Title', 'eduma' ),
+                                'state_handler' => array(
+                                    'layout_type[step]'         => array( 'show' ),
+                                ),
+                            ),
 							'content' => array(
 								"type"                  => "textarea",
 								"label"                 => esc_html__( "Content", 'eduma' ),
 								"allow_html_formatting" => true
 							),
+                            'link'   => array(
+                                "type"                  => "text",
+                                "label"                 => esc_html__( "Link", 'eduma' ),
+                            ),
 						),
 					),
 				),
@@ -59,7 +83,11 @@ if ( !class_exists( 'Thim_Tab_Widget' ) ) {
 		 */
 
 		function get_template_name( $instance ) {
-			return 'base';
+            if ( $instance['layout'] && '' != $instance['layout'] ) {
+                return $instance['layout'];
+            } else {
+                return 'base';
+            }
 		}
 
 		function get_style_name( $instance ) {

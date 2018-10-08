@@ -6,7 +6,7 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  3.0.0
+ * @version  3.0.11.2
  */
 
 /**
@@ -33,10 +33,10 @@ $query         = $profile->query_courses( 'purchased', array( 'status' => $filte
         <table class="lp-list-table profile-list-courses profile-list-table">
             <thead>
             <tr>
-                <th class="column-course"><?php _e( 'Course', 'learnpress' ); ?></th>
-                <th class="column-date"><?php _e( 'Date', 'learnpress' ); ?></th>
-                <th class="column-passing-grade"><?php _e( 'Passing Grade', 'learnpress' ); ?></th>
-                <th class="column-status"><?php _e( 'Progress', 'learnpress' ); ?></th>
+                <th class="column-course"><?php _e( 'Course', 'eduma' ); ?></th>
+                <th class="column-date"><?php _e( 'Date', 'eduma' ); ?></th>
+                <th class="column-passing-grade"><?php _e( 'Passing Grade', 'eduma' ); ?></th>
+                <th class="column-status"><?php _e( 'Progress', 'eduma' ); ?></th>
             </tr>
             </thead>
             <tbody>
@@ -71,12 +71,12 @@ $query         = $profile->query_courses( 'purchased', array( 'status' => $filte
 					<?php echo $query->get_offset_text(); ?>
                 </td>
                 <td colspan="2" class="nav-pages">
-					<?php $query->get_nav_numbers( true ); ?>
+					<?php $query->get_nav_numbers( true, $profile->get_current_url() ); ?>
                 </td>
             </tr>
             </tfoot>
         </table>
 	<?php } else {
-		learn_press_display_message( __( 'No courses!', 'learnpress' ) );
+		learn_press_display_message( __( 'No courses!', 'eduma' ) );
 	} ?>
 </div>

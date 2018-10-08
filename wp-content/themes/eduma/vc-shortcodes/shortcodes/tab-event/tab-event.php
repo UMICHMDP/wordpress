@@ -16,6 +16,7 @@ function thim_shortcode_tab_event( $atts ) {
 
 	$instance = shortcode_atts( array(
 		'title' => '',
+        'el_class' => '',
 	), $atts );
 
 
@@ -30,9 +31,11 @@ function thim_shortcode_tab_event( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-tab-event">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

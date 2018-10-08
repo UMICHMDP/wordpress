@@ -40,8 +40,8 @@ if ( is_admin() ) {
 
 	$my_meta = new Tax_Meta_Class( $config );
 
-	$my_meta->addImage( $prefix . $cate_prefix . 'icon', array( 'name' => __( 'Icon', 'eduma' ) ) );
-	$my_meta->addImage( $prefix . $cate_prefix . 'thumnail', array( 'name' => esc_html__( 'Thumbnail', 'eduma' ) ) );
+	$my_meta->addImage( $prefix . $cate_prefix . 'icon', array( 'name' => __( 'Icon', 'eduma' ),'std'=>array() ) );
+	$my_meta->addImage( $prefix . $cate_prefix . 'thumnail', array( 'name' => esc_html__( 'Thumbnail', 'eduma' ), 'std'=>array() ) );
 	$my_meta->addWysiwyg( $prefix . $cate_prefix . 'content', array('name'=> __( 'Content', 'eduma' ) ) );
 
 
@@ -57,7 +57,7 @@ if ( is_admin() ) {
 		'std'  => ''
 	) );
 
-	$my_meta->addImage( $prefix . $top_prefix . 'top_image', array( 'name' => esc_html__( 'Background Image Heading', 'eduma' ) ) );
+	$my_meta->addImage( $prefix . $top_prefix . 'top_image', array( 'name' => esc_html__( 'Background Image Heading', 'eduma' ),'std'=>array() ) );
 	$my_meta->addColor( $prefix . $cate_prefix . 'heading_bg_color', array( 'name' => esc_html__( 'Background Color Heading', 'eduma' ) ) );
 	$my_meta->addText( $prefix . $cate_prefix . 'heading_bg_opacity', array( 'name' => __( 'Background color opacity', 'eduma' ) ) );
 	$my_meta->addColor( $prefix . $cate_prefix . 'heading_text_color', array( 'name' => esc_html__( 'Text Color Heading', 'eduma' ) ) );

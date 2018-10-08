@@ -12,16 +12,31 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Class LP_Gateways
+ */
 class LP_Gateways {
 
+	/**
+	 * @var null
+	 */
 	protected static $_instance = null;
 
+	/**
+	 * @var array
+	 */
 	protected $payment_gateways = array();
 
+	/**
+	 * LP_Gateways constructor.
+	 */
 	public function __construct() {
 		$this->init();
 	}
 
+	/**
+	 *
+	 */
 	public function init() {
 		if ( !$this->payment_gateways ) {
 			$gateways = array(
@@ -40,6 +55,9 @@ class LP_Gateways {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_gateways() {
 		$gateways = array();
 		if ( count( $this->payment_gateways ) ) foreach ( $this->payment_gateways as $gateway ) {
@@ -54,6 +72,9 @@ class LP_Gateways {
 		return $gateways;
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function get_available_payment_gateways() {
 		$this->init();
 		$_available_gateways = array();
@@ -67,6 +88,9 @@ class LP_Gateways {
 		return apply_filters( 'learn_press_available_payment_gateways', $_available_gateways );
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_availabe_gateways() {
 		return $this->payment_gateways;
 	}

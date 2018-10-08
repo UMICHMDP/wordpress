@@ -26,6 +26,7 @@ function thim_shortcode_gallery_images( $atts ) {
 		'show_pagination' => '',
 		'link_target'     => '',
 		'css_animation'   => '',
+        'el_class' => '',
 	), $atts );
 
 
@@ -40,9 +41,11 @@ function thim_shortcode_gallery_images( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-gallery-images">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

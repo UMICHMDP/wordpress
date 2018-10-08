@@ -11,7 +11,7 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-global $course;
+$course = LP()->global['course'];
 
 $user = learn_press_get_current_user();
 
@@ -21,4 +21,4 @@ if ( !$user->has( 'purchased-course', $course->id ) ) {
 
 $status = $user->get_course_status( $course->id );
 ?>
-<span class="learn-press-course-status <?php echo sanitize_title( $status );?>"><?php echo ucfirst( $status ); ?></span>
+<span class="learn-press-course-status <?php echo sanitize_title( $status ); ?>"><?php echo ucfirst( $status ); ?></span>

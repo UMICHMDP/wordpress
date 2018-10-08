@@ -68,7 +68,7 @@ if ( ! function_exists( 'thim_remove_learnpress_hooks' ) ) {
 		//remove_action( 'learn_press_content_learning_summary', 'learn_press_single_course_content_item', 40 );
 		remove_action( 'learn_press_content_learning_summary', 'learn_press_course_progress', 45 );
 		remove_action( 'learn_press_content_learning_summary', 'learn_press_course_tabs', 50 );
-		remove_action( 'learn_press_content_learning_summary', 'learn_press_course_remaining_time', 55 );
+		//remove_action( 'learn_press_content_learning_summary', 'learn_press_course_remaining_time', 55 );
 		remove_action( 'learn_press_content_learning_summary', 'learn_press_course_buttons', 65 );
 		remove_action( 'learn_press_content_learning_summary', 'learn_press_course_students_list', 75 );
 
@@ -622,7 +622,7 @@ if ( ! function_exists( 'thim_related_courses' ) ) {
                                                         <?php echo $price; ?>
                                                     </div>
                                                     <meta itemprop="priceCurrency"
-                                                          content="<?php echo learn_press_get_currency_symbol(); ?>"/>
+                                                          content="<?php echo learn_press_get_currency(); ?>"/>
                                                 </div>
                                                 <?php
                                             }
@@ -710,10 +710,10 @@ if ( ! function_exists( 'thim_add_course_meta' ) ) {
 	function thim_add_course_meta( $meta_box ) {
 		$fields             = $meta_box['fields'];
 		$fields[]           = array(
-			'name' => esc_html__( 'Duration', 'eduma' ),
+			'name' => esc_html__( 'Duration Info', 'eduma' ),
 			'id'   => 'thim_course_duration',
 			'type' => 'text',
-			'desc' => esc_html__( 'Course duration', 'eduma' ),
+			'desc' => esc_html__( 'Display duration info', 'eduma' ),
 			'std'  => esc_html__( '50 hours', 'eduma' )
 		);
 		$fields[]           = array(
@@ -1169,28 +1169,45 @@ if ( ! function_exists( 'thim_lesson_duration' ) ) {
 	function thim_lesson_duration( $lesson_id ) {
 
 		$duration_text = get_post_meta( $lesson_id, '_lp_duration', true );
+		$duration      = learn_press_get_course_duration_support();
 
-		if ( ! $duration_text ) {
-			return '';
-		}
-		$duration = ( strtotime( $duration_text ) - time() ) / 60;
-		$hour     = floor( $duration / 60 );
-		if ( ! $duration ) {
-			return '';
-		}
-		if ( $hour == 0 ) {
-			$hour = '';
+		$duration_keys = array_keys( $duration );
+
+		if ( preg_match_all( '!([0-9]+)\s*(' . join( '|', $duration_keys ) . ')?!', $duration_text, $matches ) ) {
+
+			$value = $matches[1][0];
+
+			$unit = in_array( $matches[2][0], $duration_keys ) ? $matches[2][0] : '';
+
 		} else {
-			$hour = $hour . esc_html__( 'h', 'eduma' ).' ';
-		}
-		$minute = $duration % 60;
-		$minute = $minute . esc_html__( 'm', 'eduma' );
 
-		return $duration_text;
-		//return $hour . $minute;
+			$value = absint( $duration_text );
+
+			$unit = '';
+
+		}
+
+		if ( $unit ) {
+			switch ($unit) {
+				case'minute':
+					$unit = __('minute(s)', 'eduma');
+					break;
+				case 'hour':
+					$unit = __('hour(s)', 'eduma');
+					break;
+				case 'day':
+					$unit = __('day(s)', 'eduma');
+					break;
+				case 'week':
+					$unit = __('week(s)', 'eduma');
+					break;
+				default:
+					$unit = __('unknown', 'eduma');
+			}
+		}
+		return  ( $value ) ? ($value . ' ' . $unit): '';
 	}
 }
-
 
 /**
  * Breadcrumb for Courses Collection
@@ -1528,4 +1545,38 @@ add_action( 'thim_after_site_content', 'thim_show_content_archive_courses' );
 if( get_theme_mod( 'thim_layout_content_page', 'normal' ) == 'new-1' ) {
     remove_action( 'learn_press_before_main_content', '_learn_press_print_messages', 50 );
     add_action( 'thim_before_sidebar_course', '_learn_press_print_messages', 10 );
+}
+
+if( !function_exists( 'thim_get_all_courses_instructors' ) && thim_plugin_active( 'learnpress-co-instructor/learnpress-co-instructor.php' ) ) {
+    function thim_get_all_courses_instructors() {
+        $teacher = array();
+        $users_by_role = get_users( array( 'role' => 'lp_teacher' ) );
+        if ( $users_by_role ) {
+            foreach ( $users_by_role as $user ) {
+                $teacher[] = $user->ID;
+            }
+        }
+        $result = array();
+        if ( $teacher ) {
+            foreach ( $teacher as $id ) {
+                $courses = learn_press_get_course_of_user_instructor(array('user_id' => $id));
+                $count_students = $count_rate = 0;
+                foreach ( $courses["rows"] as $key => $course ) {
+                    //$user_count = $course->get_users_enrolled() ? $course->get_users_enrolled() : 0;
+                    //$curd = new LP_Abstract_Course();
+                    $course = new LP_Course( $course->ID );
+                    $students = $course->get_users_enrolled();
+                    $count_students = $students;
+                    $rate = learn_press_get_course_rate_total( $course->ID );
+                    $count_rate = $rate ? $rate + $count_rate : $count_rate;
+                }
+                $result[] = array(
+                    'user_id' => $id,
+                    'students' => $count_students,
+                    'count_rate' => $count_rate
+                );
+            }
+        }
+        return $result;
+    }
 }

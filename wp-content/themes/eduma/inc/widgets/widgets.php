@@ -5,11 +5,13 @@ if ( class_exists( 'Thim_Widget' ) ) {
 	include_once( THIM_DIR . '/inc/widgets/google-map/google-map.php' );
 	include_once( THIM_DIR . '/inc/widgets/heading/heading.php' );
 	include_once( THIM_DIR . '/inc/widgets/icon-box/icon-box.php' );
+    include_once( THIM_DIR . '/inc/widgets/image-box/image-box.php' );
 	include_once( THIM_DIR . '/inc/widgets/single-images/single-images.php' );
 	include_once( THIM_DIR . '/inc/widgets/social/social.php' );
 	include_once( THIM_DIR . '/inc/widgets/gallery-images/gallery-images.php' );
 	include_once( THIM_DIR . '/inc/widgets/empty-space/empty-space.php' );
 	include_once( THIM_DIR . '/inc/widgets/tab/tab.php' );
+    include_once( THIM_DIR . '/inc/widgets/twitter/twitter.php' );
 	include_once( THIM_DIR . '/inc/widgets/our-team/our-team.php' );
 	include_once( THIM_DIR . '/inc/widgets/testimonials/testimonials.php' );
 	include_once( THIM_DIR . '/inc/widgets/login-menu/login-menu.php' );
@@ -18,8 +20,6 @@ if ( class_exists( 'Thim_Widget' ) ) {
 	include_once( THIM_DIR . '/inc/widgets/carousel-post/carousel-post.php' );
 	include_once( THIM_DIR . '/inc/widgets/accordion/accordion.php' );
 	include_once( THIM_DIR . '/inc/widgets/list-post/list-post.php' );
-	include_once( THIM_DIR . '/inc/widgets/one-course-instructors/one-course-instructors.php' );
-	include_once( THIM_DIR . '/inc/widgets/list-instructors/list-instructors.php' );
 	include_once( THIM_DIR . '/inc/widgets/video/video.php' );
 	include_once( THIM_DIR . '/inc/widgets/gallery-posts/gallery-posts.php' );
 	include_once( THIM_DIR . '/inc/widgets/landing-image/landing-image.php' );
@@ -34,42 +34,25 @@ if ( class_exists( 'Thim_Widget' ) ) {
 		include_once( THIM_DIR . '/inc/widgets/course-categories/course-categories.php' );
 		include_once( THIM_DIR . '/inc/widgets/courses/courses.php' );
 		include_once( THIM_DIR . '/inc/widgets/course-filters/course-filters.php' );
+        if ( thim_plugin_active( 'learnpress-co-instructor/learnpress-co-instructor.php' ) ) {
+            include_once(THIM_DIR . '/inc/widgets/one-course-instructors/one-course-instructors.php');
+            include_once(THIM_DIR . '/inc/widgets/list-instructors/list-instructors.php');
+        }
+        if ( thim_plugin_active( 'learnpress-collections/learnpress-collections.php' ) ) {
+            include_once( THIM_DIR . '/inc/widgets/courses-collection/courses-collection.php' );
+        }
 	}
 
 	if ( thim_plugin_active( 'tp-event/tp-event.php' ) || thim_plugin_active( 'tp-event/event.php' )  || thim_plugin_active('wp-events-manager/wp-events-manager.php') ) {
 		include_once( THIM_DIR . '/inc/widgets/list-event/list-event.php' );
 		include_once( THIM_DIR . '/inc/widgets/tab-event/tab-event.php' );
-
-		if ( defined( 'WPEMS_VER' ) ) {
-			if ( version_compare( WPEMS_VER, '2.0', '>=' ) ) {
-				//include_once( THIM_DIR . '/inc/widgets/book-event/book-event.php' );
-			} else {
-				if ( thim_plugin_active('wp-events-manager/wp-events-manager.php') ) {
-					//include_once( THIM_DIR . '/inc/widgets/book-event/book-event.php' );
-				}
-			}
-		} else {
-			if ( defined( 'TP_EVENT_VER' ) ) {
-				if ( version_compare( TP_EVENT_VER, '2.0', '>=' ) ) {
-					//include_once( THIM_DIR . '/inc/widgets/book-event/book-event.php' );
-				} else {
-					if ( thim_plugin_active( 'tp-event-auth/tp-event-auth.php' )) {
-						//include_once( THIM_DIR . '/inc/widgets/book-event/book-event.php' );
-					}
-				}
-			}
-		}
 	}
 
-	if ( thim_plugin_active( 'tp-portfolio/tp-portfolio.php' ) || thim_plugin_active( 'tp-portfolio/init.php' ) ) {
+	if ( thim_plugin_active( 'tp-portfolio/tp-portfolio.php' ) || thim_plugin_active( 'tp-portfolio/init.php' ) || thim_plugin_active('thim-portfolio/thim-portfolio.php') ) {
 		include_once( THIM_DIR . '/inc/widgets/portfolio/portfolio.php' );
 	}
 
 	include_once( THIM_DIR . '/inc/widgets/login-form/login-form.php' );
-
-	if ( thim_plugin_active( 'learnpress-collections/learnpress-collections.php' ) ) {
-		include_once( THIM_DIR . '/inc/widgets/courses-collection/courses-collection.php' );
-	}
 }
 
 /**

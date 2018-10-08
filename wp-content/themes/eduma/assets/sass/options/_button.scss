@@ -60,6 +60,7 @@ body.course-item-popup #learn-press-content-item #course-item-content-header .ba
 }
 
 .thim-join-the-elite-group .thim-widget-button .widget-button.normal:hover,
+.thim-newlleter-homepage .mc4wp-form.yikes-easy-mc-form .yikes-easy-mc-submit-button:hover,
 .thim-buy-now .thim-widget-button .widget-button:hover {
 	border-color: $thim_thim_button_hover_color;
 }
@@ -83,6 +84,7 @@ body.course-item-popup #learn-press-content-item #course-item-content-header .ba
 .woocommerce .reset_password form input[type=submit]:hover,
 .rev-btn.thim-slider-button:hover,
 .single-post .page-content article .page-content-inner .entry-content .pmpro_content_message a:hover,
+.thim-newlleter-homepage .mc4wp-form.yikes-easy-mc-form .yikes-easy-mc-submit-button:hover,
 .woocommerce-MyAccount-content form input.button:hover{
 	background-color: $thim_thim_button_hover_color;
 }
@@ -100,6 +102,8 @@ body.course-item-popup #learn-press-content-item #course-item-content-header .ba
 .woocommerce .actions .button:not([disabled]):hover,
 .site-header li .widget_shopping_cart .widget_shopping_cart_content .buttons a.button.wc-forward:hover,
 .site-header li .widget_shopping_cart .widget_shopping_cart_content .buttons a.button.wc-forward.checkout,
+.learn-press-pagination li .page-numbers:hover,
+.learn-press-pagination li .page-numbers.current,
 .pagination li .page-numbers:hover,
 .pagination li .page-numbers.current,
 .loop-pagination li .page-numbers:hover,
@@ -187,6 +191,7 @@ form.lp-cart .checkout-button,
 .thim-button-checkout,
 .thim-widget-courses .view-all-courses.position-bottom,
 .woocommerce .add_to_cart_button.ajax_add_to_cart:hover,
+.thim-newlleter-homepage .mc4wp-form.yikes-easy-mc-form .yikes-easy-mc-submit-button,
 .woocommerce .add_to_cart_button.ajax_add_to_cart{
 	color: $thim_thim_button_text_color;
 }

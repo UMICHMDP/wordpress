@@ -75,8 +75,6 @@ if ( $instance['title'] ) {
 <div class="thim-courses-collection">
 	<?php echo ent2ncr( $features_html ); ?>
 	<?php if ( $items_html != '' ): ?>
-		<div style="clear: both">
-			<?php echo ent2ncr( $items_html ); ?>
-		</div>
+        <?php echo ent2ncr( $items_html ); ?>
 	<?php endif; ?>
 </div>

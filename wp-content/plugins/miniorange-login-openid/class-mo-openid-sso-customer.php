@@ -29,7 +29,7 @@ class CustomerOpenID {
    
 	private $defaultCustomerKey = "16555";
 	private $defaultApiKey = "fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq";
-
+	
 	function create_customer(){
 
 		$url = get_option('mo_openid_host_name') . '/moas/rest/customer/add';
@@ -41,7 +41,7 @@ class CustomerOpenID {
 		$company = get_option('mo_openid_admin_company_name');
 		$first_name = get_option('mo_openid_admin_first_name');
 		$last_name = get_option('mo_openid_admin_last_name');
-		$password 			= get_option('mo_openid_admin_password');
+		$password = get_option('mo_openid_admin_password');
 
 		$fields = array(
 			'companyName' => $company,
@@ -146,16 +146,16 @@ class CustomerOpenID {
 
 		$username = get_option('mo_openid_admin_email');
 		$phone = get_option('mo_openid_admin_phone');
-		/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-		$currentTimeInMillis = round(microtime(true) * 1000);
+        $currentTimeInMillis = self::get_timestamp();
 
 		/* Creating the Hash using SHA-512 algorithm */
-		$stringToHash = $customerKey . number_format($currentTimeInMillis, 0, '', '') . $apiKey;
+        $stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
 		$hashValue = hash("sha512", $stringToHash);
 
 		$customerKeyHeader = "Customer-Key: " . $customerKey;
 		$timestampHeader = "Timestamp: " . $currentTimeInMillis;
 		$authorizationHeader = "Authorization: " . $hashValue;
+
 		if($authType == 'EMAIL') {
 			$fields = array(
 			'customerKey' => $customerKey,
@@ -169,7 +169,7 @@ class CustomerOpenID {
 			'phone' => $phone,
 			'authType' => 'SMS',
 			'transactionName' => 'WordPress miniOrange Social Login, Social Sharing'
-		);
+		    );
 		}
 		$field_string = json_encode($fields);
 
@@ -178,12 +178,18 @@ class CustomerOpenID {
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", $customerKeyHeader,
-											$timestampHeader, $authorizationHeader));
+        curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, false );
+        curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", $customerKeyHeader, $timestampHeader, $authorizationHeader));
 		curl_setopt( $ch, CURLOPT_POST, true);
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
+        $proxy_host = get_option("mo_proxy_host");
+        if(!empty($proxy_host)){
+            curl_setopt($ch, CURLOPT_PROXY, get_option("mo_proxy_host"));
+            curl_setopt($ch, CURLOPT_PROXYPORT, get_option("mo_proxy_port"));
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, get_option("mo_proxy_username").':'.get_option("mo_proxy_password"));
+        }
 		$content = curl_exec($ch);
 
 		if(curl_errno($ch)){
@@ -194,6 +200,39 @@ class CustomerOpenID {
 		return $content;
 	}
 
+    function get_timestamp() {
+        $url = get_option ( 'mo_openid_host_name' ) . '/moas/rest/mobile/get-timestamp';
+        $ch = curl_init ( $url );
+
+        curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, true );
+        curl_setopt ( $ch, CURLOPT_ENCODING, "" );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt ( $ch, CURLOPT_AUTOREFERER, true );
+        curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, false ); // required for https urls
+
+        curl_setopt ( $ch, CURLOPT_MAXREDIRS, 10 );
+
+        curl_setopt ( $ch, CURLOPT_POST, true );
+
+        $proxy_host = get_option("mo_proxy_host");
+        if(!empty($proxy_host)){
+            curl_setopt($ch, CURLOPT_PROXY, get_option("mo_proxy_host"));
+            curl_setopt($ch, CURLOPT_PROXYPORT, get_option("mo_proxy_port"));
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, get_option("mo_proxy_username").':'.get_option("mo_proxy_password"));
+        }
+        $content = curl_exec ( $ch );
+
+        if (curl_errno ( $ch )) {
+            echo 'Error in sending curl Request';
+            exit ();
+        }
+        curl_close ( $ch );
+        $currentTimeInMillis = round( microtime( true ) * 1000 );
+        return empty( $content ) ? number_format($currentTimeInMillis, 0, '', ''): $content;
+    }
+
 	function check_customer_valid(){
 		$url = get_option('mo_openid_host_name') . '/moas/api/customer/license';
 		$ch = curl_init($url);
@@ -203,10 +242,9 @@ class CustomerOpenID {
 		$username = get_option('mo_openid_admin_email');
 		$phone = get_option('mo_openid_admin_phone');
 		/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-		$currentTimeInMillis = round(microtime(true) * 1000);
-
+        $currentTimeInMillis = self::get_timestamp();
+        $stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
 		/* Creating the Hash using SHA-512 algorithm */
-		$stringToHash = $customerKey . number_format($currentTimeInMillis, 0, '', '') . $apiKey;
 		$hashValue = hash("sha512", $stringToHash);
 
 		$customerKeyHeader = "Customer-Key: " . $customerKey;
@@ -249,10 +287,8 @@ class CustomerOpenID {
 		$username = get_option('mo_openid_admin_email');
 
 		/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-		$currentTimeInMillis = round(microtime(true) * 1000);
-
-		/* Creating the Hash using SHA-512 algorithm */
-		$stringToHash = $customerKey . number_format($currentTimeInMillis, 0, '', '') . $apiKey;
+        $currentTimeInMillis = self::get_timestamp();
+        $stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
 		$hashValue = hash("sha512", $stringToHash);
 
 		$customerKeyHeader = "Customer-Key: " . $customerKey;
@@ -290,13 +326,79 @@ class CustomerOpenID {
 		return $content;
 	}
 
+    function mo_openid_send_email_alert($email,$phone,$message){
+
+        // $hostname = Utilities::getHostname();
+        $hostname 	= get_site_option('mo_openid_host_name') ;
+        $url =  $hostname.'/moas/api/notify/send';
+        $ch = curl_init($url);
+
+        // $customer_details = Utilities::getCustomerDetails();
+        $customerKey = $this->defaultCustomerKey;
+        $apiKey = $this->defaultApiKey;
+
+        $currentTimeInMillis= round(microtime(true) * 1000);
+        $stringToHash 		= $customerKey .  number_format($currentTimeInMillis, 0, '', '') . $apiKey;
+        $hashValue 			= hash("sha512", $stringToHash);
+        $customerKeyHeader 	= "Customer-Key: " . $customerKey;
+        $timestampHeader 	= "Timestamp: " .  number_format($currentTimeInMillis, 0, '', '');
+        $authorizationHeader= "Authorization: " . $hashValue;
+        $fromEmail 			= $email;
+        $subject            = "MiniOrange Social Login Plugin Feedback: ".$email;
+        $site_url=site_url();
+
+        $user= get_userdata(get_current_user_id());
+
+
+        $query =" MiniOrange Social Login [Free] ";
+        $content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Phone Number :'.$phone.'<br><br><b>Email :<a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a></b><br><br><b>Plugin Deactivated: '.$query.'</b><br><br><b>Reason: '.$message.'</b></div>';
+
+
+        $fields = array(
+            'customerKey'	=> $customerKey,
+            'sendEmail' 	=> true,
+            'email' 		=> array(
+                'customerKey' 	=> $customerKey,
+                'fromEmail' 	=> $fromEmail,
+                'bccEmail' 		=> 'socialloginsupport@miniorange.com',
+                'fromName' 		=> 'miniOrange',
+                'toEmail' 		=> 'socialloginsupport@miniorange.com',
+                'toName' 		=> 'socialloginsupport@miniorange.com',
+                'subject' 		=> $subject,
+                'content' 		=> $content
+            ),
+        );
+        $field_string = json_encode($fields);
+
+
+        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+        curl_setopt( $ch, CURLOPT_ENCODING, "" );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
+
+        curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", $customerKeyHeader,
+            $timestampHeader, $authorizationHeader));
+        curl_setopt( $ch, CURLOPT_POST, true);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
+        $content = curl_exec($ch);
+
+        if(curl_errno($ch)){
+            return json_encode(array("status"=>'ERROR','statusMessage'=>curl_error($ch)));
+        }
+        curl_close($ch);
+
+        return ($content);
+    }
+
 	function submit_contact_us( $email, $phone, $query ) {
 		global $current_user;
 		$current_user = wp_get_current_user();
 		$company = get_option('mo_openid_admin_company_name') ? get_option('mo_openid_admin_company_name') : '';
 		$first_name = get_option('mo_openid_admin_first_name') ? get_option('mo_openid_admin_first_name') : '';
 		$last_name = get_option('mo_openid_admin_last_name') ? get_option('mo_openid_admin_last_name') : '';
-		$query = '[WP OpenID Connect Login Plugin] ' . $query;
+		$query = '[WP OpenID Connect Login Free Plugin] ' . $query;
 		$fields = array(
 			'firstName'			=> $first_name,
 			'lastName'	 		=> $last_name,
@@ -345,10 +447,8 @@ class CustomerOpenID {
 		$apiKey = get_option('mo_openid_admin_api_key');
 	
 		/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-		$currentTimeInMillis = round(microtime(true) * 1000);
-	
-		/* Creating the Hash using SHA-512 algorithm */
-		$stringToHash = $customerKey . number_format($currentTimeInMillis, 0, '', '') . $apiKey;
+        $currentTimeInMillis = self::get_timestamp();
+        $stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
 		$hashValue = hash("sha512", $stringToHash);
 	
 		$customerKeyHeader = "Customer-Key: " . $customerKey;

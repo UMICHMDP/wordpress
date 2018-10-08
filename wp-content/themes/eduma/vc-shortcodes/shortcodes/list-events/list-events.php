@@ -18,7 +18,10 @@ function thim_shortcode_list_events( $atts ) {
 		'title'        => '',
 		'layout'       => 'base',
 		'number_posts' => '2',
+        'cat_id'       => '',
+        'status'       => '',
 		'text_link'    => '',
+        'el_class'           => '',
 	), $atts );
 
 	$args                 = array();
@@ -38,7 +41,9 @@ function thim_shortcode_list_events( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	include $widget_template;
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

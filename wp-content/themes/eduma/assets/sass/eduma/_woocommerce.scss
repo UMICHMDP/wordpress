@@ -215,6 +215,7 @@
 	  .product-info {
 		.image-panel {
 		  margin-bottom: 50px;
+			direction: ltr;
 		  #slider {
 			margin-bottom: 30px;
 		  }
@@ -492,10 +493,12 @@
 				.coupon {
 					float: none;
 					display: inline-block;
+					vertical-align: top;
 					.input-text {
 						line-height: 30px;
 						padding: 4px 6px;
-						min-width: 130px;
+						font-size: 13px;
+						min-width: 180px;
 						height: 40px;
 					}
 
@@ -1679,9 +1682,20 @@ li.product-category{
 	color: #fff;
 }
 
-.woocommerce .actions .button{
-	color: #fff;
-	background: #111;
+.woocommerce {
+	.actions {
+		button.button {
+			color: #fff;
+			background: #111;
+			&:disabled {
+				padding: 0 20px;
+				&:hover {
+					color: #fff;
+					background: #111;
+				}
+			}
+		}
+	}
 }
 .woocommerce .actions .button:disabled:hover{
 	color: #fff;

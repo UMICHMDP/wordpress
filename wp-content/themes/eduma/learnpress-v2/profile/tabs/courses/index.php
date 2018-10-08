@@ -79,7 +79,7 @@ $count_student = $course->count_users_enrolled( 'append' ) ? $course->count_user
 						?>
 					</div>
 				<?php endif; ?>
-				<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
+				<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency(); ?>" />
 			</div>
 		</div>
 	</div>

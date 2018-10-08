@@ -20,7 +20,7 @@ $classes[] = 'col-sm-12';
 						</h3>
 					</header>
 
-				<?php
+					<?php
 				}
 				?>
 				<div class="entry-summary">
@@ -29,7 +29,7 @@ $classes[] = 'col-sm-12';
 					?>
 				</div><!-- .entry-summary -->
 				<div class="readmore">
-					<a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html__('Read More','eduma'); ?></a>
+					<a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html__( 'Read More', 'eduma' ); ?></a>
 				</div>
 			<?php } elseif ( has_post_format( 'quote' ) && thim_meta( 'thim_quote' ) && thim_meta( 'thim_author_url' ) ) {
 				$quote      = thim_meta( 'thim_quote' );
@@ -46,16 +46,24 @@ $classes[] = 'col-sm-12';
 							</blockquote>
 						</div>
 					</header>
-				<?php
+					<?php
 				}
 			} elseif ( has_post_format( 'audio' ) ) {
 				?>
 				<header class="entry-header">
 					<?php
-					if ( isset( $theme_options_data['thim_show_date'] ) && $theme_options_data['thim_show_date'] == 1 ) {
+					if ( !isset( $theme_options_data['thim_show_date'] ) || $theme_options_data['thim_show_date'] == 1 ) {
 						?>
-						<div class="date-meta"><?php echo get_the_date( "d\<\i\>\ F\<\/\i\>\ " ) ?></div>
-					<?php
+						<div class="date-meta">
+							<?php
+							if ( !empty( $theme_options_data['thim_blog_display_year'] ) ) {
+								echo get_the_date( 'd' ) . '<i>' . get_the_date( 'M, Y' ) . '</i>';
+							} else {
+								echo get_the_date( "d\<\i\>\ F\<\/\i\>\ " );
+							}
+							?>
+						</div>
+						<?php
 					}
 					?>
 					<div class="entry-contain">
@@ -69,20 +77,28 @@ $classes[] = 'col-sm-12';
 					?>
 				</div><!-- .entry-summary -->
 				<div class="readmore">
-					<a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html__('Read More','eduma'); ?></a>
+					<a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html__( 'Read More', 'eduma' ); ?></a>
 				</div>
-			<?php
+				<?php
 			} else {
 				?>
 				<header class="entry-header">
 					<?php
-					if ( isset( $theme_options_data['thim_show_date'] ) && $theme_options_data['thim_show_date'] == 1 ) {
+					if ( !isset( $theme_options_data['thim_show_date'] ) || $theme_options_data['thim_show_date'] == 1 ) {
 						?>
-						<div class="date-meta"><?php echo get_the_date( "d\<\i\>\ F\<\/\i\>\ " ) ?></div>
-					<?php
+						<div class="date-meta">
+							<?php
+							if ( !empty( $theme_options_data['thim_blog_display_year'] ) ) {
+								echo get_the_date( 'd' ) . '<i>' . get_the_date( 'M, Y' ) . '</i>';
+							} else {
+								echo get_the_date( "d\<\i\>\ F\<\/\i\>\ " );
+							}
+							?>
+						</div>
+						<?php
 					}
 					?>
-					
+
 					<div class="entry-contain">
 						<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 						<?php thim_entry_meta(); ?>
@@ -95,7 +111,7 @@ $classes[] = 'col-sm-12';
 					?>
 				</div><!-- .entry-summary -->
 				<div class="readmore">
-					<a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html__('Read More','eduma'); ?></a>
+					<a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html__( 'Read More', 'eduma' ); ?></a>
 				</div>
 			<?php }; ?>
 		</div>

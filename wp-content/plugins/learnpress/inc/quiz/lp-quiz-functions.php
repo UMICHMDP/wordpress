@@ -24,18 +24,18 @@ function learn_press_get_quiz_questions( $quiz_id = null, $only_ids = true ) {
 	return ( $quiz = LP_Quiz::get_quiz( $quiz_id ) ) ? $quiz->get_questions() : false;
 }
 
-
 function learn_press_question_class( $question = null, $args = array() /*, $classes = null, $user_id = null, $context = null*/ ) {
+	$course  = LP()->global['course'];
 	$args    = wp_parse_args(
 		$args,
 		array(
 			'user'    => LP()->user,
-			'quiz'    => LP()->quiz,
+			'quiz'    => !empty( LP()->global['course-item'] ) ? LP()->global['course-item'] : false,
 			'classes' => ''
 		)
 	);
 	$quiz    = $args['quiz'];
-	$user    = $args['user'];
+	$user    = $args['user'] ? $args['user'] : learn_press_get_current_user();
 	$classes = $args['classes'];
 
 
@@ -50,7 +50,11 @@ function learn_press_question_class( $question = null, $args = array() /*, $clas
 		}
 		settype( $classes, 'array' );
 		$classes = array_merge( $classes, array( "learn-press-question-wrap", "question-type-{$question->type}", "question-{$question->id}" ) );
-		$status  = $user->get_quiz_status( $quiz->id );
+		if ( $quiz ) {
+			$status = $user->get_quiz_status( $quiz->id );
+		} else {
+			$status = '';
+		}
 		if ( $status == 'completed' ) {
 			$user_id     = learn_press_get_current_user_id();
 			$user        = learn_press_get_user( $user_id );
@@ -65,7 +69,7 @@ function learn_press_question_class( $question = null, $args = array() /*, $clas
 			} else {
 				$classes[] = 'skipped';
 			}
-		} else if ( $status == 'started' && $question->id == learn_press_get_request( 'question' ) ) {
+		} else if ( $status == 'started' && $question->id == $user->get_current_quiz_question( $quiz->id, $course->id ) ) {
 			$classes[] = 'current';
 		}
 
@@ -77,10 +81,12 @@ function learn_press_question_class( $question = null, $args = array() /*, $clas
 }
 
 function learn_press_get_user_quiz_meta( $quiz_user_id, $meta_key, $single = true ) {
+	return get_metadata( 'learnpress_user_item', $quiz_user_id, $meta_key, $single );
 	return get_metadata( 'learnpress_user_quiz', $quiz_user_id, $meta_key, $single );
 }
 
 function learn_press_add_user_quiz_meta( $quiz_user_id, $meta_key, $meta_value, $prev_value = '' ) {
+
 	return add_metadata( 'learnpress_user_quiz', $quiz_user_id, $meta_key, $meta_value, $prev_value );
 }
 
@@ -236,7 +242,7 @@ function learn_press_get_user_quiz_status( $quiz_id, $user_id = false ) {
  */
 function learn_press_redirect_to_question( $template ) {
 	global $post_type;
-	if ( is_single() && $post_type == LP()->quiz_post_type ) {
+	if ( is_single() && $post_type == LP_QUIZ_CPT ) {
 		$user        = learn_press_get_current_user();
 		$quiz_id     = get_the_ID();
 		$quiz_status = $user->get_quiz_status( $quiz_id );
@@ -339,3 +345,18 @@ function _learn_press_add_question_type_support() {
 }
 
 add_action( 'plugins_loaded', '_learn_press_add_question_type_support' );
+
+if ( !function_exists( 'learn_press_quiz_is_hide_question' ) ) {
+	function learn_press_quiz_is_hide_question( $quiz_id = null ) {
+		if ( !$quiz_id ) return false;
+		$meta = get_post_meta( $quiz_id, '_lp_show_hide_question', true );
+		if ( $meta === 'hide' || $meta == '' || is_null( $meta )
+			// Removed from 2.1.4
+			/* || ( $meta === 'global' && LP()->settings->get( 'disable_question_in_quiz' ) === 'yes' ) */
+		) {
+			return true;
+		}
+
+		return false;
+	}
+}

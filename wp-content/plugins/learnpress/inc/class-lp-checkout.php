@@ -27,7 +27,25 @@ class LP_Checkout {
 	 */
 	public $payment_method = '';
 
+	/**
+	 * @var array|mixed|null|void
+	 */
 	public $checkout_fields = array();
+
+	/**
+	 * @var null
+	 */
+	public $user_login = null;
+
+	/**
+	 * @var null
+	 */
+	public $user_pass = null;
+
+	/**
+	 * @var null
+	 */
+	public $order_comment = null;
 
 	/**
 	 * Constructor
@@ -62,7 +80,7 @@ class LP_Checkout {
 			$order_data = array(
 				'status'      => apply_filters( 'learn_press_default_order_status', 'pending' ),
 				'user_id'     => get_current_user_id(),
-				'user_note'   => isset( $_REQUEST['order_comments'] ) ? $_REQUEST['order_comments'] : '',
+				'user_note'   => $this->order_comment,
 				'created_via' => 'checkout'
 			);
 
@@ -144,41 +162,53 @@ class LP_Checkout {
 	 * @return bool
 	 */
 	public function validate_fields( $validate, $field, $checkout ) {
-		if ( $field['name'] == 'user_login' && empty( $_POST['user_login'] ) ) {
+		if ( $field['name'] == 'user_login' && empty( $this->user_login ) ) {
 			$validate = false;
-			learn_press_add_notice( __( 'Please enter user login', 'learnpress' ) );
+			learn_press_add_message( __( 'Please enter user login', 'learnpress' ) );
 		}
-		if ( $field['name'] == 'user_password' && empty( $_POST['user_password'] ) ) {
+		if ( $field['name'] == 'user_password' && empty( $this->user_pass ) ) {
 			$validate = false;
-			learn_press_add_notice( __( 'Please enter user password', 'learnpress' ) );
+			learn_press_add_message( __( 'Please enter user password', 'learnpress' ) );
 		}
 
 		return $validate;
 	}
 
 	/**
+	 * Process checkout from request
+	 */
+	public function process_checkout_handler() {
+		if ( strtolower( $_SERVER['REQUEST_METHOD'] ) != 'post' ) {
+			return;
+		}
+		/**
+		 * Set default fields from request
+		 */
+		$this->payment_method = !empty( $_REQUEST['payment_method'] ) ? $_REQUEST['payment_method'] : '';
+		$this->user_login     = !empty( $_POST['user_login'] ) ? $_POST['user_login'] : '';
+		$this->user_pass      = !empty( $_POST['user_password'] ) ? $_POST['user_password'] : '';
+		$this->order_comment  = isset( $_REQUEST['order_comments'] ) ? $_REQUEST['order_comments'] : '';
+
+		// do checkout
+		return $this->process_checkout();
+	}
+
+	/**
 	 * Process checkout
-	 *
-	 * @param $from_request bool
 	 *
 	 * @return array|mixed|void
 	 * @throws Exception
 	 */
-	public function process_checkout( $from_request = true ) {
+	public function process_checkout() {
 		try {
-			if ( $from_request && strtolower( $_SERVER['REQUEST_METHOD'] ) != 'post' ) {
-				return;
-			}
-
 			// Prevent timeout
 			@set_time_limit( 0 );
 
 			do_action( 'learn_press_before_checkout_process' );
 
 			$success = true;
-
 			if ( LP()->cart->is_empty() ) {
-				learn_press_send_json(
+				return apply_filters( 'learn_press_checkout_cart_empty',
 					array(
 						'result'   => 'success',
 						'redirect' => learn_press_get_page_link( 'checkout' )
@@ -186,25 +216,25 @@ class LP_Checkout {
 				);
 			}
 
-			if ( LP()->cart->needs_payment() && empty( $_REQUEST['payment_method'] ) ) {
-				$success = false;
-				learn_press_add_notice( __( 'Please select a payment method', 'learnpress' ), 'error' );
+			if ( LP()->cart->needs_payment() && empty( $this->payment_method ) ) {
+				$success = 5;
+				learn_press_add_message( __( 'Please select a payment method', 'learnpress' ), 'error' );
 			} else {
-				$this->payment_method = !empty( $_REQUEST['payment_method'] ) ? $_REQUEST['payment_method'] : '';
+				//$this->payment_method = !empty( $_REQUEST['payment_method'] ) ? $_REQUEST['payment_method'] : '';
 				if ( $this->checkout_fields ) foreach ( $this->checkout_fields as $name => $field ) {
 					if ( !apply_filters( 'learn_press_checkout_validate_field', true, array( 'name' => $name, 'text' => $field ), $this ) ) {
-						$success = false;
+						$success = 10;
 					}
 				}
 				if ( !is_user_logged_in() && isset( $this->checkout_fields['user_login'] ) && isset( $this->checkout_fields['user_password'] ) ) {
 					$creds                  = array();
-					$creds['user_login']    = !empty( $_POST['user_login'] ) ? $_POST['user_login'] : '';
-					$creds['user_password'] = !empty( $_POST['user_password'] ) ? $_POST['user_password'] : '';
+					$creds['user_login']    = $this->user_login;
+					$creds['user_password'] = $this->user_pass;
 					$creds['remember']      = true;
 					$user                   = wp_signon( $creds, is_ssl() );
 					if ( is_wp_error( $user ) ) {
-						learn_press_add_notice( $user->get_error_message(), 'error' );
-						$success = false;
+						learn_press_add_message( $user->get_error_message(), 'error' );
+						$success = 15;
 					}
 				}
 				LP()->session->set( 'chosen_payment_method', $this->payment_method );
@@ -213,39 +243,41 @@ class LP_Checkout {
 			foreach ( LP()->cart->get_items() as $item ) {
 				$item = LP_Course::get_course( $item['item_id'] );
 				if ( !$item ) {
-					$success = false;
-					learn_press_add_notice( __( 'Item %s does not exists.', 'learnpress' ), 'error' );
+					$success = 20;
+					learn_press_add_message( __( 'Item %s does not exists.', 'learnpress' ), 'error' );
 				} elseif ( !$item->is_purchasable() ) {
-					learn_press_add_notice( sprintf( __( 'Item "%s" is not purchasable.', 'learnpress' ), get_the_title( $item->id ) ), 'error' );
-					$success = false;
+					learn_press_add_message( sprintf( __( 'Item "%s" is not purchasable.', 'learnpress' ), get_the_title( $item->id ) ), 'error' );
+					$success = 25;
 				}
 			}
+			if ( $success === true && LP()->cart->needs_payment() ) {
 
-			if ( $success && LP()->cart->needs_payment() ) {
-				// Payment Method
-				$available_gateways = LP_Gateways::instance()->get_available_payment_gateways();
-
-				if ( !isset( $available_gateways[$this->payment_method] ) ) {
-					$this->payment_method = '';
-					learn_press_add_notice( __( 'Invalid payment method.', 'learnpress' ), 'error' );
-				} else {
-					$this->payment_method = $available_gateways[$this->payment_method];
-					$success              = $this->payment_method->validate_fields();
+				if ( !$this->payment_method instanceof LP_Gateway_Abstract ) {
+					// Payment Method
+					$available_gateways = LP_Gateways::instance()->get_available_payment_gateways();
+					if ( !isset( $available_gateways[$this->payment_method] ) ) {
+						$this->payment_method = '';
+						learn_press_add_message( __( 'Invalid payment method.', 'learnpress' ), 'error' );
+					} else {
+						$this->payment_method = $available_gateways[$this->payment_method];
+					}
 				}
-			} else {
-				$available_gateways = array();
+				if ( $this->payment_method ) {
+					$success = $this->payment_method->validate_fields() ? true : 30;
+				}
 			}
+			if ( $success === true ) {
 
-			$order_id = $this->create_order();
-			if ( $success && $order_id ) {
+				$order_id = $this->create_order();
 
+				// allow Third-party hook
+				do_action( 'learn_press_checkout_order_processed', $order_id, $this );
 				if ( $this->payment_method ) {
 					// Store the order is waiting for payment and each payment method should clear it
 					LP()->session->order_awaiting_payment = $order_id;
-
 					// Process Payment
 					$result  = $this->payment_method->process_payment( $order_id );
-					$success = !empty( $result['result'] ) ? $result['result'] == 'success' : false;
+					$success = !empty( $result['result'] ) ? $result['result'] == 'success' : 35;
 				} else {
 					// ensure that no order is waiting for payment
 					$order = new LP_Order( $order_id );
@@ -254,9 +286,9 @@ class LP_Checkout {
 					}
 				}
 				// Redirect to success/confirmation/payment page
-				if ( $success ) {
+				if ( $success === true ) {
 					$result = apply_filters( 'learn_press_checkout_success_result', $result, $order_id );
-					if ( is_ajax() ) {
+					if ( learn_press_is_ajax() ) {
 						learn_press_send_json( $result );
 					} else {
 						wp_redirect( $result['redirect'] );
@@ -267,20 +299,24 @@ class LP_Checkout {
 			}
 
 		} catch ( Exception $e ) {
-			if ( !empty( $e ) ) {
-				learn_press_add_notice( $e->getMessage(), 'error' );
+			$has_error = $e->getMessage();
+			if ( !empty( $has_error ) ) {
+				learn_press_add_message( $has_error, 'error' );
 			}
-			$success = false;
+			$success = 40;
 		}
+
+		// Get all messages
 		$error_messages = '';
-		if ( !$success ) {
+		if ( $success !== true ) {
 			ob_start();
 			learn_press_print_notices();
 			$error_messages = ob_get_clean();
 		}
 
 		$result = array(
-			'result'   => $success ? 'success' : 'fail',
+			'result'   => $success === true ? 'success' : 'fail',
+			'code'     => $success,
 			'messages' => $error_messages,
 			'redirect' => ''
 		);
@@ -290,7 +326,7 @@ class LP_Checkout {
 	/**
 	 * Get unique instance for this object
 	 *
-	 * @return HB_Checkout
+	 * @return LP_Checkout
 	 */
 	public static function instance() {
 		if ( empty( self::$_instance ) ) {

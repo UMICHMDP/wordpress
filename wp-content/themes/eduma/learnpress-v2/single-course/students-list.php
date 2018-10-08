@@ -17,11 +17,20 @@ $students_list_heading     = apply_filters( 'learn_press_students_list_heading',
 $student_limit             = apply_filters( 'learn_press_students_list_limit', - 1 );
 $show_avatar               = apply_filters( 'learn_press_students_list_avatar', true );
 $students_list_avatar_size = apply_filters( 'learn_press_students_list_avatar_size', 70 );
+$theme_options_data = get_theme_mods();
+$style_content = isset($theme_options_data['thim_layout_content_page']) ? $theme_options_data['thim_layout_content_page'] : 'normal';
 ?>
 <?php do_action( 'learn_press_before_student-list' ) ?>
 <div class="course-students-list">
 	<?php if ( $students_list_heading ): ?>
-		<h3 class="students-list-title"><?php echo $students_list_heading ?></h3>
+        <?php if( $style_content == 'new-1' ) {?>
+            <div class="sc_heading clone_title  text-left">
+                <h2 class="title"><?php echo $students_list_heading ?></h2>
+                <div class="clone"><?php echo $students_list_heading ?></div>
+            </div>
+        <?php } else {?>
+            <h3 class="students-list-title"><?php echo $students_list_heading ?></h3>
+        <?php }?>
 	<?php endif; ?>
 
 	<?php if ( $students = $course->get_students_list( true, $student_limit ) ): ?>

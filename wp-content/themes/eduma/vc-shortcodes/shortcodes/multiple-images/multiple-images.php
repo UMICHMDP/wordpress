@@ -21,6 +21,7 @@ function thim_shortcode_multiple_images( $atts ) {
 		'image_link'  => '',
 		'column'      => '1',
 		'link_target' => '',
+        'el_class' => '',
 	), $atts );
 
 	//$instance['image']          = $instance['font_size'];
@@ -35,9 +36,11 @@ function thim_shortcode_multiple_images( $atts ) {
 		$widget_template = $child_widget_template;
 	}
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-multiple-images">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html = ob_get_contents();
 	ob_end_clean();
 

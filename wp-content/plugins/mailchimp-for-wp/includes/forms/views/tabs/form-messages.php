@@ -1,10 +1,16 @@
-<?php defined( 'ABSPATH' ) or exit; $messages = $form->messages; ?>
+<?php defined( 'ABSPATH' ) or exit;
+
+/** @var MC4WP_Form $form */
+?>
 
 <h2><?php _e( 'Form Messages', 'mailchimp-for-wp' ); ?></h2>
 
 <table class="form-table mc4wp-form-messages">
 
-	<?php do_action( 'mc4wp_admin_form_before_messages_settings_rows', $opts, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_before_messages_settings_rows', $opts, $form );
+	?>
 
 	<tr valign="top">
 		<th scope="row"><label for="mc4wp_form_subscribed"><?php _e( 'Successfully subscribed', 'mailchimp-for-wp' ); ?></label></th>
@@ -58,20 +64,24 @@
 	<tr valign="top">
 		<th scope="row"><label for="mc4wp_form_no_lists_selected"><?php _e( 'No list selected', 'mailchimp-for-wp' ); ?></label></th>
 		<td>
-			<input type="text" class="widefat" id="mc4wp_form_no_lists_selected" name="mc4wp_form[messages][no_lists_selected]" value="<?php echo esc_attr( $form->messages['no_lists_selected'] ); ?>" required />
+			<input type="text" class="widefat" id="mc4wp_form_no_lists_selected" name="mc4wp_form[messages][no_lists_selected]" value="<?php echo esc_attr( $form->messages[ 'no_lists_selected'] ); ?>" required />
 			<p class="help"><?php _e( 'When offering a list choice, this is the text that shows when no lists were selected.', 'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>
 
-	<tr valign="top">
-		<th scope="row"><label for="mc4wp_form_previously_unsubscribed"><?php _e( 'Previously unsubscribed', 'mailchimp-for-wp' ); ?></label></th>
+	<?php $config = array( 'element' => 'mc4wp_form[settings][update_existing]', 'value' => 1 ); ?>
+	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+		<th scope="row"><label for="mc4wp_form_updated"><?php _e( 'Updated', 'mailchimp-for-wp' ); ?></label></th>
 		<td>
-			<input type="text" class="widefat" id="mc4wp_form_previously_unsubscribed" name="mc4wp_form[messages][previously_unsubscribed]" value="<?php echo esc_attr( $form->messages['previously_unsubscribed'] ); ?>" required />
-			<p class="help"><?php _e( 'When someone previously unsubscribed, the plugin can not resubscribe them automatically. Refer to your MailChimp hosted sign-up form here.', 'mailchimp-for-wp' ); ?></p>
+			<input type="text" class="widefat" id="mc4wp_form_updated" name="mc4wp_form[messages][updated]" value="<?php echo esc_attr( $form->messages['updated'] ); ?>" />
+			<p class="help"><?php _e( 'The text that shows when an existing subscriber is updated.', 'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>
 
-	<?php do_action( 'mc4wp_admin_form_after_messages_settings_rows', $messages, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_after_messages_settings_rows', array(), $form );
+	?>
 
 	<tr valign="top">
 		<th></th>

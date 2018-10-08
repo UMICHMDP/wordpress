@@ -109,8 +109,15 @@
     user-select: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.thim-ralated-course {
+    .owl-carousel {
+        .owl-wrapper-outer {
+            overflow: visible;
+        }
+    }
+}
 
-/* fix */
+    /* fix */
 .owl-carousel  .owl-wrapper,
 .owl-carousel  .owl-item{
     -webkit-backface-visibility: hidden;

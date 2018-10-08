@@ -187,8 +187,10 @@ table.learn-press-cart-table{
     ul.payment-methods{
         margin: 0;
         list-style-type: none;
+        margin-bottom: 15px;
     }
     .place-order-action{
+        margin-bottom: 15px;
         input.button{
             margin-top: 10px;
             height: 40px;
@@ -257,7 +259,7 @@ table.learn-press-cart-table{
 .thim-product-switch-wrap{
     .woocommerce-result-count{
         display: inline-block;
-        line-height: 34px;
+        line-height: 38px;
         font-size: 13px;
         color: #999;
         margin-left: 15px;
@@ -542,7 +544,7 @@ div.woof_info_popup {
         text-transform: lowercase;
     }
     ul{
-        margin: 0;
+        //margin: 0;
         list-style-type: none;
     }
     .entry-content {

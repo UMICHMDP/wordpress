@@ -28,7 +28,7 @@ $course_id = get_the_ID();
 
             <?php do_action( 'learn-press/quiz/begin-prev-question-button' ); ?>
 
-            <button type="submit"><?php _e( 'Prev', 'learnpress' ); ?></button>
+            <button type="submit"><?php _e( 'Prev', 'eduma' ); ?></button>
 
             <?php do_action( 'learn-press/quiz/end-prev-question-button' ); ?>
 
@@ -48,7 +48,7 @@ $course_id = get_the_ID();
 
             <?php do_action( 'learn-press/quiz/begin-next-question-button' ); ?>
 
-            <button type="submit"><?php _e( 'Next', 'learnpress' ); ?></button>
+            <button type="submit"><?php _e( 'Next', 'eduma' ); ?></button>
 
             <?php do_action( 'learn-press/quiz/end-next-question-button' ); ?>
 
@@ -68,7 +68,7 @@ $course_id = get_the_ID();
 
             <?php do_action( 'learn-press/quiz/begin-skip-question-button' ); ?>
 
-            <button type="submit"><?php _e( 'Skip', 'learnpress' ); ?></button>
+            <button type="submit"><?php _e( 'Skip', 'eduma' ); ?></button>
 
             <?php do_action( 'learn-press/quiz/end-skip-question-button' ); ?>
 

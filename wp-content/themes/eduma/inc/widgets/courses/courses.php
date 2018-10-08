@@ -63,10 +63,11 @@ if (!class_exists('Thim_Courses_Widget')) {
 						'options'       => array(
 							'slider'       => esc_html__( 'Slider', 'eduma' ),
 							'grid'         => esc_html__( 'Grid', 'eduma' ),
+                            'grid1'         => esc_html__( 'Grid New', 'eduma' ),
 							'list-sidebar' => esc_html__( 'List Sidebar', 'eduma' ),
 							'megamenu'     => esc_html__( 'Mega Menu', 'eduma' ),
 							'tabs'         => esc_html__( 'Category Tabs', 'eduma' ),
-							'grid1'         => esc_html__( 'Grid 1', 'eduma' ),
+                            'tabs-slider'         => esc_html__( 'Category Tabs Slider', 'eduma' ),
 						),
 						'default'       => 'slider',
 						'state_emitter' => array(
@@ -74,6 +75,40 @@ if (!class_exists('Thim_Courses_Widget')) {
 							'args'     => array( 'layout_type' )
 						),
 					),
+                    'thumbnail_width' => array(
+                        'type'                  => 'slider',
+                        'label'                 => esc_html__( 'Thumbnail Width', 'eduma' ),
+                        'default' => 400,
+                        'min' => 100,
+                        'max' => 800,
+                        'integer' => true,
+                        'state_handler' => array(
+                            'layout_type[slider]'       => array( 'show' ),
+                            'layout_type[grid]'         => array( 'show' ),
+                            'layout_type[grid1]'        => array( 'show' ),
+                            'layout_type[list-sidebar]' => array( 'hide' ),
+                            'layout_type[tabs]'         => array( 'show' ),
+                            'layout_type[tabs-slider]'  => array( 'show' ),
+                            'layout_type[megamenu]'     => array( 'hide' ),
+                        ),
+                    ),
+                    'thumbnail_height' => array(
+                        'type'                  => 'slider',
+                        'label'                 => esc_html__( 'Thumbnail Height', 'eduma' ),
+                        'default' => 300,
+                        'min' => 100,
+                        'max' => 800,
+                        'integer' => true,
+                        'state_handler' => array(
+                            'layout_type[slider]'       => array( 'show' ),
+                            'layout_type[grid]'         => array( 'show' ),
+                            'layout_type[grid1]'        => array( 'show' ),
+                            'layout_type[list-sidebar]' => array( 'hide' ),
+                            'layout_type[tabs]'         => array( 'show' ),
+                            'layout_type[tabs-slider]'  => array( 'show' ),
+                            'layout_type[megamenu]'     => array( 'hide' ),
+                        ),
+                    ),
 					'limit'             => array(
 						'type'    => 'number',
 						'label'   => esc_html__( 'Limit number course', 'eduma' ),
@@ -93,7 +128,10 @@ if (!class_exists('Thim_Courses_Widget')) {
 						'state_handler' => array(
 							'layout_type[slider]'       => array( 'hide' ),
 							'layout_type[grid]'         => array( 'show' ),
+                            'layout_type[grid1]'         => array( 'show' ),
 							'layout_type[list-sidebar]' => array( 'hide' ),
+                            'layout_type[tabs]'         => array( 'hide' ),
+                            'layout_type[tabs-slider]'  => array( 'show' ),
 						),
 					),
 					'view_all_position' => array(
@@ -108,8 +146,10 @@ if (!class_exists('Thim_Courses_Widget')) {
 						'state_handler' => array(
 							'layout_type[slider]'       => array( 'hide' ),
 							'layout_type[grid]'         => array( 'show' ),
+                            'layout_type[grid1]'         => array( 'show' ),
 							'layout_type[list-sidebar]' => array( 'hide' ),
 							'layout_type[tabs]'         => array( 'hide' ),
+                            'layout_type[tabs-slider]'  => array( 'show' ),
 							'layout_type[megamenu]'     => array( 'hide' ),
 						),
 					),
@@ -121,8 +161,10 @@ if (!class_exists('Thim_Courses_Widget')) {
 						'state_handler' => array(
 							'layout_type[slider]'       => array( 'show' ),
 							'layout_type[grid]'         => array( 'hide' ),
+                            'layout_type[grid1]'         => array( 'hide' ),
 							'layout_type[list-sidebar]' => array( 'hide' ),
 							'layout_type[tabs]'         => array( 'hide' ),
+                            'layout_type[tabs-slider]'  => array( 'hide' ),
 							'layout_type[megamenu]'     => array( 'hide' ),
 						),
 						'state_emitter' => array(
@@ -171,9 +213,11 @@ if (!class_exists('Thim_Courses_Widget')) {
 						'state_handler' => array(
 							'layout_type[slider]'       => array( 'hide' ),
 							'layout_type[grid]'         => array( 'show' ),
+                            'layout_type[grid1]'         => array( 'show' ),
 							'layout_type[list-sidebar]' => array( 'hide' ),
 							'layout_type[megamenu]'     => array( 'hide' ),
 							'layout_type[tabs]'         => array( 'hide' ),
+                            'layout_type[tabs-slider]'  => array( 'hide' ),
 						),
 						'state_emitter' => array(
 							'callback' => 'select',
@@ -206,8 +250,10 @@ if (!class_exists('Thim_Courses_Widget')) {
 						'state_handler' => array(
 							'layout_type[slider]'       => array( 'hide' ),
 							'layout_type[grid]'         => array( 'hide' ),
+                            'layout_type[grid1]'         => array( 'hide' ),
 							'layout_type[list-sidebar]' => array( 'hide' ),
 							'layout_type[tabs]'         => array( 'show' ),
+                            'layout_type[tabs-slider]'  => array( 'show' ),
 						),
 						'state_emitter' => array(
 							'callback' => 'select',

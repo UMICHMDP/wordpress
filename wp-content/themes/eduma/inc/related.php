@@ -6,12 +6,13 @@ if ( $related->have_posts() ) {
 	<section class="related-archive">
 		<h3 class="single-title"><?php esc_html_e( 'You may also like', 'eduma' ); ?></h3>
 		<?php
-		echo '<ul class="archived-posts">';
+		echo '<div class="archived-posts">';
+		echo '<div class="thim-carousel-wrapper" data-visible="3" data-itemtablet="2" data-itemmobile="1" data-pagination="1">';
 		while ( $related->have_posts() ) {
 			$related->the_post();
 			if ( has_post_thumbnail() ) {
 				?>
-				<li <?php post_class(); ?>>
+				<div <?php post_class(); ?>>
 					<div class="category-posts clear">
 						<?php echo thim_get_feature_image( get_post_thumbnail_id(), 'full', '300', '200' ); ?>
 						<div class="rel-post-text">
@@ -23,11 +24,11 @@ if ( $related->have_posts() ) {
 							</div>
 						</div>
 					</div>
-				</li>
+				</div>
 				<?php
 			} else {
 				?>
-				<li>
+				<div>
 					<div class="category-posts clear">
 						<div class="rel-post-text">
 							<h5 class="title-related no-images">
@@ -42,12 +43,13 @@ if ( $related->have_posts() ) {
 							<?php the_excerpt(); ?>
 						</div>
 					</div>
-				</li>
+				</div>
 				<?php
 			}
 		}
 		wp_reset_postdata();
-		echo '</ul>';
+		echo '</div>';
+        echo '</div>';
 		?>
 	</section><!--.related-->
 <?php }

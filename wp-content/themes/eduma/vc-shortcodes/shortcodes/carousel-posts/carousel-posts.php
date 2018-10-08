@@ -25,6 +25,7 @@ function thim_shortcode_carousel_posts( $atts ) {
 		'auto_play'       => '0',
 		'orderby'         => '',
 		'order'           => '',
+        'el_class'           => '',
 	), $atts );
 
 
@@ -45,9 +46,11 @@ function thim_shortcode_carousel_posts( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-carousel-post">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

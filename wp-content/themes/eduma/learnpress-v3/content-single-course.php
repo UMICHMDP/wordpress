@@ -22,7 +22,8 @@ if ( post_password_required() ) {
 
 $course = LP()->global['course'];
 $user   = learn_press_get_current_user();
-$is_enrolled      = $user->has( 'enrolled-course', $course->get_id() );
+$is_enrolled = $user->has_enrolled_course($course->get_id());
+
 /**
  * @deprecated
  */
@@ -38,43 +39,118 @@ do_action( 'learn-press/before-main-content' );
 do_action( 'learn-press/before-single-course' );
 
 ?>
-<div id="learn-press-course" class="course-summary learn-press">
 
-    <?php the_title( '<h1 class="entry-title" itemprop="name">', '</h1>' ); ?>
+<?php if( get_theme_mod( 'thim_layout_content_page', 'normal' ) == 'new-1' ) {?>
 
-    <div class="course-meta">
-        <?php learn_press_course_instructor(); ?>
-        <?php learn_press_course_categories(); ?>
-        <?php thim_course_forum_link(); ?>
-        <?php thim_course_ratings(); ?>
-        <?php learn_press_course_progress(); ?>
-    </div>
-    <?php if ( !$is_enrolled ) { ?>
-        <div class="course-payment">
-            <?php
+    <div class="content_course_2">
 
-            learn_press_get_template( 'single-course/price.php' );
-            learn_press_get_template( 'single-course/buttons.php' );
+        <div class="row">
 
-            ?>
+            <div class="col-md-9 content-single">
+
+                <div id="lp-single-course" class="learnpress-content learn-press">
+
+                    <div class="header_single_content">
+
+                        <span class="bg_header"></span>
+
+                        <?php do_action( 'thim_single_course_before_meta' );?>
+
+                        <div class="course-meta">
+
+                            <?php do_action( 'thim_single_course_meta' );?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="course-summary">
+                    <?php
+                    /**
+                     * @since 3.0.0
+                     *
+                     * @see learn_press_single_course_summary()
+                     */
+                    do_action( 'learn-press/single-course-summary' );
+                    ?>
+                </div>
+                <?php thim_related_courses(); ?>
+
+            </div>
+
+            <div id="sidebar" class="col-md-3 sticky-sidebar">
+
+                <div class="course_right">
+
+                    <?php learn_press_course_progress(); ?>
+
+                    <div class="course-payment">
+
+                        <?php do_action( 'thim_single_course_payment' );?>
+
+                    </div>
+
+                    <?php do_action( 'thim_before_sidebar_course' ); ?>
+
+                    <div class="menu_course">
+                        <?php
+                        $tabs = learn_press_get_course_tabs();
+                        ?>
+                        <ul>
+                            <?php foreach ( $tabs as $key => $tab ) { ?>
+                                <li role="presentation">
+                                    <a href="#<?php echo esc_attr( $tab['id'] ); ?>" data-toggle="tab">
+                                        <i class="fa <?php echo $tab['icon']; ?>"></i>
+                                        <span><?php echo $tab['title']; ?></span>
+                                    </a>
+                                </li>
+                            <?php }?>
+                        </ul>
+                    </div>
+                    <div class="social_share">
+                        <?php do_action( 'thim_social_share' ); ?>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-    <?php } ?>
-    <div class="course-summary">
-        <?php
-        /**
-         * @since 3.0.0
-         *
-         * @see learn_press_single_course_summary()
-         */
-        do_action( 'learn-press/single-course-summary' );
-        ?>
+
     </div>
-    <?php thim_related_courses(); ?>
-    <?php
-    $related_courses = thim_get_related_courses( 5 );
-    //var_dump($related_courses);
-    ?>
-</div>
+
+<?php } else {?>
+
+    <div id="learn-press-course" class="course-summary learn-press">
+
+        <?php the_title( '<h1 class="entry-title" itemprop="name">', '</h1>' ); ?>
+
+        <div class="course-meta">
+            <?php do_action( 'thim_single_course_meta' );?>
+        </div>
+        <div class="course-payment">
+            <?php do_action( 'thim_single_course_payment' );?>
+        </div>
+        <div class="course-summary">
+            <?php
+            /**
+             * @since 3.0.0
+             *
+             * @see learn_press_single_course_summary()
+             */
+            do_action( 'learn-press/single-course-summary' );
+            ?>
+	        <div class="social_share">
+		        <?php do_action( 'thim_social_share' ); ?>
+	        </div>
+        </div>
+        <?php thim_related_courses(); ?>
+    </div>
+
+<?php }?>
+
 <?php
 
 /**

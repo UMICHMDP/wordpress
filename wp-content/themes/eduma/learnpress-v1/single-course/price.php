@@ -31,6 +31,6 @@ if ( LP()->user->has( 'enrolled-course', $course->id ) && is_singular('lp_course
 			<?php echo esc_html( $price ); ?>
 		</div>
 	<?php endif; ?>
-	<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
+	<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency(); ?>" />
 
 </div>

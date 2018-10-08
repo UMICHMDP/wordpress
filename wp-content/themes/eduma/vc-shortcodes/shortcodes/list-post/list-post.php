@@ -30,6 +30,7 @@ function thim_shortcode_list_post( $atts ) {
 		'link'             => '',
 		'text_link'        => '',
 		'style'            => '',
+        'el_class' => '',
 	), $atts );
 
 
@@ -50,9 +51,11 @@ function thim_shortcode_list_post( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-list-post">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

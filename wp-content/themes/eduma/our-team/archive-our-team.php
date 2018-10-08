@@ -38,9 +38,6 @@ if ( have_posts() ) :?>
 							<?php if ( $linkedin_url <> '' ): ?>
 								<a href="<?php echo $linkedin_url; ?>"><i class="fa fa-linkedin"></i></a>
 							<?php endif; ?>
-							<?php if ( $link_face <> '' ): ?>
-								<a href="<?php echo $link_face; ?>"><i class="fa fa-facebook"></i></a>
-							<?php endif; ?>
 
 						</div>
 					</div>

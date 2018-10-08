@@ -1,7 +1,13 @@
 <?php
 $_wp_query = $GLOBALS['thim_upcoming_events'];
+
+$customize_order_tab = get_theme_mod( 'thim_event_change_order_tab', array() );
+$default_active_tab = $customize_order_tab ? $customize_order_tab[0] : 'happening';
 ?>
-<div role="tabpanel" class="tab-pane fade" id="tab-upcoming">
+
+<div role="tabpanel" class="tab-pane fade<?php if ( $default_active_tab == 'upcoming' ) {
+	echo ' in active';
+} ?>" id="tab-upcoming">
 
 	<?php if ( $_wp_query->have_posts() ) { ?>
 

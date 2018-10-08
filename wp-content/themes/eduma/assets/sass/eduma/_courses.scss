@@ -31,6 +31,13 @@
         margin: 0 -15px;
         width: auto;
     }
+    .thim_tabs_slider {
+        &.grid-1 {
+            .view-all-courses {
+                top: 35px;
+            }
+        }
+    }
     .grid-1 {
         .view-all-courses {
             border: none;
@@ -80,16 +87,16 @@
                             float: left;
                             .value {
                                 font-size: 18px;
-                                font-weight: 700;
+                                font-weight: 500;
                                 .course-origin-price {
                                     float: right;
-                                    font-weight: 400;
+                                    font-weight: 300;
                                     font-size: 14px;
                                     color: #999999;
                                 }
                                 &.free-course {
                                     font-size: 18px;
-                                    font-weight: 700;
+                                    font-weight: 500;
                                     color: #00d637;
                                 }
                             }
@@ -98,7 +105,7 @@
                             float: right;
                             margin-right: 0;
                             .value {
-                                font-weight: 400;
+                                font-weight: 300;
                                 .fa-group {
                                     &:before {
                                         content: "\e723";
@@ -412,7 +419,7 @@
                 }
                 .value {
                     font-size: 14px;
-
+                    display: inline-block;
                     color: #999;
                     line-height: 30px;
                     font-weight: 400;
@@ -451,7 +458,19 @@
                             }
                         }
                     }
+                    &.course-students {
+                        > span {
+                            color: #999999;
+                            display: none;
+                        }
+                    }
                 }
+            }
+            .message-warning {
+                margin-bottom: 30px;
+                margin-top: 30px;
+                display: inline-block;
+                width: 100%;
             }
         }
     }
@@ -968,6 +987,33 @@ body .learnpress li{
     margin-bottom: 15px;
 }
 .thim-style-content-new-1 {
+    .switch-layout-container {
+        .switch-layout {
+            a {
+                vertical-align: middle;
+                .fa {
+                    font-family: 'Linearicons';
+                    font-size: 20px;
+                    line-height: 38px;
+                }
+                &.switchToGrid {
+                    .fa {
+                        &:before {
+                            content: "\e880";
+                        }
+                    }
+                }
+                &.switchToList {
+                    .fa {
+                        font-size: 27px;
+                        &:before {
+                            content: "\e930";
+                        }
+                    }
+                }
+            }
+        }
+    }
     #lp-archive-courses {
         .courses-searching {
             float: left;
@@ -1016,29 +1062,8 @@ body .learnpress li{
                 line-height: 40px;
                 text-align: center;
                 border: 1px solid #eeeeee;
-                .fa {
-                    font-family: 'Linearicons';
-                    font-size: 18px;
-                    line-height: 38px;
-                }
                 &.switch-active {
                     color: #FFFFFF;
-                }
-                &.switchToGrid {
-                    .fa {
-                        font-size: 20px;
-                        &:before {
-                            content: "\e880";
-                        }
-                    }
-                }
-                &.switchToList {
-                    .fa {
-                        font-size: 22px;
-                        &:before {
-                            content: "\e92c";
-                        }
-                    }
                 }
             }
         }
@@ -1118,7 +1143,7 @@ body .learnpress li{
                         .course-price {
                             display: inline-block;
                             .value {
-                                font-weight: 700;
+                                font-weight: 500;
                                 font-size: 18px;
                                 color: #2575fc;
                                 .course-origin-price {
@@ -1164,6 +1189,23 @@ body .learnpress li{
                 .course-readmore {
                     display: none;
                 }
+                .rate {
+                    width: 85px;
+                    line-height: 30px;
+                    background-color: rgba(0, 0, 0, 0.35);
+                    color: #ffffff;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    text-align: center;
+                    .number_rate {
+                        font-size: 14px;
+                    }
+                    i {
+                        font-size: 16px;
+                        margin-right: 2px;
+                    }
+                }
             }
             .thim-course-content {
                 padding-top: 15px;
@@ -1194,7 +1236,7 @@ body .learnpress li{
                         float: left;
                         .value {
                             font-size: 18px;
-                            font-weight: 700;
+                            font-weight: 500;
                             .course-origin-price {
                                 float: right;
                                 font-size: 14px;
@@ -1232,6 +1274,48 @@ body .learnpress li{
                 .course-thumbnail {
                     img {
                         @include transform(scale(1.05, 1.05));
+                    }
+                }
+            }
+        }
+        &.thim_tabs_slider {
+            .course-feature {
+                .thim-course-info {
+                    i {
+                        &:before {
+                            font-family: Linearicons;
+                            font-size: 16px;
+                        }
+                        &.fa-files-o {
+                            &:before {
+                                content: "\e712";
+                            }
+                        }
+                        &.fa-puzzle-piece {
+                            &:before {
+                                content: "\e7da";
+                            }
+                        }
+                        &.fa-clock-o {
+                            &:before {
+                                content: "\e8e3";
+                            }
+                        }
+                        &.fa-level-up {
+                            &:before {
+                                content: "\e91d";
+                            }
+                        }
+                        &.fa-language {
+                            &:before {
+                                content: "\e691";
+                            }
+                        }
+                        &.fa-users {
+                            &:before {
+                                content: "\e727";
+                            }
+                        }
                     }
                 }
             }
@@ -1340,4 +1424,137 @@ body .learnpress li{
 }
 .cls_courses_2 {
 
+}
+
+.thim_tabs_slider {
+    overflow: hidden;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #e5e5e5;
+    .thim_content_tabs {
+        position: relative;
+        .thim_content_item {
+            float: left;
+            width: 100%;
+        }
+    }
+    ul {
+        display: inline-block;
+        position: relative;
+        margin-bottom: 0;
+        li {
+            display: inline-block;
+            a {
+                padding-right: 20px;
+                padding-left: 20px;
+                font-size: 16px;
+                color: #808080;
+                &:hover {
+                    color: #2575fc;
+                }
+            }
+            &.active {
+                a {
+                    color: #2575fc;
+                    position: relative;
+                    &:after {
+                        height: 1px;
+
+                        content: "";
+                        background-color: #2575fc;
+                        position: absolute;
+                        bottom: -3px;
+                        left: 20px;
+                        right: 20px;
+                    }
+                }
+            }
+        }
+    }
+    &.thim-course-grid {
+        .course-feature {
+            .course-item {
+                .thim-course-content {
+                    .course-title {
+                        height: 70px;
+                        font-size: 26px;
+                        line-height: 34px;
+                        margin-bottom: 25px;
+                    }
+                    .course-author {
+                        .value {
+
+                            a {
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                    .course-meta {
+                        padding-top: 16px;
+                        padding-bottom: 12px;
+                        .value {
+                            font-size: 16px;
+                        }
+                        .course-price {
+                            .value {
+                                font-size: 22px;
+                                .course-origin-price {
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                        .course-students {
+                            > span {
+                                display: inline-block;
+                            }
+                            .value .fa-group:before {
+                                font-size: 22px;
+
+                            }
+                        }
+                    }
+                    .thim-course-info {
+                        ul {
+                            margin-left: 0;
+                            margin-bottom: 50px;
+                            width: 100%;
+                            li {
+                                width: 49%;
+                                color: #808080;
+                                padding-bottom: 6px;
+                                font-size: 14px;
+                                display: inline-block;
+                                i {
+                                    width: 22px;
+                                }
+                                .label {
+                                    width: auto;
+                                    display: inline-block;
+                                    &:after {
+                                        content: ":"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .course-grid-4 {
+            &:nth-child(4n+1) {
+                clear: none;
+            }
+        }
+    }
+}
+
+body.learnpress-page {
+    &.archive {
+        .site-main {
+            .entry-content {
+                > p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
 }

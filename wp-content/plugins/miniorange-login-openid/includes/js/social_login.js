@@ -1,7 +1,7 @@
 jQuery(window).load(function () {
 
     // If cookie is set, scroll to the position saved in the cookie.
-    if ( jQuery.cookie("scroll") !== null ) {
+    if ( jQuery.cookie("scroll") !== 'null' ) {
         jQuery(document).scrollTop( jQuery.cookie("scroll") );
         jQuery.cookie("scroll", null);
     }

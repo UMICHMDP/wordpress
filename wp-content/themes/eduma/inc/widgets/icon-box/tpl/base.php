@@ -11,7 +11,7 @@ if ( $instance['read_more_group']['read_more'] == 'more' ) {
 	$extent_class .= ' has_read_more';
 }
 /* setup hover color */
-$data_color = $boxes_icon_style = $thim_animation = "";
+$data_color = $boxes_icon_style = $thim_animation = $style_bg = "";
 $thim_animation .= thim_getCSSAnimation( $instance['css_animation'] );
 
 if ( $instance['color_group']['icon_hover_color'] <> '' ) {
@@ -49,7 +49,8 @@ if ( $ct_font_heading ) {
 $icon_style = $boxes_icon_style = '';
 $icon_style .= ( $instance['color_group']['icon_bg_color'] != '' ) ? 'background-color: ' . $instance['color_group']['icon_bg_color'] . ';' : '';
 $icon_style .= ( $instance['color_group']['icon_border_color'] != '' ) ? 'border-color:' . $instance['color_group']['icon_border_color'] . ';' : '';
-$icon_style .= !empty( $instance['width_icon_box'] ) ? 'width: ' . $instance['width_icon_box'] . 'px;height: ' . $instance['width_icon_box'] . 'px;' : '';
+$icon_style .= !empty( $instance['width_icon_box'] ) ? 'width: ' . $instance['width_icon_box'] . 'px;' : '';
+$icon_style .= ( !empty( $instance['height_icon_box'] ) && '' != $instance['height_icon_box'] ) ? 'height: ' . $instance['height_icon_box'] . 'px;' : '';
 if ( $icon_style ) {
 	$boxes_icon_style = 'style="' . $icon_style . '"';
 }
@@ -77,6 +78,9 @@ if ( $instance['widget_background'] == 'bg_video' && $instance['self_video'] != 
 	$class_bg_video = ' background-video';
 	$icon_play      = '<span class="bg-video-play"></span>';
 }
+if ( $instance['widget_background'] == 'bg_color' && $instance['bg_box_color'] != '' ) {
+    $style_bg = 'style="background: ' . $instance['bg_box_color'] . '"';
+}
 
 // show title
 $html_title = $border_bottom_title = $class_separator = '';
@@ -85,7 +89,7 @@ if ( isset( $instance['title_group']['line_after_title'] ) && $instance['title_g
 	$thim_animation .= ' wrapper-line-heading';
 }
 
-$prefix = '<div class="wrapper-box-icon' . $extent_class . $class_bg_video . ' ' . $instance['layout_group']['text_align_sc'] . ' ' . $instance['layout_group']['style_box'] . ' ' . $instance['layout_group']['box_icon_style'] . $thim_animation . '" ' . $data_color . '>';
+$prefix = '<div class="wrapper-box-icon' . $extent_class . $class_bg_video . ' ' . $instance['layout_group']['text_align_sc'] . ' ' . $instance['layout_group']['style_box'] . ' ' . $instance['layout_group']['box_icon_style'] . $thim_animation . '" ' . $style_bg . ' ' . $data_color . '>';
 $suffix = '</div>';
 //wrapper-box-icon
 
@@ -184,6 +188,42 @@ if ( $instance['icon_type'] == 'font-awesome' ) {
 			$html_icon .= '<i class="' . $class . '" style="' . $style . '"></i>';
 			$html_icon .= '</span></span>' . $icon_link_suffix . '</div>';
 		}
+    } else if ( $instance['icon_type'] == 'font-flaticon' ) {
+        if ( $instance['font_flaticon_group']['icon'] == '' ) {
+            $instance['font_flaticon_group']['icon'] = 'none';
+        }
+        if ( $instance['font_flaticon_group']['icon'] != 'none' ) {
+            $html_icon .= '<div class="boxes-icon' . $icon_layout . '" ' . $boxes_icon_style . '>' . $icon_link_prefix . '<span class="inner-icon"><span class="icon">';
+            $class = 'flaticon-' . $instance['font_flaticon_group']['icon'];
+            $style = '';
+            $style .= ( $instance['color_group']['icon_color'] != '' ) ? 'color:' . $instance['color_group']['icon_color'] . ';' : '';
+            $style .= ( $instance['font_flaticon_group']['icon_size'] != '' ) ? ' font-size:' . $instance['font_flaticon_group']['icon_size'] . 'px; line-height:' . $instance['font_flaticon_group']['icon_size'] . 'px; vertical-align: middle;' : '';
+            $html_icon .= '<i class="' . $class . '" style="' . $style . '"></i>';
+            $html_icon .= '</span></span>' . $icon_link_suffix . '</div>';
+        }
+    } else if ( $instance['icon_type'] == 'font_ionicons' ) {
+        if ( $instance['font_ionicons_group']['icon'] == '' ) {
+            $instance['font_ionicons_group']['icon'] = 'none';
+        }
+        if ( $instance['font_ionicons_group']['icon'] != 'none' ) {
+            if ( $instance['layout_group']['pos'] == 'push' ){
+                $html_icon .= '<div class="wrap_icon">';
+                $line_color = '';
+                $line_color .= ( $instance['color_group']['icon_color'] != '' ) ? 'background-color:' . $instance['color_group']['icon_color'] . ';' : '';
+                $html_icon .= '<div class="line_icon" style="' . $line_color . '"></div>';
+            }
+            $html_icon .= '<div class="boxes-icon' . $icon_layout . '" ' . $boxes_icon_style . '>' . $complete_prefix . '<span class="inner-icon"><span class="icon">';
+            $class = $instance['font_ionicons_group']['icon'];
+            $style = '';
+            $style .= ( $instance['color_group']['icon_color'] != '' ) ? 'color:' . $instance['color_group']['icon_color'] . ';' : '';
+            $style .= ( $instance['font_ionicons_group']['icon_size'] != '' ) ? ' font-size:' . $instance['font_ionicons_group']['icon_size'] . 'px; line-height:' . $instance['font_ionicons_group']['icon_size'] . 'px; vertical-align: middle;' : '';
+            $html_icon .= '<i class="' . $class . '" style="' . $style . '"></i>';
+            $html_icon .= '</span></span>' . $complete_suffix . '</div>';
+            if ( $instance['layout_group']['pos'] == 'push' ){
+                $html_icon .= '</div>';
+
+            }
+        }
 	} else {
 		$html_icon .= '<div class="boxes-icon' . $icon_layout . '" ' . $boxes_icon_style . '>' . $icon_link_prefix . '<span class="inner-icon"><span class="icon icon-images">';
 		$html_icon .= thim_get_feature_image( $instance['font_image_group']['icon_img'] );

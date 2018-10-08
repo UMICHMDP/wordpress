@@ -107,16 +107,17 @@ class LP_Order {
 	 * Updates order to new status if needed
 	 *
 	 * @param mixed $new_status
+	 * @param bool  $force Force to update/trigger action even the status is not changed
 	 *
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function update_status( $new_status = 'pending' ) {
+	public function update_status( $new_status = 'pending', $force = false ) {
 		global $post;
 		$new_status = 'lp-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
 		$old_status = $this->get_status();
 
-		if ( $new_status !== $old_status && in_array( $new_status, array_keys( learn_press_get_order_statuses( false ) ) ) ) {
+		if ( ( ( $new_status !== $old_status ) || $force ) && in_array( $new_status, array_keys( learn_press_get_order_statuses( false ) ) ) ) {
 			// Update the order
 			global $wpdb;
 			$updated = $wpdb->update( $wpdb->posts, array( 'post_status' => 'lp-' . $new_status ), array( 'ID' => $this->id ), array( '%s' ) );
@@ -166,13 +167,35 @@ class LP_Order {
 		return apply_filters( 'learn_press_get_order_number', '#' . sprintf( "%'.010d", $this->id ), $this );
 	}
 
+	/**
+	 * Get status of the order
+	 *
+	 * @return mixed|void
+	 */
 	public function get_order_status() {
 		$statuses = learn_press_get_order_statuses();
 		$status   = '';
 		if ( !empty( $statuses[$this->post_status] ) ) {
-			$status = $statuses[$this->post_status];
+			$status = str_replace( 'lp-', '', $this->post_status );
+		} else {
+			$status = $this->post_status;
 		}
 		return apply_filters( 'learn_press_get_order_status', $status, $this );
+	}
+
+	public function get_order_status_html() {
+		$statuses = learn_press_get_order_statuses();
+		$status   = '';
+		if ( !empty( $statuses[$this->post_status] ) ) {
+			$status = $statuses[$this->post_status];
+		} elseif ( $this->post_status == 'trash' ) {
+			$status = __( 'Removed', 'learnpress' );
+		} else {
+			$status = ucfirst( $this->post_status );
+		}
+		$class = 'order-status order-status-' . sanitize_title( $status );
+		$html  = sprintf( '<span class="%s">%s</span>', apply_filters( 'learn_press_order_status_class', $class, $status, $this ), $status, $this );
+		return apply_filters( 'learn_press_order_status_html', $html, $this );
 	}
 
 	/**
@@ -220,7 +243,37 @@ class LP_Order {
 
 	/*********************************/
 
+	/**
+	 * Get customer name of the order
+	 */
+	public function get_customer_name() {
+		$user_id       = $this->user_id;
+		$user          = learn_press_get_user( $user_id );
+		$customer_name = '';
+		if ( !$user->is_exists() ) {
+			$customer_name = apply_filters( 'learn_press_order_customer_name', __( '[Guest]', 'learnpress' ) );
+		} else {
+			if ( $user->user->data->display_name ) {
+				$customer_name = $user->user->data->display_name;
+			} elseif ( $user->user->data->user_nicename ) {
+				$customer_name = $user->user->data->user_nicename;
+			} elseif ( $user->user->data->user_login ) {
+				$customer_name = $user->user->data->user_login;
+			}
+		}
+		return $customer_name;
+	}
 
+	public function customer_exists() {
+		$user_id = $this->user_id;
+		return false !== get_userdata( $user_id );
+	}
+
+	/**
+	 * Get items of the order
+	 *
+	 * @return mixed|void
+	 */
 	public function get_items() {
 		global $wpdb;
 
@@ -297,11 +350,15 @@ class LP_Order {
 		learn_press_add_order_item_meta( $item_id, '_quantity', $item['quantity'] );
 		learn_press_add_order_item_meta( $item_id, '_subtotal', $item['subtotal'] );
 		learn_press_add_order_item_meta( $item_id, '_total', $item['total'] );
+		$item_data = '';
+		if( isset( $item['data'] ) && $item['data'] ) {
+			$item_data = $item['data'];
+		}
+		learn_press_add_order_item_meta( $item_id, '_data', $item_data );
 		return $item_id;
 	}
 
 	public function get_user( $field = '' ) {
-
 		$user = learn_press_get_user( $this->user_id );
 		if ( $field ) {
 			return $user->{$field};
@@ -309,9 +366,33 @@ class LP_Order {
 		return $user;
 	}
 
+	public function get_users() {
+		$users = false;
+		if ( $this->is_multi_users() ) {
+			$users = get_post_meta( $this->id, '_user_id' );
+		}
+		return $users;
+	}
+
+	public function dropdown_users() {
+		$order_users = $this->get_users();
+		$users       = get_users( array() );
+		echo '<select name="order-customer[]" id="order-customer" multiple="multiple">';
+		foreach ( (array) $users as $user ) {
+			$user->ID = (int) $user->ID;
+			if ( in_array( $user->ID, $order_users ) ) {
+				$found_selected = true;
+			} else {
+				$found_selected = false;
+			}
+			echo sprintf( '<option value="%d"%s>%s</option>', $user->ID, selected( $found_selected, true, false ), $user->user_login );
+		}
+		echo '</select>';
+	}
+
 	public function __get( $key ) {
 		$value = null;
-		if ( !isset( $this->{$key} ) ) {
+		if ( !property_exists( $this, $key ) ) {
 			$value = get_post_meta( $this->id, '_' . $key, true );
 		}
 		return $value;
@@ -350,8 +431,9 @@ class LP_Order {
 			$view_order_endpoint = 'order-details';
 		}
 
+		$view_order_endpoint = urlencode( $view_order_endpoint );
 		if ( get_option( 'permalink_structure' ) ) {
-			$view_order_url = learn_press_get_page_link( 'profile' ) . $user->user_login . '/' . $view_order_endpoint . '/' . $this->id;
+			$view_order_url = learn_press_get_page_link( 'profile' ) . $user->user_login . '/' . $view_order_endpoint . '/' . $this->id . '/';
 		} else {
 			$args         = array(
 				'user' => $user->user_login
@@ -369,7 +451,18 @@ class LP_Order {
 		return apply_filters( 'learn_press_view_order_url', $view_order_url, $this );
 	}
 
-	public function add_note( $note ) {
+	public function get_cancel_order_url( $force = false ) {
+		$user = learn_press_get_current_user();
+		$url  = learn_press_user_profile_link( $user->id, LP()->settings->get( 'profile_endpoints.profile-orders' ) );
+		if ( !$force ) {
+			$url = add_query_arg( 'cancel-order', $this->id, $url );
+		} else {
+			$url = add_query_arg( 'cancelled-order', $this->id, $url );
+		}
+		return apply_filters( 'learn_press_cancel_order_url', wp_nonce_url( $url, 'cancel-order', 'lp-nonce' ) );
+	}
+
+	public function add_note( $note = null ) {
 		if ( is_user_logged_in() ) {
 			$user                 = get_user_by( 'id', get_current_user_id() );
 			$comment_author       = $user->display_name;
@@ -396,6 +489,73 @@ class LP_Order {
 
 	public function get_user_name() {
 		return apply_filters( 'learn_press_order_user_name', sprintf( _x( '%1$s', 'full name', 'learnpress' ), $this->get_user( 'user_login' ) ) );
+	}
+
+	/**
+	 * Check to see if this order is for multi users
+	 *
+	 * @since 2.1.5
+	 *
+	 * @return bool
+	 */
+	public function is_multi_users() {
+		$multiple = $this->get_status() == 'auto-draft' && 'yes' == learn_press_get_request( 'multi-users' );
+		$multiple = $multiple || ( 'yes' == get_post_meta( $this->id, '_lp_multi_users', true ) );
+		return $multiple;
+	}
+
+	/**
+	 * Print the list of all users has assigned to this order
+	 * in case this order is for multi users
+	 *
+	 * @since 2.1.5
+	 */
+	public function print_users() {
+		if ( $user_ids = get_post_meta( $this->id, '_user_id' ) ) {
+			global $wpdb;
+			$format_ids = array_fill( 0, sizeof( $user_ids ), '%d' );
+			$users      = $wpdb->get_results( $wpdb->prepare( "SELECT user_login, user_email FROM {$wpdb->users} WHERE ID IN(" . join( ',', $format_ids ) . ")", $user_ids ) );
+			$size       = sizeof( $users );
+			foreach ( $users as $i => $user ) {
+				printf( '<strong>%s</strong> ( %s )', $user->user_login, $user->user_email );
+				if ( $i < $size - 1 ) {
+					echo ', ';
+				}
+			}
+		} else {
+			_e( 'No user assigned', 'learnpress' );
+		}
+	}
+
+	/**
+	 * Get email of user has bought this order.
+	 * In case this order is for multi users return an array with multi email addresses.
+	 *
+	 * @since 2.1.5
+	 *
+	 * @return mixed|array
+	 */
+	public function get_user_data() {
+		$data = false;
+		if ( $user_ids = get_post_meta( $this->id, '_user_id' ) ) {
+			global $wpdb;
+			$format = array_fill( 0, sizeof( $user_ids ), '%d' );
+			$sql    = "
+				SELECT ID, user_email as email, display_name as name
+				FROM {$wpdb->users} u
+				WHERE ID IN(" . join( ', ', $format ) . ")
+			";
+			$data   = $wpdb->get_results( $wpdb->prepare( $sql, $user_ids ), OBJECT_K );
+		}
+		return $data;
+	}
+
+	public function get_user_email() {
+		$email = false;
+		if ( $user = learn_press_get_user( $this->user_id ) ) {
+			$email = $user->user_email;
+		}
+		return $email;
 	}
 
 	/**

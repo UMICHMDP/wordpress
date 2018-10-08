@@ -31,7 +31,7 @@ $current = $profile->get_current_tab();
 		}
 		?>
 
-        <div id="profile-content-<?php echo esc_attr( $tab_key ); ?>">
+	<div id="profile-content-<?php echo esc_attr( $tab_key ); ?>">
 			<?php
 			// show profile sections
 			do_action( 'learn-press/before-profile-content', $tab_key, $tab_data, $user ); ?>
@@ -53,9 +53,8 @@ $current = $profile->get_current_tab();
 					}
 				}
 			} ?>
-
 			<?php do_action( 'learn-press/after-profile-content' ); ?>
-        </div>
+	</div>
 
 	<?php } ?>
 

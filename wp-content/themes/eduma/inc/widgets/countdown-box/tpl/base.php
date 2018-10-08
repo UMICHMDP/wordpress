@@ -29,22 +29,21 @@ $id = uniqid();
 echo '<div class="' . $text_align . ' ' . $style_color . '" id="coming-soon-counter' . $id . '"></div>';
 
 ?>
-<script type="text/javascript">
-jQuery(function () {
-	jQuery(document).ready(function () {
-		jQuery("#coming-soon-counter<?php echo esc_js($id); ?>").mbComingsoon({
-			expiryDate  : new Date(<?php echo ent2ncr($year. ','. ( $month - 1 ) .',' . $day . ',' . $hour ); ?>),
-			localization: {
-				days   : "<?php echo esc_js($text_days); ?>",
-				hours  : "<?php echo esc_js($text_hours); ?>",
-				minutes: "<?php echo esc_js($text_minutes); ?>",
-				seconds: "<?php echo esc_js($text_seconds); ?>"
-			},
-			speed       : 100
-		});
-		setTimeout(function () {
-			jQuery(window).resize();
-		}, 200);
-	});
-});
+<script data-cfasync="true" type="text/javascript">
+    (function ($) {
+        "use strict";
+        $("#coming-soon-counter<?php echo esc_js($id); ?>").mbComingsoon({
+            expiryDate  : new Date(<?php echo ent2ncr($year. ','. ( $month - 1 ) .',' . $day . ',' . $hour ); ?>),
+            localization: {
+                days   : "<?php echo esc_js($text_days); ?>",
+                hours  : "<?php echo esc_js($text_hours); ?>",
+                minutes: "<?php echo esc_js($text_minutes); ?>",
+                seconds: "<?php echo esc_js($text_seconds); ?>"
+            },
+            speed       : 100
+        });
+        setTimeout(function () {
+            jQuery(window).resize();
+        }, 200);
+    })(jQuery);
 </script>

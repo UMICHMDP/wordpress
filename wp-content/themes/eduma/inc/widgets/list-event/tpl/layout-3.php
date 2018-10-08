@@ -2,12 +2,41 @@
 
 $number_posts = $instance['number_posts'] ? $instance['number_posts'] : 10;
 $link         = get_post_type_archive_link( 'tp_event' );
-$query_args   = array(
-	'post_type'           => 'tp_event',
-	'posts_per_page'      => - 1,
-	'post_status'         => array( 'tp-event-happenning', 'tp-event-upcoming' ),
-	'ignore_sticky_posts' => true
-);
+$list_status = $instance['status'] ? $instance['status'] : array( 'happening', 'upcoming' );
+$list_cat = $instance['cat_id'] ? $instance['cat_id'] : array();
+
+if( version_compare(WPEMS_VER, '2.1.5', '>=') ) {
+    $query_args = array(
+        'post_type'           => 'tp_event',
+        'posts_per_page'      => - 1,
+        'meta_query' => array(
+            array(
+                'key'     => 'tp_event_status',
+                'value'   => $list_status,
+                'compare' => 'IN',
+            ),
+        ),
+        'ignore_sticky_posts' => true
+    );
+} else {
+    $list_status = $instance['status'] ? $instance['status'] : array( 'tp-event-happenning', 'tp-event-upcoming' );
+    $query_args = array(
+        'post_type'           => 'tp_event',
+        'posts_per_page'      => - 1,
+        'post_status'         => $list_status,
+        'ignore_sticky_posts' => true
+    );
+}
+
+if( $list_cat && $list_cat != 'all' ) {
+    $query_args['tax_query'] = array(
+        array(
+            'taxonomy' => 'tp_event_category',
+            'field'    => 'term_id',
+            'terms'    => $list_cat
+        ),
+    );
+}
 
 $events = new WP_Query( $query_args );
 

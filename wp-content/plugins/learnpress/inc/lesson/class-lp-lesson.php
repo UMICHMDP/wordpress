@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit();
 
-class LP_Lesson {
+class LP_Lesson extends LP_Abstract_Course_Item {
 	/**
 	 * The lesson (post) ID.
 	 *
@@ -26,11 +26,21 @@ class LP_Lesson {
 	public $post = null;
 
 	/**
+	 * @var mixed|string|void
+	 */
+	public $content = '';
+
+	/**
 	 *
 	 * @var string
 	 */
 	public $lesson_type = null;
 
+	/**
+	 * LP_Lesson constructor.
+	 *
+	 * @param $lesson
+	 */
 	public function __construct( $lesson ) {
 		if ( is_numeric( $lesson ) ) {
 			$this->id   = absint( $lesson );
@@ -42,6 +52,7 @@ class LP_Lesson {
 			$this->id   = absint( $lesson->ID );
 			$this->post = $lesson;
 		}
+		parent::__construct( $this->post );
 	}
 
 	/**
@@ -52,12 +63,56 @@ class LP_Lesson {
 	 * @return mixed
 	 */
 	public function __get( $key ) {
-		$value = get_post_meta( $this->id, '_lp_' . $key, true );
-		if ( !empty( $value ) ) {
-			$this->$key = $value;
+		if ( isset( $this->{$key} ) ) {
+			return $this->{$key};
 		}
-
+		$value = null;
+		switch ( $key ) {
+			case 'ID':
+				$value = $this->id;
+				break;
+			/*case 'title':
+				$value = $this->post->post_title;
+				break;
+			case 'content':
+				$value = $this->get_content();
+				break;*/
+			default:
+				$value = get_post_meta( $this->id, '_lp_' . $key, true );
+				if ( !empty( $value ) ) {
+					$this->$key = $value;
+				}
+		}
 		return $value;
+	}
+
+	public function get_title() {
+		return get_the_title( $this->id );
+	}
+
+	public function get_content() {
+		///if ( !did_action( 'learn_press_get_content_' . $this->id ) ) {
+			global $post, $wp_query;
+			$post  = get_post( $this->id );
+			$posts = apply_filters_ref_array( 'the_posts', array( array( $post ), &$wp_query ) );
+
+			if ( $posts ) {
+				$post = $posts[0];
+			}
+			setup_postdata( $post );
+			ob_start();
+			the_content();
+			$this->content = ob_get_clean();
+			$has_filter = false;
+			if ( has_filter( 'the_content', 'wpautop' ) ) {
+			    $has_filter = true;
+			} else {
+			    $this->content = wpautop($this->content);
+			}
+			wp_reset_postdata();
+			do_action( 'learn_press_get_content_' . $this->id );
+		//}
+		return $this->content;
 	}
 
 	public function is( $tag ) {
@@ -73,7 +128,18 @@ class LP_Lesson {
 	}
 
 	public function is_previewable() {
-		return apply_filters( 'learn_press_lesson_preview', $this->preview == 'yes', $this );
+		return apply_filters( 'learn_press_lesson_preview', ($this->preview == 1||$this->preview === 'yes'), $this );
+	}
+
+	public function get_settings( $user_id, $course_id ) {
+		$item_statuses = LP_Cache::get_item_statuses( false, array() );
+		return array(
+			'userId'   => $user_id,
+			'courseId' => $course_id,
+			'id'       => $this->id,
+			'status'   => !empty( $item_statuses[$this->id] ) ? $item_statuses[$this->id] : '',
+			'type'     => LP_LESSON_CPT
+		);
 	}
 
 	/**
@@ -90,7 +156,7 @@ class LP_Lesson {
 
 		static $lessons = array();
 
-		if( empty( $lessons[ $the_lesson->ID ] ) || ( ! empty( $args['force'] ) && $args['force'] ) ) {
+		if ( empty( $lessons[$the_lesson->ID] ) || ( !empty( $args['force'] ) && $args['force'] ) ) {
 			$class_name = self::get_lesson_class( $the_lesson, $args );
 			if ( !class_exists( $class_name ) ) {
 				$class_name = 'LP_Lesson';
@@ -98,7 +164,7 @@ class LP_Lesson {
 
 			$lessons[$the_lesson->ID] = new $class_name( $the_lesson, $args );
 		}
-		return $lessons[ $the_lesson->ID ];
+		return $lessons[$the_lesson->ID];
 	}
 
 	/**
@@ -113,7 +179,7 @@ class LP_Lesson {
 		$lesson_id = absint( $the_lesson->ID );
 		$post_type = $the_lesson->post_type;
 
-		if ( LP()->lesson_post_type === $post_type ) {
+		if ( LP_LESSON_CPT === $post_type ) {
 			if ( isset( $args['lesson_type'] ) ) {
 				$lesson_type = $args['lesson_type'];
 			} else {
@@ -147,9 +213,9 @@ class LP_Lesson {
 			$the_lesson = get_post( $the_lesson );
 		} elseif ( $the_lesson instanceof LP_Lesson ) {
 			$the_lesson = get_post( $the_lesson->id );
-		} elseif ( ! empty( $the_lesson->ID ) ) {
+		} elseif ( !empty( $the_lesson->ID ) ) {
 			$the_lesson = get_post( $the_lesson->id );
-		}elseif( !( $the_lesson instanceof WP_Post ) ) {
+		} elseif ( !( $the_lesson instanceof WP_Post ) ) {
 			$the_lesson = false;
 		}
 

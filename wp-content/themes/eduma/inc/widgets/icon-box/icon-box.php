@@ -280,6 +280,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 				"options"       => array(
 					"font-awesome"  => esc_html__( "Font Awesome Icon", 'eduma' ),
 					"font-7-stroke" => esc_html__( "Font 7 stroke Icon", 'eduma' ),
+                    "font-flaticon" => esc_html__( "Font Flat Icon", 'eduma' ),
 					"custom"        => esc_html__( "Custom Image", 'eduma' ),
 				),
 				'state_emitter' => array(
@@ -294,6 +295,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 				'hide'          => true,
 				'state_handler' => array(
 					'icon_type_op[font-awesome]'  => array( 'hide' ),
+                    'icon_type_op[font-flaticon]'  => array( 'hide' ),
 					'icon_type_op[custom]'        => array( 'hide' ),
 					'icon_type_op[font-7-stroke]' => array( 'show' ),
 				),
@@ -325,6 +327,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 					'icon_type_op[font-awesome]'  => array( 'show' ),
 					'icon_type_op[custom]'        => array( 'hide' ),
 					'icon_type_op[font-7-stroke]' => array( 'hide' ),
+                    'icon_type_op[font-flaticon]'  => array( 'hide' ),
 				),
 				'fields'        => array(
 					'icon'      => array(
@@ -346,6 +349,36 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 					),
 				),
 			),
+            'font_flaticon_group' => array(
+                'type'          => 'section',
+                'label'         => esc_html__( 'Font Flat Icon', 'eduma' ),
+                'hide'          => true,
+                'state_handler' => array(
+                    'icon_type_op[font-awesome]'  => array( 'hide' ),
+                    'icon_type_op[custom]'        => array( 'hide' ),
+                    'icon_type_op[font-7-stroke]' => array( 'hide' ),
+                    'icon_type_op[font-flaticon]'  => array( 'show' ),
+                ),
+                'fields'        => array(
+                    'icon'      => array(
+                        "type"        => "icon-youniverse",
+                        "class"       => "",
+                        "label"       => esc_html__( "Select Icon:", 'eduma' ),
+                        "description" => esc_html__( "Select the icon from the list.", 'eduma' ),
+                        "class_name"  => 'font-flaticon',
+                    ),
+                    // Resize the icon
+                    'icon_size' => array(
+                        "type"        => "number",
+                        "class"       => "",
+                        "label"       => esc_html__( "Icon Font Size ", 'eduma' ),
+                        "suffix"      => "px",
+                        "default"     => "14",
+                        "description" => esc_html__( "Select the icon font size.", 'eduma' ),
+                        "class_name"  => 'font-flaticon'
+                    ),
+                ),
+            ),
 			'font_image_group'    => array(
 				'type'          => 'section',
 				'label'         => esc_html__( 'Custom Image Icon', 'eduma' ),
@@ -354,6 +387,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 					'icon_type_op[font-awesome]'  => array( 'hide' ),
 					'icon_type_op[custom]'        => array( 'show' ),
 					'icon_type_op[font-7-stroke]' => array( 'hide' ),
+                    'icon_type_op[font-flaticon]'  => array( 'hide' ),
 				),
 				'fields'        => array(
 					// Play with icon selector
@@ -373,6 +407,12 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 				"label"   => esc_html__( "Width Box Icon", 'eduma' ),
 				"suffix"  => "px",
 			),
+            'height_icon_box'      => array(
+                "type"    => "number",
+                "class"   => "",
+                "label"   => esc_html__( "Height Box Icon", 'eduma' ),
+                "suffix"  => "px",
+            ),
 			'color_group'         => array(
 				'type'   => 'section',
 				'label'  => esc_html__( 'Color Options', 'eduma' ),
@@ -474,6 +514,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 				"default"       => "none",
 				"options"       => array(
 					"none"     => esc_html__( "None", 'eduma' ),
+                    "bg_color"     => esc_html__( "Background Color", 'eduma' ),
 					"bg_video" => esc_html__( "Video Background", 'eduma' ),
 				),
 				'state_emitter' => array(
@@ -481,6 +522,16 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 					'args'     => array( 'bg_video_style' )
 				)
 			),
+            'bg_box_color'        => array(
+                'type'        => 'color',
+                'label'       => esc_html__( 'Background Color:', 'eduma' ),
+                'description' => esc_html__( 'Select the color background for box.', 'eduma' ),
+                'state_handler' => array(
+                    'bg_video_style[bg_video]' => array( 'hide' ),
+                    'bg_video_style[none]'     => array( 'hide' ),
+                    'bg_video_style[bg_color]'     => array( 'show' ),
+                )
+            ),
 			'self_video'        => array(
 				'type'          => 'media',
 				'fallback'      => true,
@@ -491,6 +542,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 				'state_handler' => array(
 					'bg_video_style[bg_video]' => array( 'show' ),
 					'bg_video_style[none]'     => array( 'hide' ),
+                    'bg_video_style[bg_color]'     => array( 'hide' ),
 				)
 			),
 			'self_poster'       => array(
@@ -501,6 +553,7 @@ class Thim_Icon_Box_Widget extends Thim_Widget {
 				'state_handler' => array(
 					'bg_video_style[bg_video]' => array( 'show' ),
 					'bg_video_style[none]'     => array( 'hide' ),
+                    'bg_video_style[bg_color]'     => array( 'hide' ),
 				)
 			),
 			'css_animation'     => array(

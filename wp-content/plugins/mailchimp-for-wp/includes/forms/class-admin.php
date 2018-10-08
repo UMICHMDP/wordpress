@@ -25,8 +25,6 @@ class MC4WP_Forms_Admin {
 	public function __construct( MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp ) {
 		$this->messages = $messages;
 		$this->mailchimp = $mailchimp;
-
-		require dirname( __FILE__ ) . '/admin-functions.php';
 	}
 
 	/**
@@ -35,14 +33,11 @@ class MC4WP_Forms_Admin {
 	public function add_hooks() {
 		add_action( 'register_shortcode_ui', array( $this, 'register_shortcake_ui' ) );
 		add_action( 'mc4wp_save_form', array( $this, 'update_form_stylesheets' ) );
-		add_action( 'mc4wp_admin_preview_form', array( $this, 'prepare_form_preview' ) );
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
-
 		add_action( 'mc4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ) );
 		add_action( 'mc4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ) );
-
 		add_action( 'mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2 );
 	}
 
@@ -60,21 +55,29 @@ class MC4WP_Forms_Admin {
 		wp_enqueue_script( 'mc4wp-forms-admin');
 		wp_localize_script( 'mc4wp-forms-admin', 'mc4wp_forms_i18n', array(
 			'addToForm'     => __( "Add to form", 'mailchimp-for-wp' ),
+			'agreeToTerms' => __( "I have read and agree to the terms & conditions", 'mailchimp-for-wp' ),
+			'agreeToTermsShort' => __( "Agree to terms", 'mailchimp-for-wp' ),
+			'agreeToTermsLink' => __( 'Link to your terms & conditions page', 'mailchimp-for-wp' ),
 			'city'          => __( 'City', 'mailchimp-for-wp' ),
 			'checkboxes'    => __( 'Checkboxes', 'mailchimp-for-wp' ),
 			'choices'       => __( 'Choices', 'mailchimp-for-wp' ),
 			'choiceType'    => __( "Choice type", 'mailchimp-for-wp' ),
-			'chooseField'   => __( "Choose a MailChimp field to add to the form", 'mailchimp-for-wp' ),
+			'chooseField'   => __( "Choose a field to add to the form", 'mailchimp-for-wp' ),
 			'close'         => __( 'Close', 'mailchimp-for-wp' ),
 			'country'       => __( 'Country', 'mailchimp-for-wp' ),
 			'dropdown'      => __( 'Dropdown', 'mailchimp-for-wp' ),
+            'fieldType'     => __( 'Field type', 'mailchimp-for-wp' ),
 			'fieldLabel'    => __( "Field label", 'mailchimp-for-wp' ),
 			'formAction'    => __( 'Form action', 'mailchimp-for-wp' ),
 			'formActionDescription' => __( 'This field will allow your visitors to choose whether they would like to subscribe or unsubscribe', 'mailchimp-for-wp' ),
-			'forceRequired' => __( 'This field is marked as required in MailChimp.', 'mailchimp-for-wp' ),
+			'formFields'    => __( 'Form fields', 'mailchimp-for-wp' ),
+            'forceRequired' => __( 'This field is marked as required in MailChimp.', 'mailchimp-for-wp' ),
+            'initialValue'  		=> __( "Initial value", 'mailchimp-for-wp' ),
+            'interestCategories'    => __( 'Interest categories', 'mailchimp-for-wp' ),
 			'isFieldRequired' => __( "Is this field required?", 'mailchimp-for-wp' ),
 			'listChoice'    => __( 'List choice', 'mailchimp-for-wp' ),
 			'listChoiceDescription' => __( 'This field will allow your visitors to choose a list to subscribe to.', 'mailchimp-for-wp' ),
+            'listFields'    => __( 'List fields', 'mailchimp-for-wp' ),
 			'min'           => __( 'Min', 'mailchimp-for-wp' ),
 			'max'           => __( 'Max', 'mailchimp-for-wp' ),
 			'noAvailableFields' => __( 'No available fields. Did you select a MailChimp list in the form settings?', 'mailchimp-for-wp' ),
@@ -89,7 +92,7 @@ class MC4WP_Forms_Admin {
 			'subscribe'     => __( 'Subscribe', 'mailchimp-for-wp' ),
 			'submitButton'  => __( 'Submit button', 'mailchimp-for-wp' ),
 			'wrapInParagraphTags' => __( "Wrap in paragraph tags?", 'mailchimp-for-wp' ),
-			'value'  		=> __( "Initial value", 'mailchimp-for-wp' ),
+			'value'  		=> __( "Value", 'mailchimp-for-wp' ),
 			'valueHelp' 	=> __( "Text to prefill this field with.", 'mailchimp-for-wp' ),
 			'zip'           => __( 'ZIP', 'mailchimp-for-wp' ),
 		));
@@ -104,7 +107,7 @@ class MC4WP_Forms_Admin {
 
 		$items['forms'] = array(
 			'title' => __( 'Forms', 'mailchimp-for-wp' ),
-			'text' => __( 'Forms', 'mailchimp-for-wp' ),
+			'text' => __( 'Form', 'mailchimp-for-wp' ),
 			'slug' => 'forms',
 			'callback' => array( $this, 'show_forms_page' ),
 			'load_callback' => array( $this, 'redirect_to_form_action' ),
@@ -121,7 +124,7 @@ class MC4WP_Forms_Admin {
 
 		check_admin_referer( 'add_form', '_mc4wp_nonce' );
 
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_data = $_POST['mc4wp_form'];
 		$form_content = include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
 
 		// Fix for MultiSite stripping KSES for roles other than administrator
@@ -136,7 +139,13 @@ class MC4WP_Forms_Admin {
 			)
 		);
 
-		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
+        // if settings were passed, save those too.
+        if( isset( $form_data['settings'] ) ) {
+            update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
+        }
+
+        // set default form ID
+        $this->set_default_form_id( $form_id );
 
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 		wp_redirect( mc4wp_get_edit_form_url( $form_id ) );
@@ -150,8 +159,7 @@ class MC4WP_Forms_Admin {
 	 * @return int
 	 */
 	public function save_form( $data ) {
-
-		static $keys = array(
+		$keys = array(
 			'settings' => array(),
 			'messages' => array(),
 			'name' => '',
@@ -217,6 +225,9 @@ class MC4WP_Forms_Admin {
 		// strip <form> tags from content
 		$data['content'] =  preg_replace( '/<\/?form(.|\s)*?>/i', '', $data['content'] );
 
+		// replace lowercased name="name" to prevent 404
+		$data['content'] = str_ireplace( ' name=\"name\"', ' name=\"NAME\"', $data['content'] );
+
 		// sanitize text fields
 		$data['settings']['redirect'] = sanitize_text_field( $data['settings']['redirect'] );
 
@@ -239,6 +250,7 @@ class MC4WP_Forms_Admin {
 		 * @param array $raw_data Raw array of form data.
 		 *
 		 * @since 3.0.8
+         * @ignore
 		 */
 		$data = (array) apply_filters( 'mc4wp_form_sanitized_data', $data, $raw_data );
 
@@ -253,21 +265,25 @@ class MC4WP_Forms_Admin {
 		check_admin_referer( 'edit_form', '_mc4wp_nonce' );
 		$form_id = (int) $_POST['mc4wp_form_id'];
 
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_data = $_POST['mc4wp_form'];
 		$form_data['ID'] = $form_id;
 
 		$this->save_form( $form_data );
+		$this->set_default_form_id( $form_id );
 
-		// update default form id?
-		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
-		if( empty( $default_form_id ) ) {
-			update_option( 'mc4wp_default_form_id', $form_id );
-		}
-
-		$previewer = new MC4WP_Form_Previewer( $form_id );
-
-		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) . sprintf( ' <a href="%s">', $previewer->get_preview_url() ) . __( 'Preview form', 'mailchimp-for-wp' ) . '</a>' );
+		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 	}
+
+    /**
+     * @param int $form_id
+     */
+	private function set_default_form_id( $form_id ) {
+        $default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+
+        if( empty( $default_form_id ) ) {
+            update_option( 'mc4wp_default_form_id', $form_id );
+        }
+    }
 
 	/**
 	 * Goes through each form and aggregates array of stylesheet slugs to load.
@@ -291,29 +307,6 @@ class MC4WP_Forms_Admin {
 	}
 
 	/**
-	 * Prepares a Form Preview
-	 */
-	public function prepare_form_preview() {
-		$form_id = (int) $_POST['mc4wp_form_id'];
-		$preview_id = (int) get_option( 'mc4wp_form_preview_id', 0 );
-
-		// get data
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
-		$form_data['ID'] =  $preview_id;
-		$form_data['status'] = 'preview';
-		$real_preview_id = $this->save_form( $form_data );
-
-		if( $real_preview_id != $preview_id ) {
-			update_option( 'mc4wp_form_preview_id', $real_preview_id, false );
-		}
-
-		// redirect to preview
-		$previewer = new MC4WP_Form_Previewer( $form_id, $real_preview_id );
-		wp_redirect( $previewer->get_preview_url() );
-		exit;
-	}
-
-	/**
 	 * Redirect to correct form action
 	 *
 	 * @ignore
@@ -324,19 +317,30 @@ class MC4WP_Forms_Admin {
 			return;
 		}
 
-		// query first available form and go there
-		$forms = mc4wp_get_forms( array( 'numberposts' => 1 ) );
+		try{
+			// try default form first
+			$default_form = mc4wp_get_form();
+			$redirect_url = mc4wp_get_edit_form_url( $default_form->ID );
+		} catch(Exception $e) {
+			// no default form, query first available form and go there
+			$forms = mc4wp_get_forms( array( 'numberposts' => 1 ) );
 
-		if( $forms ) {
-			// if we have a post, go to the "edit form" screen
-			$form = array_pop( $forms );
-			$redirect_url = mc4wp_get_edit_form_url( $form->ID );
-		} else {
-			// we don't have a form yet, go to "add new" screen
-			$redirect_url = mc4wp_get_add_form_url();
+			if( $forms ) {
+				// if we have a post, go to the "edit form" screen
+				$form = array_pop( $forms );
+				$redirect_url = mc4wp_get_edit_form_url( $form->ID );
+			} else {
+				// we don't have a form yet, go to "add new" screen
+				$redirect_url = mc4wp_get_add_form_url();
+			}
 		}
 
-		wp_redirect( $redirect_url );
+		if( headers_sent() ) {
+			echo sprintf( '<meta http-equiv="refresh" content="0;url=%s" />', $redirect_url );
+		} else {
+			wp_redirect( $redirect_url );
+		}
+
 		exit;
 	}
 
@@ -380,6 +384,11 @@ class MC4WP_Forms_Admin {
 
 		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
+
+
+		$form_preview_url = add_query_arg( array( 
+            'mc4wp_preview_form' => $form_id,
+        ), site_url( '/', 'admin' ) );
 
 		require dirname( __FILE__ ) . '/views/edit-form.php';
 	}

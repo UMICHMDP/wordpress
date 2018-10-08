@@ -7,7 +7,7 @@ a.widget-button {
 	}
 	&.normal {
 		&.very-rounded {
-			@include rounded(5px);
+			@include rounded(25px);
 		}
 		&.tiny-rounded{
 			@include rounded(3px);
@@ -19,7 +19,7 @@ a.widget-button {
 	}
 	&.medium {
 		&.very-rounded {
-			@include rounded(5px);
+			@include rounded(25px);
 		}
 		&.tiny-rounded{
 			@include rounded(3px);
@@ -83,6 +83,7 @@ a.widget-button {
 		}
 		&.small{
 			height: 40px;
+
 			padding: 0 25px;
 			line-height: 36px;
 			background: transparent;
@@ -93,5 +94,18 @@ a.widget-button {
 	}
 	.thim-top-landing &{
 		text-align: center;
+	}
+}
+#masthead {
+	&.header_v4 {
+		.navigation {
+			.menu-right {
+				.thim-widget-button {
+					.widget-button.small {
+						border-color: rgba(255,255,255,0.6)!important;
+					}
+				}
+			}
+		}
 	}
 }

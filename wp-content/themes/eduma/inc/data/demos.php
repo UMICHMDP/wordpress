@@ -26,6 +26,8 @@ $demo_datas = array(
 			'learnpress-course-review',
 			'learnpress-paid-membership-pro',
 			'learnpress-wishlist',
+			'learnpress-assignments',
+            'learnpress-announcements',
 			'bbpress',
 			'learnpress-bbpress',
 			'widget-logic',
@@ -52,6 +54,8 @@ $demo_datas = array(
 			'thim-our-team',
 			'learnpress-course-review',
 			'learnpress-wishlist',
+            'learnpress-assignments',
+            'learnpress-announcements',
 			'widget-logic',
 		),
 	),
@@ -73,6 +77,8 @@ $demo_datas = array(
 			'thim-our-team',
 			'learnpress-course-review',
 			'learnpress-wishlist',
+            'learnpress-assignments',
+            'learnpress-announcements',
 			'learnpress-collections',
 			'widget-logic',
 		),
@@ -96,6 +102,8 @@ $demo_datas = array(
 			'thim-our-team',
 			'learnpress-course-review',
 			'learnpress-wishlist',
+            'learnpress-assignments',
+            'learnpress-announcements',
 			'widget-logic',
 		),
 		'revsliders'       => array(
@@ -121,6 +129,8 @@ $demo_datas = array(
 			'thim-our-team',
 			'learnpress-course-review',
 			'learnpress-wishlist',
+            'learnpress-assignments',
+            'learnpress-announcements',
 			'widget-logic',
 		),
 		'revsliders'       => array(
@@ -133,6 +143,7 @@ $demo_datas = array(
         'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2018/01/eduma-demo-edtech.jpg',
         'plugins_required' => array(
             'eduma-demo-data',
+            'black-studio-tinymce-widget',
             'siteorigin-panels',
             'learnpress',
             'mailchimp-for-wp',
@@ -147,12 +158,46 @@ $demo_datas = array(
             'learnpress-course-review',
             'learnpress-wishlist',
             'learnpress-co-instructor',
+            'learnpress-assignments',
+            'learnpress-announcements',
             'widget-logic',
             'thim-twitter',
             'instagram-feed',
         ),
         'revsliders'       => array(
             'home-edtech.zip'
+        ),
+    ),
+    'demo-so/demo-grad-school'               => array(
+        'title'            => esc_html__( 'Demo Grad School', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-grad-school/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2018/07/eduma-demo-grad-school.jpg',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'siteorigin-panels',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'paid-memberships-pro',
+            'learnpress-course-review',
+            'learnpress-paid-membership-pro',
+            'learnpress-wishlist',
+            'learnpress-assignments',
+            'learnpress-announcements',
+            'learnpress-collections',
+            'bbpress',
+            'learnpress-bbpress',
+            'widget-logic',
+        ),
+        'revsliders'       => array(
+            'home-grad-school.zip'
         ),
     ),
     'demo-so/demo-university-3'     => array(
@@ -182,31 +227,6 @@ $demo_datas = array(
             'home-university-3.zip'
         ),
     ),
-	'demo-so/demo-03'               => array(
-		'title'            => esc_html__( 'Demo Online School', 'eduma' ),
-		'demo_url'         => 'http://educationwp.thimpress.com/demo-3/',
-		'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-03.jpg',
-		'plugins_required' => array(
-			'eduma-demo-data',
-			'siteorigin-panels',
-			'learnpress',
-			'mailchimp-for-wp',
-			'contact-form-7',
-			'woocommerce',
-			'revslider',
-			'miniorange-login-openid',
-			'wp-events-manager',
-			'tp-portfolio',
-			'thim-testimonials',
-			'thim-our-team',
-			'learnpress-course-review',
-			'learnpress-wishlist',
-			'widget-logic',
-		),
-		'revsliders'       => array(
-			'home-page-video.zip'
-		),
-	),
     'demo-so/demo-kindergarten'     => array(
         'title'            => esc_html__( 'Demo Kindergarten', 'eduma' ),
         'demo_url'         => 'http://educationwp.thimpress.com/demo-kindergarten/',
@@ -255,31 +275,31 @@ $demo_datas = array(
             'home-languages-school.zip'
         ),
     ),
-    'demo-so/demo-boxed'            => array(
-        'title'            => esc_html__( 'Demo Boxed', 'eduma' ),
-        'demo_url'         => 'http://educationwp.thimpress.com/demo-boxed/',
-        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-boxed.png',
-        'plugins_required' => array(
-            'eduma-demo-data',
-            'siteorigin-panels',
-            'learnpress',
-            'mailchimp-for-wp',
-            'contact-form-7',
-            'woocommerce',
-            'revslider',
-            'miniorange-login-openid',
-            'wp-events-manager',
-            'tp-portfolio',
-            'thim-testimonials',
-            'thim-our-team',
-            'learnpress-course-review',
-            'learnpress-wishlist',
-            'widget-logic',
-        ),
-        'revsliders'       => array(
-            'home-page-boxed.zip'
-        ),
-    ),
+	'demo-so/demo-03'               => array(
+		'title'            => esc_html__( 'Demo Online School', 'eduma' ),
+		'demo_url'         => 'http://educationwp.thimpress.com/demo-3/',
+		'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-03.jpg',
+		'plugins_required' => array(
+			'eduma-demo-data',
+			'siteorigin-panels',
+			'learnpress',
+			'mailchimp-for-wp',
+			'contact-form-7',
+			'woocommerce',
+			'revslider',
+			'miniorange-login-openid',
+			'wp-events-manager',
+			'tp-portfolio',
+			'thim-testimonials',
+			'thim-our-team',
+			'learnpress-course-review',
+			'learnpress-wishlist',
+			'widget-logic',
+		),
+		'revsliders'       => array(
+			'home-page-video.zip'
+		),
+	),
     'demo-so/demo-rtl'              => array(
         'title'            => esc_html__( 'Demo RTL', 'eduma' ),
         'demo_url'         => 'http://educationwp.thimpress.com/demo-rtl/',
@@ -354,31 +374,86 @@ $demo_datas = array(
             'home-university-2.zip'
         ),
     ),
-	'demo-so/demo-university'       => array(
-		'title'            => esc_html__( 'Demo Classic University', 'eduma' ),
-		'demo_url'         => 'http://educationwp.thimpress.com/demo-university/',
-		'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-university.jpg',
-		'plugins_required' => array(
-			'eduma-demo-data',
-			'siteorigin-panels',
-			'learnpress',
-			'mailchimp-for-wp',
-			'contact-form-7',
-			'woocommerce',
-			'revslider',
-			'miniorange-login-openid',
-			'wp-events-manager',
-			'tp-portfolio',
-			'thim-testimonials',
-			'thim-our-team',
-			'learnpress-course-review',
-			'learnpress-wishlist',
-			'widget-logic',
-		),
-		'revsliders'       => array(
-			'home-university.zip'
-		),
-	),
+    'demo-so/demo-university'       => array(
+        'title'            => esc_html__( 'Demo Classic University', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-university/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-university.jpg',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'siteorigin-panels',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'learnpress-course-review',
+            'learnpress-wishlist',
+            'widget-logic',
+        ),
+        'revsliders'       => array(
+            'home-university.zip'
+        ),
+    ),
+    'demo-so/demo-react'     => array(
+        'title'            => esc_html__( 'Demo React', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-react/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2018/04/eduma-demo-react.jpg',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'black-studio-tinymce-widget',
+            'siteorigin-panels',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'learnpress-course-review',
+            'learnpress-wishlist',
+            'learnpress-co-instructor',
+            'widget-logic',
+            'thim-twitter',
+            'instagram-feed',
+        ),
+        'revsliders'       => array(
+            'home-react.zip'
+        ),
+    ),
+    'demo-so/demo-boxed'            => array(
+        'title'            => esc_html__( 'Demo Boxed', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-boxed/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-boxed.png',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'siteorigin-panels',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'learnpress-course-review',
+            'learnpress-wishlist',
+            'widget-logic',
+        ),
+        'revsliders'       => array(
+            'home-page-boxed.zip'
+        ),
+    ),
+
 
 	//For demo using visual composer
 	'demo-vc/demo-01'               => array(
@@ -509,6 +584,7 @@ $demo_datas = array(
         'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2018/01/eduma-demo-edtech.jpg',
         'plugins_required' => array(
             'eduma-demo-data',
+            'black-studio-tinymce-widget',
             'js_composer',
             'learnpress',
             'mailchimp-for-wp',
@@ -529,6 +605,36 @@ $demo_datas = array(
         ),
         'revsliders'       => array(
             'home-edtech.zip'
+        ),
+    ),
+    'demo-vc/demo-grad-school'               => array(
+        'title'            => esc_html__( 'Demo Grad School', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-grad-school/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2018/07/eduma-demo-grad-school.jpg',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'js_composer',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'paid-memberships-pro',
+            'learnpress-course-review',
+            'learnpress-paid-membership-pro',
+            'learnpress-wishlist',
+            'learnpress-collections',
+            'bbpress',
+            'learnpress-bbpress',
+            'widget-logic',
+        ),
+        'revsliders'       => array(
+            'home-grad-school.zip'
         ),
     ),
     'demo-vc/demo-university-3'     => array(
@@ -558,31 +664,6 @@ $demo_datas = array(
             'home-university-3.zip'
         ),
     ),
-	'demo-vc/demo-03'               => array(
-		'title'            => esc_html__( 'Demo Online School', 'eduma' ),
-		'demo_url'         => 'http://educationwp.thimpress.com/demo-3/',
-		'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-03.jpg',
-		'plugins_required' => array(
-			'eduma-demo-data',
-			'js_composer',
-			'learnpress',
-			'mailchimp-for-wp',
-			'contact-form-7',
-			'woocommerce',
-			'revslider',
-			'miniorange-login-openid',
-			'wp-events-manager',
-			'tp-portfolio',
-			'thim-testimonials',
-			'thim-our-team',
-			'learnpress-course-review',
-			'learnpress-wishlist',
-			'widget-logic',
-		),
-		'revsliders'       => array(
-			'home-page-video.zip'
-		),
-	),
     'demo-vc/demo-kindergarten'     => array(
         'title'            => esc_html__( 'Demo Kindergarten', 'eduma' ),
         'demo_url'         => 'http://educationwp.thimpress.com/demo-kindergarten/',
@@ -631,10 +712,10 @@ $demo_datas = array(
             'home-languages-school.zip'
         ),
     ),
-    'demo-vc/demo-boxed'            => array(
-        'title'            => esc_html__( 'Demo Boxed', 'eduma' ),
-        'demo_url'         => 'http://educationwp.thimpress.com/demo-boxed/',
-        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-boxed.png',
+    'demo-vc/demo-03'               => array(
+        'title'            => esc_html__( 'Demo Online School', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-3/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-03.jpg',
         'plugins_required' => array(
             'eduma-demo-data',
             'js_composer',
@@ -653,7 +734,7 @@ $demo_datas = array(
             'widget-logic',
         ),
         'revsliders'       => array(
-            'home-page-boxed.zip'
+            'home-page-video.zip'
         ),
     ),
     'demo-vc/demo-rtl'              => array(
@@ -730,31 +811,85 @@ $demo_datas = array(
             'home-university-2.zip'
         ),
     ),
-	'demo-vc/demo-university'       => array(
-		'title'            => esc_html__( 'Demo Classic University', 'eduma' ),
-		'demo_url'         => 'http://educationwp.thimpress.com/demo-university/',
-		'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-university.jpg',
-		'plugins_required' => array(
-			'eduma-demo-data',
-			'js_composer',
-			'learnpress',
-			'mailchimp-for-wp',
-			'contact-form-7',
-			'woocommerce',
-			'revslider',
-			'miniorange-login-openid',
-			'wp-events-manager',
-			'tp-portfolio',
-			'thim-testimonials',
-			'thim-our-team',
-			'learnpress-course-review',
-			'learnpress-wishlist',
-			'widget-logic',
-		),
-		'revsliders'       => array(
-			'home-university.zip'
-		),
-	),
+    'demo-vc/demo-university'       => array(
+        'title'            => esc_html__( 'Demo Classic University', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-university/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-university.jpg',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'js_composer',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'learnpress-course-review',
+            'learnpress-wishlist',
+            'widget-logic',
+        ),
+        'revsliders'       => array(
+            'home-university.zip'
+        ),
+    ),
+    'demo-vc/demo-react'     => array(
+        'title'            => esc_html__( 'Demo React', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-react/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2018/04/eduma-demo-react.jpg',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'black-studio-tinymce-widget',
+            'js_composer',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'learnpress-course-review',
+            'learnpress-wishlist',
+            'learnpress-co-instructor',
+            'widget-logic',
+            'thim-twitter',
+            'instagram-feed',
+        ),
+        'revsliders'       => array(
+            'home-react.zip'
+        ),
+    ),
+    'demo-vc/demo-boxed'            => array(
+        'title'            => esc_html__( 'Demo Boxed', 'eduma' ),
+        'demo_url'         => 'http://educationwp.thimpress.com/demo-boxed/',
+        'thumbnail_url'    => 'https://updates.thimpress.com/wp-content/uploads/2017/06/eduma-demo-boxed.png',
+        'plugins_required' => array(
+            'eduma-demo-data',
+            'js_composer',
+            'learnpress',
+            'mailchimp-for-wp',
+            'contact-form-7',
+            'woocommerce',
+            'revslider',
+            'miniorange-login-openid',
+            'wp-events-manager',
+            'tp-portfolio',
+            'thim-testimonials',
+            'thim-our-team',
+            'learnpress-course-review',
+            'learnpress-wishlist',
+            'widget-logic',
+        ),
+        'revsliders'       => array(
+            'home-page-boxed.zip'
+        ),
+    ),
 );
 
 return $demo_datas;

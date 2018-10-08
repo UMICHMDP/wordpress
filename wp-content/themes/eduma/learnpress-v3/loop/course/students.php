@@ -23,5 +23,5 @@ $count = $course->get_users_enrolled();
     <div class="value"><i class="fa fa-group"></i>
         <?php echo esc_html( $count ); ?>
     </div>
-
+    <span><?php echo $count > 1 ? sprintf( __( 'students', 'learnpress' ) ) : sprintf( __( 'student', 'learnpress' ) );?></span>
 </div>

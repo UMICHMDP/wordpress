@@ -22,6 +22,9 @@
   height: $spinkit-size;
   text-align: center;
   font-size: 10px;
+  position: absolute;
+  top: 50%;
+  transform:translate(0,-50%);
 
   .sk-rect {
     background-color: $spinkit-spinner-color;

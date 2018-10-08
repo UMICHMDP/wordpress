@@ -6,7 +6,7 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  3.0.0
+ * @version  3.0.8
  */
 
 /**
@@ -19,7 +19,6 @@ $quiz        = LP_Global::course_item_quiz();
 $course_data = $user->get_course_data( get_the_ID() );
 $quiz_item   = $course_data->get_item_quiz( $quiz->get_id() );
 $quiz_data   = $user->get_quiz_data( $quiz->get_id() );
-$remaining_time = $quiz->get_duration();
 
 if ( $quiz_data->is_review_questions() ) {
 	return;
@@ -39,9 +38,9 @@ $percent = $quiz_data->get_questions_answered( true );
         <div class="progress-item quiz-current-question quiz-total">
             <i class="fa fa-bullhorn"></i>
             <span class="progress-number quiz-text">
-                <?php _e( 'Question', 'learnpress' ); ?>
+                <?php _e( 'Question', 'eduma' ); ?>
                 <span class="number">
-                    <?php echo sprintf( __( '%d/%d', 'learnpress' ), $quiz->get_question_index( $quiz_data->get_current_question(), 1 ), $quiz_data->get_total_questions() ); ?>
+                    <?php echo sprintf( __( '%d/%d', 'eduma' ), $quiz->get_question_index( $quiz_data->get_current_question(), 1 ), $quiz_data->get_total_questions() ); ?>
                 </span>
             </span>
         </div>
@@ -51,7 +50,7 @@ $percent = $quiz_data->get_questions_answered( true );
             <span id="quiz-countdown" class="progress-number"> --:--:-- </span>
             <span class="quiz-countdown-label quiz-text">
 			<?php
-            echo $remaining_time > 3599 ? esc_html__( '(h:m:s)', 'eduma' ) : esc_html__( '(m:s)', 'eduma' );
+            //echo (int)$remaining_time > 3599 ? esc_html__( '(h:m:s)', 'eduma' ) : esc_html__( '(m:s)', 'eduma' );
             ?>
 		</span>
         </div>

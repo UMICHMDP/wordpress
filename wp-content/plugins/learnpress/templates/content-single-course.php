@@ -11,36 +11,32 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-global $course;
-
+$course = learn_press_get_the_course();
+$user   = learn_press_get_current_user();
 if ( post_password_required() ) {
 	echo get_the_password_form();
 	return;
 }
 
-do_action( 'learn_press_before_single_course' ); ?>
+?>
+<?php do_action( 'learn_press_before_main_content' ); ?>
 
+<?php do_action( 'learn_press_before_single_course' ); ?>
 
-<div id="post-<?php the_ID(); ?>" <?php post_class(); ?> itemscope itemtype="http://schema.org/CreativeWork">
+<?php do_action( 'learn_press_before_single_course_summary' ); ?>
 
-	<?php do_action( 'learn_press_before_single_course_summary' ); ?>
+<div class="course-summary">
 
-	<div class="course-summary">
+	<?php if ( $user->has_course_status( $course->id, array( 'enrolled', 'finished' ) ) || !$course->is_require_enrollment() ) { ?>
+		<?php learn_press_get_template( 'single-course/content-learning.php' ); ?>
+	<?php } else { ?>
+		<?php learn_press_get_template( 'single-course/content-landing.php' ); ?>
+	<?php } ?>
 
-		<?php if ( LP()->user->has( 'enrolled-course', $course->id ) || LP()->user->has( 'finished-course', $course->id ) ) { ?>
+</div>
 
-			<?php learn_press_get_template( 'single-course/content-learning.php' ); ?>
-
-		<?php } else { ?>
-
-			<?php learn_press_get_template( 'single-course/content-landing.php' ); ?>
-
-		<?php } ?>
-
-	</div>
-
-	<?php do_action( 'learn_press_after_single_course_summary' ); ?>
-
-</div><!-- #post-## -->
+<?php do_action( 'learn_press_after_single_course_summary' ); ?>
 
 <?php do_action( 'learn_press_after_single_course' ); ?>
+
+<?php do_action( 'learn_press_after_main_content' ); ?>

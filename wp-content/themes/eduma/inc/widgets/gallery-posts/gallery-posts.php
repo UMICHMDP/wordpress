@@ -19,6 +19,14 @@ class Thim_Gallery_Post_Widget extends Thim_Widget {
 					'label'   => esc_attr__( 'Select Category', 'eduma' ),
 					'options' => $options
 				),
+                'layout' => array(
+                    'type'    => 'select',
+                    'label'   => esc_html__( 'Layout', 'eduma' ),
+                    'options' => array(
+                        '' => 'Default',
+                        'isotope' => 'Isotope',
+                    ),
+                ),
 				'columns' => array(
 					'type'    => 'select',
 					'label'   => esc_html__( 'Columns', 'eduma' ),
@@ -50,7 +58,11 @@ class Thim_Gallery_Post_Widget extends Thim_Widget {
 	 */
 
 	function get_template_name( $instance ) {
-		return 'base';
+	    if( isset($instance['layout']) && $instance['layout'] != '' ) {
+	        return $instance['layout'];
+        } else {
+            return 'base';
+        }
 	}
 
 	function get_style_name( $instance ) {

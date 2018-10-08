@@ -1,6 +1,6 @@
 <?php
 /**
- * Section Course Archive
+ * Section Course Single
  *
  * @package Eduma
  */
@@ -183,12 +183,16 @@ thim_customizer()->add_field(
 			'description',
 			'curriculum',
 			'instructor',
+            'announcements',
+            'students-list',
 			'review',
 		),
 		'choices'  => array(
 			'description'  => esc_html__( 'Description', 'eduma' ),
 			'curriculum'   => esc_html__( 'Curriculum', 'eduma' ),
 			'instructor' => esc_html__( 'Instructors', 'eduma' ),
+            'announcements' => esc_html__( 'Announcements', 'eduma' ),
+			'students-list' => esc_html__( 'Student list', 'eduma' ),
 			'review'    => esc_html__( 'Reviews', 'eduma' ),
 		),
 	)
@@ -206,6 +210,7 @@ thim_customizer()->add_field(
 			'description'  => esc_html__( 'Description', 'eduma' ),
 			'curriculum'   => esc_html__( 'Curriculum', 'eduma' ),
 			'instructor' => esc_html__( 'Instructors', 'eduma' ),
+            'announcements' => esc_html__( 'Announcements', 'eduma' ),
 			'review'    => esc_html__( 'Reviews', 'eduma' ),
 		),
 		'default'   => 'description',

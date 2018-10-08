@@ -12,31 +12,33 @@ function mo_register_openid() {
 		<p style="color:red;">(Warning: <a href="http://php.net/manual/en/curl.installation.php" target="_blank">PHP CURL extension</a> is not installed or disabled) Please go to Troubleshooting for steps to enable curl.</p>
 	<?php
 	}?>
-	<?php
-	if(!mo_openid_is_extension_installed('mcrypt')) { ?>
-		<div id="help_openid_mcrypt_title" class="mo_openid_title_panel">
-			<div style="color:red;" class="mo_openid_help_title">(Warning: PHP mcrypt extension is not installed or disabled) (Why we need it?)</div>
-		</div>
-		<div id="help_openid_mcrypt" class="mo_openid_help_desc" hidden>
-			PHP Mcrypt extension is required to Encrypt Social Login in such a way as to make it unreadable by anyone except those possessing special knowledge (usually referred to as a "key") that allows them to change the information back to its original, readable form.
-			<br/>
-			Encryption is important because it allows you to securely protect your users Social Login details that you don't want anyone else to have access to.
-		</div>
-	<?php
-	}?>
 <div id="tab">
 	<h2 class="nav-tab-wrapper">
 		<?php if(!mo_openid_is_customer_registered()) { ?>
 			<a class="nav-tab <?php echo $active_tab == 'register' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'register'), $_SERVER['REQUEST_URI'] ); ?>">Account Setup</a>
 		<?php } ?>
 		<a class="nav-tab <?php echo $active_tab == 'login' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'login'), $_SERVER['REQUEST_URI'] ); ?>">Social Login</a>
-		<a class="nav-tab <?php echo $active_tab == 'share' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'share'), $_SERVER['REQUEST_URI'] ); ?>">Social Sharing</a>
+		<a class="nav-tab <?php echo $active_tab == 'custom_app' ? 'nav-tab-active' : ''; ?>" href="admin.php?page=mo_openid_settings&tab=custom_app">Custom App</a>
+        <a class="nav-tab <?php echo $active_tab == 'email_notif' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'email_notif'), $_SERVER['REQUEST_URI'] ); ?>">Email Notification</a>
+        <a class="nav-tab <?php echo $active_tab == 'integrations' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'integrations'), $_SERVER['REQUEST_URI'] ); ?>">Integrations</a>
+        <a class="nav-tab <?php echo $active_tab == 'share' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'share'), $_SERVER['REQUEST_URI'] ); ?>">Social Sharing</a>
 		<a class="nav-tab <?php echo $active_tab == 'comment' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'comment'), $_SERVER['REQUEST_URI'] ); ?>">Social Comments</a>
 		<a class="nav-tab <?php echo $active_tab == 'shortcode' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'shortcode'), $_SERVER['REQUEST_URI'] ); ?>">Shortcode</a>
 		<a class="nav-tab <?php echo $active_tab == 'pricing' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'pricing'), $_SERVER['REQUEST_URI'] ); ?>">Licensing Plans</a>
-		<a class="nav-tab <?php echo $active_tab == 'help' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'help'), $_SERVER['REQUEST_URI'] ); ?>">Help & Troubleshooting</a>
+		<a class="nav-tab <?php echo $active_tab == 'help' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'help'), $_SERVER['REQUEST_URI'] ); ?>">FAQ</a>
+        <a class="nav-tab <?php echo $active_tab == 'help' ? 'nav-tab-active' : ''; ?>" href="<?php echo add_query_arg( array('tab' => 'privacy_policy'), $_SERVER['REQUEST_URI'] ); ?>">Privacy Policy</a>
 	</h2>
 </div>
+
+    <script>
+        function popup_delete_app(selected_app){
+
+            if (confirm("Are you sure you want to delete the app.")) {
+                location.href='admin.php?page=mo_openid_settings&tab=custom_app&action=delete&app=' + selected_app ;
+            }
+        }
+    </script>
+
 
 <div id="mo_openid_settings">
 
@@ -45,7 +47,6 @@ function mo_register_openid() {
 			<table style="width:100%;">
 				<tr>
 					<!--td style="vertical-align:top;width:65%;"-->
-
 						<?php
 							if( $active_tab == 'share' ) {
 								mo_openid_other_settings();
@@ -62,14 +63,34 @@ function mo_register_openid() {
 								}
 							} else if($active_tab == 'login'){
 								mo_openid_apps_config();
-							} else if($active_tab == 'comment'){
+							}
+                            else if($active_tab == 'email_notif'){
+                                mo_openid_email_notification();
+                            }
+                            else if($active_tab == 'integrations'){
+                                mo_openid_integrations();
+                            }
+                            else if($active_tab == 'comment'){
 								mo_openid_app_comment();
 							} else if($active_tab == 'shortcode') {
 								mo_openid_shortcode_info();
-							}else if($active_tab == 'pricing') {
+							} else if($active_tab == 'pricing') {
 								mo_openid_pricing_info();
-							}else if($active_tab == 'help') {
+							} else if($active_tab == 'help') {
 								mo_openid_troubleshoot_info();
+							} else if($active_tab == 'privacy_policy'){
+                                mo_openid_privacy_policy();
+                            }
+							else if($active_tab == 'custom_app') {
+								?>
+								<td style="vertical-align:top;width:65%;">
+								<?php mo_openid_custom_app_config();?>
+								</td>
+								
+								<td style="vertical-align:top;padding-left:1%;">
+								<?php echo miniorange_openid_support(); ?>
+								</td></tr></table></div></div>
+								<?php
 							}
 							
 							
@@ -77,13 +98,14 @@ function mo_register_openid() {
 						?>
 					<!--/td>
 					<td style="vertical-align:top;padding-left:1%;">
-						<?php echo miniorange_openid_support(); ?>
+						<?php if($active_tab!='custom_app')
+							echo miniorange_openid_support(); ?>
 					</td-->
-				</tr>
 			</table>
 		<?php
 
 }
+
 function mo_openid_show_new_registration_page() {
 	update_option ( 'mo_openid_new_registration', 'true' );
 	global $current_user;
@@ -121,19 +143,19 @@ function mo_openid_show_new_registration_page() {
 													value="<?php echo $_SERVER['SERVER_NAME']; ?>"/></td>
 											</tr>
 											<tr>
-												<td><b>&nbsp;&nbsp;First Name:</b></td>
+												<td><b>&nbsp;&nbsp;First Name (optional):</b></td>
 												<td><input class="mo_openid_table_textbox" type="text" name="fname"
 													placeholder="Enter first name"
 													value="<?php echo $current_user->user_firstname;?>" /></td>
 											</tr>
 											<tr>
-												<td><b>&nbsp;&nbsp;Last Name:</b></td>
+												<td><b>&nbsp;&nbsp;Last Name (optional):</b></td>
 												<td><input class="mo_openid_table_textbox" type="text" name="lname"
 													placeholder="Enter last name"
 													value="<?php echo $current_user->user_lastname;?>" /></td>
 											</tr>
 											<tr>
-												<td><b>&nbsp;&nbsp;Mobile number:</b></td>
+												<td><b>&nbsp;&nbsp;Mobile number (optional):</b></td>
 												<td><input class="mo_openid_table_textbox" type="tel" id="phone"
 													pattern="[\+]\d{10,14}|[\+]\d{1,4}[\s]\d{8,10}" name="phone"
 													title="Mobile number with country code eg. +1xxxxxxxxxx"
@@ -160,7 +182,7 @@ function mo_openid_show_new_registration_page() {
 												</td>
 											</tr>
 										</table>
-									<br/>By clicking Next, you agree to our <a href="http://miniorange.com/usecases/miniOrange_Privacy_Policy.pdf" target="_blank">Privacy Policy</a> and <a href="http://miniorange.com/usecases/miniOrange_User_Agreement.pdf" target="_blank">User Agreement</a>.
+									<br/>By clicking Next, you agree to our <a href="https://www.miniorange.com/usecases/miniOrange_Privacy_Policy.pdf" target="_blank">Privacy Policy</a> and <a href="https://www.miniorange.com/usecases/miniOrange_User_Agreement.pdf" target="_blank">User Agreement</a>.
 								</div>
 				</form>
 				<form name="f" method="post" action="" id="openidgobackloginform">
@@ -209,7 +231,7 @@ function mo_openid_show_verify_password_page() {
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
-						<td><input type="submit" name="submit"
+						<td><input type="submit" name="submit" value="Login"
 							class="button button-primary button-large" />
 						<input type="button" value="Registration Page" id="mo_openid_go_back"
 													class="button button-primary button-large" />
@@ -255,13 +277,13 @@ function mo_openid_apps_config() {
 							<div style="display:block;margin-top:10px;color:red;background-color:rgba(251, 232, 0, 0.15);padding:5px;border:solid 1px rgba(255, 0, 9, 0.36);">
 							Please <a href="<?php echo add_query_arg( array('tab' => 'register'), $_SERVER['REQUEST_URI'] ); ?>">Register or Login with miniOrange</a> to enable Social Login and Social Sharing. miniOrange takes care of creating applications for you so that you don't have to worry about creating applications in each social network.
 							</div>
-						<?php } ?>
+						<?php }?>
 							
 							<table>
 									<tr>
 										<td colspan="2">
 											<h3>Social Login
-											<input type="submit" name="submit" value="Save" style="float:right; margin-right:2%; margin-top: -3px;width:100px;" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
+											<input type="submit" name="submit" value="Save" style="float:right; margin-right:2%; margin-top: -3px;width:100px;"
 													class="button button-primary button-large" />
 												</h3>
 												
@@ -272,67 +294,65 @@ function mo_openid_apps_config() {
 								</table>
 							
 							<table>
-							
-							
-								<h3>Select Apps</h3>
+                                <h3>Select Apps</h3>
 								<p>Select applications to enable social login</p>
 							
 								<tr>
 									<td>
-										<table style="width:100%">
+                                        <table style="width:100%">
 											<tr>
-												<td><input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> id="facebook_enable" class="app_enable" name="mo_openid_facebook_enable" value="1" onchange="previewLoginIcons();"
-												<?php checked( get_option('mo_openid_facebook_enable') == 1 );?> /><strong>Facebook</strong>
-												</td>
+                                                <td>
+                                                <div class="tooltip">
+
+                                                    <input type="checkbox" id="facebook_enable" class="app_enable tooltip" name="mo_openid_facebook_enable" value="1" onchange="previewLoginIcons();"
+                                                        <?php checked( get_option('mo_openid_facebook_enable') == 1 );?> /><strong> Facebook <i class="fa fa-exclamation" aria-hidden="true"> </i> </strong>
+
+                                                    <span class="tooltiptext"> There can be issue in facebook default app. Because of Facebook Policies. For better experience, Please use Facebook <a class="mo-tomato" href='<?php echo admin_url() ?>admin.php?page=mo_openid_settings&tab=custom_app&action=add'>custom app</a>. </span>
+                                                </div>
+                                                </td>
+
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> id="google_enable" class="app_enable" name="mo_openid_google_enable" value="1" onchange="previewLoginIcons();"
+												<input type="checkbox" id="google_enable" class="app_enable" name="mo_openid_google_enable" value="1" onchange="previewLoginIcons();"
 												<?php checked( get_option('mo_openid_google_enable') == 1 );?> /><strong>Google</strong>
 												</td>
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
-												id="vkontakte_enable" class="app_enable" name="mo_openid_vkontakte_enable" value="1" onchange="previewLoginIcons();"
+												<input type="checkbox" id="vkontakte_enable" class="app_enable" name="mo_openid_vkontakte_enable" value="1" onchange="previewLoginIcons();"
 												<?php checked( get_option('mo_openid_vkontakte_enable') == 1 );?> /><strong>Vkontakte</strong>
 												</td>
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
-												id="twitter_enable" class="app_enable" name="mo_openid_twitter_enable" value="1" onchange="previewLoginIcons();"
+												<input type="checkbox" id="twitter_enable" class="app_enable" name="mo_openid_twitter_enable" value="1" onchange="previewLoginIcons();"
 												<?php checked( get_option('mo_openid_twitter_enable') == 1 );?> /><strong>Twitter</strong>
 												</td>
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
+												<input title="Instagram doesn't return email address. Scroll down and check 'Prompt users for email' in advanced settings. Also setup SMTP for sending verification emails." type="checkbox"
 												id="instagram_enable" class="app_enable" name="mo_openid_instagram_enable" value="1" onchange="previewLoginIcons();"
-												<?php checked( get_option('mo_openid_instagram_enable') == 1 );?> /><strong>Instagram</strong>
+												<?php checked( get_option('mo_openid_instagram_enable') == 1 );?> /><strong>*Instagram</strong>
 												</td>
 											</tr>
 											<tr>
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> id="linkedin_enable" class="app_enable" name="mo_openid_linkedin_enable" value="1" onchange="previewLoginIcons();"
+												<input type="checkbox" id="linkedin_enable" class="app_enable" name="mo_openid_linkedin_enable" value="1" onchange="previewLoginIcons();"
 												<?php checked( get_option('mo_openid_linkedin_enable') == 1 );?> /><strong>LinkedIn</strong>
 												</td>
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
-												id="amazon_enable" class="app_enable" name="mo_openid_amazon_enable" value="1" onchange="previewLoginIcons();"
+												<input type="checkbox" id="amazon_enable" class="app_enable" name="mo_openid_amazon_enable" value="1" onchange="previewLoginIcons();"
 												<?php checked( get_option('mo_openid_amazon_enable') == 1 );?> /><strong>Amazon</strong>
 												</td>
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
-												id="salesforce_enable" class="app_enable" name="mo_openid_salesforce_enable" value="1" onchange="previewLoginIcons();"
+												<input type="checkbox" id="salesforce_enable" class="app_enable" name="mo_openid_salesforce_enable" value="1" onchange="previewLoginIcons();"
 												<?php checked( get_option('mo_openid_salesforce_enable') == 1 );?> /><strong>Salesforce</strong>
 												</td>
 												<td>
-												<input type="checkbox" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
-												id="windowslive_enable" class="app_enable" name="mo_openid_windowslive_enable" value="1" onchange="previewLoginIcons();"
+												<input type="checkbox" id="windowslive_enable" class="app_enable" name="mo_openid_windowslive_enable" value="1" onchange="previewLoginIcons();"
 												<?php checked( get_option('mo_openid_windowslive_enable') == 1 );?> /><strong>Windows Live</strong>
 												</td>
 											</tr>
 										</table>
 									</td>
-								</td>
+								</tr>
+
 								<tr>
-								
-								
-								
-					<td>
+					            <td>
 						<br>
 							<hr>
 							<h3>Customize Login Icons</h3>
@@ -344,40 +364,42 @@ function mo_openid_apps_config() {
 			<b>Shape</b>
 			<b style="margin-left:130px;">Theme</b>
 			<b style="margin-left:130px;">Space between Icons</b>
-			<b style="margin-left:86px;">Size of Icons</b>
+			<b style="margin-left:70px;">Size of Icons</b>
 			</td>
 		</tr>
 		<tr>
 				
 				<td class="mo_openid_table_td_checkbox">
 					<input type="radio"    name="mo_openid_login_theme" value="circle" onclick="checkLoginButton();moLoginPreview(document.getElementById('mo_login_icon_size').value ,'circle',setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)"
-						<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
 								<?php checked( get_option('mo_openid_login_theme') == 'circle' );?> />Round
 						
 				<span style="margin-left:106px;">
 					<input type="radio" id="mo_openid_login_default_radio"  name="mo_openid_login_custom_theme" value="default" onclick="checkLoginButton();moLoginPreview(setSizeOfIcons(), setLoginTheme(),'default',document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)"
-								<?php checked( get_option('mo_openid_login_custom_theme') == 'default' );?> <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>Default
+								<?php checked( get_option('mo_openid_login_custom_theme') == 'default' );?>/>Default
 					
 				</span>
 				
 				<span  style="margin-left:111px;">
-						<input style="width:50px" onkeyup="moLoginSpaceValidate(this)" id="mo_login_icon_space" name="mo_login_icon_space" type="text" value="<?php echo get_option('mo_login_icon_space')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
-						<input id="mo_login_space_plus" type="button" value="+" onmouseup="moLoginPreview(setSizeOfIcons() ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
-						<input id="mo_login_space_minus" type="button" value="-" onmouseup="moLoginPreview(setSizeOfIcons()  ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
+						<input style="width:50px" onkeyup="moLoginSpaceValidate(this)" id="mo_login_icon_space" name="mo_login_icon_space" type="text" value="<?php echo get_option('mo_login_icon_space')?>" />
+						<input id="mo_login_space_plus" type="button" value="+" onmouseup="moLoginPreview(setSizeOfIcons() ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" />
+						<input id="mo_login_space_minus" type="button" value="-" onmouseup="moLoginPreview(setSizeOfIcons()  ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" />
 				</span>
 					
 					
 				<span id="commontheme" style="margin-left:115px">
-				<input style="width:50px" id="mo_login_icon_size" onkeyup="moLoginSizeValidate(this)" name="mo_login_icon_custom_size" type="text" value="<?php echo get_option('mo_login_icon_custom_size')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
-				<input id="mo_login_size_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_size').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
-				<input id="mo_login_size_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_size').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
+				<input style="width:50px" id="mo_login_icon_size" onkeyup="moLoginSizeValidate(this)" name="mo_login_icon_custom_size" type="text" value="<?php echo get_option('mo_login_icon_custom_size')?>" >
+				<input id="mo_login_size_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_size').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" >
+				<input id="mo_login_size_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_size').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" >
 				
 				</span>
-				<span style="margin-left:115px" class="longbuttontheme">Width:&nbsp;
-				<input style="width:50px" id="mo_login_icon_width" onkeyup="moLoginWidthValidate(this)" name="mo_login_icon_custom_width" type="text" value="<?php echo get_option('mo_login_icon_custom_width')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
-				<input id="mo_login_width_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
-				<input id="mo_login_width_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
+				<span style="margin-left:91px" class="longbuttontheme">Width:&nbsp;
+				<input style="width:50px" id="mo_login_icon_width" onkeyup="moLoginWidthValidate(this)" name="mo_login_icon_custom_width" type="text" value="<?php echo get_option('mo_login_icon_custom_width')?>" >
+				<span style="margin-left:3px;">
+
+				<input id="mo_login_width_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" >
+				<input id="mo_login_width_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" >
 				
+				</span>
 				</span>
 				
 				
@@ -387,22 +409,23 @@ function mo_openid_apps_config() {
 		<tr>
 				<td class="mo_openid_table_td_checkbox">
 				<input type="radio"   name="mo_openid_login_theme"  value="oval" onclick="checkLoginButton();moLoginPreview(document.getElementById('mo_login_icon_size').value,'oval',setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_size').value,document.getElementById('mo_login_icon_custom_boundary').value )"
-						<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
 								<?php checked( get_option('mo_openid_login_theme') == 'oval' );?> />Rounded Edges	
 
 				<span style="margin-left:50px;">
-						<input type="radio" id="mo_openid_login_custom_radio"  name="mo_openid_login_custom_theme" value="custom" onclick="checkLoginButton();moLoginPreview(setSizeOfIcons(), setLoginTheme(),'custom',document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
+						<input type="radio" id="mo_openid_login_custom_radio"  name="mo_openid_login_custom_theme" value="custom" onclick="checkLoginButton();moLoginPreview(setSizeOfIcons(), setLoginTheme(),'custom',document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)"
 								<?php checked( get_option('mo_openid_login_custom_theme') == 'custom' );?> />Custom Background*
 								
 						</span>	
 						
 						
 						
-					<span style="margin-left:248px" class="longbuttontheme" >Height:
-				<input style="width:50px" id="mo_login_icon_height" onkeyup="moLoginHeightValidate(this)" name="mo_login_icon_custom_height" type="text" value="<?php echo get_option('mo_login_icon_custom_height')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
-				<input id="mo_login_height_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
-				<input id="mo_login_height_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
-				
+					<span style="margin-left:235px" class="longbuttontheme" >Height:
+				<input style="width:50px" id="mo_login_icon_height" onkeyup="moLoginHeightValidate(this)" name="mo_login_icon_custom_height" type="text" value="<?php echo get_option('mo_login_icon_custom_height')?>" >
+				<span style="margin-left:1px;">
+
+				<input id="mo_login_height_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" >
+				<input id="mo_login_height_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" >
+				</span>
 				</span>
 				</td>
 		</tr>
@@ -410,26 +433,27 @@ function mo_openid_apps_config() {
 		<tr>
 				<td class="mo_openid_table_td_checkbox">
 						<input type="radio"   name="mo_openid_login_theme" value="square" onclick="checkLoginButton();moLoginPreview(document.getElementById('mo_login_icon_size').value ,'square',setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_size').value,document.getElementById('mo_login_icon_custom_boundary').value )"
-						<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
 								<?php checked( get_option('mo_openid_login_theme') == 'square' );?> />Square
 					
 						<span style="margin-left:113px;">
-						<input id="mo_login_icon_custom_color" style="width:135px;" name="mo_login_icon_custom_color"  class="color" value="<?php echo get_option('mo_login_icon_custom_color')?>" onchange="moLoginPreview(setSizeOfIcons(), setLoginTheme(),'custom',document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>>
+						<input id="mo_login_icon_custom_color" style="width:135px;" name="mo_login_icon_custom_color"  class="color" value="<?php echo get_option('mo_login_icon_custom_color')?>" onchange="moLoginPreview(setSizeOfIcons(), setLoginTheme(),'custom',document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_custom_boundary').value)" >
 						</span>
 						
 						
-						<span style="margin-left:255px" class="longbuttontheme">Curve:
+						<span style="margin-left:228px" class="longbuttontheme">Curve:
 						<input style="width:50px" id="mo_login_icon_custom_boundary" onkeyup="moLoginBoundaryValidate(this)" name="mo_login_icon_custom_boundary" type="text" value=
-						"<?php echo get_option('mo_login_icon_custom_boundary')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
-						<input id="mo_login_boundary_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
-				<input id="mo_login_boundary_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
+						"<?php echo get_option('mo_login_icon_custom_boundary')?>" />
+						<span style="margin-left:6px;">
+
+						<input id="mo_login_boundary_plus" type="button" value="+" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" />
+				<input id="mo_login_boundary_minus" type="button" value="-" onmouseup="moLoginPreview(document.getElementById('mo_login_icon_width').value,setLoginTheme(),setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)" />
                          </span> 
+						 </span>
 				</td>
 		</tr>
 		<tr>
 				<td class="mo_openid_table_td_checkbox">
 						<input type="radio" id="iconwithtext"   name="mo_openid_login_theme" value="longbutton" onclick="checkLoginButton();moLoginPreview(document.getElementById('mo_login_icon_width').value ,'longbutton',setLoginCustomTheme(),document.getElementById('mo_login_icon_custom_color').value,document.getElementById('mo_login_icon_space').value,document.getElementById('mo_login_icon_height').value,document.getElementById('mo_login_icon_custom_boundary').value)"
-						<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>
 								<?php checked( get_option('mo_openid_login_theme') == 'longbutton' );?> />Long Button with Text</td>
 		</tr>
 		<tr>
@@ -465,7 +489,6 @@ function mo_openid_apps_config() {
 									echo get_option('mo_openid_login_button_customize_text'); 	?> Salesforce</a>
 					<a id="mo_login_button_preview_windowslive" class="btn btn-block btn-defaulttheme btn-social btn-microsoft btn-custom-size"> <i class="fa fa-windows"></i><?php
 									echo get_option('mo_openid_login_button_customize_text'); 	?> Windows</a>
-					
 				</div>
 				
 				<div>
@@ -478,7 +501,6 @@ function mo_openid_apps_config() {
 					<i class="mo_custom_login_icon_preview fa fa-amazon" id="amazoncustom" style="color:#ffffff;text-align:center;margin-top:5px;"></i>
 					<i class="mo_custom_login_icon_preview fa fa-cloud" id="salesforcecustom" style="margin-bottom:-10px;color:#ffffff;text-align:center;margin-top:5px;" ></i>
 					<i class="mo_custom_login_icon_preview fa fa-windows" id="mo_custom_login_icon_preview_windows" style="color:#ffffff;text-align:center;margin-top:5px;" ></i>
-					
 				</div>
 				
 				<div>
@@ -500,7 +522,6 @@ function mo_openid_apps_config() {
 									echo get_option('mo_openid_login_button_customize_text'); 	?> Salesforce</a>
 					<a id="mo_custom_login_button_preview_windows" class="btn btn-block btn-customtheme btn-social  btn-custom-size"> <i class="fa fa-windows"></i><?php
 									echo get_option('mo_openid_login_button_customize_text'); 	?> Windows</a>
-					
 				</div>
 		</td>
 	</tr>
@@ -517,17 +538,30 @@ function mo_openid_apps_config() {
 			<h3>Customize Text For Social Login Buttons / Icons</h3>
 		</td>
 	</tr>
+	
+	
 	<tr>
-		<td><b>Enter text to show above login widget:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input class="mo_openid_table_textbox" style="width:50%" type="text" name="mo_openid_login_widget_customize_text" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> value="<?php echo get_option('mo_openid_login_widget_customize_text'); ?>" /></td>
+		<td>
+			<b>Select color for customize text:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span style="margin-left:1px;">
+			<input id="mo_openid_table_textbox" style="width:135px;" name="mo_login_openid_login_widget_customize_textcolor"  class="color" value="<?php echo get_option('mo_login_openid_login_widget_customize_textcolor')?>" > </td>
+			</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td><b>Enter text to show above login widget:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		
+			<input class="mo_openid_table_textbox" style="width:50%" type="text" name="mo_openid_login_widget_customize_text" value="<?php echo get_option('mo_openid_login_widget_customize_text'); ?>" /></td>
 	</tr>
 	<tr>
 		<td><b>Enter text to show on your login buttons (If you have</b>
-			<br/><b> selected shape 4 from 'Customize Login Icons' section):</b>&nbsp;&nbsp;
+			<br/><b> selected shape 4 from 'Customize Login Icons' section):</b>&nbsp;&nbsp;&nbsp;&nbsp;
 			<input class="mo_openid_table_textbox" style="width:50%" type="text" name="mo_openid_login_button_customize_text" 
-			<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> value="<?php echo get_option('mo_openid_login_button_customize_text'); ?>"  /></td>
+			 value="<?php echo get_option('mo_openid_login_button_customize_text'); ?>"  /></td>
 	</tr>
 	
+	<?php if(get_option('mo_openid_oauth')!='1') {?>
 	<tr>
 		<td>
 			<br>
@@ -537,114 +571,226 @@ function mo_openid_apps_config() {
 	</tr>
 	<tr>
 		<td><b>Enter text to show before the logout link</b>
-			<br/>Use ##username## to display current username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input class="mo_openid_table_textbox" style="width:50%" type="text" name="mo_openid_login_widget_customize_logout_name_text" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> value="<?php echo get_option('mo_openid_login_widget_customize_logout_name_text'); ?>" /></td>
+			<br/>Use ##username## to display current username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="mo_openid_table_textbox" style="width:50%" type="text" name="mo_openid_login_widget_customize_logout_name_text"  value="<?php echo get_option('mo_openid_login_widget_customize_logout_name_text'); ?>" /></td>
 	</tr>
 	<tr>
 		<td><b>Enter text to show as logout link:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input class="mo_openid_table_textbox" style="width:50%" type="text" name="mo_openid_login_widget_customize_logout_text" 
-			<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> value="<?php echo get_option('mo_openid_login_widget_customize_logout_text'); ?>"  /></td>
+			 value="<?php echo get_option('mo_openid_login_widget_customize_logout_text'); ?>"  /></td>
 	</tr>
-									<td>
-									<br>
-										<hr>
-										<h3>Display Options</h3>
-											
-											<b>Select the options where you want to display the social login icons</b>
-										</td>
-								</tr>
-		
+	<?php }?>
+                                            <td>
+                                                <br>
+                                                <hr>
+                                                <h3>Display Options</h3>
+                                                <b>Select the options where you want to display the social login icons</b>
+                                            </td>
 
 											<tr>
 												<td class="mo_openid_table_td_checkbox">
 												<input type="checkbox" id="default_login_enable" name="mo_openid_default_login_enable" value="1"
-													<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_openid_default_login_enable') == 1 );?> />Default Login Form</td>
+														<?php checked( get_option('mo_openid_default_login_enable') == 1 );?> />Default Login Form</td>
 											</tr>
 											<tr>
 												<td class="mo_openid_table_td_checkbox">
 												<input type="checkbox" id="default_register_enable" name="mo_openid_default_register_enable" value="1"
-												<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_openid_default_register_enable') == 1 );?> />Default Registration Form</td>
+													<?php checked( get_option('mo_openid_default_register_enable') == 1 );?> />Default Registration Form</td>
 											</tr>
 											<tr>
 												<td class="mo_openid_table_td_checkbox">
 													<input type="checkbox" id="default_comment_enable" name="mo_openid_default_comment_enable" value="1"
-													<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_openid_default_comment_enable') == 1 );?> />Comment Form</td>
+														<?php checked( get_option('mo_openid_default_comment_enable') == 1 );?> />Comment Form</td>
 											</tr>
+
+                                            <td>
+                                                <br>
+                                                <b>Woocommerce display options</b>
+                                            </td>
+
+
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_before_login_form" name="mo_openid_woocommerce_before_login_form" value="1"
+                                                        <?php checked( get_option('mo_openid_woocommerce_before_login_form') == 1 );?> />Before WooCommerce Login Form</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_center_login_form" name="mo_openid_woocommerce_center_login_form" value="1"
+                                                        <?php checked( get_option('mo_openid_woocommerce_center_login_form') == 1 );?> />Before 'Remember Me' of WooCommerce Login Form</td>
+                                            </tr>
 											<tr>
 												<td class="mo_openid_table_td_checkbox">
 													<input type="checkbox" id="woocommerce_login_form" name="mo_openid_woocommerce_login_form" value="1"
-													<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_openid_woocommerce_login_form') == 1 );?> />WooCommerce Login Form</td>
+														<?php checked( get_option('mo_openid_woocommerce_login_form') == 1 );?> />After WooCommerce Login Form</td>
 											</tr>
-								<tr><td>&nbsp;</td></tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_register_form_start" name="mo_openid_woocommerce_register_form_start" value="1"
+                                                        <?php checked( get_option('mo_openid_woocommerce_register_form_start') == 1 );?> />Before WooCommerce Registration Form</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_center_register_form" name="mo_openid_woocommerce_center_register_form" value="1"
+                                                        <?php checked( get_option('mo_openid_woocommerce_center_register_form') == 1 );?> />Before 'Register button' of WooCommerce Registration Form</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_register_form_end" name="mo_openid_woocommerce_register_form_end" value="1"
+                                                        <?php checked( get_option('mo_openid_woocommerce_register_form_end') == 1 );?> />After WooCommerce Registration Form</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_before_checkout_billing_form" name="mo_openid_woocommerce_before_checkout_billing_form" value="1"
+                                                        <?php checked( get_option('mo_openid_woocommerce_before_checkout_billing_form') == 1 );?> />Before WooCommerce Checkout Form</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_after_checkout_billing_form" name="mo_openid_woocommerce_after_checkout_billing_form" value="1"
+                                                        <?php checked( get_option('mo_openid_woocommerce_after_checkout_billing_form') == 1 );?> />After WooCommerce Checkout Form</td>
+                                            </tr>
+<!--                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_edit_account_form_start" name="mo_openid_woocommerce_edit_account_form_start" value="1"
+                                                        <?php /*checked( get_option('mo_openid_woocommerce_edit_account_form_start') == 1 );*/?> />Before WooCommerce Edit Account Form</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="woocommerce_edit_account_form_end" name="mo_openid_woocommerce_edit_account_form_end" value="1"
+                                                        <?php /*checked( get_option('mo_openid_woocommerce_edit_account_form_end') == 1 );*/?> />After WooCommerce Edit Account Form</td>
+                                            </tr>-->
+                                            <td>
+                                                <br>
+                                                <b>BuddyPress display options</b>
+                                            </td>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="bp_before_register_page" name="mo_openid_bp_before_register_page" value="1"
+                                                        <?php checked( get_option('mo_openid_bp_before_register_page') == 1 );?> />Before BuddyPress Registration Form</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="bp_before_account_details_fields" name="mo_openid_bp_before_account_details_fields" value="1"
+                                                        <?php checked( get_option('mo_openid_bp_before_account_details_fields') == 1 );?> />Before BuddyPress Account Details</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="mo_openid_table_td_checkbox">
+                                                    <input type="checkbox" id="bp_after_register_page" name="mo_openid_bp_after_register_page" value="1"
+                                                        <?php checked( get_option('mo_openid_bp_after_register_page') == 1 );?> />After BuddyPress Registration Form</td>
+                                            </tr>
+
+                                <tr>
+                                    <td>
+                                        <br>
+                                        <hr>
+                                        <h3>GDPR Settings</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        If GDPR check is enabled, users will be asked to give consent before using Social Login. Users who will not give consent will not be able to log in. This setting stands true only when users are registering using Social Login. This will not interfere with users registering through the regular WordPress. (Click <a target="_blank" href="<?php echo add_query_arg( array('tab' => 'privacy_policy'), $_SERVER['REQUEST_URI'] ); ?>"> here </a> to read miniOrange Social Login Privacy Policy. Please update your website's privacy policy accordingly and enter the URL to your privacy policy below.)
+                                        <br/><br/>
+                                        <input type="checkbox" name="mo_openid_gdpr_consent_enable" value="1"
+                                            <?php checked( get_option('mo_openid_gdpr_consent_enable') == 1 );?> /><b>Take consent from users</b>
+                                        <br/><br/>
+                                        <b>Enter the Consent message: </b><br>
+                                        <textarea  style="width:80%" name="mo_openid_gdpr_consent_message" ><?php echo get_option('mo_openid_gdpr_consent_message')?></textarea>
+                                        <br><br>
+                                        <b>Enter the text that redirects to Privacy Policy URL: </b><br>
+                                        <input type="text" style="width:90%" name="mo_openid_privacy_policy_text" value="<?php echo get_option('mo_openid_privacy_policy_text')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
+                                        <br><br>
+                                        <b>Enter Privacy Policy URL: </b><br>
+                                        <input type="text" style="width:90%" name="mo_openid_privacy_policy_url" value="<?php echo get_option('mo_openid_privacy_policy_url')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
+                                    </td>
+                                </tr>
+
+                                <tr><td>
+                                        <br>
+                                        <hr>
+                                    </td>
+                                </tr>
+
 								<tr>
 									<td>
+                                        <h3>Redirection Options</h3>
 										<b>Redirect URL after login:</b>
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="login_redirect_same_page" name="mo_openid_login_redirect" value="same"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_login_redirect') == 'same' );?> />Same page where user logged in
+										 <?php checked( get_option('mo_openid_login_redirect') == 'same' );?> /><b>*</b>Same page where user logged in
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="login_redirect_homepage" name="mo_openid_login_redirect" value="homepage"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_login_redirect') == 'homepage' );?> />Homepage
+										 <?php checked( get_option('mo_openid_login_redirect') == 'homepage' );?> />Homepage
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="login_redirect_dashboard" name="mo_openid_login_redirect" value="dashboard"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_login_redirect') == 'dashboard' );?> />Account dashboard
+										 <?php checked( get_option('mo_openid_login_redirect') == 'dashboard' );?> />Account dashboard
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="login_redirect_customurl" name="mo_openid_login_redirect" value="custom"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_login_redirect') == 'custom' );?> />Custom URL
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="url" id="login_redirect_url" style="width:50%" name="mo_openid_login_redirect_url" value="<?php echo get_option('mo_openid_login_redirect_url')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
+										 <?php checked( get_option('mo_openid_login_redirect') == 'custom' );?> />Custom URL
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="url" id="login_redirect_url" style="width:50%" name="mo_openid_login_redirect_url" value="<?php echo get_option('mo_openid_login_redirect_url')?>" />
 									</td>
 								</tr>
+                                <tr>
+                                    <td>
+                                        <input type="radio" id="login_redirect_relativeurl" name="mo_openid_login_redirect" value="relative"
+                                            <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_login_redirect') == 'relative' );?> />Relative URL
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo site_url();?>
+                                        <input type="text" id="login_redirect_url" style="width:50%" name="mo_openid_relative_login_redirect_url" value="<?php echo get_option('mo_openid_relative_login_redirect_url')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
+                                    </td>
+                                </tr>
+
 								<tr><td>&nbsp;</td></tr>
 								<tr>
 									<td>
 										<input type="checkbox" id="logout_redirection_enable" name="mo_openid_logout_redirection_enable" value="1"
-												<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_openid_logout_redirection_enable') == 1 );?> />
+													<?php checked( get_option('mo_openid_logout_redirection_enable') == 1 );?> />
 										<b>Enable Logout Redirection</b>
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="logout_redirect_home" name="mo_openid_logout_redirect" value="homepage"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_logout_redirect') == 'homepage' );?> />Home Page
+										 <?php checked( get_option('mo_openid_logout_redirect') == 'homepage' );?> />Home Page
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="logout_redirect_current" name="mo_openid_logout_redirect" value="currentpage"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_logout_redirect') == 'currentpage' );?> />Current Page
+										 <?php checked( get_option('mo_openid_logout_redirect') == 'currentpage' );?> />Current Page
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="logout_redirect_login" name="mo_openid_logout_redirect" value="login"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_logout_redirect') == 'login' );?> />Login Page
+										 <?php checked( get_option('mo_openid_logout_redirect') == 'login' );?> />Login Page
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<input type="radio" id="logout_redirect_customurl" name="mo_openid_logout_redirect" value="custom"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_logout_redirect') == 'custom' );?> />Relative URL
+										 <?php checked( get_option('mo_openid_logout_redirect') == 'custom' );?> />Relative URL
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<?php echo site_url();?>
-										<input type="text" id="logout_redirect_url" style="width:50%" name="mo_openid_logout_redirect_url" value="<?php echo get_option('mo_openid_logout_redirect_url')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>/>
+										<input type="text" id="logout_redirect_url" style="width:50%" name="mo_openid_logout_redirect_url" value="<?php echo get_option('mo_openid_logout_redirect_url')?>" />
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<br>
+                                        <b>*NOTE</b>: If you login through wordpress default login page after login you will be redirected to Homepage.
 										<hr>
 										<h3>Registration Options</h3>
 									</td>
@@ -654,39 +800,51 @@ function mo_openid_apps_config() {
 										If Auto-register users is unchecked, users will not be able to register using Social Login. The users who already have an account will be able to login.  This setting stands true only when users are registering using Social Login. This will not interfere with users registering through the regular WordPress.
 										<br/><br/>
 										<input type="checkbox" id="auto_register_enable" name="mo_openid_auto_register_enable" value="1"
-										<?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_openid_auto_register_enable') == 1 );?> /><b>Auto-register users</b>
+											<?php checked( get_option('mo_openid_auto_register_enable') == 1 );?> /><b>Auto-register users</b>
 										<br/><br/>
 										<b>Registration disabled message: </b>
-										<textarea id="auto_register_disabled_message" style="width:80%" name="mo_openid_register_disabled_message" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>><?php echo get_option('mo_openid_register_disabled_message')?></textarea>
+										<textarea id="auto_register_disabled_message" style="width:80%" name="mo_openid_register_disabled_message" ><?php echo get_option('mo_openid_register_disabled_message')?></textarea>
 									</td>
 								</tr>
-								<?php if(mo_openid_is_customer_registered() && mo_openid_is_customer_valid()) { ?>
+                                <tr>
+                                    <td>
+                                        <h3 style="font-size: 16px;">Role Mapping</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Use Role Mapping to assign this universal role to the all users registering through Social Login.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                        <b>Universal Role: </b>
+                                        <br>
+                                        <select name="mapping_value_default" style="width:30%" id="default_group_mapping">
+                                            <?php
+                                            if(get_option('mo_openid_login_role_mapping'))
+                                                $default_role = get_option('mo_openid_login_role_mapping');
+                                            else
+                                                $default_role = get_option('default_role');
+                                            wp_dropdown_roles($default_role); ?>
+                                        </select>
+                                    </td>
+                                </tr>
+								
+								
+									<td>
+										<br>
+										<hr>										
+										<h3>Account Linking</h3>
+									</td>								
 									<tr>
 										<td>
-											<h3 style="font-size: 16px;">Role Mapping</h3>
+											Enable account linking to let your users link their Social accounts with existing WordPress account. Users will be prompted with the option to either link to any existing account using WordPress login page or register as a new user.<br><br>
+											<input type="checkbox" id="account_linking_enable" name="mo_openid_account_linking_enable" value="1"
+												<?php checked( get_option('mo_openid_account_linking_enable') == 1 );?> /><b>Enable Account-Linking</b>
 										</td>
 									</tr>
-									<tr>
-										<td>
-											Use Role Mapping to assign this universal role to the all users registering through Social Login.
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<br/>
-											<b>Universal Role: </b>
-											<br>
-											<select name="mapping_value_default" style="width:30%" id="default_group_mapping">
-										   <?php
-											 if(get_option('mo_openid_login_role_mapping'))
-												$default_role = get_option('mo_openid_login_role_mapping');
-											 else 
-												$default_role = get_option('default_role');
-											 wp_dropdown_roles($default_role); ?>
-											</select>
-										</td>
-									</tr>
-								<?php } ?>
 				<script>
 					var tempHorSize = '<?php echo get_option('mo_login_icon_custom_size') ?>';
 					var tempHorTheme = '<?php echo get_option('mo_openid_login_theme') ?>';
@@ -745,6 +903,8 @@ function mo_openid_apps_config() {
 								}
 					}
 					moLoginPreview(setSizeOfIcons(),tempHorTheme,tempHorCustomTheme,tempHorCustomColor,tempHorSpace,tempHorHeight,tempHorBoundary);	
+					
+						
 					
 					function moLoginPreview(t,r,l,p,n,h,k){
 									
@@ -985,6 +1145,12 @@ function mo_openid_apps_config() {
 								
 								
 								if (document.getElementById('twitter_enable').checked) {
+								if(flag) {
+									jQuery("#no_apps_text").hide();
+								} else {
+									jQuery("#no_apps_text").show();
+								}
+								
 									flag = 1;
 									if(document.getElementById('mo_openid_login_default_radio').checked && !document.getElementById('iconwithtext').checked)
 										jQuery("#mo_login_icon_preview_twitter").show();
@@ -1000,12 +1166,6 @@ function mo_openid_apps_config() {
 									jQuery("#mo_login_button_preview_twitter").hide();
 									jQuery("#mo_custom_login_button_preview_twitter").hide();
 								}
-								
-								if(flag) {
-									jQuery("#no_apps_text").hide();
-								} else {
-									jQuery("#no_apps_text").show();
-								}
 						}
 						checkLoginButton();
 				</script>
@@ -1017,13 +1177,47 @@ function mo_openid_apps_config() {
 			</td>
 		</tr>
 		<tr>
-			<td><input type="checkbox" id="moopenid_social_login_avatar" name="moopenid_social_login_avatar" value="1" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('moopenid_social_login_avatar') == 1 );?> /><b>Set Display Picture for User</b>
+			<td><input type="checkbox" id="moopenid_social_login_avatar" name="moopenid_social_login_avatar" value="1"  <?php checked( get_option('moopenid_social_login_avatar') == 1 );?> /><b>Set Display Picture for User</b>
 			</td>
 		</tr>
+
+		<tr>
+			<td>
+				<br/>
+				<input type="checkbox" id="auto_email_enable" name="mo_openid_email_enable" value="1"
+					<?php checked( get_option('mo_openid_email_enable') == 1 );?> /><b>Enable Email Notification to Admin - <?php echo get_option("mo_openid_admin_email");?> on User Registration</b>
+				<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <b>Notice:</b> SMTP should be configured. ]
+			</td>
+		</tr>
+        <?php if(get_option('mo_openid_oauth')=='1'){?>
+        <tr >
+            <td>
+                <div ><br>
+                <input type="checkbox" id="moopenid_logo_check" name="moopenid_logo_check" value="1"  <?php checked( get_option('moopenid_logo_check') == 1 );?> /><b>Display miniOrange logo with social login icons and on account linking & profile completion forms.</b>
+                </div>
+            </td>
+        </tr>
+		<?php }?>
+		<tr>
+		<td>
+		<br/>
+
+            <input type="checkbox" name="mo_openid_enable_profile_completion" value="1" <?php checked( get_option('mo_openid_enable_profile_completion') == '1' );?>><b>Prompt users for username &amp; email when unavailable (profile completion)</b>
+            <br>In case of unavailability of username or email from the social media application, user is prompted to input the same.
+            <p style="color:#000000;">
+                <b>*NOTE:</b><br> Disabling profile completion is not recommended. Instagram and Twitter don't return email address. Please keep this enabled if you are using Instagram or Twitter. This feature requires SMTP to be setup.</p>
+
+
+		</td>
+		</tr>
+		
+		
+		
 		<?php if(mo_openid_is_customer_valid() && !mo_openid_get_customer_plan('Do It Yourself')) { ?>
 		<tr><td>&nbsp;</td></tr>
 		<tr>
-			<td><input type="checkbox" id="moopenid_user_attributes" name="moopenid_user_attributes" value="1" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('moopenid_user_attributes') == 1 );?> /><b>Extended User Attributes</b>
+			<td><input type="checkbox" id="moopenid_user_attributes" name="moopenid_user_attributes" value="1"  <?php checked( get_option('moopenid_user_attributes') == 1 );?> /><b>Extended User Attributes</b>
 			</td>
 		</tr>
 		<?php } else { 
@@ -1072,6 +1266,230 @@ jQuery(function() {
 			<?php echo miniorange_openid_support(); ?>
 		</td>
 <?php
+}
+
+function mo_openid_integrations(){
+
+    ?>
+    <td style="vertical-align:top; ">
+        <div class="mo_openid_table_layout">
+            <style>
+                .tableborder {
+                    border-collapse: collapse;
+                    width: 100%;
+                    border-color:#eee;
+                }
+
+                .tableborder th, .tableborder td {
+                    text-align: left;
+                    padding: 8px;
+                    border-color:#eee;
+                }
+
+                .tableborder tr:nth-child(even){background-color: #f2f2f2}
+            </style>
+            <?php if(!mo_openid_is_customer_registered()) { ?>
+            <div style="display:block;margin-top:10px;color:red;background-color:rgba(251, 232, 0, 0.15);padding:5px;border:solid 1px rgba(255, 0, 9, 0.36);">
+                Please <a href="<?php echo add_query_arg( array('tab' => 'register'), $_SERVER['REQUEST_URI'] ); ?>">Register or Login with miniOrange</a> to enable Social Login and Social Sharing.
+            </div>
+            <?php }?>
+
+            <div style="display:block;">
+                <b><span style="display:block;margin-top:10px;background-color:aliceblue;padding:5px;border:solid 1px deepskyblue;">*NOTE: These features are available in the <a target="_blank" href="<?php echo add_query_arg( array('tab' => 'pricing'), $_SERVER['REQUEST_URI'] ); ?>">premium </a> version of the plugin.</span>
+                </b>
+            </div>
+
+            <h3><span style='color:red;'>*</span>BuddyPress Extended Attributes Mapping</h3>
+            <?php
+            echo "<div style='text-align: center'><p>You have not setup attribute mapping for any apps yet. Please click on <b>Add Application</b> to configure mapping for each app.</p>";
+            echo "</div>";
+            echo "<br><input disabled style='margin-left:300px;text-align:center;' type=\"button\" name=\"add_app\" id=\"add_app\" class=\"button button-primary button-large\" value=\"Add Application\" onclick=\"window.location.href='admin.php?page=mo_openid_settings&tab=integrations&action=add'\" />";
+
+            ?>
+
+            <!--MailChimp form-->
+            <form name="mo_openid_mailchimp_form" method="post" id="mo_openid_mailchimp_form">
+                <input type="hidden" name="option" value="mo_openid_save_mailchimp_field"/><br>
+                <hr>
+                <h3><span style="color:red;">*</span>MailChimp Integration</h3>
+                <p><b>A user is added as a subscriber to a mailing list in MailChimp when that user registers using social login. First name, last name and email are also captured for that user in the Mailing List.</b></p>
+                (List ID in MailChimp : Lists -> Select your List -> Settings -> List Name and Defaults -> List ID) <br>
+                (API Key in MailChimp : Profile -> Extras -> API Keys -> Your API Key )<br><br>
+                <b>List Id:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="background: #DCDAD1;" disabled size="50" class="mo_table_textbox" type="text" id="mo_openid_mailchimp_listid" display:"inline-block" name="mo_openid_mailchimp_listid" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> value="<?php echo get_option('mo_openid_mailchimp_listid');?>"> <br><br>
+                <b>API Key: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="background: #DCDAD1;" disabled size="50" class="mo_table_textbox" type="text" id="mo_openid_mailchimp_api_key" display:"inline-block" name="mo_openid_mailchimp_api_key" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> value="<?php echo get_option('mo_openid_mailchimp_api_key');?>"><br><br>
+                <input disabled type="checkbox"  name="mo_openid_show_mailchimp_form" value="1" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_show_mailchimp_form') == 1 );?> />
+                <strong>Ask user for permission to be added in MailChimp Subscriber list </strong>
+                <br>(If unchecked, user will get subscribed during registration.)
+                <br><br>
+                <b>Click on Download button to get a list of emails of WordPress users registered on your site. You can import this file in MailChimp. </b><br><br>
+                <input disabled type="submit" value="Save " <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> class="button button-primary button-large" />
+                <a disabled style="width:190px;" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> class="button button-primary button-large" href="<?php echo plugin_dir_url(__FILE__) . 'miniorange_openid_sso_download_emails.php' ?>">
+                    Download emails of users
+                </a><br>
+            </form>
+
+            <!-- Woocommerce form-->
+            <form name="mo_openid_woocommerce_form" method="post" id="mo_openid_woocommerce_form">
+                <input type="hidden" name="option" value="mo_openid_save_woocommerce_field"/>
+                <br>
+                <hr>
+                <h3><span style="color:red;">*</span>Woocommerce Integration</h3>
+                <p><b>If enabled, first name, last name and email are pre-filled in billing details of a user and on the Woocommerce checkout page.</b></p>
+                <input disabled type="checkbox"  name="mo_openid_save_woocommerce_field" value="1" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> <?php checked( get_option('mo_openid_enable_woocommerce_sync') == 1 );?> /><strong>Sync Woocommerce checkout fields</strong>
+                <br><br>
+                <input disabled type="submit" value="Save " <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> class="button button-primary button-large" />
+                <br>
+            </form><br><br>
+
+        </div>
+
+    </td>
+
+    <td style="vertical-align:top;padding-left:1%; width: 35%">
+        <?php echo miniorange_openid_support(); ?>
+    </td>
+
+    <?php
+}
+
+function mo_openid_email_notification(){
+    ?>
+    <td style="vertical-align:top;width:65%;">
+        <form name="f" method="post" id="mail_notification" action="">
+            <input type="hidden" name="option" value="mo_openid_mail_configuration" />
+            <div class="mo_openid_table_layout">
+
+                <?php if(!mo_openid_is_customer_registered()) { ?>
+                    <div style="display:block;margin-top:10px;color:red;background-color:rgba(251, 232, 0, 0.15);padding:5px;border:solid 1px rgba(255, 0, 9, 0.36);">
+                        Please <a href="<?php echo add_query_arg( array('tab' => 'register'), $_SERVER['REQUEST_URI'] ); ?>">Login with miniOrange</a> to enable Social Login and Social Sharing.
+                    </div>
+                <?php } ?>
+
+                <div style="display:block;">
+                    <b><span style="display:block;margin-top:10px;background-color:aliceblue;padding:5px;border:solid 1px deepskyblue;">*NOTE: These features are available in the <a target="_blank" href="<?php echo add_query_arg( array('tab' => 'pricing'), $_SERVER['REQUEST_URI'] ); ?>">standard and premium </a> version of the plugin.</span>
+                    </b>
+                </div>
+
+                <table style="width:99%;">
+
+                    <tr>
+                        <td>
+                            <h3> Send Mail To Admin</h3>
+                        </td>
+
+                    </tr>
+                </table>
+                <table style="width:99%;" >
+
+                    <tr>
+                        <td>
+                            <span style="color:red;">*</span><b>If you want to send Email Notification to multiple admins, enter emails of all admins here:</b><br>(If left empty only administrator gets email)<br><br>
+                            <textarea disabled rows="2" id="mo_openid_multiple_email_id" placeholder="Emails should be separated by comma" style="width:100%;background: #DCDAD1;" name="mo_openid_multiple_admin_emails" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>><?php echo get_option('mo_openid_multiple_admin_emails')?></textarea>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <br>
+                            <input style ="background: #DCDAD1;"  disabled type="checkbox" id="mo_admin_email_template" name="mo_admin_email_template" value="1"
+                                <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_admin_email_template') == 1 );?> /><b><span style="color:red;">*</span>Edit Email Notification Template to Admin</b>
+                            <br/>
+                        </td>
+                    </tr>
+
+                    <tr class="mo_openid_email_subject">
+                        <td><br />
+                            <span style="color:red;">*</span>
+                            <b>Email Subject:</b>
+                            <textarea disabled rows="2" id="mo_openid_email_subject" placeholder="Enter your subject line here" style="width:100%;background: #DCDAD1;" name="mo_openid_email_subject" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>><?php echo get_option('mo_openid_email_subject')?></textarea>
+                            <br/>
+                        </td>
+                    </tr>
+
+                    <tr class="mo_admin_email_template">
+                        <td>
+                            <br />
+                            <span style="color:red;">*</span>
+                            <b>Edit Content of Email:</b>
+                            <?php
+                            $editor_id = 'emailtemplate';
+                            $content = get_option('mo_openid_registration_email_content');
+
+                            ?>
+                            <textarea disabled rows="6" id="mo_openid_email_message_id" style="width:100%;background: #DCDAD1;" name="mo_openid_registration_email_content" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>><?php echo get_option('mo_openid_registration_email_content')?></textarea>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <br>
+                            <hr>
+
+                            <h3>Send Mail to User</h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+
+                            <input style="background: #DCDAD1;" disabled type="checkbox" id="auto_welcome_email_enable" name="mo_openid_welcome_email_enable" value="1"
+                                <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>	<?php checked( get_option('mo_openid_welcome_email_enable') == 1 );?> /><b><span style="color:red;">*</span>Enable Email Notification to User on User Registration*</b>
+                            <br/>
+                        </td>
+                    </tr>
+
+
+                    <tr class="mo_openid_welcome_email_subject">
+                        <td><br />
+                            <span style="color:red;">*</span>
+                            <b>Email Subject:</b>
+                            <textarea disabled rows="2" id="mo_openid_welcome_email_subject" placeholder="Enter your subject line here" style="width:100%;background: #DCDAD1;" name="mo_openid_welcome_email_subject" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>><?php echo get_option('mo_openid_welcome_email_subject')?></textarea>
+                            <br/>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <br/ >
+                            <span style="color:red;">*</span>
+                            <b>Edit Content of Email:</b>
+                            <?php
+                            $editor_id = 'emailtemplate';
+                            $content = get_option('mo_openid_user_register_message');
+                            ?>
+                            <textarea disabled rows="6" id="mo_openid_email_message_id" style="width:100%;background: #DCDAD1;" name="mo_openid_user_register_message" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>><?php echo get_option('mo_openid_user_register_message')?></textarea>
+
+                        </td>
+                    </tr>
+                </table>
+                <table class="mo_openid_display_table">
+                    <tr>
+                        <td><br /><input disabled type="submit" name="submit" value="Save" style="width:100px;" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> class="button button-primary button-large" />
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+                <b>*NOTE: These features require SMTP to be setup.</b>
+
+            </div>
+        </form>
+
+
+
+    </td>
+
+    <td style="vertical-align:top;padding-left:1%;">
+        <?php echo miniorange_openid_support(); ?>
+    </td>
+
+
+    <?php exit;
 }
 
 function mo_openid_app_comment() {
@@ -1205,7 +1623,7 @@ function mo_openid_show_otp_verification(){
 							<h3>Verify Your Email</h3>
 							<tr>
 								<td><b><font color="#FF0000">*</font>Enter OTP:</b></td>
-								<td colspan="3"><input class="mo_openid_table_textbox" autofocus="true" type="text" name="otp_token" required placeholder="Enter OTP" style="width:40%;" pattern="[0-9]{6,8}" title="Only 6 digit numbers are allowed"/>
+								<td colspan="3"><input class="mo_openid_table_textbox" autofocus="true" type="text" name="otp_token" required placeholder="Enter OTP" style="width:40%;" />
 								 &nbsp;&nbsp;<a style="cursor:pointer;" onclick="document.getElementById('resend_otp_form').submit();">Resend OTP ?</a></td>
 							</tr>
 							<tr><td colspan="3"></td></tr>
@@ -1219,7 +1637,8 @@ function mo_openid_show_otp_verification(){
 		<form name="f" method="post">
 		<td style="width:18%">
 						<input type="hidden" name="option" value="mo_openid_go_back"/>
-						<input type="submit" name="submit"  value="Back" class="button button-primary button-large" /></td>
+						<input type="submit" name="submit"  value="Back" class="button button-primary button-large" />
+        </td>
 		</form>
 		<form name="f" id="resend_otp_form" method="post" action="">
 							<td>
@@ -1227,8 +1646,6 @@ function mo_openid_show_otp_verification(){
 							<input type="hidden" name="option" value="mo_openid_resend_otp"/>
 							</td>
 							</tr>
-							
-						
 		</form>
 		</table>
 		<br>
@@ -1270,6 +1687,7 @@ function mo_openid_show_otp_verification(){
 
 <?php
 }
+
 function mo_openid_other_settings(){
 	
 ?>
@@ -1393,7 +1811,6 @@ function mo_openid_other_settings(){
 							<strong>Whatsapp</strong>
 						</td>
 					</tr>
-					<tr><td>(Only visible on Mobile Phones)</td></tr>
 				</table>
 			</td>
 		</tr>
@@ -1917,10 +2334,15 @@ function mo_openid_other_settings(){
 			<h3>Customize Text For Social Share Icons</h3>
 			</td>
 		</tr>
+
+		<tr>
+			<td><b>Select color for share heading:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input id="mo_openid_table_textbox" style="width:135px;" name="mo_openid_share_widget_customize_text_color" class="color" value="<?php echo get_option('mo_openid_share_widget_customize_text_color')?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?>> </td>
+		</tr>
 		<tr>
 			<td>
 				<b>Enter text to show above share widget:</b>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input class="mo_openid_table_textbox" style="width:50%;" type="text" name="mo_openid_share_widget_customize_text"
 					value="<?php echo get_option('mo_openid_share_widget_customize_text'); ?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> />
 			</td>
@@ -1928,7 +2350,7 @@ function mo_openid_other_settings(){
 		<tr>
 			<td>
 				<b>Enter your twitter Username (without @):</b>
-				&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input class="mo_openid_table_textbox" style="width:50%;" type="text" name="mo_openid_share_twitter_username"
 					value="<?php echo get_option('mo_openid_share_twitter_username'); ?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> />
 			</td>
@@ -1945,7 +2367,7 @@ function mo_openid_other_settings(){
 		<tr>
 			<td>
 				<b>Enter the Email body (add ##url## to place the URL):</b>
-				&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input class="mo_openid_table_textbox" style="width:50%;" type="text" name="mo_openid_share_email_body"
 					value="<?php echo get_option('mo_openid_share_email_body'); ?>" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> />
 			</td>
@@ -2132,6 +2554,7 @@ jQuery(function() {
 		</td>
 <?php
 }
+
 function mo_openid_shortcode_info(){
 ?>
 <td style="vertical-align:top;width:65%;">
@@ -2168,7 +2591,7 @@ function mo_openid_shortcode_info(){
 		
 				<h4 style="margin-bottom:0 !important">For Long-Buttons</h4>
 				You can use different attribute to customize social login buttons. All attributes are optional.<br>
-				<b>Example:</b> <code>[miniorange_social_login  shape="longbuttonwithtext" theme="default" space="4" width="300" height="50"]</code>
+				<b>Example:</b> <code>[miniorange_social_login  shape="longbuttonwithtext" theme="default" space="4" width="300" height="50" color="000000"]</code>
 				<br>
 				
 				<h4 style="margin-bottom:0 !important">Available values for attributes</h4>
@@ -2177,7 +2600,9 @@ function mo_openid_shortcode_info(){
 				<b>size</b>: Any value between 20 to 100<br> 
 				<b>space</b>: Any value between 0 to 100<br>
 				<b>width</b>: Any value between 200 to 1000<br>
-				<b>height</b>: Any value between 35 to 50<br></div>
+				<b>height</b>: Any value between 35 to 50<br>
+				<b>color</b>: Enter color code for example, FFFFFF<br>
+				<b>heading</b>: Enter custom heading<br></div>
 				<hr>
 			</td>
 		</tr>
@@ -2193,15 +2618,19 @@ function mo_openid_shortcode_info(){
 			
 				<h4>For Sharing Icons</h4>
 				You can use  different attribute to customize social sharing icons. All attributes are optional.<br>
-				<b>Example:</b> <code>[miniorange_social_sharing  shape="square" theme="default" space="4" size="30" url="http://miniorange.com"]</code>
+				<b>Example:</b> <code> [miniorange_social_sharing  shape="square" heading="Share with" color="#000000" fontcolor="blue" theme="nobackground" space="4" size="30" url="https://www.miniorange.com"]</code>
 				<br>
 				
-				<h4 style="margin-bottom:0 !important">Common attributes - horizontal and vertical</h4>
+				<h4 style="margin-bottom:0 !important">Common attributes - Horizontal and Vertical</h4>
 				<b>shape</b>: round, roundededges, square<br>
 				<b>theme</b>: default, custombackground, nobackground<br>
 				<b>size</b>: Any value between 20 to 100<br> 
 				<b>space</b>: Any value between 0 to 50<br>
 				<b>url</b>: Enter custom URL for sharing<br>
+				<b>fontcolor</b>: Enter custom color for icons (only works with no background theme)<br>
+				<h4 style="margin-bottom:0 !important">Horizontal attributes</h4>
+				<b>heading</b>: Enter custom heading text<br>
+				<b>color</b>: Enter custom text color for heading eg: cyan, red, blue, orange, yellow <br>
 				<br>
 				<b>Vertical attributes</b><br>
 				<b>alignment</b>: left,right<br>
@@ -2212,8 +2641,21 @@ function mo_openid_shortcode_info(){
 				<hr>
 			</td>
 		</tr>
-								
-		
+		<tr>
+			<td>
+				<h3><a   id="openid_comments_shortcode_title"  >Social Comments Shortcode</a></h3>
+				<div hidden="" id="openid_comments_shortcode" style="font-size:13px !important">
+				<code>[miniorange_social_comments]</code><br>	<br>			
+				1. Configure Social Comments in the Social Comments tab of the plugin.<br>	
+				2. Keep both the display options checked and Save.<br>	
+				3. Enable Comments for the post/page you want to add <br>	
+				4. <b>Pages-> Quick Edit-> Allow Comments</b> (Skip this step if you already have Comments enabled.)<br>	
+				5. Add the shortcode [miniorange_social_comments] to an individual page/post.<br>	
+
+				</div>
+				<hr>
+			</td>
+		</tr>
 		<tr>
 			<td>
 				<h3><a id="openid_shortcode_inphp_title">Shortcode in php file</a></h3>
@@ -2239,183 +2681,305 @@ function mo_openid_shortcode_info(){
 <?php	
 }
 
-function mo_openid_pricing_info(){ ?>
-	<td style="vertical-align:top;width:100%;">
-		<div class="mo_openid_table_layout">
-			<table class="mo_openid_pricing_table">
-		<h2>Licensing Plans For Social Login
-		<span style="float:right">
-			<input type="button" name="check_plan" id="check_plan" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> class="button button-primary button-large" value="Check License" onclick="checkLicense();"/>
-			<input type="button" name="ok_btn" id="ok_btn" class="button button-primary button-large" value="OK, Got It" onclick="window.location.href='admin.php?page=mo_openid_settings&tab=login'" />
-		</span>
-		</h2><hr>
-		<tr>
-			<?php if(!mo_openid_is_customer_valid()) { ?>
-			<td><div class="mo_openid_thumbnail mo_openid_pricing_free_tab" >
-				<h3 class="mo_openid_pricing_header">Free</h3>
-				<h4 class="mo_openid_pricing_sub_header">(You are automatically on this plan)<br/><br/></h4>
-				<hr>
-				<p class="mo_openid_pricing_text">$0 - One Time Payment<br/><br/><br/><br/></p>
-				<hr>
-				<p class="mo_openid_pricing_text">Social Sharing (Free Forever)<br/>
-					Social Comments (Free Forever)<br/>
-					Social Login
-					(Free for 30 days)<br/></p>
-					<p><br/><br/></p>
-					<p><br/></p><br/></p>
-				<hr/>
-				<p class="mo_openid_pricing_text"><br/><br/><br/></p>
-				<hr>
-				<p class="mo_openid_pricing_text">Basic Support by Email<br/><br/></p>
-			</div></td>
-			<?php } ?>
-			<td><div class="mo_openid_thumbnail mo_openid_pricing_free_tab" <?php if(mo_openid_is_customer_valid()) { ?> style="width:365px" <?php } ?>>
-				<h3 class="mo_openid_pricing_header">Do It Yourself</h3>
-				<?php if(!mo_openid_is_customer_valid()) { ?>
-				<h4 class="mo_openid_pricing_sub_header" style="padding-bottom:8px !important;"><a class="button button-primary button-large"
-				 onclick="upgradeform('wp_social_login_basic_plan')" >Upgrade Now</a></h4>
-				<?php } else { ?>
-				<h4 class="mo_openid_pricing_sub_header" style="padding-bottom:8px !important;"><a class="button button-primary button-large"
-				 onclick="upgradeform('social_login_recharge_plan')" >Recharge Now</a></h4>
-				<?php } ?>
-				<hr>
-				<p class="mo_openid_pricing_text">$9 - One Time Payment<br/>+<br/>$0 - For First 10,000 Logins**<br/><br/>
-					<?php if(mo_openid_is_customer_valid()) { ?>
-						Recharge Plans<br/>
-						<select class="mo_openid_license_select_option" <?php if(mo_openid_is_customer_valid()) { ?> style="padding-left:24% !important" <?php } ?>>
-						    <option>&nbsp;&nbsp;&nbsp;&nbsp;$9 for 10k logins</option>
-						    <option>&nbsp;&nbsp;&nbsp;$29 for 50k logins</option>
-						    <option>&nbsp;&nbsp;$69 for 100k logins</option>
-						    <option>&nbsp;$149 for 500k logins</option>
-						    <option>$249 for 1million logins</option>
-						</select>
-					<?php } ?>
-				</p>
-				<hr>
-				<p class="mo_openid_pricing_text">
-					Social Sharing<br/>
-					Social Comments<br/>
-					Social Login</p>
-					<p><br/><br/><br/></p>
-					<p><br/><br/></p>
-				<hr/>
-				<p class="mo_openid_pricing_text">Get access to user data like Name, Email, Username, Display Picture<br/><br/></p>
-				<hr>
-				<p class="mo_openid_pricing_text">Basic Support by Email<br/><br/></p>
-			</div></td>
-			<td><div class="mo_openid_thumbnail mo_openid_pricing_paid_tab" <?php if(mo_openid_is_customer_valid()) { ?> style="width:365px" <?php } ?>>
-				<h3 class="mo_openid_pricing_header">Best Value</h3>		
-				<?php if(!mo_openid_is_customer_valid() || (mo_openid_is_customer_valid() && mo_openid_get_customer_plan('Do It Yourself'))) { ?>
-				<h4 class="mo_openid_pricing_sub_header" style="padding-bottom:8px !important;"><a class="button button-primary button-large"
-				onclick="upgradeform('wp_social_login_best_value_basic_plan')" >Upgrade Now</a></h4>
-				<?php } else { ?>
-				<h4 class="mo_openid_pricing_sub_header" style="padding-bottom:8px !important;"><a class="button button-primary button-large"
-				onclick="upgradeform('social_login_recharge_plan')" >Recharge Now</a></h4>
-				<?php } ?>
-				<hr>
-				<p class="mo_openid_pricing_text">$19 - One Time Payment<br/>+<br/>$0 - For First 10,000 Logins**<br/><br/>
-					<?php if(mo_openid_is_customer_valid()) { ?>
-						Recharge Plans<br/>
-						<select class="mo_openid_license_select_option" <?php if(mo_openid_is_customer_valid()) { ?> style="padding-left:24% !important" <?php } ?>>
-						    <option>&nbsp;&nbsp;&nbsp;&nbsp;$9 for 10k logins</option>
-						    <option>&nbsp;&nbsp;&nbsp;$29 for 50k logins</option>
-						    <option>&nbsp;&nbsp;$69 for 100k logins</option>
-						    <option>&nbsp;$149 for 500k logins</option>
-						    <option>$249 for 1million logins</option>
-						</select>
-					<?php } ?>
-				<hr>
-				<p class="mo_openid_pricing_text">
-					Social Sharing<br/>
-					Social Comments<br/>
-					Social Login<br/>
-					Extended Profile Data<br/>
-					Social Analytics Dashboard Access<br/>
-					Custom Apps***<br/></p>
-					<p><br/><br/></p>
-				<hr/>
-				<p class="mo_openid_pricing_text">Get access to user data like Name, Email, Username, Display Picture and <a target="_blank" href="http://miniorange.com/social-data-from-social-sites" style="color:pink">Extended Profile Data</a></p>
-				<hr>
-				<p class="mo_openid_pricing_text">Basic Support by Email<br/><br/></p>
-			</div></td>
-			<td><div class="mo_openid_thumbnail mo_openid_pricing_free_tab" <?php if(mo_openid_is_customer_valid()) { ?> style="width:365px" <?php } ?>>
-				<h3 class="mo_openid_pricing_header">Premium</h3>
-				<?php if(!mo_openid_is_customer_valid() || (mo_openid_is_customer_valid() && !mo_openid_get_customer_plan('Premium'))) { ?>
-				<h4 class="mo_openid_pricing_sub_header" style="padding-bottom:8px !important;"><a class="button button-primary button-large"
-				onclick="upgradeform('wp_social_login_premium_plan')" >Upgrade Now</a></h4>
-				<?php } else { ?>
-				<h4 class="mo_openid_pricing_sub_header" style="padding-bottom:8px !important;"><a class="button button-primary button-large"
-				onclick="upgradeform('social_login_recharge_plan')" >Recharge Now</a></h4>
-				<?php } ?>
-				<hr>
-				<p class="mo_openid_pricing_text">$29 - One Time Payment<br/>+<br/>$0 - For First 10,000 Logins**<br/><br/>
-					<?php if(mo_openid_is_customer_valid()) { ?>
-						Recharge Plans<br/>
-						<select class="mo_openid_license_select_option" <?php if(mo_openid_is_customer_valid()) { ?> style="padding-left:24% !important" <?php } ?>>
-						    <option>&nbsp;&nbsp;&nbsp;&nbsp;$9 for 10k logins</option>
-						    <option>&nbsp;&nbsp;&nbsp;$29 for 50k logins</option>
-						    <option>&nbsp;&nbsp;$69 for 100k logins</option>
-						    <option>&nbsp;$149 for 500k logins</option>
-						    <option>$249 for 1million logins</option>
-						</select>
-					<?php } ?>
-				<hr>
-				<p class="mo_openid_pricing_text">
-					Social Sharing<br/>
-					Social Comments<br/>
-					Social Login<br/>
-					Extended Profile Data<br/>
-					Social Analytics Dashboard Access<br/>
-					Custom Apps***<br/>
-					Custom Integration<br/><br/>
-				</p>
-				<hr/>
-				<p class="mo_openid_pricing_text">Get access to user data like Name, Email, Username, Display Picture  and <a target="_blank" href="http://miniorange.com/social-data-from-social-sites" style="color:pink">Extended Profile Data</a></p>
-				<hr>
-				<p class="mo_openid_pricing_text">Premium Support<br/><br/></p>
-			</div></td>
-		</td>
-		</tr>
-		
-		</table>
-		<form style="display:none;" id="loginform" action="<?php echo get_option( 'mo_openid_host_name').'/moas/login'; ?>" 
-		target="_blank" method="post">
-		<input type="email" name="username" value="<?php echo get_option('mo_openid_admin_email'); ?>" />
-		<input type="text" name="redirectUrl" value="<?php echo get_option( 'mo_openid_host_name').'/moas/initializepayment'; ?>" />
-		<input type="text" name="requestOrigin" id="requestOrigin"  />
-		</form>
-		<form method="post" id="checkLicenseForm">
-			<input type="hidden" name="option" value="mo_openid_check_license">
-		</form>
-		<script>
-			function upgradeform(planType){
-				jQuery('#requestOrigin').val(planType);
-				jQuery('#loginform').submit();
-			}
-			function checkLicense(){
-				jQuery("#checkLicenseForm").submit();
-			}
-		</script>
-		<p><span style="color:rgba(255, 0, 0, 0.76);font-weight:bold;">* Free for 30 days</span> - The plugin uses miniOrange service for Social Login. This keeps the plugin light and delegates login to miniOrange servers thereby reducing the load on your website.</p>
-		<p>** Recharge Plans for logins available in all paid plans.</p>
-		<p>*** Configuring applications for Social Media is cumbersome due to which miniOrange takes care of configuring these apps. If you still wish you use your own applications for Social Login apps, custom apps can be configured for each Social Media in Best Value and Premium plans.</p>
+function mo_openid_pricing_info(){
+    ?>
+    <td style="vertical-align:top;width:100%;">
+        <div class="mo_openid_table_layout">
 
-		<h3>Steps to upgrade to premium plugin -</h3>
-		<p>1. You will be redirected to miniOrange Login Console. Enter your password with which you created an account with us. After that you will be redirected to payment page.</p>
-		<p>2. Enter you card details and complete the payment. On successful payment completion, you will see your payment listed in the Payment History.</p>
-		<p>3. Coming back to the plugin, on License Plans page click on <i>Check License</i> on top-right of the listed payment plans.</p>
-		<h3>Refund Policy -</h3>
-		<p><b>At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get resolved then we will refund the whole amount within 10 days of the purchase. Please email us at <a href="mailto:info@miniorange.com"><i>info@miniorange.com</i></a> for any queries regarding the return policy.</b></p>
-		<b>Not applicable for -</b>
-		<ol>
-			<li>Returns that are because of features that are not advertised.</li>
-			<li>Returns beyond 10 days.</li>
-			<li>Returns for Do It Yourself plan where you don't know how to do it yourself.</li>
-		</ol>
-		<br>
-		</div>
-	</td>
-<?php 
+            <h2>Licensing Plans For Social Login
+            <?php  if(get_option('mo_openid_oauth')!='1') {?>
+            <span style="float:right">
+			<input type="button" name="ok_btn" id="ok_btn" class="button button-primary button-large" value="OK, Got It" onclick="window.location.href='admin.php?page=mo_openid_settings&tab=login'" />
+			<input type="button" name="check_plan" id="check_plan" <?php if(!mo_openid_is_customer_registered()) echo 'disabled'?> class="button button-primary button-large" value="Check License" onclick="checkLicense();"/>
+            </span>
+            <?php   } ?>
+            </h2>
+
+            <table class="table mo_table-bordered mo_table-striped">
+
+                <thead>
+                <tr style="background-color:#0085ba;">
+                    <th width="25%"><br><br><h3><font color="#ffffff">Features / Plans</font></h3></th>
+                    <th class="text-center" style="" width="25%"><h3><font color="#ffffff">Free</h3><p class="mo_plan-desc"></p><h3>$0 - One Time Payment <br><br>(You are automatically on this plan)</font><br><br><span>
+							</span></h3></th>
+                    <th class="text-center" width="25%"><h3><font color="#ffffff">Standard</h3><p class="mo_plan-desc"></p><h3>$19 - One Time Payment</font><br><br>
+                            <span>
+
+									<input type="button" id="myButton" name="upgrade_btn" class="button button-default button-large" value="Upgrade" onclick="upgradeform('wp_social_login_standard_plan')" />
+
+
+								</span></h3></th>
+
+                    <th class="text-center" width="25%"><h3><font color="#ffffff">Premium</h3><p class="mo_plan-desc"></p><h3>$49 - One Time Payment</font><br><br><span>
+							<input type="button" id="myButton" name="upgrade_btn" class="button button-default button-large" value="Upgrade" onclick="upgradeform('wp_social_login_premium_plan')" />	</span></h3></th>
+
+
+                </tr>
+                </thead>
+
+                <tbody class="mo_align-center mo-fa-icon">
+                <tr>
+                    <td>Pre-configured Social Login Apps</td>
+                    <td>All 9 Apps*</td>
+                    <td>All 9 Apps*</i></td>
+                    <td>All 9 Apps*</td>
+                </tr>
+                <tr>
+                    <td>Custom Social Login Apps</td>
+                    <td>Facebook, Google, Twitter</td>
+                    <td>All 9 Apps*</i></td>
+                    <td>All 9 Apps*</td>
+                </tr>
+                <tr>
+                    <td>Beautiful Icon Customisations</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>16 Social Sharing Apps</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Facebook & Google+ Social Comments</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Login Redirect URL</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td> Logout Redirect URL</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Account Linking</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Profile completion (username, email)</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Profile Picture</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Customizable Text For Login Icons</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Option to enable/disable user registration </td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Basic Email Support</td>
+                    <td><i class="fa fa-check"></i></</td>
+                    <td><i class="fa fa-check"></i></</td>
+                    <td><i class="fa fa-check"></i></</td>
+                </tr>
+                <tr>
+                    <td>Email notification to admin </td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+				<tr>
+                    <td>Woocommerce Display Options</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>BuddyPress Display Options</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>BBPress Display Options</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Email Notification to multiple admins</td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Welcome email to end users </td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Customizable Email Notification template</td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Customizable welcome email template</td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Social Login Opens in a New Window</td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td title="Restrict registration/login for users with a specific domain ">Domain restriction </td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+				<tr>
+                    <td>Woocommerce Integration**</td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>BuddyPress Integration**</td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>MailChimp Integration**</td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Extended Profile Data***</td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Social Analytics Dashboard Access</td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Custom Integration****</td>
+                    <td><a target="_blank" href="<?php echo get_site_url() . "/wp-admin/admin.php?page=mo_openid_settings&tab=login";?> ">Contact Us using Support Form</a></td>
+                    <td><a target="_blank" href="<?php echo get_site_url() . "/wp-admin/admin.php?page=mo_openid_settings&tab=login";?> ">Contact Us using Support Form</a></td>
+                    <td><a target="_blank" href="<?php echo get_site_url() . "/wp-admin/admin.php?page=mo_openid_settings&tab=login";?> ">Contact Us using Support Form</a></td>
+                </tr>
+
+            </table>
+
+		   <br>
+            <hr>
+            <form style="display:none;" id="loginform" action="<?php echo get_option( 'mo_openid_host_name').'/moas/login'; ?>"
+                  target="_blank" method="post">
+                <input type="email" name="username" value="<?php echo get_option('mo_openid_admin_email'); ?>" />
+                <input type="text" name="redirectUrl" value="<?php echo get_option( 'mo_openid_host_name').'/moas/initializepayment'; ?>" />
+                <input type="text" name="requestOrigin" id="requestOrigin"  />
+            </form>
+            <form method="post" id="checkLicenseForm">
+                <input type="hidden" name="option" value="mo_openid_check_license">
+            </form>
+
+            <script>
+                function upgradeform(planType){
+                    jQuery('#requestOrigin').val(planType);
+                    jQuery('#loginform').submit();
+                }
+                function checkLicense(){
+                    jQuery("#checkLicenseForm").submit();
+                }
+            </script>
+            <p><b><span style="color:#da7587;font-weight:bold;">*Apps</span></b></p>
+            <ol>
+                <table border-spacing: 5px;>
+                    <tr>
+                        <td width="17%"><b>All 9 Apps :</b></td>
+                        <td>Facebook, Google, Twitter, Vkontakte, LinkedIn, Windows Live, Amazon, Instagram & Salesforce(on request)</td>
+                    </tr>
+                    <tr>
+                        <td width="17%"><b>Pre-configured Apps :</b></td>
+                        <td>Pre-configured apps are already configured by miniOrange. Login flow will go from plugin to miniOrange and then back to plugin.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Custom Social Login Apps :</b></td>
+                        <td>Using the custom app tab, you can set up your own app id and secret in the plugin. Login flow will not involve miniOrange in between. Login flow will go from plugin to social media application and then back to plugin. </td>
+                    </tr>
+                </table>
+            </ol>
+            <hr>
+            <p><b><span style="color:#da7587;font-weight:bold;">** Integration with other plugins</span></b></p>
+            <ol>
+                <table border-spacing: 5px;>
+                    <tr>
+                        <td width="17%"><b>BuddyPress Integration :</b></td>
+                        <td>Extended attributes returned from social app are mapped to Custom BuddyPress fields.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Woocommerce Integration :</b></td>
+                        <td>First name, last name and email are pre-filled in billing details of a user.</td>
+                    </tr>
+                    <tr>
+                        <td><b>MailChimp Integration :</b></td>
+                        <td>A user is added as a subscriber to a mailing list in MailChimp when that user registers using Social Login. First name, last name and email are also captured for that user in the Mailing List. Option is available to download csv file that has list of emails of all users in WordPress. </td>
+                    </tr>
+                </table>
+            </ol>
+            <hr>
+            <table>
+                <tr>
+                    <td width="17%"><span style="color:#da7587;font-weight:bold;">*** Extended Profile Data</span><b>:</b></td>
+                    <td>Extended profile data feature requires additional configuration. You need to have your own social media app and permissions from social media providers to collect extended user data.</td>
+                </tr>
+
+            </table>
+            <hr>
+            <table>
+                <tr>
+                    <td width="17%"><span style="color:#da7587;font-weight:bold;">**** Custom Integration</span><b>:</b></td>
+                    <td>If you have a specific custom requirement in the Social Login Plugin, we can implement and integrate it in the Plugin fo you. This includes all those custom features that come under the scope of Social Login/ Sharing/ Comments. These features are chargeable. Please send us a query through the support forum to get in touch with us about your custom requirements.</td>
+                </tr>
+            </table>
+            <h3>Refund Policy -</h3>
+            <p><b>At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get resolved then we will refund the whole amount within 10 days of the purchase. Please email us at <a href="mailto:info@miniorange.com"><i>info@miniorange.com</i></a> for any queries regarding the return policy.</b></p>
+            <b>Not applicable for -</b>
+            <ol>
+                <li>Returns that are because of features that are not advertised.</li>
+                <li>Returns beyond 10 days.</li>
+            </ol>
+
+        </div>
+
+
+    </td>
+
+    <?php
 }
 
 function mo_openid_troubleshoot_info(){ ?>
@@ -2431,7 +2995,7 @@ function mo_openid_troubleshoot_info(){ ?>
 		<tbody>
 
 		<tr><td>
-			<p>If any section is not opening, press CTRL + F5 to clear cache.<p>
+			<p>If you are unable to open any section, press CTRL + F5 to clear cache.<p>
 			<h3><a  id="openid_question_plugin" class="mo_openid_title_panel" >Site Issue</a></h3>
 			<div class="mo_openid_help_desc" hidden="" id="openid_question_plugin_desc">
 				<h4><a  id="openid_question14">I installed the plugin and my website stopped working. How can I recover my site?</a></h4>
@@ -2447,7 +3011,19 @@ function mo_openid_troubleshoot_info(){ ?>
 				For any further queries, please submit a query on right hand side in our <b>Support Section</b>.
 			</div>
 			<hr>
-		</td></tr>
+		</td></tr>	
+		
+		<tr><td>
+			<h3><a  id="openid_question_email" class="mo_openid_title_panel" >Change email</a></h3>
+			<div class="mo_openid_help_desc" hidden="" id="openid_question_email_desc">
+				<h4><a  id="openid_question20">I want to change the email address with which I access my account. How can I do that?</a></h4>
+				<div  id="openid_question20_desc">
+				You will have to register in miniOrange again with your new email id.
+				Please deactivate and activate the plugin by going to <strong>Plugins -> Installed Plugins</strong> and then go to the Social Login Plugin to register again. This will enable you to access miniOrange dashboard with new email address.</div><br/>
+				For any further queries, please submit a query on right hand side in our <b>Support Section</b>.
+			</div>
+			<hr>
+		</td></tr>			
 
 		<tr><td>				
 			<h3><a  id="openid_question_curl" class="mo_openid_title_panel" >cURL</a></h3>
@@ -2503,14 +3079,13 @@ function mo_openid_troubleshoot_info(){ ?>
 		</td></tr>
 		
 		
-				<tr><td>
+		<tr><td>
 					<h3><a  id="openid_question_login" class="mo_openid_title_panel" >Social Login</a></h3>
 					<div class="mo_openid_help_desc" hidden="" id="openid_question_login_desc">
+					
 					<h4><a  id="openid_question2"  >How to add login icons to frontend login page?</a></h4>
 					<div   id="openid_question2_desc">
 					You can add social login icons to frontend login page using our shortcode [miniorange_social_login]. Refer to 'Shortcode' tab to add customizations to Shortcode.
-						
-					
 					</div>
 					<hr>
 		
@@ -2520,11 +3095,12 @@ function mo_openid_troubleshoot_info(){ ?>
 					</div>
 					<hr>
 		
-					<h4><a  id="openid_question12" >Social Login icons are not added to login/registration form.</a></h3>
+					<h4><a  id="openid_question12" >Social Login icons are not added to login/registration form.</a></h4>
 					<div  id="openid_question12_desc">
 					Your login/registration form may not be wordpress's default login/registration form. In this case you can add social login icons to custom login/registration form using 'social login shortcode' [miniorange_social_login]. Refer to 'Shortcode' tab to add customizations to Shortcode.  
 					</div>
 					<hr>
+					
 					<h4><a  id="openid_question3"  >How can I redirect to my blog page after login?</a></h4>
 					<div  id="openid_question3_desc">
 					You can select one of the options from <b>Redirect URL after login</b> of <b>Display Option</b> section under <b>Social Login</b> tab. <br>
@@ -2533,23 +3109,75 @@ function mo_openid_troubleshoot_info(){ ?>
 					3. Account Dsahboard <br>
 					4. Custom URL - Example: https://www.example.com <br>
 					</div>
-
 					<hr>
+					
+					<?php if(get_option('mo_openid_oauth')!='1'){?>
 					<h4><a id="openid_question14">Can I configure my own apps for Facebook, Google+, Twitter etc.?</a></h4>
 					<div id="openid_question14_desc">
-					Yes, it is possible to configure your own app. That is available in Best Value and Premium plans (Custom apps).<br><br>
-					If you have already purchased one of the above plans, please contact us using the Support form on the right and we will help you set it up.<br> 
+					Yes, it is possible to configure your own app. That is available in the Standard and Premium plans.<br><br>
+					Please contact us using the Support form on the right if you want to purchase these plans.<br>
 					</div>
-
 					<hr>
+					<?php }?>
+					
 					<h4><a  id="openid_question11"  >After logout I am redirected to blank page</a></h4>
 					<div  id="openid_question11_desc">
 					Your theme and Social Login plugin may conflict during logout. To resolve it you need to uncheck <b>Enable Logout Redirection</b> checkbox under <b>Display Option</b> of <b>Social Login</b> tab. 
 					</div>
+					<hr>
 
+                    <?php if(get_option('mo_openid_oauth')!='1'){?>
+					<h4><a  id="openid_question7"  >I am not able to fetch extended attributes. How do I access extended attributes? </a></h4>
+					<div  id="openid_question7_desc">Check the option of Extended Attributes in the Social Login tab. Then in the miniOrange dashboard, go to Social analytics-> Social Applications Usage Summary, click on Search and then click on View under Additional Information to see extended attributes of users who login using your app. You can also download it as a csv there.<br> <strong >Note:</strong> Your app needs to have permission from users to collect extended attributes.
+					</div>
+					<hr>
+                    <?php }?>
+					
+					<h4><a  id="openid_question5"  >My users get the following message -"Registration has been disabled for this site. Please contact your administrator." What should I do?</a></h4>
+					<div  id="openid_question5_desc">
+					This means you must have unchecked the check-box of auto-register in the Social Login tab. Please check it. This will allow new users to be able to register to your site. 
+					</div>
+					<hr>
+					
+					<h4><a  id="openid_question7"  >Why do my users get a message that it is not secure to proceed?</a></h4>
+					<div  id="openid_question7_desc">Your website must be starting with http://. Now generally that's not an issue but our service uses https://( s stands for secure). You get a warning from the browser that the information is being passed insecurely. This happens after you log in to social media application and are coming back to your website. The warning is triggered from the browser since the data passes from https:// to http://, i.e. from a secure site to non-secure site.<br><br>We make sure that the information(email, name, username) getting passed from social media application to your website is encrypted with a key which is unique to you. So, even if the there is a warning of sending information without security, that information is encrypted. <br><br>
+
+					<?php if(get_option('mo_openid_oauth')=='1') {?>
+					<strong>To remove this warning, you can add an SSL certificate to your website to change it to https OR use your own <a href="admin.php?page=mo_openid_settings&tab=custom_app"></strong>Custom App</a>
+					
+					
+					<?php } else {?>
+					<strong>To remove this warning, you can add an SSL certificate to your website to change it to https OR use your own custom app</strong>
+					
+					<?php }?>
+					</div>
+					<hr>
+					
+					<h4><a  id="openid_question1"  >My users get the following message -"There was an error in registration. Please contact your administrator." What should I do?</a></h4>
+					<div  id="openid_question1_desc">
+					This message is thrown by WordPress when there is an error in user-registration. <br><br>
+					1. To see the actual error thrown by WordPress, go to \wordpress\wp-content\plugins\miniorange-login-openid\class-mo-openid-login-widget.php file  <br>
+					2. Search for the line :<br/><code> //print_r($user_id); </code> <br>
+					3. Change it to <br/> <code>print_r($user_id); </code><br>
+					4. Save the file and try logging again. Please send us the error you see while logging in through the support forum to your right.
+					</div>
+
+					<h4><a  id="openid_question6"  >How do I centre the social login icons?</a></h4>
+					<div  id="openid_question6_desc">
+					1.If you are making changes to a PHP file.<br/><br/>
+					Go to the PHP file which invokes your page/post and insert the following html snippet. Also, increase the margin-left value as per your requirement. Save the file. <br>
+					<code>&ltdiv style="margin-left:100px;"&gt <br>&lt?php echo do_shortcode('[miniorange_social_login]')?&gt <br>
+					&lt/div&gt </code><br/><br/>
+					2.If you are making changes to an HTML file.<br/><br/>
+					Go to the HTML file which invokes your page/post and insert the following html snippet. Also, increase the margin-left value as per your requirement. Save the file. <br>
+					<code>&ltdiv style="margin-left:100px;"&gt <br>[miniorange_social_login]')<br>
+					&lt/div&gt </code>					
+					</div>	
+					
 				</div>
 					<hr>
-		</td></tr>
+		</td></tr>		
+		
 		<tr><td>
 			<h3><a  id="openid_question_sharing" class="mo_openid_title_panel" >Social Sharing</a></h3>
 				<div class="mo_openid_help_desc" hidden="" id="openid_question_sharing_desc">
@@ -2576,50 +3204,32 @@ function mo_openid_troubleshoot_info(){ ?>
 				</div>
 				<hr>
 				
+				<h4><a  id="openid_question21" >There is no option of Instagram in Social Sharing. Why?</a></h4>
+				<div  id="openid_question21_desc">
+				Instagram has made a conscious effort to not allow sharing from external sources to fight spam and low quality photos.
+				At this point of time, uploading via Instagram's API from external sources is not possible.<br><br>
+				<a href='https://help.instagram.com/158826297591430' target='_blank'>https://help.instagram.com/158826297591430</a>
+				</div>
+				<hr>
+				
 				<h4><a  id="openid_question18" >Email share is not working. Why?</a></h4>
 				<div  id="openid_question18_desc">
 					Email share in the plugin is enabled through <b>mailto</b>. mailto is generally configured through desktop or browser so if it is not working, mailto is not setup or improperly configured.<br><br>
 					To set it up properly, search for "mailto settings " followed by your Operating System's name where you have your browser installed.
 				</div>
+				<hr>				
+
+				<h4><a id="openid_question19" >I cannot see some icons in preview or on blog even though I have selected them in the plugin settings.</a></h4>
+				<div  id="openid_question19_desc">
+					Please check if you have an Adblock extension installed on your browser where you are checking the plugin. If you do, the Adblock extension will have a setting to block Social buttons. Uncheck this option.
+					<br/><br/>
+					If you don't have Adblock installed and still face this issue, please contact us using the Support form on the right or mail us at info@miniorange.com.
+				</div>
+		
 				</div>
 				<hr>
 		</td></tr>
-		
-					
-		
-		
-		<tr><td>
-			<h3><a  id="openid_question_payment" class="mo_openid_title_panel">Payment</a></h3>
-				<div class="mo_openid_help_desc" hidden="" id="openid_question_payment_desc">
-					<h4><a id="openid_question16">What is a login? What is the validity of 10,000 logins?</a></h4>
-					<div id="openid_question16_desc">
-						Simply, when someone clicks on any Social Application button/icon to login or to register, that counts as a login.<br><br>
-						10,000 logins are included in all the plans. Logins do not have a validity period and can be used as and when required. When they are used up, Recharge Plans are available to add more logins.
-					</div>
-					<hr>
-					<h4><a id="openid_question15">What are the Recharge Plans for Social Login?</a></h4>
-					<div id="openid_question15_desc">
-						We have 5 Recharge Plans in Social Login for different volumes.<br><br>
-						1. $9 for 10,000 logins<br>
-						2. $29 for 50,000 logins<br>
-						3. $69 for 100,000 logins<br>
-						4. $149 for 500,000 logins<br>
-						5. $249 for 1,000,000 logins<br><br>
-						This data is also available on the Licensing Plans page after upgrade to any of the premium plans.
-					</div>
-					<hr>
-					<h4><a id="openid_question17">I have some more doubts regarding payment.</a></h4>
-					<div id="openid_question17_desc">
-						Please contact us using the Support form on the right or mail us at <a href="mailto:info@miniorange.com"><i>info@miniorange.com</i></a>.
-					</div>
-					<hr>
-				</div>
-					<hr>
-		</td></tr>
-		
-		
-		
-		
+
 		</tbody>
 		</table>
 	</div>
@@ -2629,6 +3239,413 @@ function mo_openid_troubleshoot_info(){ ?>
 		</td>
 	
 <?php	
+}
+
+function mo_openid_privacy_policy(){ ?>
+    <td style="vertical-align:top;width:65%;">
+        <div class="mo_openid_table_layout">
+
+            <table width="100%">
+                <tbody>
+
+                <tr><td>
+                        <p>If you are unable to open any section, press CTRL + F5 to clear cache.<p>
+                        <h3><a  id="openid_question_plugin" class="mo_openid_title_panel" >Terms used in this document</a></h3>
+                        <div class="mo_openid_help_desc" hidden="" id="openid_question_plugin_desc">
+                            <ol>
+                                    <li>Customer - Person who is registered with miniOrange and has installed the Social Login Plugin on his/her website  </li>
+                                    <li>End-user - Person who will log in to your site using social applications like Facebook, Google, Twitter etc. </li>
+                                    <li>miniOrange - Company owning the Social Login Plugin. </li>
+                                    <li>Social Profile Data - Information like the first name, last name, email address etc. that is fetched from a social application like Facebook when end-user logs into the website</li>
+                                <li>Website Administrator - Alias for Customer </li>
+                            </ol>
+                        </div>
+                        <hr>
+                    </td></tr>
+
+                <tr><td>
+                        <h3><a  id="openid_question_email" class="mo_openid_title_panel" >Introduction</a></h3>
+                        <div class="mo_openid_help_desc" hidden="" id="openid_question_email_desc">
+                            <div  id="openid_question20_desc">
+                                We protect your personal information using industry ­standard safeguards. We may share your information only with your consent or as required by law as detailed in this policy, and we will always let you know when we make significant changes to this Privacy Policy. Maintaining your trust is our top priority, so we adhere to the following principles to protect your privacy:
+                                <br><br>
+                                We protect your personal information and will only provide it to third parties:
+                                <ol>
+                                    <li>with your consent;  </li>
+                                    <li>where it is necessary to carry out your instructions; </li>
+                                    <li>as reasonably necessary in order to provide our features and functionality to you;  </li>
+                                    <li>when we reasonably believe it is required by law, subpoena or other legal process; or </li>
+                                    <li>as necessary to enforce our User Agreement or protect the rights, property, or safety of miniOrange, its Customers and End users,
+                                        and the public. </li>
+                                </ol>
+                               </div><br/>
+                        </div>
+                        <hr>
+                    </td></tr>
+
+                <tr><td>
+                        <h3><a  id="openid_question_curl" class="mo_openid_title_panel" >What information do we collect ? </a></h3>
+                        <div class="mo_openid_help_desc" hidden="" id="openid_question_curl_desc">
+
+                            <div  id="openid_question1_desc">
+                                1. When you register in the plugin, you provide us with information (including your name(optional), email address, phone number(optional), company name/website and password) that we use to offer you a personalized, relevant experience on miniOrange.
+                            </div>
+                            <hr>
+
+                            <div  id="openid_question1_desc">
+                                2. When you contact our Customer Support, personal contact information, such as name, company name, address, phone number, email address, and any other information necessary for us to provide Visitors with access to the various aspects of the Services. The Personal Information you provided is used for such purposes as answering questions, improving the content of the website, customizing the content, and communicating with the Visitors about
+                                miniOrange’s Services, including specials and new features.
+                            </div>
+                            <hr>
+
+                            <div  id="openid_question1_desc">
+                                3. When you contact us using our support form, we collect information that helps us categorize your question, respond to it, and, if applicable, investigate any breach of our User Agreement or this Privacy Policy. We also use this information to track potential problems and trends and customize our support responses to better serve you.
+                            </div>
+                            <hr>
+
+                            <div  id="openid_question1_desc">
+                                4. We do not collect email address from miniOrange production service for marketing use.
+                            </div>
+                            <hr>
+
+                            <div  id="openid_question1_desc">
+                                5. In the free and standard plans of the social login plugin, we collect the following information from your end users :
+                                <ol>
+                                    <li>First name   </li>
+                                    <li>last name  </li>
+                                    <li>username </li>
+                                    <li>email </li>
+                                    <li>application name </li>
+                                    <li>social profile url    </li>
+                                    <li>profile picture  </li>
+                                    <li>the identifier in the social application </li>
+                                </ol>
+                            </div>
+                            <hr>
+
+                            <div  id="openid_question1_desc">
+                                6. In the premium plugin, we collect the following information from your end users.
+                                <ol>
+                                    <li>First name   </li>
+                                    <li>last name  </li>
+                                    <li>username </li>
+                                    <li>email </li>
+                                    <li>application name </li>
+                                    <li>social profile url    </li>
+                                    <li>profile picture  </li>
+                                    <li>Age</li>
+                                    <li>Gender   </li>
+                                    <li>Location  </li>
+                                    <li>DOB</li>
+                                    <li>Company Name</li>
+                                    <li>Friend list</li>
+                                    <li>Contact number</li>
+                                    <li>website</li>
+                                    <li>Relationship Status</li>
+                                    <li>Education</li>
+                                    <li>university_name</li>
+                                    <li>description</li>
+                                    <li>placesLived</li>
+                                    <li>Industry</li>
+                                    <li>headline</li>
+
+                                </ol>
+                            </div>
+                        </div>
+                        <hr>
+                    </td></tr>
+
+                <tr><td>
+                        <h3><a  id="openid_question_otp" class="mo_openid_title_panel" >How we use personal information?</a></h3>
+                        <div class="mo_openid_help_desc" hidden="" id="openid_question_otp_desc">
+                            <div  id="openid_question7_desc">
+                                miniOrange Social Login Plugin gives two options to website administrators/customers/you<br>
+                                A. to login users with default miniOrange apps that are pre-configured in the plugin<br>
+                                B. to login users with custom apps that you can configure in the plugin
+                                <br><br>
+                                In the free & standard plugin, miniOrange collects data but it is not stored in miniOrange (except for an identifier for audit and usage purposes). This data is to log in the end-user on the WordPress website and for enhancing the end user's experience.
+                                <br><br>
+                                In the premium plugin, miniOrange collects and stores data only if the customer has chosen the Extended attributes feature. The data collected is for reporting for customers. miniOrange does not sell, reproduce or use this information in any way. Website administrators have the sole right to this information of end users.
+                            </div>
+                            <hr>
+
+                            <h4><a  id="openid_question8"  >Data Security when you choose A</a></h4>
+                            <div  id="openid_question8_desc">
+                                >><b> Right to be forgotten:</b> Social profile data that is fetched from a social application is stored in two places -> WordPress database & miniOrange. Website administrator can delete a specific end user's social profile data from WordPress & miniOrange if an end user requests so.
+                                <br><br>
+                                >> <b>User consent:</b> End users will be asked for consent if they agree to the terms and conditions of your website. If they deny consent, they will not be logged in and no data will be fetched.
+                                <br><br>
+                                >><b> Encryption: </b>All data that is in transit because of miniOrange is encrypted with a key that is unique to the customer registered in the Social Login plugin.
+                            </div>
+                            <hr>
+
+                            <h4><a  id="openid_question5" >Data Security when you choose B</a></h4>
+                            <div  id="openid_question5_desc">
+                                >> <b> Right to be forgotten:</b> Social profile data fetched from each social application is stored only in the WordPress database. Website administrator can delete a specific end user's social profile data from WordPress if an end user requests so.
+                                <br><br>
+                                >> <b>User consent:</b>  End users will be asked for consent if they agree to the terms and conditions of your website. If they deny consent, they will not be logged in and no data will be fetched.
+                            </div>
+
+                        </div>
+                        <hr>
+                    </td></tr>
+
+                </tbody>
+            </table>
+        </div>
+    </td>
+    <td style="vertical-align:top;padding-left:1%;">
+        <?php echo miniorange_openid_support(); ?>
+    </td>
+
+    <?php
+}
+
+function mo_openid_custom_app_config(){?>
+	<style>
+		.tableborder {
+			border-collapse: collapse;
+			width: 100%;
+			border-color:#eee;
+		}
+
+		.tableborder th, .tableborder td {
+			text-align: left;
+			padding: 8px;
+			border-color:#eee;
+		}
+
+		.tableborder tr:nth-child(even){background-color: #f2f2f2}
+	</style>
+	<div class="mo_table_layout" style="min-height: 400px;">
+	<?php
+	
+		if(isset($_GET['action']) && $_GET['action']=='delete'){
+			if(isset($_GET['app']))
+				delete_custom_app($_GET['app']);
+		} else if(isset($_GET['action']) && $_GET['action']=='instructions'){
+			if(isset($_GET['app']))
+				mo_custom_app_instructions($_GET['app']);
+		}
+		
+		if(isset($_GET['action']) && $_GET['action']=='add'){
+			add_custom_app();
+		} 
+		else if(isset($_GET['action']) && $_GET['action']=='update'){
+			if(isset($_GET['app'])) {
+                update_custom_app($_GET['app']);
+                mo_custom_app_instructions($_GET['app']);
+            }
+		}
+		else if(get_option('mo_openid_apps_list')){
+			$appslist = get_option('mo_openid_apps_list');
+			echo "<br><input onclick='window.location.href=\"admin.php?page=mo_openid_settings&tab=custom_app&action=add\"' type='button' class='button button-primary button-large' style='float:right;text-align:center;' value='Add Application'>";
+			echo "<h3>Applications List</h3>";
+			echo "<table class='tableborder'>";
+            echo "<tr><th><b>Name</b></th><th>Action</th><th>Enable Custom app</tr></tr>";
+			foreach($appslist as $key => $app){
+
+                $option = 'mo_openid_enable_custom_app_' . $key;
+
+                if(get_option($option) == '1'){
+                    $enable_status = 'checked';
+                }
+                else{
+                    $enable_status = '';
+                }
+                echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_openid_settings&tab=custom_app&action=update&app=".$key."'>Edit</a> | <a onclick='popup_delete_app(\"".$key."\")'>Delete</a>
+                </td><td><label class='mo-switch'>
+ 				<input type='checkbox' ". $enable_status ." onclick='enable_custom_app(\"".$key."\");  ' id='mo_id_".$key."'  >
+                <div class='mo-slider round' id='switch_checkbox' >
+                </div>
+                
+            	</label></td></tr>";
+            }
+			echo "</table>";
+            echo "<br><br><br><br><br><br><br><br>";
+            echo "<div style='text-align: center'><p><u>Please Note :</u><br>Enable custom app overrides the default app miniOrange uses. If you want to use the default app miniOrange uses, please disable the custom app here.<br>
+                  </p></div>";
+	
+		}elseif (get_option('mo_openid_apps_list')==null){
+            echo "<div style='text-align: center'><p>You have not configured any custom apps yet. Please click on <b>Add Application</b> to configure your own app.</p>";
+            echo "<br><input type='button' onclick='window.location.href=\"admin.php?page=mo_openid_settings&tab=custom_app&action=add\"' class='button button-primary button-large' style='text-align:center;' value='Add Application'>";
+            echo "<br><br><br><br><br><br><br>";
+
+        }?>
+		</div>
+		</td>
+    <script>
+        //ajax call for custom app over default app
+        function enable_custom_app(appname){
+
+            var checkbox_id = 'mo_id_'+appname;
+            var value = document.getElementById(checkbox_id).checked;
+
+            jQuery.ajax({
+                url:"<?php echo admin_url();?>", //the page containing php script
+                method: "POST", //request type,
+                data: {selected_app: appname, selected_app_value : value},
+                dataType: 'text',
+                success:function(result){
+
+                }
+            });
+        }
+    </script>
+<?php
+}
+
+function add_custom_app(){
+	?>
+
+		<script>
+			function selectapp() {
+				var appname = document.getElementById("mo_oauth_app").value;
+				document.getElementById("instructions").innerHTML  = "";
+                if(appname=="google"){
+                    document.getElementById("instructions").innerHTML  = '<br><strong>Instructions to configure Google :</strong><ol><li>Visit the Google website for developers <a href="https://console.developers.google.com/project"target="_blank">console.developers.google.com</a>.</li><li>Open the Google API Console Credentials page and go to API Manager -> Credentials</li><li>From the project drop-down, click on + to Create a new project, enter a name for the project, and optionally, edit the provided Project ID. Click Create.</li><li>On the Credentials menu, select Create credentials, then select OAuth client ID.</li><li>You may be prompted to set a product name on the Consent screen. If so, click Configure consent screen, supply the requested information, and click Save to return to the Credentials screen.</li><li>Select Web Application for the Application Type. Enter <b><?php echo site_url()."/openidcallback";?></b> in Authorized redirect URIs.</li><li>Click Create.</li><li>On the page that appears, copy the client ID and client secret to your clipboard, as you will need them to configure above.</li><li>Enable the Google+ API.<ul><li>In the Dashboard menu, click on ENABLE APIS AND SERVICES.</li><li>Type Google+ in search box, select Google+ API and click on Enable.</li></ul></li><li>Input scope as <b>https://www.googleapis.com/auth/userinfo.profile+ https://www.googleapis.com/auth/user.birthday.read+ https://www.googleapis.com/auth/plus.login+ https://www.googleapis.com/auth/plus.profile.emails.read+ https://www.googleapis.com/auth/userinfo.email+ https://www.googleapis.com/auth/plus.me </b></li><li>Go to Social Login tab to configure the display as well as other login settings.</li></ol>';
+                } else if(appname=="facebook"){
+                    document.getElementById("instructions").innerHTML  = '<br><strong>Instructions to configure Facebook : </strong><ol><li>Go to Facebook developers console <a href="https://developers.facebook.com/apps/" target="_blank">https://developers.facebook.com/apps/</a>. Login with your facebook developer account</li><li>Click on Create a New App/Add new App button</li><li>Enter <b>Display Name</b> and click on Create App ID</li><li>In Add Product select Facebook Login and click on Setup</li><li>Click on Web. Enter your Site URL. From the left pane, select <b>Facebook Login -> Settings</b>.</li><li>Under <b>Client OAuth Settings</b>, enter <b><?php echo site_url()."/openidcallback";?></b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li><li>Go to <b>App Review </b>make your app public. After making app public you will see on right top corner your app status changes from <b>In Development</b> to <b>Live</b>.</li><li>Go to Settings > Basic. Paste your App ID and App Secret provided by Facebook into the fields above.</li><li>Input <b> email, public_profile, user_friends </b>as scope.</li><li> If you want to access the <b>user_birthday, user_hometown, user_location</b> of a Facebook user, you need to send your app for review to Facebook. For submitting an app for review, click <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/review/how-to-submit ">here</a>. After your app is reviewed, you can add the scopes you have sent for review in the scope above. If your app is not approved or is in the process of getting approved, let the scope be <b>email, public_profile, user_friends</b>  </li><li>Click on the Save settings button.</li><li>Go to Social Login tab to configure the display as well as other login settings.</li></ol>';
+                } else if(appname=="twitter"){
+                    document.getElementById("instructions").innerHTML  = '<br><strong>Instructions to configure Twitter : </strong><ol><li>Go to <a href="https://apps.twitter.com/" target="_blank">https://apps.twitter.com/</a> and sign in with your twitter account.</li><li>Click on <b>Create New App</b>.</li> <li>Enter Name, description, website name and callback URL.</li><li><b>Callback URL</b> <br><u>Example of public website, </u><br>if your website URL is =><?php echo site_url();?><br> then your callback URL should be => <?php echo site_url();?>/openidcallback<br><u>Example of localhost,</u><br> Twitter may not accept local IPs so try using 127.0.0.1 instead of localhost.<br> Also make sure your Callback URL is prefixed with the website.  <br> Go to Settings-> General and replace "localhost" with "127.0.0.1" in <b>WordPress Address (URL)</b> and <b>Site Address (URL)</b> <br>if your website URL is => http://127.0.0.1/wordpress <br> then your callback URL should be => http://127.0.0.1/wordpress/openidcallback</li><li>Twitter might ask you to add your phone number to your profile while creating the app.</li><li>Check the developer agreement checkbox and click on <b>Create your Twitter Application</b>.Under <b>Keys and Access Token</b> Tab, you will find your <b>API Key/Secret</b>.Paste them into the fields above.</li><li>Leave the scope field blank.</li><li><u>Instructions to request email address of a user</u>: The “Request email addresses from users” checkbox is available under the app permissions on apps.twitter.com. Privacy Policy URL and Terms of Service URL fields must be completed in the app settings in order for email address access to function. If enabled, users will be informed via the oauth/authorize dialog that your app can access their email address.If the user does not have an email address on their account, or if the email address is not verified, email will not be returned.</li><li>Go to Permissions tab -> Access. Select <b>Read Only</b> type of access.</li><li>Click on the Update settings button.</li><li>Go to Social Login tab to configure the display as well as other login settings.</li></ol>';
+                }
+				
+			}
+
+		</script>	
+		<div id="toggle2" class="panel_toggle">
+			<h3>Add Application</h3>
+		</div>
+		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_openid_settings&tab=custom_app">
+		<input type="hidden" name="option" value="mo_openid_add_custom_app" /> 
+		<table class="mo_settings_table">
+			<tr>
+			<td><strong><font color="#FF0000">*</font>Select Application:</strong></td>
+			<td>
+				<select class="mo_table_textbox" style="width:500px;" required="true" name="mo_oauth_app_name" id="mo_oauth_app" onchange="selectapp()">
+				  <option value="">Select Application</option>
+				  <option value="google">Google</option>
+				  <option value="facebook">Facebook</option>
+				  <option value="twitter">Twitter</option>
+				</select>
+			</td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
+				<td><input class="mo_table_textbox" required="" style="height: 27px; width:500px" type="text" name="mo_oauth_client_id" value=""></td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client Secret:</strong></td>
+				<td><input class="mo_table_textbox" required="" style="height: 27px; width:500px" type="text"  name="mo_oauth_client_secret" value=""></td>
+			</tr>
+			<tr>
+				<td><strong>Scope:</strong></td>
+				<td><input class="mo_table_textbox" style="height: 27px; width:500px"  type="text" name="mo_oauth_scope" value=""></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" name="submit" value="Save settings" class="button button-primary button-large" />
+                    <input type="button" name="back" onclick="goBack();" value="Back" class="button button-primary button-large" />
+                </td>
+			</tr>
+			</table>
+		</form>
+		
+		<div id="instructions">
+			
+         </div>
+         <script>
+         function goBack(){
+
+            var base_url = '<?php echo site_url();?>';
+            base_url += '/wp-admin/admin.php?page=mo_openid_settings&tab=custom_app';
+            window.location.href= base_url ;
+         }
+         </script>
+		
+		<?php
+}
+
+function update_custom_app($appname){
+	
+	$appslist = get_option('mo_openid_apps_list');
+	foreach($appslist as $key => $app){
+		if($appname == $key){
+			$currentappname = $appname;
+			$currentapp = $app;
+			break;
+		}
+	}
+	
+	if(!$currentapp)
+		return;
+	?>
+		
+		<div id="toggle2" class="panel_toggle">
+			<h3>Update Application</h3>
+		</div>
+		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_openid_settings&tab=custom_app">
+		<input type="hidden" name="option" value="mo_openid_add_custom_app" /> 
+		<table class="mo_settings_table">
+			<tr>
+			<td><strong><font color="#FF0000">*</font>Application:</strong></td>
+			<td>
+				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
+				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
+				<?php echo $currentappname;?><br><br>
+			</td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
+				<td><input class="mo_table_textbox" required="" style="height: 27px; width:500px" type="text" name="mo_oauth_client_id" value="<?php echo $currentapp['clientid'];?>"></td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client Secret:</strong></td>
+				<td><input class="mo_table_textbox" required="" style="height: 27px; width:500px" type="text" name="mo_oauth_client_secret" value="<?php echo $currentapp['clientsecret'];?>"></td>
+			</tr>
+			<tr>
+				<td><strong>Scope:</strong></td>
+				<td><input class="mo_table_textbox" style="height: 27px; width:500px" type="text" name="mo_oauth_scope" value="<?php echo $currentapp['scope'];?>"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" name="submit" value="Save settings" class="button button-primary button-large" />
+                    <input type="button" name="back" onclick="goBack();" value="Back" class="button button-primary button-large" />
+                </td>
+			</tr>
+		</table>
+		</form>
+        <script>
+            function goBack(){
+
+                var base_url = '<?php echo site_url();?>';
+                base_url += '/wp-admin/admin.php?page=mo_openid_settings&tab=custom_app';
+                window.location.href= base_url ;
+            }
+        </script>
+		<?php
+}
+
+function delete_custom_app($appname){
+	$appslist = get_option('mo_openid_apps_list');
+	foreach($appslist as $key => $app){
+		if($appname == $key){
+			unset($appslist[$key]);
+		}
+	}
+	update_option('mo_openid_apps_list', $appslist);
+}
+
+function mo_custom_app_instructions($appname){
+    if($appname=="google"){
+        echo '<br><strong>Instructions to configure Google :</strong><ol><li>Visit the Google website for developers <a href="https://console.developers.google.com/project"target="_blank">console.developers.google.com</a>.</li><li>Open the Google API Console Credentials page and go to API Manager -> Credentials</li><li>From the project drop-down, choose Create a new project, enter a name for the project, and optionally, edit the provided Project ID. Click Create.</li><li>On the Credentials page, select Create credentials, then select OAuth client ID.</li><li>You may be prompted to set a product name on the Consent screen. If so, click Configure consent screen, supply the requested information, and click Save to return to the Credentials screen.</li><li>Select Web Application for the Application Type. Follow the instructions to enter JavaScript origins, redirect URIs, or both. provide <b>'.site_url().'/openidcallback</b> for the Redirect URI.</li><li>Click Create.</li><li>On the page that appears, copy the client ID and client secret to your clipboard, as you will need them to configure above.</li><li>Enable the Google+ API.<ul><li>In the Dashboard menu, click on ENABLE APIS AND SERVICES.</li><li>Type Google+ in search box, select Google+ API and click on Enable.</li></ul></li><li>Input scope as <b>https://www.googleapis.com/auth/userinfo.profile+ https://www.googleapis.com/auth/user.birthday.read+ https://www.googleapis.com/auth/plus.login+ https://www.googleapis.com/auth/plus.profile.emails.read+ https://www.googleapis.com/auth/userinfo.email+ https://www.googleapis.com/auth/plus.me </b></li><li>Go to Social Login tab and configure the icons.</li></ol>';
+    } else if($appname=="facebook"){
+        echo '<br><strong>Instructions to configure Facebook : </strong><ol><li>Go to Facebook developers console <a href="https://developers.facebook.com/apps/" target="_blank">https://developers.facebook.com/apps/</a>. Login with your facebook developer account</li><li>Click on Create a New App/Add new App button</li><li>Enter <b>Display Name</b> and click on Create App ID</li><li>In Add Product select Facebook Login and click on Setup</li><li>Click on Web. Enter your Site URL. From the left pane, select <b>Facebook Login -> Settings</b>.</li><li>Under <b>Client OAuth Settings</b>, enter <b>'.site_url().'/openidcallback</b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li><li>Go to <b>App Review </b>make your app public. After making app public you will see on right top corner your app status changes from <b>In Development</b> to <b>Live</b>.</li><li>Go to Settings > Basic. Paste your App ID and App Secret provided by Facebook into the fields above.</li><li>Input <b> email, public_profile, user_friends </b>as scope.</li><li> If you want to access the <b>user_birthday, user_hometown, user_location</b> of a Facebook user, you need to send your app for review to Facebook. For submitting an app for review, click <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/review/how-to-submit ">here</a>. After your app is reviewed, you can add the scopes you have sent for review in the scope above. If your app is not approved or is in the process of getting approved, let the scope be <b>email, public_profile, user_friends</b>  </li><li>Click on the Save settings button.</li><li>Go to Social Login tab to configure the display as well as other login settings.</li></ol>';
+    } else if($appname=="twitter"){
+        echo '<br><strong>Instructions to configure Twitter : </strong><ol><li>Go to <a href="https://apps.twitter.com/" target="_blank">https://apps.twitter.com/</a> and sign in with your twitter account.</li><li>Click on <b>Create New App</b>.</li> <li>Enter Name, description, website name and callback URL.</li><li><b>Callback URL</b> <br><u>Example of public website, </u><br>if your website URL is =>'.site_url().'<br> then your callback URL should be => '.site_url().'/openidcallback'.'<br><u>Example of localhost,</u><br> Twitter may not accept local IPs so try using 127.0.0.1 instead of localhost.<br> Also make sure your Callback URL is prefixed with the website.  <br> Go to Settings-> General and replace "localhost" with "127.0.0.1" in <b>WordPress Address (URL)</b> and <b>Site Address (URL)</b> <br>if your website URL is => http://127.0.0.1/wordpress <br> then your callback URL should be => http://127.0.0.1/wordpress/openidcallback </li><li>Twitter might ask you to add your phone number to your profile while creating the app.</li><li>Check the developer agreement checkbox and click on <b>Create your Twitter Application</b>.Under <b>Keys and Access Token</b> Tab, you will find your <b>API Key/Secret</b>.Paste them into the fields above.</li><li>Leave the scope field blank.</li><li><u>Instructions to request email address of a user</u>: The “Request email addresses from users” checkbox is available under the app permissions on apps.twitter.com. Privacy Policy URL and Terms of Service URL fields must be completed in the app settings in order for email address access to function. If enabled, users will be informed via the oauth/authorize dialog that your app can access their email address.If the user does not have an email address on their account, or if the email address is not verified, email will not be returned.</li><li>Go to Permissions tab -> Access. Select <b>Read Only</b> type of access.</li><li>Click on the Update settings button.</li><li>Go to Social Login tab to configure the display as well as other login settings.</li></ol>';
+    }
+    
 }
 
 function mo_openid_is_customer_registered() {
@@ -2648,7 +3665,7 @@ function miniorange_openid_support(){
 	<div class="mo_openid_support_layout">
 
 			<h3>Support</h3>
-			<p>Need any help? Just send us a query so we can help you.</p>
+			<p>Need any help? Couldn't find an answer in <a href="<?php echo add_query_arg( array('tab' => 'help'), $_SERVER['REQUEST_URI'] ); ?>">FAQ</a>?<br>Just send us a query so we can help you.</p>
 			<form method="post" action="">
 				<input type="hidden" name="option" value="mo_openid_contact_us_query_option" />
 				<table class="mo_openid_settings_table">

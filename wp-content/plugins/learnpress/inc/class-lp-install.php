@@ -25,13 +25,23 @@ class LP_Install {
 	 */
 	private static $_update_files = array();
 
+	/**
+	 * @var null
+	 */
 	private static $_is_old_version = null;
+
+	/**
+	 * Default static pages used by LP
+	 *
+	 * @var array
+	 */
+	private static $_pages = array( 'checkout', 'cart', 'profile', 'courses', 'become_a_teacher' );
 
 	/**
 	 * Init
 	 */
 	public static function init() {
-		//add_action( 'admin_init', array( __CLASS__, 'get_update_versions' ), - 15 );
+		add_action( 'learn_press_activate', array( __CLASS__, 'install' ) );
 		add_action( 'admin_init', array( __CLASS__, 'include_update' ), - 10 );
 		add_action( 'admin_init', array( __CLASS__, 'update_from_09' ), 5 );
 		add_action( 'admin_init', array( __CLASS__, 'check_version' ), 5 );
@@ -73,10 +83,10 @@ class LP_Install {
 		if ( self::_need_to_update() ) {
 			// Notify for administrator
 			if ( empty( $ask ) && learn_press_current_user_is( 'administrator' ) ) {
-				LP_Admin_Assets::enqueue_style( 'learn-press-upgrade', LP()->plugin_url( 'inc/updates/09/style.css' ) );
-				LP_Admin_Assets::enqueue_script( 'learn-press-upgrade', LP()->plugin_url( 'inc/updates/09/script.js' ) );
+				LP_Assets::enqueue_style( 'learn-press-upgrade', LP()->plugin_url( 'inc/updates/09/style.css' ) );
+				LP_Assets::enqueue_script( 'learn-press-upgrade', LP()->plugin_url( 'inc/updates/09/script.js' ) );
 				$upgrade_url = wp_nonce_url( admin_url( 'options-general.php?page=learn_press_upgrade_from_09' ), 'learn-press-upgrade-09' );
-				$message     = sprintf( '<p>%s</p>', __( 'It seem to be you have updated LearnPress from old version and there are some courses or data is out of date and need to upgrade.', 'learnpress' ) );
+				$message     = sprintf( '<p>%s</p>', __( 'It seems like you have updated LearnPress from an older version and there are some outdated courses or data that need to be upgraded.', 'learnpress' ) );
 				$message .= sprintf( '<div id="learn-press-confirm-abort-upgrade-course"><p><label><input type="checkbox" id="learn-press-ask-again-abort-upgrade" /> %s</label></p><p><button href="" class="button disabled" data-action="yes">%s</button> <button href="" class="button" data-action="no">%s</button> </p></div>', __( 'Do not ask again.', 'learnpress' ), __( 'Ok', 'learnpress' ), __( 'Cancel', 'learnpress' ) );
 				$message .= sprintf( '<p id="learn-press-upgrade-course-actions"><a href="%s" class="button" data-action="upgrade">%s</a>&nbsp;<button class="button disabled" data-action="abort">%s</button></p>', $upgrade_url, __( 'Upgrade now', 'learnpress' ), __( 'No, thank!', 'learnpress' ) );
 
@@ -101,7 +111,7 @@ class LP_Install {
 			$expiration = 0;
 		}
 		set_transient( 'learn_press_upgrade_courses_ask_again', $ask_again, $expiration );
-		learn_press_send_json( array( 'result' => 'success', 'message' => sprintf( '<p>%s</p>', __( 'Thank for using LearnPress', 'learnpress' ) ) ) );
+		learn_press_send_json( array( 'result' => 'success', 'message' => sprintf( '<p>%s</p>', __( 'Thank you for using LearnPress', 'learnpress' ) ) ) );
 	}
 
 	public static function upgrade_wizard() {
@@ -165,9 +175,10 @@ class LP_Install {
 		global $wpdb;
 		self::_create_options();
 		self::_create_tables();
+		self::_create_cron_jobs();
+		self::create_files();
 		self::create_files();
 		self::create_pages();
-
 		$sql = "DELETE a, b FROM $wpdb->options a, $wpdb->options b
 			WHERE a.option_name LIKE %s
 			AND a.option_name NOT LIKE %s
@@ -175,7 +186,19 @@ class LP_Install {
 			AND b.option_value < %d";
 		$wpdb->query( $wpdb->prepare( $sql, $wpdb->esc_like( '_transient_' ) . '%', $wpdb->esc_like( '_transient_timeout_' ) . '%', time() ) );
 
-		add_action( 'admin_init', array( __CLASS__, '_auto_update' ), - 15 );
+		learn_press_delete_user_option( 'hide-notice-template-files' );
+		
+		// Fix for WP 4.7
+		if ( did_action( 'admin_init' ) ) {
+			self::_auto_update();
+		} else {
+			add_action( 'admin_init', array( __CLASS__, '_auto_update' ), - 15 );
+		}
+	}
+
+	private static function _create_cron_jobs() {
+		wp_clear_scheduled_hook( 'learn_press_cleanup_sessions' );
+		wp_schedule_event( time(), apply_filters( 'learn_press_cleanup_session_recurrence', 'twicedaily' ), 'learn_press_cleanup_sessions' );
 	}
 
 	public static function _auto_update() {
@@ -183,28 +206,79 @@ class LP_Install {
 		self::update();
 	}
 
-	public static function _search_page( $type ) {
-		global $wpdb;
-		$query   = $wpdb->prepare( "
-			SELECT ID
-			FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = %s AND pm.meta_value = %s
-		", '_learn_press_page', $type );
-		$page_id = $wpdb->get_var( $query );
+	public static function _search_page( $type, $types ) {
+		static $pages = array();
+		if ( empty( $pages[$type] ) ) {
+			global $wpdb;
+			$in_types = array_fill( 0, sizeof( $types ), '%s' );
+			$args     = array( '_learn_press_page' );
+			$args     = array_merge( $args, $types );
+			$args[]   = 'publish';
+			$query    = $wpdb->prepare( "
+				SELECT ID, pm.meta_value as type
+				FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = %s AND pm.meta_value IN(" . join( ',', $in_types ) . ")
+				WHERE p.post_status = %s
+			", $args );
+			if ( $rows = $wpdb->get_results( $query ) ) {
+				foreach ( $rows as $row ) {
+					$pages[$row->type] = $row->ID;
+				}
+			}
+		}
+
+		$page_id = !empty( $pages[$type] ) ? $pages[$type] : 0;
 
 		return $page_id;
 	}
 
+	/**
+	 * Remove learnpress page if total of learn page > 10
+	 * @global type $wpdb
+	 * @return type
+	 */
+	public static function _remove_pages() {
+		global $wpdb;
+		$sql       = 'SELECT * '
+			. ' FROM ' . $wpdb->posts . ' p INNER JOIN  ' . $wpdb->postmeta . ' pm '
+			. ' ON p.ID=pm.post_id AND pm.meta_key="_learn_press_page" AND p.post_type="page";';
+		$ids       = $wpdb->get_col( $sql );
+		$count_ids = count( $ids );
+		if ( $count_ids < 10 ) {
+			return $ids;
+		}
+		$q = $wpdb->prepare( "
+				DELETE FROM p, pm
+				USING {$wpdb->posts} AS p LEFT JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id AND p.post_type IN('page')
+				WHERE %d AND p.post_status='publish' AND p.ID IN(" . implode( ',', $ids ) . ")
+		", 1 );
+
+		$wpdb->query( $q );
+
+		$pages = self::$_pages;
+		foreach ( $pages as $page ) {
+			delete_option( "learn_press_{$page}_page_id" );
+		}
+		sleep( 5 );
+		return array();
+
+	}
+
 	public static function create_pages() {
 		global $wpdb;
-		$pages = array( 'checkout', 'cart', 'profile', 'courses', 'become_a_teacher' );
+		$created_page = self::_remove_pages();
 
+		if ( !empty( $created_page ) ) {
+			return;
+		}
+
+		$pages = self::$_pages;
 		foreach ( $pages as $page ) {
 			$page_id = get_option( "learn_press_{$page}_page_id" );
-			if ( $page_id && get_post_type( $page_id ) == 'page' ) {
+			if ( $page_id && get_post_type( $page_id ) == 'page' && get_post_status( $page_id ) == 'publish' ) {
 				continue;
 			}
-			$page_id = self::_search_page( $page );
+			$page_id = self::_search_page( $page, $pages );
 			if ( !$page_id ) {
 				// Check if page has already existed
 				switch ( $page ) {
@@ -231,16 +305,18 @@ class LP_Install {
 						break;
 				}
 
-				if ( !$page_id && wp_insert_post(
+				if ( !$page_id ) {
+					$inserted = wp_insert_post(
 						array(
 							'post_title'     => 'LP ' . ucwords( str_replace( '_', ' ', $page ) ),
 							'post_status'    => 'publish',
 							'post_type'      => 'page',
 							'comment_status' => 'closed'
 						)
-					)
-				) {
-					$page_id = $wpdb->insert_id;
+					);
+					if ( $inserted ) {
+						$page_id = $inserted;
+					}
 				}
 			}
 			if ( $page_id ) {
@@ -375,12 +451,13 @@ class LP_Install {
 
 	public static function update_db_version( $version = null ) {
 		delete_option( 'learnpress_db_version' );
-		add_option( 'learnpress_db_version', is_null( $version ) ? LEARNPRESS_VERSION : $version );
+		update_option( 'learnpress_db_version', is_null( $version ) ? LEARNPRESS_VERSION : $version );
 	}
 
 	public static function update_version( $version = null ) {
+
 		delete_option( 'learnpress_version' );
-		add_option( 'learnpress_version', is_null( $version ) ? LEARNPRESS_VERSION : $version );
+		update_option( 'learnpress_version', is_null( $version ) ? LEARNPRESS_VERSION : $version );
 	}
 
 	private static function _create_options() {
@@ -402,7 +479,8 @@ class LP_Install {
 				foreach ( $options as $option ) {
 					if ( isset( $option['default'] ) && isset( $option['id'] ) ) {
 						$autoload = isset( $option['autoload'] ) ? (bool) $option['autoload'] : true;
-						add_option( $option['id'], $option['default'], '', ( $autoload ? 'yes' : 'no' ) );
+						$value    = get_option( $option['id'], $option['default'] );
+						update_option( $option['id'], $value, '', ( $autoload ? 'yes' : 'no' ) );
 					}
 				}
 			}
@@ -416,10 +494,10 @@ class LP_Install {
 		);
 		foreach ( $custom_options as $option_name => $option_value ) {
 			if ( !get_option( $option_name ) ) {
-				add_option( $option_name, maybe_unserialize( $option_value ), 'yes' );
+				update_option( $option_name, maybe_unserialize( $option_value ), 'yes' );
 			}
 		}
-		set_transient( 'learn_press_install', 'yes', 24 * 3600 );
+		update_option( 'learn_press_install', 'yes');
 	}
 
 	private static function _create_tables() {
@@ -428,7 +506,10 @@ class LP_Install {
 		$wpdb->hide_errors();
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		dbDelta( self::_get_schema() );
+		$schema = self::_get_schema();
+		if ( $schema ) {
+			dbDelta( $schema );
+		}
 		LP_Debug::instance()->add( 'create_table' );
 	}
 
@@ -446,117 +527,129 @@ class LP_Install {
 			}
 		}
 
-		$query = "
-CREATE TABLE {$wpdb->prefix}learnpress_order_itemmeta (
-  meta_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  learnpress_order_item_id bigint(20) unsigned NOT NULL DEFAULT '0',
-  meta_key varchar(45) NOT NULL DEFAULT '',
-  meta_value longtext NOT NULL,
-  PRIMARY KEY  (meta_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_order_items (
-  order_item_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  order_item_name longtext NOT NULL,
-  order_id bigint(20) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY  (order_item_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_question_answers (
-  question_answer_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  question_id bigint(20) unsigned NOT NULL DEFAULT '0',
-  answer_data text NOT NULL,
-  answer_order bigint(20) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY  (question_answer_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_quiz_questions (
-  quiz_question_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  quiz_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  question_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  question_order bigint(11) unsigned NOT NULL DEFAULT '1',
-  params longtext NULL,
-  PRIMARY KEY  (quiz_question_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_review_logs (
-  review_log_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  course_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  user_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  message text NOT NULL,
-  date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  status varchar(45) NOT NULL DEFAULT '',
-  user_type varchar(45) NOT NULL DEFAULT '',
-  PRIMARY KEY  (review_log_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_section_items (
-  section_item_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  section_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  item_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  item_order bigint(11) unsigned NOT NULL DEFAULT '0',
-  item_type varchar(45),
-  PRIMARY KEY  (section_item_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_sections (
-  section_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  section_name varchar(255) NOT NULL DEFAULT '',
-  section_course_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  section_order bigint(5) unsigned NOT NULL DEFAULT '0',
-  section_description longtext NOT NULL,
-  PRIMARY KEY  (section_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_user_courses (
-  user_course_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  user_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  course_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  start_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  end_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  status varchar(45) NOT NULL DEFAULT '',
-  order_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY  (user_course_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_user_quizmeta (
-  learnpress_user_quiz_id bigint(11) unsigned NOT NULL,
-  meta_key varchar(45) NOT NULL DEFAULT '',
-  meta_value text NOT NULL,
-  meta_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY  (meta_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_user_quizzes (
-  user_quiz_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  user_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  quiz_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  course_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY  (user_quiz_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_user_lessons (
-  user_lesson_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  user_id bigint(11) unsigned NOT NULL,
-  lesson_id bigint(11) unsigned NOT NULL,
-  course_id bigint(11) DEFAULT NULL,
-  start_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  end_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  status varchar(20) DEFAULT NULL,
-  PRIMARY KEY  (user_lesson_id)
-) $collate;
-";
-		if ( LEARN_PRESS_UPDATE_DATABASE ) {
+		$table = $wpdb->prefix . 'learnpress_order_itemmeta';
+		$query = '';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
 			$query .= "
-CREATE TABLE {$wpdb->prefix}learnpress_user_course_items (
-  user_course_item_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  user_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  item_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  course_id bigint(11) unsigned NOT NULL DEFAULT '0',
-  start_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  end_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  item_type varchar(45) NOT NULL DEFAULT '',
-  status varchar(45) NOT NULL DEFAULT '',
-  PRIMARY KEY  (user_course_item_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}learnpress_user_course_itemmeta (
-  meta_id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  learnpress_user_course_item_id bigint(11) unsigned NOT NULL,
-  meta_key varchar(45) NOT NULL DEFAULT '',
-  meta_value text NOT NULL,
-  PRIMARY KEY  (meta_id)
-) $collate;
-";
+				CREATE TABLE {$wpdb->prefix}learnpress_order_itemmeta (
+					meta_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					learnpress_order_item_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					meta_key varchar(45) NOT NULL DEFAULT '',
+					meta_value longtext NOT NULL,
+					PRIMARY KEY  (meta_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_order_items';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_order_items (
+					order_item_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					order_item_name longtext NOT NULL,
+					order_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					PRIMARY KEY  (order_item_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_question_answers';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_question_answers (
+					question_answer_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					question_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					answer_data text NOT NULL,
+					answer_order bigint(20) unsigned NOT NULL DEFAULT '0',
+					PRIMARY KEY  (question_answer_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_quiz_questions';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_quiz_questions (
+					quiz_question_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					quiz_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					question_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					question_order bigint(20) unsigned NOT NULL DEFAULT '1',
+					params longtext NULL,
+					PRIMARY KEY  (quiz_question_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_review_logs';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_review_logs (
+					review_log_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					course_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					user_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					message text NOT NULL,
+					date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+					status varchar(45) NOT NULL DEFAULT '',
+					user_type varchar(45) NOT NULL DEFAULT '',
+					PRIMARY KEY  (review_log_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_section_items';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_section_items (
+					section_item_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					section_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					item_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					item_order bigint(20) unsigned NOT NULL DEFAULT '0',
+					item_type varchar(45),
+					PRIMARY KEY  (section_item_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_sections';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_sections (
+					section_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					section_name varchar(255) NOT NULL DEFAULT '',
+					section_course_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					section_order bigint(5) unsigned NOT NULL DEFAULT '0',
+					section_description longtext NOT NULL,
+					PRIMARY KEY  (section_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_sessions';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE  {$wpdb->prefix}learnpress_sessions (
+					session_id bigint(20) NOT NULL AUTO_INCREMENT,
+					session_key char(32) NOT NULL,
+					session_value longtext NOT NULL,
+					session_expiry bigint(20) NOT NULL,
+					UNIQUE KEY session_id (session_id),
+					PRIMARY KEY  (session_key)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_user_items';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_user_items (
+					user_item_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					user_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					item_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					start_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+					end_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+					item_type varchar(45) NOT NULL DEFAULT '',
+					status varchar(45) NOT NULL DEFAULT '',
+					ref_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					ref_type varchar(45) DEFAULT '',
+					parent_id bigint(20) unsigned NOT NULL DEFAULT '0',
+					PRIMARY KEY  (user_item_id)
+				) $collate;";
+		}
+		$table = $wpdb->prefix . 'learnpress_user_itemmeta';
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table}'" ) !== $table ) {
+			$query .= "
+				CREATE TABLE {$wpdb->prefix}learnpress_user_itemmeta (
+					meta_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					learnpress_user_item_id bigint(20) unsigned NOT NULL,
+					meta_key varchar(45) NOT NULL DEFAULT '',
+					meta_value text NOT NULL,
+					PRIMARY KEY  (meta_id)
+				) $collate;
+				";
 		}
 		return $query;
 	}

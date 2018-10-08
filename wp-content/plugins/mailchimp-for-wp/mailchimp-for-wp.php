@@ -3,7 +3,7 @@
 Plugin Name: MailChimp for WordPress
 Plugin URI: https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page
 Description: MailChimp for WordPress by ibericode. Adds various highly effective sign-up methods to your site.
-Version: 3.1.12
+Version: 4.2.5
 Author: ibericode
 Author URI: https://ibericode.com/
 Text Domain: mailchimp-for-wp
@@ -11,7 +11,7 @@ Domain Path: /languages
 License: GPL v3
 
 MailChimp for WordPress
-Copyright (C) 2012-2016, Danny van Kooten, hi@dannyvankooten.com
+Copyright (C) 2012-2018, Danny van Kooten, hi@dannyvankooten.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 // Prevent direct file access
 defined( 'ABSPATH' ) or exit;
@@ -37,7 +37,7 @@ defined( 'ABSPATH' ) or exit;
  * @access private
  * @return bool
  */
-function __mc4wp_load_plugin() {
+function _mc4wp_load_plugin() {
 
 	global $mc4wp;
 
@@ -47,7 +47,7 @@ function __mc4wp_load_plugin() {
 	}
 
 	// bootstrap the core plugin
-	define( 'MC4WP_VERSION', '3.1.12' );
+	define( 'MC4WP_VERSION', '4.2.5' );
 	define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
 	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
 	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
@@ -62,7 +62,7 @@ function __mc4wp_load_plugin() {
 	 * @name $mc4wp
 	 */
 	$mc4wp = mc4wp();
-	$mc4wp['api'] = 'mc4wp_get_api';
+	$mc4wp['api'] = 'mc4wp_get_api_v3';
 	$mc4wp['request'] = array( 'MC4WP_Request', 'create_from_globals' );
 	$mc4wp['log'] = 'mc4wp_get_debug_log';
 
@@ -74,48 +74,71 @@ function __mc4wp_load_plugin() {
 	$mc4wp['integrations'] = new MC4WP_Integration_Manager();
 	$mc4wp['integrations']->add_hooks();
 
-	// bootstrap custom integrations
-	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
-
 	// Doing cron? Load Usage Tracking class.
-	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
+	if( isset( $_GET['doing_wp_cron'] ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 		MC4WP_Usage_Tracking::instance()->add_hooks();
 	}
 
 	// Initialize admin section of plugin
-	if( is_admin()
-	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+	if( is_admin() ) {
 
-		$messages = new MC4WP_Admin_Messages();
-		$mc4wp['admin.messages'] = $messages;
+		$admin_tools = new MC4WP_Admin_Tools();
 
-		$mailchimp = new MC4WP_MailChimp();
+		if( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			$ajax = new MC4WP_Admin_Ajax( $admin_tools );
+			$ajax->add_hooks();
+		} else {
+			$messages = new MC4WP_Admin_Messages();
+			$mc4wp['admin.messages'] = $messages;
 
-		$admin = new MC4WP_Admin( $messages, $mailchimp );
-		$admin->add_hooks();
+			$mailchimp = new MC4WP_MailChimp();
 
-		$forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
-		$forms_admin->add_hooks();
+			$admin = new MC4WP_Admin( $admin_tools, $messages, $mailchimp );
+			$admin->add_hooks();
 
-		$integrations_admin = new MC4WP_Integration_Admin( $mc4wp['integrations'], $messages, $mailchimp );
-		$integrations_admin->add_hooks();
+			$forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
+			$forms_admin->add_hooks();
+
+			$integrations_admin = new MC4WP_Integration_Admin( $mc4wp['integrations'], $messages, $mailchimp );
+			$integrations_admin->add_hooks();
+		}
 	}
 
 	return true;
 }
 
-add_action( 'plugins_loaded', '__mc4wp_load_plugin', 20 );
-
-/**
- * Flushes all MailChimp caches
- *
- * @ignore
- * @access private
- * @since 3.0
- */
-function __mc4wp_flush() {
-	delete_transient( 'mc4wp_mailchimp_lists' );
-	delete_transient( 'mc4wp_mailchimp_lists_fallback' );
+// bootstrap custom integrations
+function _mc4wp_bootstrap_integrations() {
+	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
 }
 
-register_activation_hook( __FILE__, '__mc4wp_flush' );
+add_action( 'plugins_loaded', '_mc4wp_load_plugin', 8 );
+add_action( 'plugins_loaded', '_mc4wp_bootstrap_integrations', 90 );
+
+/**
+ * Flushes transient cache & schedules refresh hook.
+ *
+ * @ignore
+ * @since 3.0
+ */
+function _mc4wp_on_plugin_activation() {
+	$time_string = sprintf("tomorrow %d:%d%d am", rand(1,6), rand(0,5), rand(0, 9) );
+	wp_schedule_event( strtotime( $time_string ), 'daily', 'mc4wp_refresh_mailchimp_lists' );
+}
+
+/**
+ * Clears scheduled hook for refreshing MailChimp lists.
+ *
+ * @ignore
+ * @since 4.0.3
+ */
+function _mc4wp_on_plugin_deactivation() {
+	global $wpdb;
+	wp_clear_scheduled_hook( 'mc4wp_refresh_mailchimp_lists' );
+
+	$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'mc4wp_mailchimp_list_%'");
+}
+
+register_activation_hook( __FILE__, '_mc4wp_on_plugin_activation' );
+register_deactivation_hook( __FILE__, '_mc4wp_on_plugin_deactivation' );
+

@@ -27,6 +27,7 @@ if ( !class_exists( 'Thim_Social_Widget' ) ) {
 							''  => esc_html__( 'Default', 'eduma' ),
 							'style-2' => esc_html__( 'Style 2', 'eduma' ),
 							'style-3' => esc_html__( 'Style 3', 'eduma' ),
+                            'style-4' => esc_html__( 'Style 4', 'eduma' ),
 						),
 					),
 					'show_label' => array(

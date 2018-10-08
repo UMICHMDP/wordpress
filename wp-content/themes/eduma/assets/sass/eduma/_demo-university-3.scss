@@ -79,10 +79,13 @@
 	#tab-reviews .course-rating>h3,
 	#learn-press-course-curriculum ul.curriculum-sections .section-header,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .quiz-title,
+	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .quiz-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .quiz-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .lesson-title,
+	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .lesson-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .lesson-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .lesson-preview,
+	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .lesson-preview,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .lesson-preview,
 	h1,h2,h3,h4,h5,h6,b,strong,
 	body #popup-footer .course-content-lesson-nav a,
@@ -118,6 +121,45 @@
 	}
 	.counter-group .counter-block .counter{
 		font-size: 48px;
+	}
+	footer#colophon {
+		.mc4wp-form {
+			.mc4wp-form-fields {
+				button[type=submit] {
+					background: none;
+					border: none;
+					position: absolute;
+					margin: 0;
+					cursor: pointer;
+					top: 0;
+					padding: 0;
+					z-index: 1;
+					color: #555;
+					width: 40px;
+					right: 0;
+					height: 40px;
+					&:hover {
+						color: #ffffff;
+					}
+				}
+				&.yikes-easy-mc-form {
+					position: relative;
+					margin-top: 15px;
+					button[type=submit] {
+						.yikes-mailchimp-submit-button-span-text {
+							display: none;
+						}
+						&:before {
+							content: "\f1d9";
+							font-family: FontAwesome;
+						}
+					}
+				}
+			}
+			&:after {
+				display: none;
+			}
+		}
 	}
 }
 footer#colophon .thim-footer-info-3 .copyright-text a{

@@ -109,6 +109,10 @@
                 line-height: 30px;
                 @include transition(none);
             }
+
+            &:-webkit-autofill {
+                -webkit-box-shadow:0 0 0 50px white inset;
+            }
         }
         input[type="submit"] {
             border: 0;
@@ -525,8 +529,10 @@ body.thim-popup-active{
         bottom: 0;
         cursor: pointer;
         z-index: 2;
+        color: #aeaeae;
         &.active{
             color: #333;
+
         }
     }
 }

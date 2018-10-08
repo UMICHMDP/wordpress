@@ -149,6 +149,7 @@ class Thim_List_Post_Widget extends Thim_Widget {
 						''         => esc_html__( 'No Style', 'eduma' ),
 						'homepage' => esc_html__( 'Home Page', 'eduma' ),
 						'sidebar'  => esc_html__( 'Sidebar', 'eduma' ),
+                        'home-new'  => esc_html__( 'Home New', 'eduma' ),
 					),
 				),
 			),

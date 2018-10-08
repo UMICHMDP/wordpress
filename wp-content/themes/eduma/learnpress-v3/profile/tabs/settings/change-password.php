@@ -41,23 +41,23 @@ if ( ! isset( $section ) ) {
             ?>
 
             <li class="form-field">
-                <label for="pass0"><?php _e( 'Old password', 'learnpress' ); ?></label>
+                <label for="pass0"><?php _e( 'Old password', 'eduma' ); ?></label>
                 <div class="form-field-input">
                     <input type="password" id="pass0" name="pass0" autocomplete="off" class="regular-text"/>
                 </div>
             </li>
             <li class="form-field">
-                <label for="pass1"><?php _e( 'New password', 'learnpress' ); ?></label>
+                <label for="pass1"><?php _e( 'New password', 'eduma' ); ?></label>
                 <div class="form-field-input">
                     <input type="password" name="pass1" id="pass1" class="regular-text" value=""/>
                 </div>
             </li>
             <li class="form-field">
-                <label for="pass2"><?php _e( 'Confirmation password', 'learnpress' ); ?></label>
+                <label for="pass2"><?php _e( 'Confirmation password', 'eduma' ); ?></label>
                 <div class="form-field-input">
                     <input name="pass2" type="password" id="pass2" class="regular-text" value=""/>
                     <p id="lp-password-not-match"
-                       class="description lp-field-error-message hide-if-js"><?php _e( 'New password does not match!', 'learnpress' ); ?></p>
+                       class="description lp-field-error-message hide-if-js"><?php _e( 'New password does not match!', 'eduma' ); ?></p>
                 </div>
             </li>
 
@@ -85,7 +85,7 @@ if ( ! isset( $section ) ) {
                    value="<?php echo wp_create_nonce( 'learn-press-save-profile-password' ); ?>">
         </p>
 
-        <button type="submit" name="submit" id="submit"><?php _e( 'Save changes', 'learnpress' ); ?></button>
+        <button type="submit" name="submit" id="submit"><?php _e( 'Save changes', 'eduma' ); ?></button>
     </div>
 
 </form>

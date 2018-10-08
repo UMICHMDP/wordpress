@@ -36,32 +36,32 @@ $profile = LP_Profile::instance();
             ?>
 
             <li class="form-field">
-                <label for="my-dashboard"><?php _e( 'My dashboard', 'learnpress' ); ?></label>
+                <label for="my-dashboard"><?php _e( 'My dashboard', 'eduma' ); ?></label>
                 <div class="form-field-input">
                     <input type="checkbox" id="my-dashboar" name="publicity[my-dashboard]"
                            value="yes" <?php checked( $profile->get_publicity( 'my-dashboard' ), 'yes' ); ?>/>
-                    <p class="description"><?php _e( 'Public your profile dashboard', 'learnpress' ); ?></p>
+                    <p class="description"><?php _e( 'Public your profile dashboard', 'eduma' ); ?></p>
                 </div>
             </li>
 
             <?php if ( LP()->settings()->get( 'profile_publicity.courses' ) === 'yes' ) { ?>
                 <li class="form-field">
-                    <label for="my-courses"><?php _e( 'My courses', 'learnpress' ); ?></label>
+                    <label for="my-courses"><?php _e( 'My courses', 'eduma' ); ?></label>
                     <div class="form-field-input">
                         <input type="checkbox" name="publicity[courses]" value="yes"
                                id="my-course" <?php checked( $profile->get_publicity( 'courses' ), 'yes' ); ?>/>
-                        <p class="description"><?php _e( 'Public your profile courses', 'learnpress' ); ?></p>
+                        <p class="description"><?php _e( 'Public your profile courses', 'eduma' ); ?></p>
                     </div>
                 </li>
             <?php } ?>
 
             <?php if ( LP()->settings()->get( 'profile_publicity.quizzes' ) === 'yes' ) { ?>
                 <li class="form-field">
-                    <label for="my-quizzes"><?php _e( 'My quizzes', 'learnpress' ); ?></label>
+                    <label for="my-quizzes"><?php _e( 'My quizzes', 'eduma' ); ?></label>
                     <div class="form-field-input">
                         <input name="publicity[quizzes]" value="yes" type="checkbox"
                                id="my-quizzes" <?php checked( $profile->get_publicity( 'quizzes' ), 'yes' ); ?>/>
-                        <p class="description"><?php _e( 'Public your profile quizzes', 'learnpress' ); ?></p>
+                        <p class="description"><?php _e( 'Public your profile quizzes', 'eduma' ); ?></p>
                     </div>
                 </li>
             <?php } ?>
@@ -84,7 +84,7 @@ $profile = LP_Profile::instance();
         do_action( 'learn-press/after-profile-publicity-fields', $profile );
         ?>
 
-        <button type="submit" name="submit" id="submit"><?php _e( 'Save changes', 'learnpress' ); ?></button>
+        <button type="submit" name="submit" id="submit"><?php _e( 'Save changes', 'eduma' ); ?></button>
     </div>
 
 

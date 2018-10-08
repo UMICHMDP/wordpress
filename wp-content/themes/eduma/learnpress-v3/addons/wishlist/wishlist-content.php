@@ -47,8 +47,8 @@ global $post;
 		<?php do_action( 'learn_press_after_enrolled_course_title' ); ?>
 		<div class="course-meta">
 			<?php
-			$course = LP_Course::get_course( $post->ID );
-			$count_student = $course->count_users_enrolled( 'append' ) ? $course->count_users_enrolled( 'append' ) : 0;
+			$course = learn_press_get_course( $post->ID );
+            $count_student = $course->count_students( 'append' ) ? $course->count_students( 'append' ) : 0;
 			?>
 			<div class="course-students">
 				<label><?php esc_html_e( 'Students', 'eduma' ); ?></label>
@@ -60,7 +60,7 @@ global $post;
 				<?php do_action( 'learn_press_end_course_students' ); ?>
 
 			</div>
-			<?php thim_course_ratings_count( $course->ID ); ?>
+			<?php thim_course_ratings_count( $course->get_id() ); ?>
 			<div class="course-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 				<?php if ( $course->is_free() ) : ?>
 					<div class="value free-course" itemprop="price" content="<?php esc_attr_e( 'Free', 'eduma' ); ?>">
@@ -71,7 +71,7 @@ global $post;
 						<?php echo esc_html( $price ); ?>
 					</div>
 				<?php endif; ?>
-				<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
+				<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency(); ?>" />
 			</div>
 		</div>
 	</div>

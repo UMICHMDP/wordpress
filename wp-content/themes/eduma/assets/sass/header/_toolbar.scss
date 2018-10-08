@@ -206,7 +206,7 @@
 			&:hover{
 				.sub-menu{
 					z-index: 9999;
-					background: #333;
+					//background: #333;
 				}
 			}
 		}
@@ -313,4 +313,62 @@
 
 .header_v3_container {
 	padding-bottom: 0;
+}
+
+.header_v5 {
+	#toolbar {
+		padding-bottom: 0;
+		padding-top: 0;
+		font-weight: 300;
+		line-height: 40px;
+		.header_full {
+			padding-right: 0;
+		}
+		.thim-have-any-question {
+          line-height: 40px;
+			.mobile {
+				margin-left: 0;
+				margin-right: 15px;
+				a {
+					&:hover {
+						color: #ffffff;
+					}
+				}
+			}
+			a {
+				text-decoration: none;
+			}
+        }
+		.widget_nav_menu {
+			float: right;
+		}
+		.menu {
+          li {
+			  padding-right: 30px;
+			  a {
+				  text-decoration: none;
+                text-transform: uppercase;
+			  }
+		  }
+        }
+		.widget_courses-searching {
+			float: right;
+			width: 48px;
+			border-left: 1px solid rgba(183,183,183,0.1);
+		}
+		.widget_login-menu, .widget_login-popup {
+			.thim-link-login {
+				a {
+					line-height: 40px;
+					width: 48px;
+					border-left: 1px solid rgba(183,183,183,0.1);
+					padding: 0;
+					text-align: center;
+					&:first-child:not(:last-child) {
+						border-right: none;
+					}
+				}
+			}
+		}
+	}
 }

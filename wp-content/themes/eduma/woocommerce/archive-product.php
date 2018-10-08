@@ -12,7 +12,7 @@
  * @see           http://docs.woothemes.com/document/template-structure/
  * @author        WooThemes
  * @package       WooCommerce/Templates
- * @version       2.0.0
+ * @version       3.4.0
  */
 
 $shop_layout = get_theme_mod( 'thim_woo_cate_display_layout', 'grid' );

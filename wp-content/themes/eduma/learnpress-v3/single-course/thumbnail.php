@@ -43,7 +43,7 @@ $media_intro = get_post_meta( $post->ID, 'thim_course_media_intro', true );
 
         echo apply_filters(
             'learn_press_single_course_image_html',
-            sprintf( '<a href="%s" itemprop="image" class="learn-press-single-thumbnail" title="%s">%s</a>', $image_link, $image_caption, $image ),
+            sprintf( '%s', $image ),
             $post->ID
         );
     }

@@ -21,6 +21,7 @@ class Thim_Video_Widget extends Thim_Widget {
 					'options'       => array(
 						'base'    => esc_html__( 'Basic', 'eduma' ),
 						'popup' => esc_html__( 'Popup', 'eduma' ),
+                        'image-popup' => esc_html__( 'Image Popup', 'eduma' ),
 					),
 					'default'       => 'base',
 					'state_emitter' => array(

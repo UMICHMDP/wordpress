@@ -73,6 +73,7 @@ function thim_get_all_plugins_require( $plugins ) {
             'version'     => '4.7',
             'description' => 'Just another contact form plugin. Simple but flexible. By Takayuki Miyoshi.',
         ),
+		/*
 		array(
 			'name'        => 'MailChimp for WordPress',
 			'slug'        => 'mailchimp-for-wp',
@@ -80,6 +81,14 @@ function thim_get_all_plugins_require( $plugins ) {
 			'version'     => '4.1.0',
 			'description' => 'MailChimp for WordPress by ibericode. Adds various highly effective sign-up methods to your site. By ibericode.',
 		),
+		*/
+        array(
+            'name'        => 'Easy Forms for MailChimp',
+            'slug'        => 'yikes-inc-easy-mailchimp-extender',
+            'required'    => false,
+            'version'     => '6.4.5',
+            'description' => 'Easy Forms for MailChimp allows you to add unlimited MailChimp sign up forms to your WordPress site.',
+        ),
 		array(
 			'name'        => 'WooCommerce',
 			'slug'        => 'woocommerce',
@@ -102,6 +111,14 @@ function thim_get_all_plugins_require( $plugins ) {
 			'description' => 'Allow your users to login, comment and share with Facebook, Google, Twitter, LinkedIn etc using customizable buttons. By miniOrange.',
 		),
 
+        array(
+            'name'        => 'Loco Translate',
+            'slug'        => 'loco-translate',
+            'required'    => false,
+            'version'     => '2.1.3',
+            'description' => 'Loco Translate provides in-browser editing of WordPress translation files.',
+        ),
+
 		array(
 			'name'        => 'Thim Portfolio',
 			'slug'        => 'tp-portfolio',
@@ -111,54 +128,6 @@ function thim_get_all_plugins_require( $plugins ) {
 			'icon'        => 'https://plugins.thimpress.com/downloads/images/thim-portfolio.png',
 			'version'     => '1.3',
 			'description' => 'A plugin that allows you to show off your portfolio. By ThimPress.',
-		),
-
-		array(
-			'name'        => 'LearnPress Certificates',
-			'slug'        => 'learnpress-certificates',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-certificates.zip',
-			'premium' => true,
-			'required'    => false,
-			'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-certificates.png',
-			'version'     => '2.2.6',
-			'description' => 'An addon for LearnPress plugin to create certificate for a course By ThimPress.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress Collections',
-			'slug'        => 'learnpress-collections',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-collections.zip',
-			'premium' => true,
-			'required'    => false,
-			'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-collections.png',
-			'version'     => '2.1.2',
-			'description' => 'Collecting related courses into one collection by administrator By ThimPress.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Paid Memberships Pro',
-			'slug'        => 'learnpress-paid-membership-pro',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-paid-membership-pro.zip',
-			'premium' => true,
-			'required'    => false,
-			'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-paid-membership-pro.png',
-			'version'     => '2.3.1',
-			'description' => 'Paid Membership Pro add-on for LearnPress By ThimPress.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress Co-Instructors',
-			'slug'        => 'learnpress-co-instructor',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-co-instructor.zip',
-			'premium' => true,
-			'required'    => false,
-			'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-co-instructor.png',
-			'version'     => '2.0.2',
-			'description' => 'Building courses with other instructors By ThimPress.',
-			'add-on'      => true,
 		),
 
 		array(
@@ -174,12 +143,272 @@ function thim_get_all_plugins_require( $plugins ) {
 		),
 
 		array(
-			'name'        => 'LearnPress',
-			'slug'        => 'learnpress',
-			'required'    => true,
-			'version'     => '2.1.6',
-			'description' => 'LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes. By ThimPress.',
+			'name'        => 'BuddyPress',
+			'slug'        => 'buddypress',
+			'required'    => false,
+			'version'     => '2.9.4',
+			'description' => 'BuddyPress is a suite of components that are common to a typical social network',
 		),
+
+        array(
+            'name'        => 'LearnPress',
+            'slug'        => 'learnpress',
+            'required'    => true,
+            'version'     => '3.0',
+            'description' => 'LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes. By ThimPress.',
+        ),
+
+        array(
+            'name'        => 'LearnPress Certificates',
+            'slug'        => 'learnpress-certificates',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-certificates.zip',
+            'premium' => true,
+            'required'    => false,
+            'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-certificates.png',
+            'version'     => '3.0',
+            'description' => 'An addon for LearnPress plugin to create certificate for a course By ThimPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Collections',
+            'slug'        => 'learnpress-collections',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-collections.zip',
+            'premium' => true,
+            'required'    => false,
+            'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-collections.png',
+            'version'     => '3.0',
+            'description' => 'Collecting related courses into one collection by administrator By ThimPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Paid Memberships Pro',
+            'slug'        => 'learnpress-paid-membership-pro',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-paid-membership-pro.zip',
+            'premium' => true,
+            'required'    => false,
+            'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-paid-membership-pro.png',
+            'version'     => '3.0',
+            'description' => 'Paid Membership Pro add-on for LearnPress By ThimPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Co-Instructors',
+            'slug'        => 'learnpress-co-instructor',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-co-instructor.zip',
+            'premium' => true,
+            'required'    => false,
+            'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-co-instructor.png',
+            'version'     => '3.0',
+            'description' => 'Building courses with other instructors By ThimPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Instructor Commission',
+            'slug'        => 'learnpress-commission',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-co-instructor.zip',
+            'premium' => true,
+            'required'    => false,
+            'icon'        => 'https://plugins.thimpress.com/downloads/images/learnpress-commission.png',
+            'version'     => '3.0',
+            'description' => 'Commission add-on for LearnPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Course Review',
+            'slug'        => 'learnpress-course-review',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Adding review for course By ThimPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Prerequisites Courses',
+            'slug'        => 'learnpress-prerequisites-courses',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Allow you to set prerequisite courses for a certain course in a LearnPress site',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Export Import',
+            'slug'        => 'learnpress-import-export',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Allow export course, lesson, quiz, question from a LearnPress site to back up or bring to another LearnPress site.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress BuddyPress Integration',
+            'slug'        => 'learnpress-buddypress',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'You can view the courses you have taken, finished or wanted to learn inside of wonderful profile page of BuddyPress with LearnPress buddyPress plugin.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Offline Payment',
+            'slug'        => 'learnpress-offline-payment',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Allow you to manually create order for offline payment instead of paying via any payment gateways to sell course.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Fill in Blank Question',
+            'slug'        => 'learnpress-fill-in-blank',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'It brings fill-in-blank question type feature to your courses quizzes.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - WooCommerce Payments',
+            'slug'        => 'learnpress-woo-payment',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-woo-payment.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Using the payment system provided by WooCommerce.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Authorize.net Payment',
+            'slug'        => 'learnpress-authorizenet-payment',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-authorizenet-payment.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Payment Authorize.net for LearnPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Coming Soon Courses',
+            'slug'        => 'learnpress-coming-soon-courses',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-coming-soon-courses.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Set a course is "Coming Soon" and schedule to public',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Instructor Commission',
+            'slug'        => 'learnpress-commission',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-commission.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Commission add-on for LearnPress',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Content Drip',
+            'slug'        => 'learnpress-content-drip',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-content-drip.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Decide when learners will be able to access the lesson content.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Gradebook',
+            'slug'        => 'learnpress-gradebook',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-gradebook.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Adding Course Gradebook for LearnPress.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - myCred Integration',
+            'slug'        => 'learnpress-mycred',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-mycred.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Running with the point management system - myCred.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Randomize Quiz Questions',
+            'slug'        => 'learnpress-random-quiz',
+            ///'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-random-quiz.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Mix all available questions in a quiz',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Stripe Payment',
+            'slug'        => 'learnpress-stripe',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-stripe.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Stripe payment gateway for LearnPress',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Sorting Choice Question',
+            'slug'        => 'learnpress-sorting-choice',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-sorting-choice.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Sorting Choice provide ability to sorting the options of a question to the right order',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress - Students List	',
+            'slug'        => 'learnpress-students-list',
+            //'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-students-list.zip',
+            'premium' => true,
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Get students list by filters.',
+            'add-on'      => true,
+        ),
+
+        array(
+            'name'        => 'LearnPress Wishlist',
+            'slug'        => 'learnpress-wishlist',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Wishlist feature By ThimPress.',
+            'add-on'      => true,
+        ),
+        array(
+            'name'        => 'LearnPress bbPress',
+            'slug'        => 'learnpress-bbpress',
+            'required'    => false,
+            'version'     => '3.0',
+            'description' => 'Using the forum for courses provided by bbPress By ThimPress.',
+            'add-on'      => true,
+        ),
 
 		array(
 			'name'        => 'WP Events Manager',
@@ -200,136 +429,6 @@ function thim_get_all_plugins_require( $plugins ) {
 			'add-on'      => true,
 		),
 
-		array(
-			'name'        => 'LearnPress Course Review',
-			'slug'        => 'learnpress-course-review',
-			'required'    => false,
-			'version'     => '2.0',
-			'description' => 'Adding review for course By ThimPress.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - WooCommerce Payments',
-			'slug'        => 'learnpress-woo-payment',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-woo-payment.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.4.4',
-			'description' => 'Using the payment system provided by WooCommerce.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Authorize.net Payment',
-			'slug'        => 'learnpress-authorizenet-payment',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-authorizenet-payment.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.0',
-			'description' => 'Payment Authorize.net for LearnPress.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Coming Soon Courses',
-			'slug'        => 'learnpress-coming-soon-courses',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-coming-soon-courses.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.1',
-			'description' => 'Set a course is "Coming Soon" and schedule to public',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Instructor Commission',
-			'slug'        => 'learnpress-commission',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-commission.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.0.1',
-			'description' => 'Commission add-on for LearnPress',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Content Drip',
-			'slug'        => 'learnpress-content-drip',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-content-drip.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.2.2',
-			'description' => 'Decide when learners will be able to access the lesson content.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Gradebook',
-			'slug'        => 'learnpress-gradebook',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-gradebook.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.0.1',
-			'description' => 'Adding Course Gradebook for LearnPress.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - myCred Integration',
-			'slug'        => 'learnpress-mycred',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-mycred.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.0.1',
-			'description' => 'Running with the point management system - myCred.',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Randomize Quiz Questions',
-			'slug'        => 'learnpress-random-quiz',
-			///'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-random-quiz.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.1.1',
-			'description' => 'Mix all available questions in a quiz',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Stripe Payment',
-			'slug'        => 'learnpress-stripe',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-stripe.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.0.1',
-			'description' => 'Stripe payment gateway for LearnPress',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Sorting Choice Question',
-			'slug'        => 'learnpress-sorting-choice',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-sorting-choice.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.1.0',
-			'description' => 'Sorting Choice provide ability to sorting the options of a question to the right order',
-			'add-on'      => true,
-		),
-
-		array(
-			'name'        => 'LearnPress - Students List	',
-			'slug'        => 'learnpress-students-list',
-			//'source'      => 'https://plugins.thimpress.com/downloads/eduma-plugins/learnpress-students-list.zip',
-			'premium' => true,
-			'required'    => false,
-			'version'     => '2.0.1',
-			'description' => 'Get students list by filters.',
-			'add-on'      => true,
-		),
-
 //		array(
 //			'name'        => 'Thim Events - WooCommerce Payments',
 //			'slug'        => 'tp-event-woo-payment',
@@ -339,23 +438,6 @@ function thim_get_all_plugins_require( $plugins ) {
 //			'description' => 'Support paying for a booking with the payment methods provided by Woocommerce.',
 //			'add-on'      => true,
 //		),
-
-		array(
-			'name'        => 'LearnPress Wishlist',
-			'slug'        => 'learnpress-wishlist',
-			'required'    => false,
-			'version'     => '2.0',
-			'description' => 'Wishlist feature By ThimPress.',
-			'add-on'      => true,
-		),
-		array(
-			'name'        => 'LearnPress bbPress',
-			'slug'        => 'learnpress-bbpress',
-			'required'    => false,
-			'version'     => '2.0',
-			'description' => 'Using the forum for courses provided by bbPress By ThimPress.',
-			'add-on'      => true,
-		),
 
 		array(
 			'name'        => 'Instagram Feed',

@@ -1,6 +1,8 @@
 <?php
 $link_before = $after_link = $image = $css_animation = $number = $style_width = $item_tablet = $item_mobile= '';
 $pagination = ( isset($instance['show_pagination']) && $instance['show_pagination'] == 'yes' ) ? 1 : 0;
+$navigation = ( isset($instance['show_navigation']) && $instance['show_navigation'] == 'yes' ) ? 1 : 0;
+$autoplay     = isset( $instance['auto_play'] ) ? $instance['auto_play'] : 0;
 $have_color = ( empty($instance['have_color']) || (isset($instance['have_color']) && $instance['have_color'] == 'yes' ) ) ? '' : 'not_have_color';
 if ( !empty( $instance['title'] ) ) {
 	echo ent2ncr( $args['before_title'] . $instance['title'] . $args['after_title'] );
@@ -28,7 +30,7 @@ if ( $instance['image'] ) {
 
 	$css_animation = $instance['css_animation'];
 	$css_animation = thim_getCSSAnimation( $css_animation );
-	echo '<div class="thim-carousel-wrapper gallery-img ' . $have_color . ' ' . esc_attr( $css_animation ) . '" ' . $number . $item_tablet . $item_mobile . ' data-pagination="'. esc_attr( $pagination ). '">';
+	echo '<div class="thim-carousel-wrapper gallery-img ' . $have_color . ' ' . esc_attr( $css_animation ) . '" ' . $number . $item_tablet . $item_mobile . ' data-autoplay="' . esc_attr( $autoplay ) . '" data-navigation="' . esc_attr( $navigation ) . '" data-pagination="'. esc_attr( $pagination ). '">';
 	$i = 0;
 	foreach ( $img_id as $id ) {
 		$src = wp_get_attachment_image_src( $id, $instance['image_size'] );

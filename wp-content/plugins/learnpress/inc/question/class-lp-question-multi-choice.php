@@ -41,7 +41,6 @@ class LP_Question_Multi_Choice extends LP_Abstract_Question {
 				<td class="lpr-is-true-answer">
 					<input type="hidden" name="lpr_question[{{data.question_id}}][answer][is_true][__INDEX__]" value="0" />
 					<input type="checkbox" name="lpr_question[{{data.question_id}}][answer][is_true][__INDEX__]" value="1" />
-
 				</td>
 				<td>
 					<input class="lpr-answer-text" type="text" name="lpr_question[{{data.question_id}}][answer][text][__INDEX__]" value="" />
@@ -55,6 +54,20 @@ class LP_Question_Multi_Choice extends LP_Abstract_Question {
 
 	public function get_default_answers( $answers = false ) {
 		if ( !$answers ) {
+			if ( $this->id && $this->post->post_status !== 'auto-draft' ) {
+				global $wpdb;
+				$sql              = $wpdb->prepare( "SELECT * FROM $wpdb->learnpress_question_answers "
+					. " WHERE question_id = %d"
+					. " ORDER BY `answer_order`", $this->id );
+				$question_answers = $wpdb->get_results( $sql );
+				$answers          = array();
+				foreach ( $question_answers as $qa ) {
+					$answers[] = unserialize( $qa->answer_data );
+				}
+			}
+			if ( !empty( $answers ) ) {
+				return $answers;
+			}
 			$answers = array(
 				array(
 					'is_true' => 'yes',
@@ -131,7 +144,7 @@ class LP_Question_Multi_Choice extends LP_Abstract_Question {
 
 					</td>
 					<td>
-						<input type="text" class="lpr-answer-text" name="lpr_question[<?php echo $post_id; ?>][answer][text][__INDEX__<?php echo $i; ?>]" value="<?php echo esc_attr( $this->get( 'options.answer.' . $i . '.text', __( '', 'learnpress' ) ) ); ?>" />
+						<input type="text" class="lpr-answer-text" name="lpr_question[<?php echo $post_id; ?>][answer][text][__INDEX__<?php echo $i; ?>]" value="<?php echo esc_attr( $this->get( 'options.answer.' . $i . '.text', '' ) ); ?>" />
 					</td>
 					<td align="center" class="lpr-remove-answer"><i class="dashicons dashicons-trash"></td>
 				</tr>
@@ -207,7 +220,7 @@ class LP_Question_Multi_Choice extends LP_Abstract_Question {
 	public function save_post_action() {
 
 		if ( $post_id = $this->id ) {
-			$post_data    = isset( $_POST[LP()->question_post_type] ) ? $_POST[LP()->question_post_type] : array();
+			$post_data    = isset( $_POST[LP_QUESTION_CPT] ) ? $_POST[LP_QUESTION_CPT] : array();
 			$post_answers = array();
 			//$post_explain = $post_data[$post_id]['explanation'];
 			learn_press_debug( $_POST );
@@ -215,7 +228,7 @@ class LP_Question_Multi_Choice extends LP_Abstract_Question {
 				$post_args = array(
 					'ID'         => $post_id,
 					'post_title' => $post_data['text'],
-					'post_type'  => LP()->question_post_type
+					'post_type'  => LP_QUESTION_CPT
 				);
 				wp_update_post( $post_args );
 				$index = 0;
@@ -239,9 +252,20 @@ class LP_Question_Multi_Choice extends LP_Abstract_Question {
 	}
 
 	public function render( $args = null ) {
-		settype( $args, 'array' );
-		$answered = !empty( $args['answered'] ) ? $args['answered'] : array();
-		$view     = learn_press_locate_template( 'question/types/multi-choice.php' );
+		$args     = wp_parse_args(
+			$args,
+			array(
+				'answered'   => null,
+				'history_id' => 0,
+				'quiz_id'    => 0,
+				'course_id'  => 0
+			)
+		);
+		$answered = !empty( $args['answered'] ) ? $args['answered'] : null;
+		if ( null === $answered ) {
+			$answered = $this->get_user_answered( $args );
+		}
+		$view = learn_press_locate_template( 'content-question/multi-choice/answer-options.php' );
 		include $view;
 	}
 

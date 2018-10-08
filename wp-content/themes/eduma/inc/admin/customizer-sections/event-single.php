@@ -34,7 +34,7 @@ thim_customizer()->add_field(
 // Enable or disable breadcrumbs
 thim_customizer()->add_field(
 	array(
-		'id'       => 'thim_learnpress_single_hide_breadcrumbs',
+		'id'       => 'thim_event_single_hide_breadcrumbs',
 		'type'     => 'switch',
 		'label'    => esc_html__( 'Hide Breadcrumbs?', 'eduma' ),
 		'tooltip'  => esc_html__( 'Check this box to hide/show breadcrumbs.', 'eduma' ),

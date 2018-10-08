@@ -25,7 +25,7 @@ thim_customizer()->add_field(
 		'default'  => 'sidebar-right',
 		'choices'  => array(
 			'sidebar-left'  => THIM_URI . 'images/layout/sidebar-left.jpg',
-			'full-content'    => THIM_URI . 'images/layout/body-full.jpg',
+			'full-content'  => THIM_URI . 'images/layout/body-full.jpg',
 			'sidebar-right' => THIM_URI . 'images/layout/sidebar-right.jpg',
 		),
 	)
@@ -66,14 +66,14 @@ thim_customizer()->add_field(
 );
 
 thim_customizer()->add_field(
-    array(
-        'type'     => 'text',
-        'id'       => 'thim_event_cate_sub_title',
-        'label'    => esc_html__( 'Sub Heading', 'eduma' ),
-        'tooltip'  => esc_html__( 'Allows you can setup sub heading.', 'eduma' ),
-        'section'  => 'event_archive',
-        'priority' => 25,
-    )
+	array(
+		'type'     => 'text',
+		'id'       => 'thim_event_cate_sub_title',
+		'label'    => esc_html__( 'Sub Heading', 'eduma' ),
+		'tooltip'  => esc_html__( 'Allows you can setup sub heading.', 'eduma' ),
+		'section'  => 'event_archive',
+		'priority' => 25,
+	)
 );
 
 thim_customizer()->add_field(
@@ -83,22 +83,22 @@ thim_customizer()->add_field(
 		'label'     => esc_html__( 'Top Image', 'eduma' ),
 		'priority'  => 30,
 		'transport' => 'postMessage',
-		'section'  => 'event_archive',
-		'default'     => THIM_URI . "images/bg-page.jpg",
+		'section'   => 'event_archive',
+		'default'   => THIM_URI . "images/bg-page.jpg",
 	)
 );
 
 // Page Title Background Color
 thim_customizer()->add_field(
 	array(
-		'id'          => 'thim_event_cate_bg_color',
-		'type'        => 'color',
-		'label'       => esc_html__( 'Background Color', 'eduma' ),
-		'tooltip'     => esc_html__( 'If you do not use background image, then can use background color for page title on heading top. ', 'eduma' ),
-		'section'     => 'event_archive',
-		'default'     => 'rgba(0,0,0,0.5)',
-		'priority'    => 35,
-		'choices' => array ('alpha'     => true),
+		'id'        => 'thim_event_cate_bg_color',
+		'type'      => 'color',
+		'label'     => esc_html__( 'Background Color', 'eduma' ),
+		'tooltip'   => esc_html__( 'If you do not use background image, then can use background color for page title on heading top. ', 'eduma' ),
+		'section'   => 'event_archive',
+		'default'   => 'rgba(0,0,0,0.5)',
+		'priority'  => 35,
+		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
 		'js_vars'   => array(
 			array(
@@ -112,14 +112,14 @@ thim_customizer()->add_field(
 
 thim_customizer()->add_field(
 	array(
-		'id'          => 'thim_event_cate_title_color',
-		'type'        => 'color',
-		'label'       => esc_html__( 'Title Color', 'eduma' ),
-		'tooltip'     => esc_html__( 'Allows you can select a color make text color for title.', 'eduma' ),
-		'section'     => 'event_archive',
-		'default'     => '#ffffff',
-		'priority'    => 40,
-		'choices' => array ('alpha'     => true),
+		'id'        => 'thim_event_cate_title_color',
+		'type'      => 'color',
+		'label'     => esc_html__( 'Title Color', 'eduma' ),
+		'tooltip'   => esc_html__( 'Allows you can select a color make text color for title.', 'eduma' ),
+		'section'   => 'event_archive',
+		'default'   => '#ffffff',
+		'priority'  => 40,
+		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
 		'js_vars'   => array(
 			array(
@@ -133,14 +133,14 @@ thim_customizer()->add_field(
 
 thim_customizer()->add_field(
 	array(
-		'id'          => 'thim_event_cate_sub_title_color',
-		'type'        => 'color',
-		'label'       => esc_html__( 'Sub Title Color', 'eduma' ),
-		'tooltip'     => esc_html__( 'Allows you can select a color make sub title color page title.', 'eduma' ),
-		'section'     => 'event_archive',
-		'default'     => '#999',
-		'priority'    => 45,
-		'choices' => array ('alpha'     => true),
+		'id'        => 'thim_event_cate_sub_title_color',
+		'type'      => 'color',
+		'label'     => esc_html__( 'Sub Title Color', 'eduma' ),
+		'tooltip'   => esc_html__( 'Allows you can select a color make sub title color page title.', 'eduma' ),
+		'section'   => 'event_archive',
+		'default'   => '#999',
+		'priority'  => 45,
+		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
 		'js_vars'   => array(
 			array(
@@ -149,5 +149,26 @@ thim_customizer()->add_field(
 				'property' => 'color',
 			)
 		)
+	)
+);
+
+thim_customizer()->add_field(
+	array(
+		'id'       => 'thim_event_change_order_tab',
+		'type'     => 'sortable',
+		'label'    => esc_html__( 'Change Order Tab', 'eduma' ),
+		'tooltip'     => esc_html__( 'Allows you can show/hide and change the order of the tabs', 'eduma' ),
+		'section'  => 'event_archive',
+		'default'  => array(
+			'happening',
+			'upcoming',
+			'expired'
+		),
+		'priority' => 50,
+		'choices'  => array(
+			'happening' => esc_html__( 'Happening', 'eduma' ),
+			'upcoming'  => esc_html__( 'Upcoming', 'eduma' ),
+			'expired'   => esc_html__( 'Expired', 'eduma' )
+		),
 	)
 );

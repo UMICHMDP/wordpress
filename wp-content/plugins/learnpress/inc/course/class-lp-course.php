@@ -19,7 +19,7 @@ class LP_Course extends LP_Abstract_Course {
 	public function frontend_assets() {
 		if ( learn_press_is_course() ) {
 			$translate = $this->_get_localize();
-			LP_Assets::add_localize( $translate, false, 'single-course' );
+			LP_Assets::add_localize( $translate, false, 'learn-press-single-course' );
 		}
 	}
 
@@ -28,9 +28,27 @@ class LP_Course extends LP_Abstract_Course {
 			'learn_press_single_course_js_params',
 			array(
 				'confirm_finish_course' => array(
-					'message' => sprintf( __( 'Are you sure you want to finish course %s', 'learnpress' ), get_the_title() ),
+					'message' => sprintf( __( 'Are you sure you want to finish course %s?', 'learnpress' ), get_the_title() ),
 					'title'   => __( 'Finish course', 'learnpress' )
-				)
+				),
+				'confirm_retake_course' => array(
+					'message' => sprintf( __( 'Are you sure you want to retake course %s', 'learnpress' ), get_the_title() ),
+					'title'   => __( 'Retake course', 'learnpress' )
+				),
+                                'confirm_finish_quiz' => array(
+                                    'title'   => __( 'Finish quiz', 'learnpress' ),
+                                    'message' => __( 'Are you sure you want to finish this quiz?', 'learnpress' )
+                                ),
+                                'confirm_retake_quiz' => array(
+                                        'title'   => __( 'Retake quiz', 'learnpress' ),
+                                        'message' => __( 'Are you sure you want to retake this quiz?', 'learnpress' )
+                                ),
+                                'quiz_time_is_over'   => array(
+                                        'title'   => __( 'Time out!' ),
+                                        'message' => __( 'The time is over! Your quiz will automate come to finish', 'learnpress' )
+                                ),
+                                'finished_quiz'       => __( 'Congrats! You have finished this quiz', 'learnpress' ),
+                                'retaken_quiz'        => __( 'Congrats! You have re-taken this quiz. Please wait a moment and the page will reload', 'learnpress' )
 			)
 		);
 	}
@@ -39,7 +57,7 @@ class LP_Course extends LP_Abstract_Course {
 	 * @param bool  $the_course
 	 * @param array $args
 	 *
-	 * @return bool
+	 * @return LP_Course|bool
 	 */
 	public static function get_course( $the_course = false, $args = array() ) {
 		$the_course = self::get_course_object( $the_course );
@@ -103,7 +121,7 @@ class LP_Course extends LP_Abstract_Course {
 		$course_id = absint( $the_course->ID );
 		$post_type = $the_course->post_type;
 
-		if ( LP()->course_post_type === $post_type ) {
+		if ( LP_COURSE_CPT === $post_type ) {
 			if ( isset( $args['course_type'] ) ) {
 				$course_type = $args['course_type'];
 			} else {

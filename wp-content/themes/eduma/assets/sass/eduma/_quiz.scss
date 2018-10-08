@@ -327,6 +327,13 @@
                         cursor: pointer;
                         display: block;
                     }
+                    &.answered-wrong {
+                        >label {
+                            input[type="radio"]:checked+p {
+                                text-decoration: line-through;
+                            }
+                        }
+                    }
                 }
                 &.lpr-question-hint {
                     li {
@@ -360,7 +367,7 @@
     .learn-press-question-wrap.checked,
     .lp-question-wrap{
         li{
-            &.user-answer-false{
+            &.user-answer-false {
                 background: none;
                 cursor: no-drop;
                 label{
@@ -376,7 +383,7 @@
                     }
                 }
             }
-            &.answer-true{
+            &.answer-true, &.answer-correct {
                 background: none;
                 cursor: no-drop !important;
                 label{
@@ -397,12 +404,63 @@
     .question-description{
         margin-bottom: 25px;
     }
+    .sorting-choice {
+        .answer-option {
+            position: relative;
+            .sort-hand {
+                border-bottom-width: 2px;
+                border-top-width: 2px;
+                width: 20px;
+                height: 14px;
+                margin-top: -6px;
+                left: 0;
+                &:before {
+                    border-bottom-width: 2px;
+                    top: 4px;
+                }
+            }
+            .option-title {
+                padding-left: 30px;
+            }
+        }
+    }
 }
 .quiz-summary{
     .quiz-buttons{
         text-align: inherit;
         .single-quiz &{
             margin-bottom: 30px;
+        }
+    }
+}
+
+.show-quiz-review, .show-quiz-result {
+    margin-bottom: 15px;
+}
+.quiz-buttons {
+    margin-bottom: 15px;
+}
+.question-numbers {
+    margin: 15px 0;
+    display: inline-block;
+    li {
+        display: inline-block;
+        list-style: inherit;
+        a {
+            line-height: 30px;
+            display: block;
+            width: 30px;
+            font-size: 13px;
+            color: #111111;
+            text-align: center;
+            padding: 0;
+            border: 1px solid #111;
+        }
+        &.current, &:hover {
+            a {
+                background-color: #ffb606;
+                border-color: #ffb606;
+            }
         }
     }
 }
@@ -460,10 +518,14 @@
     }
 }
 
-
+.check-answer-question {
+    display: inline-block;
+    margin-bottom: 15px;
+}
 .question-hint{
     display: inline-block;
     margin-left: 15px;
+    margin-bottom: 15px;
     &.hide-if-js{
         display: none;
     }

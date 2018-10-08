@@ -3,23 +3,26 @@
  * @package LearnPress/Javascript
  * @version 1.0
  */
-;if (typeof window.LearnPress == 'undefined') {
-	window.LearnPress = {};
+;if (typeof window.LP == 'undefined') {
+	window.LP = {};
 }
 ;(function ($) {
 	"use strict";
-	LearnPress = $.extend({
-		setUrl   : function (url, title) {
-			history.pushState({}, title, url);
+	LP = $.extend({
+		setUrlx   : function (url, title) {
+
+			if (url) {
+				history.pushState({}, title, url);
+			}
 		},
-		reload   : function (url) {
+		reload    : function (url) {
 			if (!url) {
 				url = window.location.href;
 			}
 			window.location.href = url;
 		},
-		parseJSON: function (data) {
-			var m = data.match(/<!-- LP_AJAX_START -->(.*)<!-- LP_AJAX_END -->/);
+		parseJSON : function (data) {
+			var m = data.match(/<-- LP_AJAX_START -->(.*)<-- LP_AJAX_END -->/);
 			try {
 				if (m) {
 					data = $.parseJSON(m[1]);
@@ -27,12 +30,11 @@
 					data = $.parseJSON(data);
 				}
 			} catch (e) {
-				LearnPress.log(e);
 				data = {};
 			}
 			return data;
 		},
-		toElement: function (element, args) {
+		toElement : function (element, args) {
 			args = $.extend({
 				delay   : 300,
 				duration: 'slow',
@@ -45,29 +47,26 @@
 				.animate({
 					scrollTop: $(element).offset().top - args.offset
 				}, args.duration, args.callback);
-		}
-	}, LearnPress);
-
-	$(document).on('submit', '#learn-press-form-login', function (e) {
-		LearnPress.doAjax({
-			data   : {
-				'lp-ajax': 'login',
-				data     : $(this).serialize()
-			},
-			success: function (response, raw) {
-				if (response.message) {
-					LearnPress.alert(response.message, function () {
-						if (response.redirect) {
-							LearnPress.reload(response.redirect);
-						}
-					});
-				} else {
-					if (response.redirect) {
-						LearnPress.reload(response.redirect);
-					}
+		},
+		showMessages: function (messages, target, code) {
+			$(target).find('.learn-press-error, .learn-press-notice, .learn-press-message').fadeOut();
+			if ($.isArray(messages)) {
+				for (var i = messages.length - 1; i >= 0; i--) {
+					var $message = $(messages[i]).hide();
+					$(target).prepend($message.fadeIn());
 				}
+			} else {
+				var $message = $(messages).hide();
+				$(target).prepend($message.fadeIn());
 			}
-		})
-		return false;
-	});
+			LP.Hook.doAction('learnpress_show_message', messages, target, code);
+		}
+	}, LP);
+
+
+	// add translatex for jquery alert
+	$.alerts.okButton 		= jalerts_text.okButton;
+	$.alerts.cancelButton 	= jalerts_text.cancelButton;
+
+
 })(jQuery);

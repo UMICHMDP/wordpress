@@ -26,6 +26,7 @@ function thim_shortcode_counters_box( $atts ) {
 		'counter_color'    => '',
 		'style'            => 'home-page',
 		'css_animation'    => '',
+        'el_class'           => '',
 	), $atts );
 
 
@@ -40,9 +41,11 @@ function thim_shortcode_counters_box( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-counters-box">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

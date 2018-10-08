@@ -98,7 +98,7 @@ if ( $posts_display->have_posts() ) {
 					if ( !empty( $instance['img_w'] ) && !empty( $instance['img_h'] ) ) {
 						echo thim_get_feature_image(get_post_thumbnail_id(),'full', $instance['img_w'], $instance['img_h']);
 					} else {
-						echo thim_get_feature_image(get_post_thumbnail_id(),'full', '300', '300');
+						echo thim_get_feature_image(get_post_thumbnail_id(),'full');
 					}
 					echo '</div>';
 				}

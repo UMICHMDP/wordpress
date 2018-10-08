@@ -55,9 +55,9 @@ $thumb_size   = learn_press_get_avatar_thumb_size();
         </div>
 
         <p id="lp-avatar-actions">
-            <button id="lp-upload-photo" type="button"><?php _e( 'Upload', 'learnpress' ); ?></button>
+            <button id="lp-upload-photo" type="button"><?php _e( 'Upload', 'eduma' ); ?></button>
 			<?php if ( $custom_img != '' ): ?>
-                <button id="lp-remove-upload-photo"><?php _e( 'Remove', 'learnpress' ); ?></button>
+                <button id="lp-remove-upload-photo"><?php _e( 'Remove', 'eduma' ); ?></button>
 			<?php endif; ?>
         </p>
         <div class="clearfix"></div>
@@ -74,7 +74,7 @@ $thumb_size   = learn_press_get_avatar_thumb_size();
         <input type="hidden" name="save-profile-avatar"
                value="<?php echo wp_create_nonce( 'learn-press-save-profile-avatar' ); ?>">
     </p>
-    <button type="submit" id="submit" name="submit"><?php _e( 'Save changes', 'learnpress' ); ?></button>
+    <button type="submit" id="submit" name="submit"><?php _e( 'Save changes', 'eduma' ); ?></button>
 
 </form>
 

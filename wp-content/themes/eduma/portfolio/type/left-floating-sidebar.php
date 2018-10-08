@@ -8,7 +8,7 @@
     <div class="col-md-3 entry-content-portfolio floting-sidebar">
         <div class="entry-content-right">
             <section class="portfolio-description">
-                <h3><?php esc_html_e( 'PROJECT DESCRIPTION', 'eduma' ); ?></h3>
+                <h3><?php the_title();?></h3>
 				<?php the_content(); ?>
             </section>
 

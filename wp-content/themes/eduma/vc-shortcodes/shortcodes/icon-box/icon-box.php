@@ -41,8 +41,10 @@ function thim_shortcode_icon_box( $atts ) {
 		'icon_type'                  => '',
 		'font_awesome_icon'          => '',
 		'font_awesome_icon_size'     => '',
+        'font_ionicons'              => '',
 		'custom_image_icon'          => '',
 		'width_icon_box'             => '100',
+        'height_icon_box'             => '',
 		'icon_color'                 => '',
 		'icon_border_color'          => '',
 		'icon_bg_color'              => '',
@@ -54,6 +56,9 @@ function thim_shortcode_icon_box( $atts ) {
 		'layout_text_align_sc'       => '',
 		'layout_style_box'           => '',
 		'css_animation'              => '',
+        'widget_background'              => 'none',
+        'bg_box_color'              => '',
+        'el_class' => '',
 	), $atts );
 
 	$instance = array(
@@ -100,11 +105,17 @@ function thim_shortcode_icon_box( $atts ) {
 			'icon_size' => $icon_box['font_awesome_icon_size'],
 		),
 
+        'font_ionicons_group' => array(
+            'icon'      => $icon_box['font_ionicons'],
+            'icon_size' => $icon_box['font_awesome_icon_size'],
+        ),
+
 		'font_image_group' => array(
 			'icon_img' => $icon_box['custom_image_icon'],
 		),
 
 		'width_icon_box' => $icon_box['width_icon_box'],
+        'height_icon_box' => $icon_box['height_icon_box'],
 
 		'color_group' => array(
 			'icon_color'              => $icon_box['icon_color'],
@@ -124,7 +135,10 @@ function thim_shortcode_icon_box( $atts ) {
 		'widget_background' => 'none',
 		'self_video'        => '',
 		'self_poster'       => '',
-		'css_animation'     => ''
+		'css_animation'     => '',
+        'el_class'          => '',
+        'widget_background' => $icon_box['widget_background'],
+        'bg_box_color' => $icon_box['bg_box_color'],
 
 	);
 
@@ -135,9 +149,11 @@ function thim_shortcode_icon_box( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-icon-box">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

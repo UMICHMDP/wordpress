@@ -17,6 +17,7 @@ defined( 'ABSPATH' ) || exit();
 $user   = LP_Global::user();
 $course = LP_Global::course();
 $class = '';
+$class .= ( $course->has_sale_price() ) ? ' has-origin' : '';
 if ( $course->is_free() ) {
     $class .= ' free-course';
 }
@@ -28,13 +29,17 @@ if ( ! $price = $course->get_price_html() ) {
 
 <div class="course-price">
 
-	<?php if ( $course->has_sale_price() ) { ?>
+    <div class="value <?php echo $class;?>">
 
-        <span class="origin-price"> <?php echo $course->get_origin_price_html(); ?></span>
+        <?php if ( $course->has_sale_price() ) { ?>
 
-	<?php } ?>
+            <span class="course-origin-price"> <?php echo $course->get_origin_price_html(); ?></span>
 
-    <span class="value <?php echo $class;?>"><?php echo $price; ?></span>
+        <?php } ?>
+
+        <?php echo $price; ?>
+
+    </div>
 
 </div>
 

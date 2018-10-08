@@ -16,7 +16,7 @@ class LP_Settings {
 	/**
 	 * @var array
 	 */
-	protected $_options = false;
+	protected $_options = array();
 
 	/**
 	 * @var bool
@@ -37,9 +37,15 @@ class LP_Settings {
 		if ( $options = $wpdb->get_results( $query ) ) {
 			foreach ( $options as $option ) {
 				$this->_options[$option->option_name] = maybe_unserialize( $option->option_value );
+				wp_cache_add( $option->option_name, $this->_options[$option->option_name], 'options' );
 			}
 		}
-
+		foreach ( array( 'learn_press_permalink_structure', 'learn_press_install' ) as $option ) {
+			if ( empty( $this->_options[$option] ) ) {
+				$this->_options[$option] = '';
+				wp_cache_add( $option, '', 'options' );
+			}
+		}
 	}
 
 	/**
@@ -78,10 +84,19 @@ class LP_Settings {
 		}
 	}
 
+	/**
+	 * Get option recurse separated by DOT
+	 *
+	 * @param      $var
+	 * @param null $default
+	 *
+	 * @return null
+	 */
 	public function get( $var, $default = null ) {
 		if ( strpos( $var, 'learn_press_' ) === false ) {
 			$var = 'learn_press_' . $var;
 		}
+		$segs   = explode( '.', $var );
 		$return = $this->_get_option( $this->_options, $var, $default );
 		if ( $return == '' || is_null( $return ) ) {
 			$return = $default;

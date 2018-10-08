@@ -1256,7 +1256,7 @@ function bbp_edit_user_blog_role() {
 
 		<?php foreach ( $blog_roles as $role => $details ) : ?>
 
-			<option <?php selected( $user_role, $role ); ?> value="<?php echo esc_attr( $role ); ?>"><?php echo translate_user_role( $details['name'] ); ?></option>
+			<option <?php selected( $user_role, $role ); ?> value="<?php echo esc_attr( $role ); ?>"><?php echo bbp_translate_user_role( $details['name'] ); ?></option>
 
 		<?php endforeach; ?>
 
@@ -1291,7 +1291,7 @@ function bbp_edit_user_forums_role() {
 
 		<?php foreach ( $dynamic_roles as $role => $details ) : ?>
 
-			<option <?php selected( $user_role, $role ); ?> value="<?php echo esc_attr( $role ); ?>"><?php echo translate_user_role( $details['name'] ); ?></option>
+			<option <?php selected( $user_role, $role ); ?> value="<?php echo esc_attr( $role ); ?>"><?php echo bbp_translate_user_role( $details['name'] ); ?></option>
 
 		<?php endforeach; ?>
 
@@ -1658,6 +1658,9 @@ function bbp_author_link( $args = '' ) {
 
 			$anonymous = bbp_is_reply_anonymous( $r['post_id'] );
 
+			// Declare empty array 
+			$author_links = array();
+
 			// Get avatar
 			if ( 'avatar' === $r['type'] || 'both' === $r['type'] ) {
 				$author_links[] = get_avatar( $user_id, $r['size'] );
@@ -1671,6 +1674,7 @@ function bbp_author_link( $args = '' ) {
 			// Add links if not anonymous
 			if ( empty( $anonymous ) && bbp_user_has_profile( $user_id ) ) {
 				$author_url = bbp_get_user_profile_url( $user_id );
+				$author_link = array();
 				foreach ( $author_links as $link_text ) {
 					$author_link[] = sprintf( '<a href="%1$s"%2$s>%3$s</a>', esc_url( $author_url ), $link_title, $link_text );
 				}

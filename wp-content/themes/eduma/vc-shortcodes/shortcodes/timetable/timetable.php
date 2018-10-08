@@ -16,7 +16,8 @@ function thim_shortcode_timetable( $atts ) {
 
 	$instance = shortcode_atts( array(
 		'title' => '',
-		'panel' => ''
+		'panel' => '',
+        'el_class' => '',
 	), $atts );
 
 	$instance['panel'] = (array) vc_param_group_parse_atts( $instance['panel'] );
@@ -32,9 +33,11 @@ function thim_shortcode_timetable( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-timetable">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

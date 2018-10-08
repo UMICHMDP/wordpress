@@ -15,7 +15,9 @@
   margin: $spinkit-spinner-margin;
   width: $spinkit-size;
   height: $spinkit-size;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform:translate(0,-50%);
 
   .sk-cube {
     background-color: $spinkit-spinner-color;

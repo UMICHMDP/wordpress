@@ -90,7 +90,7 @@ thim_customizer()->add_field(
 		'js_vars'   => array(
 			array(
 				'element'  => '#toolbar',
-				'property' => 'background-color',
+				'property' => 'color',
 			),
 			array(
 				'element'  => '#toolbar .widget_form-login .thim-link-login a:first-child:not(:last-child)',
@@ -118,4 +118,24 @@ thim_customizer()->add_field(
 			)
 		)
 	)
+);
+
+thim_customizer()->add_field(
+    array(
+        'id'          => 'thim_link_hover_color_toolbar',
+        'type'        => 'color',
+        'label'       => esc_html__( 'Link Hover Color', 'eduma' ),
+        'tooltip'     => esc_html__( 'Allows you to choose a link hover color for widget on toolbar. ', 'eduma' ),
+        'section'     => 'header_toolbar',
+        'default'     => '#fff',
+        'priority'    => 30,
+        'choices' => array ('alpha'     => true),
+        'transport' => 'postMessage',
+        'js_vars'   => array(
+            array(
+                'element'  => '#toolbar a:hover, #toolbar .widget_nav_menu .menu > li > a:hover',
+                'property' => 'color',
+            )
+        )
+    )
 );

@@ -25,6 +25,7 @@ function thim_shortcode_portfolio( $atts ) {
 		'style-item'         => 'style01',
 		'num_per_view'       => '',
 		'show_readmore'      => false,
+        'el_class' => '',
 	), $atts );
 
 
@@ -39,9 +40,11 @@ function thim_shortcode_portfolio( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-portfolio">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

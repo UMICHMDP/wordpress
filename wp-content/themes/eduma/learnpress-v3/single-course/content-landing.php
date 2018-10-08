@@ -22,19 +22,19 @@ defined( 'ABSPATH' ) || exit();
 do_action( 'learn_press_before_content_landing' );
 ?>
 
-<div class="course-landing-summary">
+<div id="course-landing" class="course-landing-summary">
 
-	<?php
-	/**
-	 * @deprecated
-	 */
-	do_action( 'learn_press_content_landing_summary' );
+    <?php
+    /**
+     * @deprecated
+     */
+    do_action( 'learn_press_content_landing_summary' );
 
-	/**
-	 * @since 3.0.0
-	 */
-	do_action( 'learn-press/content-landing-summary' );
-	?>
+    /**
+     * @since 3.0.0
+     */
+    do_action( 'learn-press/content-landing-summary' );
+    ?>
 
 </div>
 

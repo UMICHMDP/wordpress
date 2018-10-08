@@ -1,10 +1,10 @@
-===  bbPress addon for LearnPress ===  
-Contributors: thimpress, kendy73, tunnhn  
+=== LearnPress - bbPress Integration ===  
+Contributors: thimpress, kendy73, tunnhn, leehld
 Donate link:  
 Tags: lms, elearning, e-learning, learning management system, education, course, courses, quiz, quizzes, questions, training, guru, sell courses  
 Requires at least: 3.8  
-Tested up to: 4.2.2  
-Stable tag: 1.1  
+Tested up to: 4.9.8
+Stable tag: 3.0.3
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -53,6 +53,29 @@ Yes, you can. Please find the documentation for writing an add-on for LearnPress
 1. LearnPress bbPress screenshot
 
 == Changelog ==
+
+= 3.0.3 =
++ Fixed issue about missing instructor role in back end.
+
+= 3.0.2 =
++ Fixed can't change user forum role when editing user
++ Fixed minor issues
+
+= 3.0.1 =
++ Update restrict access course forum
+
+= 3.0.0 =
++ Updated to be compatible with Learnpress 3.0.0
+
+= 2.1.1 =
++ Fixed minor bug
+
+= 2.1 =
++ Compatible with LP course tabs
++ Changed text domain to learnpress
+
+= 2.0 =
++ Updated to be compatible with LearnPress 2.0
 
 = 1.1 =
 + Fixed forum is created each time save course

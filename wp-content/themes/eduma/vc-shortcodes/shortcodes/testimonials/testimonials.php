@@ -30,6 +30,7 @@ function thim_shortcode_testimonials( $atts ) {
 		'show_navigation'   => true,
 		'carousel_autoplay' => '0',
 		'link_to_single'    => false,
+        'el_class' => '',
 	), $atts );
 
 
@@ -41,7 +42,12 @@ function thim_shortcode_testimonials( $atts ) {
 	$args['before_title'] = '<h3 class="widget-title">';
 	$args['after_title']  = '</h3>';
 
-	$widget_layout = ( $instance['layout'] === 'carousel' ) ? 'carousel.php' : 'base.php';
+	//$widget_layout = ( $instance['layout'] === 'carousel' ) ? 'carousel.php' : 'base.php';
+    if ( isset($instance['layout']) && 'default' != $instance['layout'] ) {
+        $widget_layout = $instance['layout'] . '.php';
+    } else {
+        $widget_layout = 'base.php';
+    }
 
 	$widget_template       = THIM_DIR . 'inc/widgets/testimonials/tpl/' . $widget_layout;
 	$child_widget_template = THIM_CHILD_THEME_DIR . 'inc/widgets/testimonials/' . $widget_layout;
@@ -50,9 +56,11 @@ function thim_shortcode_testimonials( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-testimonials">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

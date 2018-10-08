@@ -38,6 +38,7 @@ defined( 'ABSPATH' ) || exit();
 					)
 				);
 			}
+            $type = 'message-' . $type;
 			$classes = array( 'message ', esc_attr( $type ) );
 			$data    = array();
 			if ( ! empty( $options['position'] ) ) {

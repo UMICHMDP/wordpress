@@ -74,8 +74,39 @@ vc_map( array(
 				esc_html__( 'Category Tabs', 'eduma' ) => 'tabs',
 				esc_html__( 'Mega Menu', 'eduma' )     => 'megamenu',
 				esc_html__( 'List Sidebar', 'eduma' )  => 'list-sidebar',
+                esc_html__( 'Category Tabs Slider', 'eduma' )  => 'tabs-slider',
 			),
 		),
+
+        array(
+            'type'        => 'number',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Thumbnail Width', 'eduma' ),
+            'param_name'  => 'thumbnail_width',
+            'min'         => 100,
+            'max'         => 800,
+            'std'         => 400,
+            'description' => esc_html__( 'Set width for thumbnail course.', 'eduma' ),
+            'dependency'  => array(
+                'element' => 'layout',
+                'value'   => array( 'slider', 'grid', 'grid1', 'tabs', 'tabs-slider' ),
+            ),
+        ),
+
+        array(
+            'type'        => 'number',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Thumbnail Height', 'eduma' ),
+            'param_name'  => 'thumbnail_height',
+            'min'         => 100,
+            'max'         => 800,
+            'std'         => 300,
+            'description' => esc_html__( 'Set height for thumbnail course.', 'eduma' ),
+            'dependency'  => array(
+                'element' => 'layout',
+                'value'   => array( 'slider', 'grid', 'grid1', 'tabs', 'tabs-slider' ),
+            ),
+        ),
 
 		//Slider Options
 		array(
@@ -156,7 +187,7 @@ vc_map( array(
 			'param_name'  => 'view_all_courses',
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => array('grid', 'grid1'),
+				'value'   => array('grid', 'grid1', 'tabs-slider'),
 			),
 			'group'       => esc_html__( 'Grid Settings', 'eduma' ),
 		),
@@ -173,7 +204,7 @@ vc_map( array(
 			),
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => array('grid', 'grid1'),
+				'value'   => array('grid', 'grid1', 'tabs-slider'),
 			),
 			'group'       => esc_html__( 'Grid Settings', 'eduma' ),
 		),
@@ -189,7 +220,7 @@ vc_map( array(
 			'std'         => '4',
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'tabs',
+				'value'   => array('tabs', 'tabs-slider'),
 			),
 			'group'       => esc_html__( 'Tabs Settings', 'eduma' ),
 		),
@@ -202,7 +233,7 @@ vc_map( array(
 			'value'      => thim_sc_get_course_categories(),
 			'dependency' => array(
 				'element' => 'layout',
-				'value'   => 'tabs',
+				'value'   => array('tabs', 'tabs-slider'),
 			),
 			'group'      => esc_html__( 'Tabs Settings', 'eduma' ),
 		),
@@ -223,5 +254,15 @@ vc_map( array(
 			),
 			'description' => esc_html__( 'Select type of animation if you want this element to be animated when it enters into the browsers viewport. Note: Works only in modern browsers.', 'eduma' )
 		),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 	)
 ) );

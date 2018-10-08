@@ -4,39 +4,55 @@
  * @package LearnPress/Classes
  * @version 1.0
  */
-
 if ( !defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 
-	// Base class for custom post type to extends
-	learn_press_include( 'custom-post-types/abstract.php' );
-
 	// class LP_Quiz_Post_Type
 	final class LP_Quiz_Post_Type extends LP_Abstract_Post_Type {
-		public function __construct() {
-			add_action( 'admin_head', array( $this, 'init' ) );
+
+		/**
+		 * @var null
+		 */
+		protected static $_instance = null;
+
+		/**
+		 * LP_Quiz_Post_Type constructor.
+		 *
+		 * @param $post_type
+		 * @param mixed
+		 */
+		public function __construct( $post_type, $args = '' ) {
 			add_action( 'admin_head', array( $this, 'enqueue_script' ) );
-			add_filter( 'manage_lp_quiz_posts_columns', array( $this, 'columns_head' ) );
-			add_action( 'manage_lp_quiz_posts_custom_column', array( $this, 'columns_content' ), 10, 2 );
-			add_action( 'admin_head', array( __CLASS__, 'print_js_template' ) );
-			add_action( 'before_delete_post', array( $this, 'delete_quiz_questions' ) );
-			add_filter( 'posts_fields', array( $this, 'posts_fields' ) );
-			add_filter( 'posts_join_paged', array( $this, 'posts_join_paged' ) );
-			add_filter( 'posts_where_paged', array( $this, 'posts_where_paged' ) );
-			add_filter( 'posts_orderby', array( $this, 'posts_orderby' ) );
-			add_filter( 'manage_edit-lp_quiz_sortable_columns', array( $this, 'columns_sortable' ) );
+			$this->add_map_method( 'before_delete', 'delete_quiz_questions' );
 
-			add_action( 'save_post', array( $this, 'save' ) );
+			$this
+				->add_map_method( 'save', 'update_quiz', false );
 
-			parent::__construct();
+			add_action( 'init', array( $this, 'init_quiz' ) );
 
+			/**
+			 * Hide View Quiz link on Quiz table action
+			 */
+			add_filter( 'page_row_actions', array( $this, 'remove_view_link' ), 10, 2 );
+
+			/**
+			 * Hide View Quiz link if not assigned to Course
+			 */
+			add_action( 'admin_footer', array( $this, 'hide_view_quiz_link_if_not_assigned' ) );
+
+			parent::__construct( $post_type, $args );
 		}
 
-		public function init() {
+		public function update_quiz( $post_id ) {
+		}
 
+		public function init_quiz() {
+			if ( !empty( $_REQUEST['post'] ) && get_post_type( $_REQUEST['post'] ) == LP_QUIZ_CPT ) {
+				$q = _learn_press_get_quiz_questions( array( $_REQUEST['post'] ) );
+			}
 		}
 
 		/**
@@ -65,18 +81,15 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 		/**
 		 * Print js template
 		 */
-		public static function print_js_template() {
+		public function print_js_template() {
 			learn_press_admin_view( 'meta-boxes/quiz/js-template.php' );
-		}
-
-		public static function save( $post ) {
 		}
 
 		/**
 		 * Register quiz post type
 		 */
-		public static function register_post_type() {
-			register_post_type( LP()->quiz_post_type,
+		public function register() {
+			register_post_type( LP_QUIZ_CPT,
 				apply_filters( 'lp_quiz_post_type_args',
 					array(
 						'labels'             => array(
@@ -90,14 +103,14 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 							'add_new'            => __( 'New Quiz', 'learnpress' ),
 							'update_item'        => __( 'Update Quiz', 'learnpress' ),
 							'search_items'       => __( 'Search Quizzes', 'learnpress' ),
-							'not_found'          => sprintf( __( 'You have not got any quiz yet. Click <a href="%s">Add new</a> to start', 'learnpress' ), admin_url( 'post-new.php?post_type=lp_quiz' ) ),
+							'not_found'          => sprintf( __( 'You have not got any quizzes yet. Click <a href="%s">Add new</a> to start', 'learnpress' ), admin_url( 'post-new.php?post_type=lp_quiz' ) ),
 							'not_found_in_trash' => __( 'No quiz found in Trash', 'learnpress' )
 						),
 						'public'             => true,
 						'publicly_queryable' => true,
 						'show_ui'            => true,
 						'has_archive'        => false,
-						'capability_type'    => LP()->lesson_post_type,
+						'capability_type'    => LP_LESSON_CPT,
 						'map_meta_cap'       => true,
 						'show_in_menu'       => 'learn_press',
 						'show_in_admin_bar'  => true,
@@ -114,19 +127,17 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 			);
 		}
 
-		public static function add_meta_boxes() {
-
+		public function add_meta_boxes() {
 			$prefix                                        = '_lp_';
 			$meta_box                                      = apply_filters(
 				'learn_press_quiz_question_meta_box_args',
 				array(
 					'title'      => __( 'Questions', 'learnpress' ),
-					'post_types' => LP()->quiz_post_type,
+					'post_types' => LP_QUIZ_CPT,
 					'id'         => 'questions',
 					'fields'     => array(
 						array(
-							'name' => __( '', 'learnpress' ),
-							'desc' => __( '', 'learnpress' ),
+							'name' => '',
 							'id'   => "{$prefix}questions",
 							'type' => 'quiz_questions'
 						)
@@ -134,83 +145,113 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 				)
 			);
 			$GLOBALS['learn_press_quiz_question_meta_box'] = new RW_Meta_Box( $meta_box );
-
+			$post_id                                       = learn_press_get_request( 'post' );
+			$duration_type                                 = get_post_meta( $post_id, "{$prefix}duration_type", true );
 			new RW_Meta_Box(
-				apply_filters( 'learn_press_quiz_general_meta_box',
-					array(
+				apply_filters( 'learn_press_quiz_general_meta_box', array(
 						'title'      => __( 'General Settings', 'learnpress' ),
-						'post_types' => LP()->quiz_post_type,
+						'post_types' => LP_QUIZ_CPT,
 						'context'    => 'normal',
 						'priority'   => 'high',
 						'fields'     => array(
-							// ,
 							array(
-								'name' => __( 'Duration', 'learnpress' ),
-								'desc' => __( 'Duration of the quiz (in minutes). Auto submits when expire. Set 0 to disable.', 'learnpress' ),
-								'id'   => "{$prefix}duration",
+								'name'    => __( 'Show/Hide Question', 'learnpress' ),
+								'desc'    => __( 'Show/Hide list questions on this quiz.', 'learnpress' ),
+								'id'      => "{$prefix}show_hide_question",
+								'type'    => 'radio',
+								'options' => array(
+									// Removed from 2.1.4
+									//'global' => __( wp_kses( 'Global Setting <a target="_blank" href="' . admin_url( 'admin.php?page=learn-press-settings&tab=courses' ) . '">Go to the setting</a>', array( 'a' => array( 'href' => array(), 'target' => array() ) ) ), 'learnpress' ),
+									'show' => __( 'Show', 'learnpress' ),
+									'hide' => __( 'Hide', 'learnpress' )
+								),
+								'std'     => 'hide'
+							),
+							array(
+								'name' => __( 'Show correct answer', 'learnpress' ),
+								'id'   => "{$prefix}show_result",
+								'type' => 'yes_no',
+								'desc' => __( 'Show the correct answer in result of the quiz.', 'learnpress' ),
+								'std'  => 'no'
+							),
+							array(
+								'name'         => __( 'Duration', 'learnpress' ),
+								'desc'         => __( 'Duration of the quiz. Set 0 to disable.', 'learnpress' ),
+								'id'           => "{$prefix}duration",
+								'type'         => 'duration',//'number',
+								'default_time' => 'minute',
+								'min'          => 0,
+								'std'          => 10,
+							),
+							array(
+								'name'    => __( 'Passing Grade Type', 'learnpress' ),
+								'desc'    => __( 'Requires user reached this point to pass the quiz.', 'learnpress' ),
+								'id'      => "{$prefix}passing_grade_type",
+								'type'    => 'radio',
+								'options' => array(
+									'no'         => __( 'No', 'learnpress' ),
+									'percentage' => __( 'Percentage', 'learnpress' ),
+									'point'      => __( 'Point', 'learnpress' )
+								),
+								'std'     => 'percentage',
+							),
+							array(
+								'name' => __( 'Passing Grade (<span>%</span>)', 'learnpress' ),
+								'desc' => __( 'Requires user reached this point to pass the quiz.', 'learnpress' ),
+								'id'   => "{$prefix}passing_grade",
 								'type' => 'number',
 								'min'  => 0,
-								'std'  => 10
+								'max'  => 100,
+								'std'  => 80
 							),
 							array(
 								'name' => __( 'Re-take', 'learnpress' ),
 								'id'   => "{$prefix}retake_count",
 								'type' => 'number',
 								'desc' => __( 'How many times the user can re-take this quiz. Set to 0 to disable', 'learnpress' ),
-								'min'  => 0
+								'min'  => 0,
+								'std'  => 0
 							),
 							array(
-								'name'    => __( 'Show correct answer', 'learnpress' ),
-								'id'      => "{$prefix}show_result",
-								'type'    => 'radio',
-								'desc'    => __( 'Show the correct answer in result of the quiz.', 'learnpress' ),
-								'options' => array(
-									'no'  => __( 'No', 'learnpress' ),
-									'yes' => __( 'Yes', 'learnpress' )
-								),
-								'std'     => 'no'
-							),
-							array(
-								'name'    => __( 'Show check answer', 'learnpress' ),
-								'id'      => "{$prefix}show_check_answer",
-								'type'    => 'radio',
-								'desc'    => __( 'Show button to check answer', 'learnpress' ),
-								'options' => array(
-									'no'  => __( 'No', 'learnpress' ),
-									'yes' => __( 'Yes', 'learnpress' )
-								),
-								'std'     => 'no'
+								'name' => __( 'Show check answer', 'learnpress' ),
+								'id'   => "{$prefix}show_check_answer",
+								'type' => 'yes_no',
+								'desc' => __( 'Show button to check answer while doing quiz.', 'learnpress' ),
+								'std'  => 'no'
 							),
 							array(
 								'name'    => __( 'Show hint', 'learnpress' ),
 								'id'      => "{$prefix}show_hint",
-								'type'    => 'radio',
-								'desc'    => __( 'Show button to hint answer', 'learnpress' ),
-								'options' => array(
-									'no'  => __( 'No', 'learnpress' ),
-									'yes' => __( 'Yes', 'learnpress' )
-								),
-								'std'     => 'no'
-							),
-							array(
-								'name'    => __( 'Show explanation', 'learnpress' ),
-								'id'      => "{$prefix}show_explanation",
-								'type'    => 'radio',
-								'desc'    => __( 'Show button to explain answer', 'learnpress' ),
+								'type'    => 'yes_no',
+								'desc'    => __( 'Show button to hint answer while doing quiz.', 'learnpress' ),
 								'options' => array(
 									'no'  => __( 'No', 'learnpress' ),
 									'yes' => __( 'Yes', 'learnpress' )
 								),
 								'std'     => 'no'
 							)
+							// Removed from 2.1.4,
+							/*
+							array(
+								'name'    => __( 'Show explanation', 'learnpress' ),
+								'id'      => "{$prefix}show_explanation",
+								'type'    => 'yes_no',
+								'desc'    => __( 'Show explanation of question after user checking answer.', 'learnpress' ),
+								'options' => array(
+									'no'  => __( 'No', 'learnpress' ),
+									'yes' => __( 'Yes', 'learnpress' )
+								),
+								'std'     => 'no'
+							)*/
 						)
 					)
 				)
 			);
+			parent::add_meta_boxes();
 		}
 
 		public function enqueue_script() {
-			if ( LP()->quiz_post_type != get_post_type() ) return;
+			if ( LP_QUIZ_CPT != get_post_type() ) return;
 			ob_start();
 			?>
 			<script>
@@ -276,13 +317,14 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 
 			// append new column after title column
 			$pos = array_search( 'title', array_keys( $columns ) );
-			if ( false !== $pos && !array_key_exists( LP()->course_post_type, $columns ) ) {
+			if ( false !== $pos && !array_key_exists( LP_COURSE_CPT, $columns ) ) {
 				$columns = array_merge(
 					array_slice( $columns, 0, $pos + 1 ),
 					array(
-						LP()->course_post_type => __( 'Course', 'learnpress' ),
-						'num_of_question'      => __( 'Questions', 'learnpress' ),
-						'duration'             => __( 'Duration', 'learnpress' )
+						'author'          => __( 'Author', 'learnpress' ),
+						LP_COURSE_CPT     => __( 'Course', 'learnpress' ),
+						'num_of_question' => __( 'Questions', 'learnpress' ),
+						'duration'        => __( 'Duration', 'learnpress' )
 					),
 					array_slice( $columns, $pos + 1 )
 				);
@@ -302,10 +344,10 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 		 * @param string $name
 		 * @param int    $post_id
 		 */
-		public function columns_content( $name, $post_id ) {
+		public function columns_content( $name, $post_id = 0 ) {
 			global $post;
 			switch ( $name ) {
-				case LP()->course_post_type:
+				case LP_COURSE_CPT:
 					$courses = learn_press_get_item_courses( $post_id );
 					if ( $courses ) {
 						foreach ( $courses as $course ) {
@@ -339,12 +381,12 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 
 					printf(
 						'<span class="lp-label-counter" title="%s">%s</span>',
-						( $count ) ? sprintf( _nx( '%d question', '%d questions', $count, 'learnpress' ), $count ) : __( 'This quiz has got any questions', 'learnpress' ),
+						( $count ) ? sprintf( _nx( '%d question', '%d questions', $count, 'learnpress' ), $count ) : __( 'This quiz has no questions', 'learnpress' ),
 						$count
 					);
 					break;
 				case 'duration':
-					$duration = absint( get_post_meta( $post_id, '_lp_duration', true ) ) * 60;
+					$duration = learn_press_human_time_to_seconds( get_post_meta( $post_id, '_lp_duration', true ) );
 					if ( $duration >= 600 ) {
 						echo date( 'H:i:s', $duration );
 					} elseif ( $duration > 0 ) {
@@ -446,15 +488,16 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function columns_sortable( $columns ) {
-			$columns[LP()->course_post_type] = 'course-name';
-			$columns['num_of_question']      = 'question-count';
+		public function sortable_columns( $columns ) {
+			$columns['author']          = 'author';
+			$columns[LP_COURSE_CPT]     = 'course-name';
+			$columns['num_of_question'] = 'question-count';
 			return $columns;
 		}
 
 		private function _is_archive() {
 			global $pagenow, $post_type;
-			if ( !is_admin() || ( $pagenow != 'edit.php' ) || ( LP()->quiz_post_type != $post_type ) ) {
+			if ( !is_admin() || ( $pagenow != 'edit.php' ) || ( LP_QUIZ_CPT != $post_type ) ) {
 				return false;
 			}
 			return true;
@@ -471,6 +514,68 @@ if ( !class_exists( 'LP_Quiz_Post_Type' ) ) {
 		private function _get_search() {
 			return isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : false;
 		}
-	} // end LP_Quiz_Post_Type
+
+		/**
+		 * Remove View Quiz link on dashboard Quiz list
+		 *
+		 * @param array $actions
+		 *
+		 * @return array $actions
+		 */
+		public function remove_view_link( $actions, $post ) {
+			$post_id = $post->ID;
+			if ( $post->post_type === LP_QUIZ_CPT && !learn_press_get_item_course_id( $post->ID, $post->post_type ) ) {
+				unset( $actions['view'] );
+			}
+			return $actions;
+		}
+
+		/**
+		 * Hide view Quiz link
+		 */
+		public function hide_view_quiz_link_if_not_assigned() {
+			$current_screen = get_current_screen();
+			global $post;
+			if ( !$post ) {
+				return;
+			}
+			if ( $current_screen->id === LP_QUIZ_CPT && !learn_press_get_item_course_id( $post->ID, $post->post_type ) ) {
+				?>
+				<style type="text/css">
+					#wp-admin-bar-view {
+						display: none;
+					}
+
+					#sample-permalink a {
+						pointer-events: none;
+						cursor: default;
+						text-decoration: none;
+						color: #666;
+					}
+
+					#preview-action {
+						display: none;
+					}
+				</style>
+				<?php
+			}
+		}
+
+		public function get_sample_permalink_html( $return, $post_id, $new_title, $new_slug, $post ) {
+
+			return $return;
+
+		}
+
+		public static function instance() {
+			if ( !self::$_instance ) {
+				self::$_instance = new self( LP_QUIZ_CPT, '' );
+			}
+			return self::$_instance;
+		}
+
+	}
+
+	// end LP_Quiz_Post_Type
+	$quiz_post_type = LP_Quiz_Post_Type::instance();
 }
-new LP_Quiz_Post_Type();

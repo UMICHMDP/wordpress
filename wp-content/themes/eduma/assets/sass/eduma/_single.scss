@@ -4,6 +4,23 @@
         overflow: hidden;
     }
 
+    .archived-posts {
+        margin-left: -15px;
+        margin-right: -15px;
+        .owl-carousel {
+            .owl-item {
+                .post {
+                    padding-right: 15px;
+                    padding-left: 15px;
+                    h5 {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+
     ul.archived-posts {
         li {
             list-style: none;
@@ -262,7 +279,8 @@
 
 .thim-social-share {
     margin: 0;
-    float: right;
+    margin-top: 30px;
+    float: left;
     overflow: hidden;
     li{
         margin-right: 15px;
@@ -411,6 +429,10 @@
             color: #305891;
             font-size: 16px;
             text-align: center;
+            &:hover {
+                background: #305891;
+                color: #fff;
+            }
             &.facebook {
                 color: #3b5998;
                 border-color: #3b5998;

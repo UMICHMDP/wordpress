@@ -221,3 +221,91 @@
 		}
 	}
 }
+
+.thim-list-posts {
+	&.home-new {
+		.item-post {
+			border-bottom: 1px solid rgba(124,124,124,0.15);
+			padding-bottom: 30px;
+			margin-bottom: 30px;
+			h5 {
+				font-size: 18px;
+				margin-top: 0;
+				margin-bottom: 10px;
+				font-weight: 400;
+				a {
+					color: #292929
+				}
+			}
+			.article-date {
+				i {
+					margin-right: 10px;
+					color: #2ec4b6;
+				}
+			}
+			&:last-child {
+				border-bottom: none;
+				padding-bottom: 0;
+				margin-bottom: 0;
+			}
+		}
+
+	}
+}
+
+// Recent posts sidebar
+.widget-area {
+	.thim-list-posts.sidebar {
+		.item-post {
+			clear: both;
+			margin-bottom: 30px;
+			overflow: hidden;
+			&:last-child {
+				margin-bottom: 0px;
+			}
+			&:not(.has-post-thumbnail), &:not(.has_thumb){
+				.article-title-wrapper {
+					width: 100%;
+					float: none;
+				}
+			}
+		}
+		.article-image {
+			float: left;
+			width: 100px;
+			margin-right: 20px;
+			height: 85px;
+			overflow: hidden;
+			img {
+				width: 100%;
+				margin-top: -8px;
+			}
+		}
+		.article-title-wrapper {
+			width: calc(100% - 120px);
+			width: -webkit-calc(100% - 120px);
+			width: -moz-calc(100% - 120px);
+			float: right;
+			h5 {
+				font-size: 14px;
+				font-weight: 700;
+				line-height: 21px;
+				margin: -4px 0 14px;
+			}
+		}
+
+		.article-date {
+			font-size: 12px;
+			font-weight: 700;
+			line-height: 12px;
+			span {
+				margin-right: 5px;
+				display: inline-block;
+				color: #ccc;
+				&.year {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}

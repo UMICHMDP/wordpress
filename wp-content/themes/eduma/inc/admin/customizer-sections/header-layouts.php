@@ -29,6 +29,7 @@ thim_customizer()->add_field(
 			'header_v2' => THIM_URI . 'images/header/header_v2_thumb.jpg',
 			'header_v3' => THIM_URI . 'images/header/header_v3_thumb.jpg',
 			'header_v4' => THIM_URI . 'images/header/header_v4_thumb.jpg',
+            'header_v5' => THIM_URI . 'images/header/header_v5_thumb.jpg',
 		),
 	)
 );
@@ -66,28 +67,5 @@ thim_customizer()->add_field(
 			'header_default' => esc_html__( 'Default', 'eduma' ),
 			'header_overlay' => esc_html__( 'Overlay', 'eduma' ),
 		),
-	)
-);
-
-
-// Background Header
-thim_customizer()->add_field(
-	array(
-		'id'        => 'thim_bg_main_menu_color',
-		'type'      => 'color',
-		'label'     => esc_html__( 'Background Color', 'eduma' ),
-		'tooltip'   => esc_html__( 'Allows you can choose background color for your header. ', 'eduma' ),
-		'section'   => 'header_layout',
-		'default'   => 'rgba(255,255,255,0)',
-		'priority'  => 30,
-		'choices' => array ('alpha'     => true),
-		'transport' => 'postMessage',
-		'js_vars'   => array(
-			array(
-				'function' => 'css',
-				'element'  => '.site-header, .site-header.header_v2 .width-navigation',
-				'property' => 'background-color',
-			)
-		)
 	)
 );

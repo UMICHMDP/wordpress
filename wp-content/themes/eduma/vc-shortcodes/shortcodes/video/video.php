@@ -24,6 +24,7 @@ function thim_shortcode_video( $atts ) {
 		'poster'         => '',
 		'title'          => '',
 		'description'    => '',
+        'el_class' => '',
 	), $atts );
 
 
@@ -44,9 +45,11 @@ function thim_shortcode_video( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-video">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

@@ -2,32 +2,27 @@
 /**
  * @author        ThimPress
  * @package       LearnPress/Templates
- * @version       1.0
+ * @version       2.1.5
  */
 if ( !defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-$template = get_option( 'template' );
-switch ( $template ) {
-	case 'twentyeleven' :
-		echo '<div id="primary"><div id="content" role="main" class="twentyeleven">';
-		break;
-	case 'twentytwelve' :
-		echo '<div id="primary" class="site-content"><div id="content" role="main" class="twentytwelve">';
-		break;
-	case 'twentythirteen' :
-		echo '<div id="primary" class="site-content"><div id="content" role="main" class="entry-content twentythirteen">';
-		break;
-	case 'twentyfourteen' :
-		echo '<div id="primary" class="content-area"><div id="content" role="main" class="site-content twentyfourteen"><div class="tfwc">';
-		break;
-	case 'twentyfifteen' :
+$user = learn_press_get_current_user();
+?>
+<?php if ( learn_press_is_course() ): ?>
+<div id="lp-single-course" class="lp-single-course">
+	<?php if ( !learn_press_get_page_link( 'checkout' ) && ( $user->is_admin() || $user->is_instructor() ) ) { ?>
+		<?php
+		$message = __( 'LearnPress <strong>Checkout</strong> page is not set up. ', 'learnpress' );
+		if ( $user->is_instructor() ) {
+			$message .= __( 'Please contact to administrator for setting up this page.', 'learnpress' );
+		} else {
+			$message .= sprintf( __( 'Please <a href="%s" target="_blank">setup</a> it so user can purchase a course.', 'learnpress' ), admin_url( 'admin.php?page=learn-press-settings&tab=checkout' ) );
+		}
+		?>
+		<?php learn_press_display_message( $message, 'error' ); ?>
 
-		echo '<div id="primary" class="content-area">';
-		echo "\t" . '<main id="main" class="site-main twentyfifteen" role="main">';
-		break;
-	default :
-		echo '<div id="container" class="container-wrap"><div id="content" role="main" class="container">';
-		break;
-}
-echo '<!-- .learnpress-content --><div class="learnpress-content">';
+	<?php } ?>
+	<?php else: ?>
+	<div id="lp-archive-courses" class="lp-archive-courses">
+		<?php endif; ?>

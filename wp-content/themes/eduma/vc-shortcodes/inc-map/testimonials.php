@@ -35,6 +35,8 @@ vc_map( array(
 			'value'       => array(
 				esc_html__( 'Select', 'eduma' )   => '',
 				esc_html__( 'Default', 'eduma' )  => 'default',
+                esc_html__( 'Slider', 'eduma' )  => 'slider',
+                esc_html__( 'Slider 2', 'eduma' )  => 'slider-2',
 				esc_html__( 'Carousel', 'eduma' ) => 'carousel',
 			),
 			'std'         => $defaults['layout'],
@@ -47,6 +49,18 @@ vc_map( array(
 			'param_name'  => 'limit',
 			'std'         => $defaults['limit'],
 		),
+
+        array(
+            'type'        => 'number',
+            'admin_label' => false,
+            'heading'     => esc_html__( 'Items padding', 'eduma' ),
+            'param_name'  => 'activepadding',
+            'std'         => '0',
+            'dependency'  => array(
+                'element' => 'layout',
+                'value'   => array( 'slider', 'slider-2' ),
+            ),
+        ),
 
 		array(
 			'type'        => 'number',
@@ -72,7 +86,7 @@ vc_map( array(
 			'std'         => $defaults['autoplay'],
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'default',
+				'value'   => array( 'default', 'slider', 'slider-2' ),
 			),
 		),
 
@@ -84,7 +98,7 @@ vc_map( array(
 			'std'         => $defaults['mousewheel'],
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'default',
+				'value'   => array( 'default', 'slider', 'slider-2' ),
 			),
 		),
 
@@ -132,5 +146,15 @@ vc_map( array(
 			'param_name'  => 'link_to_single',
 			'std'         => $defaults['link_to_single'],
 		),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 	)
 ) );

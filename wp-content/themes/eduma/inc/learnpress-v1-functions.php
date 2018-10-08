@@ -524,10 +524,10 @@ if ( !function_exists( 'thim_add_course_meta' ) ) {
 	function thim_add_course_meta( $meta_box ) {
 		$fields             = $meta_box['fields'];
 		$fields[]           = array(
-			'name' => esc_html__( 'Duration', 'eduma' ),
+			'name' => esc_html__( 'Duration Info', 'eduma' ),
 			'id'   => 'thim_course_duration',
 			'type' => 'text',
-			'desc' => esc_html__( 'Course duration', 'eduma' ),
+			'desc' => esc_html__( 'Display duration info', 'eduma' ),
 			'std'  => esc_html__( '50 hours', 'eduma' )
 		);
 		$fields[]           = array(
@@ -643,7 +643,7 @@ if ( !function_exists( 'thim_related_courses' ) ) {
 													<?php echo esc_html( $price ); ?>
 												</div>
 											<?php endif; ?>
-											<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency_symbol(); ?>" />
+											<meta itemprop="priceCurrency" content="<?php echo learn_press_get_currency(); ?>" />
 										</div>
 									</div>
 								</div>

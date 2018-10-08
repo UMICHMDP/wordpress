@@ -151,25 +151,25 @@ thim_customizer()->add_field(
 	)
 );
 
-thim_customizer()->add_field(
-	array(
-		'type'            => 'slider',
-		'id'              => 'thim_archive_single_related_post_number',
-		'label'           => esc_html__( 'Numbers of Related Post', 'eduma' ),
-		'default'         => 3,
-		'priority'        => 110,
-		'section'         => 'blog_singular',
-		'choices'         => array(
-			'min'  => 1,
-			'max'  => 6,
-			'step' => 1,
-		),
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_archive_single_related_post',
-				'operator' => '==',
-				'value'    => true,
-			),
-		),
-	)
-);
+//thim_customizer()->add_field(
+//	array(
+//		'type'            => 'slider',
+//		'id'              => 'thim_archive_single_related_post_number',
+//		'label'           => esc_html__( 'Numbers of Related Post', 'eduma' ),
+//		'default'         => 3,
+//		'priority'        => 110,
+//		'section'         => 'blog_singular',
+//		'choices'         => array(
+//			'min'  => 1,
+//			'max'  => 6,
+//			'step' => 1,
+//		),
+//		'active_callback' => array(
+//			array(
+//				'setting'  => 'thim_archive_single_related_post',
+//				'operator' => '==',
+//				'value'    => true,
+//			),
+//		),
+//	)
+//);

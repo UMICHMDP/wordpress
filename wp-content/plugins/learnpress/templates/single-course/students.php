@@ -4,17 +4,20 @@
  *
  * @author  ThimPress
  * @package LearnPress/Templates
- * @version 1.0
+ * @version 2.1.4
  */
 
 if ( !defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+$course = LP()->global['course'];
 
-global $course;
-
+// Do not show if course is no require enrollment
+if ( !$course || !$course->is_require_enrollment() ) {
+	return;
+}
 ?>
 
-<span class="course-students">
+<p class="course-students">
 	<?php echo $course->get_students_html(); ?>
-</span>
+</p>

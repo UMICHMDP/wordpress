@@ -14,7 +14,7 @@ $settings = LP()->settings;
 ?>
 <h3><?php _e( 'Finished course', 'learnpress' ); ?></h3>
 <p class="description">
-	<?php _e( 'Send this email to user when a course finished', 'learnpress' ); ?>
+	<?php _e( 'Send this email to user when a user finished a course.', 'learnpress' ); ?>
 </p>
 <table class="form-table">
 	<tbody>
@@ -24,7 +24,7 @@ $settings = LP()->settings;
 			<label for="learn-press-emails-finished-course-enable"><?php _e( 'Enable', 'learnpress' ); ?></label></th>
 		<td>
 			<input type="hidden" name="<?php echo $settings_class->get_field_name( 'emails_finished_course[enable]' ); ?>" value="no" />
-			<input id="learn-press-emails-finished-course-enable" type="checkbox" name="<?php echo $settings_class->get_field_name( 'emails_finished_course[enable]' ); ?>" value="yes" <?php checked( $settings->get( 'emails_finished_course.enable' ) == 'yes' ); ?>" />
+			<input id="learn-press-emails-finished-course-enable" type="checkbox" name="<?php echo $settings_class->get_field_name( 'emails_finished_course[enable]' ); ?>" value="yes" <?php checked( $settings->get( 'emails_finished_course.enable' ) == 'yes' ); ?> />
 		</td>
 	</tr>
 	<tr>
@@ -49,14 +49,14 @@ $settings = LP()->settings;
 			</p>
 		</td>
 	</tr>
-	<tr>
+	<!--<tr>
 		<th scope="row">
 			<label for="learn-press-emails-finished-course-email-format"><?php _e( 'Email format', 'learnpress' ); ?></label>
 		</th>
 		<td>
 			<?php learn_press_email_formats_dropdown( array( 'name' => $settings_class->get_field_name( 'emails_finished_course[email_format]' ), 'id' => 'learn_press_email_formats', 'selected' => $settings->get( 'emails_finished_course.email_format' ) ) ); ?>
 		</td>
-	</tr>
+	</tr>-->
 	<?php
 	$view = learn_press_get_admin_view( 'settings/emails/email-template.php' );
 	include_once $view;

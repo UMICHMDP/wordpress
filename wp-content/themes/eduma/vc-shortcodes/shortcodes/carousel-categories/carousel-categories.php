@@ -25,6 +25,7 @@ function thim_shortcode_carousel_categories( $atts ) {
 		'link_view_all'      => '',
 		'text_view_all'      => '',
 		'share_use_page_url' => '',
+        'el_class'           => '',
 	), $atts );
 
 
@@ -42,9 +43,11 @@ function thim_shortcode_carousel_categories( $atts ) {
 		$widget_template = $child_widget_template;
 	}
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-carousel-categories">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html = ob_get_contents();
 	ob_end_clean();
 

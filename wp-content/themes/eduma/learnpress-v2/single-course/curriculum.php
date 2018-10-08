@@ -29,7 +29,7 @@ $style_content = isset($theme_options_data['thim_layout_content_page']) ? $theme
                             class="button button-retake-course"
                             data-course_id="<?php echo esc_attr( $course->id ); ?>"
                             data-security="<?php echo esc_attr( wp_create_nonce( sprintf( 'learn-press-retake-course-%d-%d', $course->id, $user->id ) ) ); ?>" data-block-content="no">
-                        <?php echo esc_html( sprintf( __( 'Retake course (+%d)', 'coaching' ), $count ) ); ?>
+                        <?php echo esc_html( sprintf( __( 'Retake course (+%d)', 'eduma' ), $count ) ); ?>
                     </button>
                 <?php endif; ?>
                 <?php
@@ -43,7 +43,7 @@ $style_content = isset($theme_options_data['thim_layout_content_page']) ? $theme
                         class="button-finish-course<?php echo !$can_finish ? ' hide-if-js' : ''; ?>"
                         data-id="<?php echo esc_attr( $course->id ); ?>"
                         data-security="<?php echo esc_attr( $finish_course_security ); ?>" data-block-content="no">
-                    <?php esc_html_e( 'Finish course', 'coaching' ); ?>
+                    <?php esc_html_e( 'Finish course', 'eduma' ); ?>
                 </button>
             <?php endif; ?>
         <?php } ?>

@@ -15,6 +15,7 @@ vc_map( array(
 			'value'       => array(
 				esc_html__( 'Basic', 'eduma' ) => 'base',
 				esc_html__( 'Popup', 'eduma' ) => 'popup',
+                esc_html__( 'Image Popup', 'eduma' ) => 'image-popup',
 			),
 		),
 
@@ -81,7 +82,7 @@ vc_map( array(
 			'description' => esc_html__( 'Poster background display on popup video.', 'eduma' ),
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'popup',
+				'value'   => array('image-popup','popup'),
 			),
 			'group'       => esc_html__( 'Popup Settings', 'eduma' ),
 		),
@@ -95,7 +96,7 @@ vc_map( array(
 			'description' => esc_html__( 'Title display on popup video', 'eduma' ),
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'popup',
+				'value'   => array('image-popup','popup'),
 			),
 			'group'       => esc_html__( 'Popup Settings', 'eduma' ),
 		),
@@ -107,9 +108,19 @@ vc_map( array(
 			'description' => esc_html__( 'Description display on popup video', 'eduma' ),
 			'dependency'  => array(
 				'element' => 'layout',
-				'value'   => 'popup',
+				'value'   => array('image-popup','popup'),
 			),
 			'group'       => esc_html__( 'Popup Settings', 'eduma' ),
 		),
+
+        // Extra class
+        array(
+            'type'        => 'textfield',
+            'admin_label' => true,
+            'heading'     => esc_html__( 'Extra class', 'eduma' ),
+            'param_name'  => 'el_class',
+            'value'       => '',
+            'description' => esc_html__( 'Add extra class name that will be applied to the icon box, and you can use this class for your customizations.', 'eduma' ),
+        ),
 	)
 ) );

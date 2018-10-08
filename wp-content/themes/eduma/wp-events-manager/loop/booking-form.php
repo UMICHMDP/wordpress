@@ -13,6 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $event    = new WPEMS_Event( get_the_ID() );
 $user_reg = $event->booked_quantity( get_current_user_id() );
 $payments = wpems_gateways_enable();
+if( version_compare(WPEMS_VER, '2.1.5', '>=') ) {
+    $is_expired = ( 'expired' === get_post_meta( get_the_ID(), 'tp_event_status', true ) ) ? true : false;
+} else {
+    $is_expired = ( 'tp-event-expired' === $event->post->post_status ) ? true : false;
+}
 
 ?>
 <h3 class="book-title"><?php esc_html_e( 'Buy Ticket', 'eduma' ); ?></h3>
@@ -87,7 +92,7 @@ $payments = wpems_gateways_enable();
             <input type="hidden" name="event_id" value="<?php echo esc_attr( get_the_ID() ); ?>"/>
             <input type="hidden" name="action" value="event_auth_register"/>
 			<?php wp_nonce_field( 'event_auth_register_nonce', 'event_auth_register_nonce' ); ?>
-			<?php if ( 'tp-event-expired' === $event->post->post_status ) : ?>
+			<?php if ( $is_expired ) : ?>
                 <button type="submit" disabled class="event_button_disable"><?php esc_html_e( 'Expired', 'eduma' ); ?></button>
 			<?php elseif ( absint( $event->qty ) == 0 ) : ?>
                 <button type="submit" disabled class="event_button_disable"><?php esc_html_e( 'Sold Out', 'eduma' ); ?></button>

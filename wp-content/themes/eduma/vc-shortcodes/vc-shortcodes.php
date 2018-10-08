@@ -19,13 +19,20 @@ require_once( THIM_DIR . 'vc-shortcodes/vc-functions.php' );
 
 // Register shortcodes
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/heading/heading.php' );
-require_once( THIM_DIR . 'vc-shortcodes/shortcodes/courses/courses.php' );
+
+if ( thim_plugin_active( 'learnpress/learnpress.php' ) ) {
+    require_once( THIM_DIR . 'vc-shortcodes/shortcodes/courses/courses.php' );
+    require_once( THIM_DIR . 'vc-shortcodes/shortcodes/course-categories/course-categories.php' );
+    require_once( THIM_DIR . 'vc-shortcodes/shortcodes/one-course-instructors/one-course-instructors.php' );
+    require_once( THIM_DIR . 'vc-shortcodes/shortcodes/list-instructors/list-instructors.php' );
+}
+
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/carousel-posts/carousel-posts.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/testimonials/testimonials.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/our-team/our-team.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/counters-box/counters-box.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/countdown-box/countdown-box.php' );
-require_once( THIM_DIR . 'vc-shortcodes/shortcodes/course-categories/course-categories.php' );
+
 
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/gallery-images/gallery-images.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/gallery-posts/gallery-posts.php' );
@@ -33,12 +40,14 @@ require_once( THIM_DIR . 'vc-shortcodes/shortcodes/google-map/google-map.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/login-form/login-form.php' );
 
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/timetable/timetable.php' );
+require_once( THIM_DIR . 'vc-shortcodes/shortcodes/tab/tab.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/video/video.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/portfolio/portfolio.php' );
-require_once( THIM_DIR . 'vc-shortcodes/shortcodes/one-course-instructors/one-course-instructors.php' );
-require_once( THIM_DIR . 'vc-shortcodes/shortcodes/list-instructors/list-instructors.php' );
+
+
 
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/icon-box/icon-box.php' );
+require_once( THIM_DIR . 'vc-shortcodes/shortcodes/image-box/image-box.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/single-images/single-images.php' );
 require_once( THIM_DIR . 'vc-shortcodes/shortcodes/social/social.php' );
 

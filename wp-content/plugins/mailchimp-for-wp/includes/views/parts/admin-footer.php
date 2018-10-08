@@ -3,7 +3,7 @@
 /**
  * @ignore
  */
-function __mc4wp_admin_translation_notice() {
+function _mc4wp_admin_translation_notice() {
 
 	// show for every language other than the default
 	if( stripos( get_locale(), 'en_us' ) === 0 ) {
@@ -18,26 +18,26 @@ function __mc4wp_admin_translation_notice() {
 /**
  * @ignore
  */
-function __mc4wp_admin_github_notice() {
+function _mc4wp_admin_github_notice() {
 
 	if( strpos( $_SERVER['HTTP_HOST'], 'local' ) !== 0 && ! WP_DEBUG ) {
 		return;
 	}
 
-	echo '<p class="help">Developer? Check out our <a href="http://developer.mc4wp.com/">developer documentation</a> or follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">MailChimp for WordPress on GitHub</a>.</p>';
+	echo '<p class="help">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">MailChimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/mc4wp-snippets">sample code snippets</a>.</p>';
 
 }
 
 /**
  * @ignore
  */
-function __mc4wp_admin_disclaimer_notice() {
+function _mc4wp_admin_disclaimer_notice() {
 	echo '<p class="help">' . __( 'This plugin is not developed by or affiliated with MailChimp in any way.', 'mailchimp-for-wp' ) . '</p>';
 }
 
-add_action( 'mc4wp_admin_footer', '__mc4wp_admin_translation_notice' , 20);
-add_action( 'mc4wp_admin_footer', '__mc4wp_admin_github_notice', 50 );
-add_action( 'mc4wp_admin_footer', '__mc4wp_admin_disclaimer_notice', 80 );
+add_action( 'mc4wp_admin_footer', '_mc4wp_admin_translation_notice' , 20);
+add_action( 'mc4wp_admin_footer', '_mc4wp_admin_github_notice', 50 );
+add_action( 'mc4wp_admin_footer', '_mc4wp_admin_disclaimer_notice', 80 );
 ?>
 
 <div class="big-margin">

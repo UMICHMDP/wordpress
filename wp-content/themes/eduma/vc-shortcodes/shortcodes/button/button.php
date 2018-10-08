@@ -33,6 +33,7 @@ function thim_shortcode_button( $atts ) {
 		'icon_position'      => '',
 		'button_size'        => 'normal',
 		'rounding'           => '',
+        'el_class'           => '',
 	), $atts );
 
 	$instance['style_options']['font_size']          = $instance['font_size'];
@@ -64,9 +65,11 @@ function thim_shortcode_button( $atts ) {
 		$widget_template = $child_widget_template;
 	}
 	ob_start();
+	if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-button">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html = ob_get_contents();
 	ob_end_clean();
 

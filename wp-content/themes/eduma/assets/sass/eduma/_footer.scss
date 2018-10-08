@@ -117,7 +117,83 @@ footer#colophon {
         .footer {
             .widget-title {
                 font-size: 16px;
-                font-weight: 700;
+                font-weight: 500;
+            }
+        }
+    }
+    &.thim-footer-new-eduma {
+        p {
+          margin-bottom: 20px;
+          line-height: 32px;
+
+        }
+        .thim-footer-location {
+            .info {
+                margin-bottom: 6px;
+                line-height: 26px;
+                display: inline-block;
+                margin-top: 6px;
+                .fa {
+                    margin-bottom: 7px;
+                    float: left;
+                    margin-top: 5px;
+                }
+            }
+        }
+        .copyright-area {
+            .copyright-content {
+                text-align: center;
+                font-size: 16px;
+                font-weight: 300;
+                a {
+                    text-decoration: none;
+                    &:hover {
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+        .footer {
+            padding-top: 85px;
+            font-size: 16px;
+            font-weight: 300;
+            padding-bottom: 75px;
+            .widget-title {
+                font-size: 18px;
+                font-weight: 300;
+                margin-top: 0;
+                line-height: 22px;
+                margin-bottom: 25px;
+                &:after {
+                    background-color: rgba(138,138,145, 0.5);
+                    width: 40px;
+                    content: "";
+                    height: 1px;
+                    display: block;
+                    margin-top: 15px;
+                }
+
+            }
+            ul {
+                li {
+                    line-height: 35px;
+                    a {
+
+                    }
+                }
+            }
+        }
+        .copyright-area {
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .menu_two_column {
+        .menu {
+            li {
+                display: inline-block;
+                width: 49%;
             }
         }
     }

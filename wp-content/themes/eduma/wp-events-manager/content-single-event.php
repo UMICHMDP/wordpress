@@ -43,7 +43,7 @@
 			$time_start  = wpems_event_start( $time_format );
 			$time_end    = wpems_event_end( $time_format );
 
-			$location = get_post_meta( get_the_ID(), 'tp_event_location', true ) ? get_post_meta( get_the_ID(), 'tp_event_location', true ) : 'Birmingham, UK';
+			$location = get_post_meta( get_the_ID(), 'tp_event_location', true ) ? get_post_meta( get_the_ID(), 'tp_event_location', true ) : '';
 			?>
             <div class="tp-event-info">
                 <div class="tp-info-box">
@@ -64,6 +64,7 @@
 
                     <p><?php echo date_i18n( 'l, F j, Y', $time_finish ); ?></p>
                 </div>
+                <?php if($location) {?>
                 <div class="tp-info-box">
                     <p class="heading">
                         <i class="thim-color fa fa-map-marker"></i><?php esc_html_e( 'Address', 'eduma' ); ?>
@@ -77,6 +78,7 @@
 					do_action( 'tp_event_loop_event_location' );
 					?>
                 </div>
+                <?php }?>
             </div>
         </div>
 

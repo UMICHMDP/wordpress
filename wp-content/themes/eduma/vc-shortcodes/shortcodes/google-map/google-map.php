@@ -27,6 +27,7 @@ function thim_shortcode_google_map( $atts ) {
 		'settings_draggable'   => true,
 		'marker_at_center'     => true,
 		'marker_icon'          => '',
+        'el_class' => '',
 	), $atts );
 
 
@@ -60,9 +61,11 @@ function thim_shortcode_google_map( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-google-map">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

@@ -79,10 +79,13 @@ body.thim-demo-university-4{
 	#tab-reviews .course-rating>h3,
 	#learn-press-course-curriculum ul.curriculum-sections .section-header,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .quiz-title,
+	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .quiz-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .quiz-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .lesson-title,
+	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .lesson-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .lesson-title,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-lesson .lesson-preview,
+	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-assignment .lesson-preview,
 	#learn-press-course-curriculum ul.curriculum-sections .section-content .course-quiz .lesson-preview,
 	h1,h2,h3,h4,h5,h6,b,strong,
 	body #popup-footer .course-content-lesson-nav a,
@@ -579,6 +582,24 @@ body.thim-demo-university-4{
 				border-radius: 50%;
 				text-align: center;
 			}
+			.yikes-easy-mc-form {
+				button[type="submit"] {
+					position: absolute;
+					top: 0;
+					right: 0;
+					height: 40px;
+					border: none;
+					background-color: transparent;
+					text-indent: -9999px;
+					line-height: 39px;
+					z-index: 10;
+					margin: 0;
+					width: 20px;
+					.yikes-mailchimp-submit-button-span-text {
+						display: none;
+					}
+				}
+			}
 		}
 
 		.footer{
@@ -824,7 +845,29 @@ body.thim-demo-university-4{
 		}
 	}
 }
-
+@media (max-width: 1024px) {
+	body.thim-demo-university-4 {
+		.menu-mobile-effect.navbar-toggle {
+			position: relative;
+			top: inherit;
+			margin: 0;
+			margin-top: 5px;
+		}
+		#masthead {
+			.navigation {
+				padding-top: 15px;
+			}
+		}
+		.site-header {
+			.width-navigation {
+				width: auto;
+			}
+			.navbar-nav {
+				padding-right: 15px;
+			}
+		}
+	}
+}
 @media( max-width: 768px ) {
 	body.thim-demo-university-4 .site-header .width-navigation{
 		display: none;
@@ -834,9 +877,29 @@ body.thim-demo-university-4{
 			padding-top: 0;
 			padding-bottom: 0;
 			min-height: 50px;
+			position: inherit;
 		}
-		#toolbar .menu{
-			display: none;
+		.site-header .width-logo {
+			top: 0;
+		}
+		#toolbar {
+			.menu{
+				//display: none;
+				li {
+					padding-top: 0;
+					padding-bottom: 0;
+					padding-right: 10px;
+					line-height: 45px;
+				}
+			}
+			.widget_nav_menu {
+				width: calc(100% - 145px);
+				//clear: both;
+				text-align: right;
+			}
+			.toolbar-container {
+
+			}
 		}
 		.thim-right-bg-secondary-color:before{
 			display: none;
@@ -885,7 +948,13 @@ body.thim-demo-university-4{
 			display: none;
 		}
 		.toolbar-container{
-			width: auto !important;
+			width: 100% !important;
+		}
+		.menu-mobile-effect.navbar-toggle {
+			margin-top: 15px;
+		}
+		.thim-video-popup .video-info {
+			margin-bottom: 15px;
 		}
 	}
 }
@@ -896,6 +965,22 @@ body.thim-demo-university-4{
 	}
 	.list-event-slider .view-all{
 		display: block;
+	}
+	body.thim-demo-university-4 {
+		#masthead .navigation {
+			padding-top: 0;
+			padding-bottom: 0;
+			min-height: 50px;
+			position: inherit;
+		}
+		.site-header .width-logo {
+			top: 0;
+		}
+		#toolbar {
+			.widget_nav_menu {
+				display: none;
+			}
+		}
 	}
 }
 

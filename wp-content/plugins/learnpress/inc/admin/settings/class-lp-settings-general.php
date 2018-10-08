@@ -36,13 +36,6 @@ class LP_Settings_General extends LP_Settings_Base {
 					'type'    => 'checkbox'
 				),
 				array(
-					'title'   => __( 'Auto update post name', 'learnpress' ),
-					'desc'    => __( 'The post\'s name will update along with the title when changes title of lesson or quiz  in course curriculum or question in quiz<br />The permalink also is changed, therefore uncheck this if you don\'t want to change the permalink', 'learnpress' ),
-					'id'      => $this->get_field_name( 'auto_update_post_name' ),
-					'default' => 'no',
-					'type'    => 'checkbox'
-				),
-				array(
 					'title'   => __( 'Currency', 'learnpress' ),
 					'id'      => $this->get_field_name( 'currency' ),
 					'default' => 'USD',
@@ -74,8 +67,15 @@ class LP_Settings_General extends LP_Settings_Base {
 					'title'   => __( 'Number of Decimals', 'learnpress' ),
 					'id'      => $this->get_field_name( 'number_of_decimals' ),
 					'default' => '2',
-					'type'    => 'text',
+					'type'    => 'number',
 					'options' => $this->_get_currency_positions()
+				),
+				array(
+					'title'   => __( 'Load css', 'learnpress' ),
+					'id'      => $this->get_field_name( 'load_css' ),
+					'default' => 'yes',
+					'type'    => 'checkbox',
+					'desc'    => __( 'Load default stylesheet for LearnPress', 'learnpress' )
 				),
 				array(
 					'title'   => __( 'Debug mode', 'learnpress' ),
@@ -83,7 +83,17 @@ class LP_Settings_General extends LP_Settings_Base {
 					'default' => 'yes',
 					'type'    => 'checkbox',
 					'desc'    => __( 'Turn on/off debug mode for developer', 'learnpress' )
-				)
+				),
+				array(
+					'title' => __( 'Logout', 'learnpress' ),
+					'type'  => 'title'
+				),
+				array(
+					'title'   => __( 'Redirect to page', 'learnpress' ),
+					'id'      => $this->get_field_name( 'logout_redirect_page_id' ),
+					'default' => '',
+					'type'    => 'pages-dropdown'
+				),
 			)
 		);
 	}
@@ -120,12 +130,6 @@ class LP_Settings_General extends LP_Settings_Base {
 		}
 		return $positions;
 	}
-
-	/*function save() {
-		$settings = LP_Admin_Settings::instance( 'general' );// $_POST['lpr_settings']['general'];
-		$settings->bind( $_POST['learn_press'] );
-		$settings->update();
-	}*/
 }
 
 return new LP_Settings_General();

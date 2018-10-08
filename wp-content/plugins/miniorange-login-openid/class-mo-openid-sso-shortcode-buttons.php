@@ -10,11 +10,21 @@ function mo_openid_share_shortcode( $atts = '', $title = '', $excerpt = '' ) {
 	$custom_theme = isset( $atts['theme'] )? $atts['theme'] : get_option('mo_openid_share_custom_theme');
 	$fontColor = isset( $atts['fontcolor'] )? $atts['fontcolor'] : get_option('mo_sharing_icon_custom_font');
 	$spaceBetweenIcons = isset( $atts['space'] )? $atts['space'] : get_option('mo_sharing_icon_space');
+	$textColor = isset( $atts['color'] ) ? $atts['color'] : '#'.get_option('mo_openid_share_widget_customize_text_color');
+	$text = isset( $atts['heading'] ) ? $atts ['heading'] : get_option('mo_openid_share_widget_customize_text');
 	$twitter_username = get_option('mo_openid_share_twitter_username');
 	$url = isset( $atts['url'])? $atts['url'] : get_permalink();
 	if(!$url) {
 		$url = get_site_url();
 	}
+	
+	if($fontColor)
+	{
+		if(ctype_xdigit($fontColor) && strlen($fontColor)==6 && strpos($fontColor,'#')==false){
+			$fontColor= "#".$fontColor;
+		}else
+			$fontColor;
+	}	
 
 	$email_subject = get_option('mo_openid_share_email_subject');
 	$email_body = get_option('mo_openid_share_email_body');
@@ -31,86 +41,90 @@ function mo_openid_share_shortcode( $atts = '', $title = '', $excerpt = '' ) {
 	
 	
 	$html .= '<div class="mo-openid-app-icons circle ">';
-	$html .= '<div><a href="http://miniorange.com/cloud-identity-broker-service" style="display:none;"></a>
-			<a href="http://miniorange.com/strong_auth" style="display:none;"></a>
-			<a href="http://miniorange.com/single-sign-on-sso" style="display:none;"></a>
-			<a href="http://miniorange.com/fraud" style="display:none;"></a></div>';
-	$html .= '<p style="margin-top:4% !important; margin-bottom:0px !important">';
+	$html .= '<p style="margin-top:4% !important; margin-bottom:0px !important; color:'.$textColor.'">';
 	if( $orientation == 'hor' ) {
-		$html .=  get_option('mo_openid_share_widget_customize_text');
+		$html .=  $text . '</p>';
 		$html .= "<div class='horizontal'>";
 		if($custom_theme == 'custom'){
 			
 
 			if( get_option('mo_openid_facebook_share_enable') ) {
-				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url.'&amp;redirect_uri=http%3A%2F%2Fminiorange.com%2Fsocial_share_redirect';
-				$html .= "<a title='Facebook' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-facebook' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url;
+				$html .= "<a rel='nofollow' title='Facebook' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-facebook' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_twitter_share_enable') ) {
 				$link = empty($twitter_username) ? 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url : 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url. '&amp;via='.$twitter_username;
-				$html .= "<a title='Twitter' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-twitter' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Twitter' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-twitter' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			
 			}
 			
 			if( get_option('mo_openid_google_share_enable') ) {
 				$link = 'https://plus.google.com/share?url='.$url;
-				$html .= "<a title='Google' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-google-plus' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Google' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-google-plus' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_vkontakte_share_enable') ) {
 				$link = 'http://vk.com/share.php?url='.$url.'&amp;title='.$title.'&amp;description='.$excerpt;
-				$html .= "<a title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-vk' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-vk' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_tumblr_share_enable') ) {
 				$link = 'http://www.tumblr.com/share/link?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-tumblr' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-tumblr' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_stumble_share_enable') ) {
 				$link = 'http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-stumbleupon' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-stumbleupon' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_linkedin_share_enable') ) {
 					$link = 'https://www.linkedin.com/shareArticle?mini=true&amp;title='.$title.'&amp;url='.$url.'&amp;summary='.$excerpt;
 					
 
-					$html .= "<a title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-linkedin' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+					$html .= "<a rel='nofollow' title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-linkedin' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			
 			}
 			
 			if( get_option('mo_openid_reddit_share_enable') ) {
 				$link = 'http://www.reddit.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-reddit' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-reddit' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_pinterest_share_enable') ) {
-				$html .= "<a title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-pinterest' style='padding-top:3px;text-align:center;color:#ffffff;font-size:" .($sharingSize-10). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-pinterest' style='padding-top:3px;text-align:center;color:#ffffff;font-size:" .($sharingSize-10). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 		
 			}
 						
 			if( get_option('mo_openid_pocket_share_enable') ) {
 				$link = 'https://getpocket.com/save?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-get-pocket' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-get-pocket' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_digg_share_enable') ) {
 				$link = 'http://digg.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-digg' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-digg' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_delicious_share_enable') ) {
 				$link = 'http://www.delicious.com/save?v=5&noui&jump=close&url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-delicious' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-delicious' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_odnoklassniki_share_enable') ) {
 				$link = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments='.$excerpt.'&amp;st._surl='.$url;
-				$html .= "<a title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-odnoklassniki' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-odnoklassniki' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_mail_share_enable') ) {
-				$html .= "<a title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-envelope' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-envelope' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_print_share_enable') ) {
-				$html .= "<a title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-print' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-print' style='padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_whatsapp_share_enable') ) {
-				$html .= '<a id="mobileshow" title="Whatsapp" href="whatsapp://send?text=' . $url .' class="mo-openid-share-link" style="margin-left :  '.($spaceBetweenIcons) . 'px !important;border-bottom:0px !important;"><i class="mo-custom-share-icon ' .$selected_theme. ' fa fa-whatsapp" style="padding-top:8px;text-align:center;color:#ffffff;font-size: '.($sharingSize-16). 'px !important;background-color:#' .$custom_color. ';height: '.$sharingSize. 'px !important;width:' .$sharingSize. 'px !important;"></i></a>';
+				
+				if(!wp_is_mobile()){
+				$html .= '<a rel="nofollow"  title="Whatsapp" target ="_blank" href="https://web.whatsapp.com/send?text=' . $url .'" class="mo-openid-share-link" style="margin-left :  '.($spaceBetweenIcons) . 'px !important;border-bottom:0px !important;"><i class="mo-custom-share-icon ' .$selected_theme. ' fa fa-whatsapp" style="padding-top:8px;text-align:center;color:#ffffff;font-size: '.($sharingSize-16). 'px !important;background-color:#' .$custom_color. ';height: '.$sharingSize. 'px !important;width:' .$sharingSize. 'px !important;"></i></a>';
+				}
+				else{
+				$html .= '<a rel="nofollow" title="Whatsapp" href="whatsapp://send?text=' . $url .'" class="mo-openid-share-link" style="margin-left :  '.($spaceBetweenIcons) . 'px !important;border-bottom:0px !important;"><i class="mo-custom-share-icon ' .$selected_theme. ' fa fa-whatsapp" style="padding-top:8px;text-align:center;color:#ffffff;font-size: '.($sharingSize-16). 'px !important;background-color:#' .$custom_color. ';height: '.$sharingSize. 'px !important;width:' .$sharingSize. 'px !important;"></i></a>';					
+					
+				}
+			
 			}
 			
 		}
@@ -118,68 +132,75 @@ function mo_openid_share_shortcode( $atts = '', $title = '', $excerpt = '' ) {
 		else if($custom_theme == 'customFont') {
 			
 			if( get_option('mo_openid_facebook_share_enable') ) {
-				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url.'&amp;redirect_uri=http%3A%2F%2Fminiorange.com%2Fsocial_share_redirect';
-				$html .= "<a title='Facebook' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-facebook' style='padding-top:4px;text-align:center;color:#" . $fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+		
+				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url;
+				$html .= "<a rel='nofollow' title='Facebook' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-facebook' style='padding-top:4px;text-align:center;color:" . $fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_twitter_share_enable') ) {
 				$link = empty($twitter_username) ? 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url : 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url. '&amp;via='.$twitter_username;
-				$html .= "<a title='Twitter' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-twitter' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Twitter' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-twitter' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_google_share_enable') ) {
 						
 				$link = 'https://plus.google.com/share?url='.$url;
-				$html .= "<a title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class='fa fa-google-plus' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class='fa fa-google-plus' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_vkontakte_share_enable') ) {
 				$link = 'http://vk.com/share.php?url='.$url.'&amp;title='.$title.'&amp;description='.$excerpt;
-				$html .= "<a title='Vkontakte' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-vk' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Vkontakte' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-vk' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_tumblr_share_enable') ) {
 				$link = 'http://www.tumblr.com/share/link?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Tumblr' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-tumblr' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Tumblr' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-tumblr' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_stumble_share_enable') ) {
 				$link = 'http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='StumbleUpon' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-stumbleupon' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='StumbleUpon' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-stumbleupon' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_linkedin_share_enable') ) {
 				$link = 'https://www.linkedin.com/shareArticle?mini=true&amp;title='.$title.'&amp;url='.$url.'&amp;summary='.$excerpt;
-				$html .= "<a title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-linkedin' style='padding-top:4px;text-align:center;color:#" . $fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-linkedin' style='padding-top:4px;text-align:center;color:" . $fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_reddit_share_enable') ) {
 				$link = 'http://www.reddit.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Reddit' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-reddit' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Reddit' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-reddit' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}			
 			if( get_option('mo_openid_pinterest_share_enable') ) {	
-				$html .= "<a title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-pinterest' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-pinterest' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_pocket_share_enable') ) {
 				$link = 'https://getpocket.com/save?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Pocket' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-get-pocket' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pocket' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-get-pocket' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_digg_share_enable') ) {
 				$link = 'http://digg.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Digg' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-digg' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Digg' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-digg' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_delicious_share_enable') ) {
 				$link = 'http://www.delicious.com/save?v=5&noui&jump=close&url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Delicious' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-delicious' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Delicious' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-delicious' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_odnoklassniki_share_enable') ) {
 				$link = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments='.$excerpt.'&amp;st._surl='.$url;
-				$html .= "<a title='Odnoklassniki' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-odnoklassniki' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Odnoklassniki' onclick='popupCenter(". '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons-6) . "px !important'><i class=' " .$selected_theme. " fa fa-odnoklassniki' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_mail_share_enable') ) {
-				$html .= "<a title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class=' " .$selected_theme. " fa fa-envelope' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class=' " .$selected_theme. " fa fa-envelope' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_print_share_enable') ) {
-				$html .= "<a title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class=' " .$selected_theme. " fa fa-print' style='padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><i class=' " .$selected_theme. " fa fa-print' style='padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_whatsapp_share_enable') ) {
-				$html .= '<a id="mobileshow" title="Whatsapp" href="whatsapp://send?text=' . $url . ' class="mo-openid-share-link" style="margin-left :  '.($spaceBetweenIcons-6) . 'px !important;border-bottom:0px !important;"><i class=" '.$selected_theme. ' fa fa-whatsapp" style="padding-top:4px;text-align:center;color:#'.$fontColor . ';font-size:' .$sharingSize. 'px !important;height:' .$sharingSize. 'px !important;width:' .$sharingSize. 'px !important;"></i></a>';
+				
+				if(wp_is_mobile()){
+				$html .= '<a rel="nofollow"  title="Whatsapp" href="whatsapp://send?text=' . $url . '" class="mo-openid-share-link" style="margin-left :  '.($spaceBetweenIcons-6) . 'px !important;border-bottom:0px !important;"><i class=" '.$selected_theme. ' fa fa-whatsapp" style="padding-top:4px;text-align:center;color:'.$fontColor . ';font-size:' .$sharingSize. 'px !important;height:' .$sharingSize. 'px !important;width:' .$sharingSize. 'px !important;"></i></a>';
+				}
+				else{
+				$html .= '<a rel="nofollow" title="Whatsapp" target ="_blank" href="https://web.whatsapp.com/send?text=' . $url . '" class="mo-openid-share-link" style="margin-left :  '.($spaceBetweenIcons-6) . 'px !important;border-bottom:0px !important;"><i class=" '.$selected_theme. ' fa fa-whatsapp" style="padding-top:4px;text-align:center;color:'.$fontColor . ';font-size:' .$sharingSize. 'px !important;height:' .$sharingSize. 'px !important;width:' .$sharingSize. 'px !important;"></i></a>';
+				}
 			}
 			
 							
@@ -188,71 +209,81 @@ function mo_openid_share_shortcode( $atts = '', $title = '', $excerpt = '' ) {
 		else {
 
 			if( get_option('mo_openid_facebook_share_enable') ) {
-				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url.'&amp;redirect_uri=http%3A%2F%2Fminiorange.com%2Fsocial_share_redirect';
-				$html .= "<a title='Facebook' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 400);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Facebook' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/facebook.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				
+				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url;
+				$html .= "<a rel='nofollow' title='Facebook' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 400);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Facebook' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/facebook.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			
 			if( get_option('mo_openid_twitter_share_enable') ) {
 				$link = empty($twitter_username) ? 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url : 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url. '&amp;via='.$twitter_username;
-				$html .= "<a title='Twitter' onclick='popupCenter(" . '"' . $link . '"' . ", 600, 300);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Twitter' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/twitter.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Twitter' onclick='popupCenter(" . '"' . $link . '"' . ", 600, 300);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Twitter' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/twitter.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			
 			if( get_option('mo_openid_google_share_enable') ) {
 				$link = 'https://plus.google.com/share?url='.$url;
-				$html .=	"<a title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Google' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;background-color: " . $selected_theme . "' src='" . plugins_url( 'includes/images/icons/google.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Google' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;background-color: " . $selected_theme . "' src='" . plugins_url( 'includes/images/icons/google.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_vkontakte_share_enable') ) {
 				$link = 'http://vk.com/share.php?url='.$url.'&amp;title='.$title.'&amp;description='.$excerpt;
-				$html .= "<a title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Vkontakte' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/vk.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Vkontakte' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/vk.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_tumblr_share_enable') ) {
 				$link = 'http://www.tumblr.com/share/link?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Tumblr' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/tumblr.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Tumblr' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/tumblr.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_stumble_share_enable') ) {
 				$link = 'http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='StumbleUpon' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/stumble.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='StumbleUpon' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/stumble.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_linkedin_share_enable') ) {
 				$link = 'https://www.linkedin.com/shareArticle?mini=true&amp;title='.$title.'&amp;url='.$url.'&amp;summary='.$excerpt;
-				$html .= "<a title='LinkedIn' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='LinkedIn' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/linkedin.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='LinkedIn' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='LinkedIn' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/linkedin.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			
 			if( get_option('mo_openid_reddit_share_enable') ) {
 				$link = 'http://www.reddit.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Reddit' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/reddit.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Reddit' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/reddit.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 				
 			if( get_option('mo_openid_pinterest_share_enable') ) {
-				$html .= "<a title='Pinterest'  href='javascript:pinIt();' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Pinterest' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" .  plugins_url( 'includes/images/icons/pininterest.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Pinterest'  href='javascript:pinIt();' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Pinterest' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" .  plugins_url( 'includes/images/icons/pininterest.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 					
 			if( get_option('mo_openid_pocket_share_enable') ) {
 				$link = 'https://getpocket.com/save?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Pocket' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/pocket.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Pocket' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/pocket.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_digg_share_enable') ) {
 				$link = 'http://digg.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Digg' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/digg.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Digg' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/digg.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_delicious_share_enable') ) {
 				$link = 'http://www.delicious.com/save?v=5&noui&jump=close&url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Delicious' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/delicious.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Delicious' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/delicious.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_odnoklassniki_share_enable') ) {
 				$link = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments='.$excerpt.'&amp;st._surl='.$url;
-				$html .= "<a title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Odnoklassniki' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/odnoklassniki.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " . ($spaceBetweenIcons) . "px !important'><img alt='Odnoklassniki' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/odnoklassniki.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_mail_share_enable') ) {
-				$html .= "<a title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><img alt='Email this page' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/mail.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><img alt='Email this page' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/mail.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_print_share_enable') ) {
-				$html .= "<a title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><img alt='Print this page' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/print.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' style='margin-left : " .($spaceBetweenIcons) . "px !important'><img alt='Print this page' style= 'height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='"  . plugins_url( 'includes/images/icons/print.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_whatsapp_share_enable') ) {
-				$html .= '<a id="mobileshow" title="Whatsapp" href="whatsapp://send?text=' . $url . ' class="mo-openid-share-link" style="margin-left :  '. ($spaceBetweenIcons) . 'px !important; border-bottom:0px !important;">
+				
+				if (wp_is_mobile()){ 
+				$html .= '<a rel="nofollow"  title="Whatsapp" href="whatsapp://send?text=' . $url . '" class="mo-openid-share-link" style="margin-left :  '. ($spaceBetweenIcons) . 'px !important; border-bottom:0px !important;">
 				<img alt="Whatsapp" style= "height:  '. $sharingSize . 'px !important;width:  '. $sharingSize . 'px !important;" src=" '. plugins_url( "includes/images/icons/whatsapp.png", __FILE__ ) . '" class="mo-openid-app-share-icons  '. $selected_theme . '" ></a>';
+				}
+				else{
+				$html .= '<a rel="nofollow"  title="Whatsapp" target ="_blank" href="https://web.whatsapp.com/send?text=' . $url . '" class="mo-openid-share-link" style="margin-left :  '. ($spaceBetweenIcons) . 'px !important; border-bottom:0px !important;">
+				<img alt="Whatsapp" style= "height:  '. $sharingSize . 'px !important;width:  '. $sharingSize . 'px !important;" src=" '. plugins_url( "includes/images/icons/whatsapp.png", __FILE__ ) . '" class="mo-openid-app-share-icons  '. $selected_theme . '" ></a>';	
+				}
+			
 			}
+
 			
 			
 		}
@@ -321,12 +352,6 @@ function mo_openid_vertical_share_shortcode( $atts = '', $title = '', $excerpt =
 	
 	$html .= "<div class='mo_openid_vertical' style='" .(isset($alignment) && $alignment != ''  ? $alignment .': '. (${$alignment.'_offset'} == '' ? 0 :  ${$alignment.'_offset'} ) .'px;' : '').(isset($top_offset) ? 'top: '. ( $top_offset == '' ? 0 : $top_offset ) .'px;' : '') ."'>";
 	
-	
-	
-	$html .= '<a href="http://miniorange.com/cloud-identity-broker-service" style="display:none;"></a>
-<a href="http://miniorange.com/strong_auth" style="display:none;"></a>
-<a href="http://miniorange.com/single-sign-on-sso" style="display:none;"></a>
-<a href="http://miniorange.com/fraud" style="display:none;"></a>';
 	$html .= '<div class="mo-openid-app-icons circle ">';
 	$html .= '<p>';
 	//if( $orientation == 'ver' ) {
@@ -335,76 +360,82 @@ function mo_openid_vertical_share_shortcode( $atts = '', $title = '', $excerpt =
 		if($custom_theme == 'custom'){
 			
 			if( get_option('mo_openid_facebook_share_enable') ) {
-				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url.'&amp;redirect_uri=http%3A%2F%2Fminiorange.com%2Fsocial_share_redirect';
-				$html .= "<a title='Facebook' onclick='popupCenter(" . '"' . $link . '"' .", 1000, 500);' class='mo-openid-share-link' style='margin-bottom : " .$spaceBetweenIcons . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-facebook' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url;
+				$html .= "<a rel='nofollow' title='Facebook' onclick='popupCenter(" . '"' . $link . '"' .", 1000, 500);' class='mo-openid-share-link' style='margin-bottom : " .$spaceBetweenIcons . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-facebook' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_twitter_share_enable') ) {
 				$link = empty($twitter_username) ? 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url : 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url. '&amp;via='.$twitter_username;
-				$html .= "<a title='Twitter' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-twitter' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Twitter' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-twitter' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			
 			}
 			
 			if( get_option('mo_openid_google_share_enable') ) {
 				$link = "https://plus.google.com/share?url=".$url;
-				$html .= "<a title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-bottom : " .$spaceBetweenIcons . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-google-plus' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' style='margin-bottom : " .$spaceBetweenIcons . "px !important'><i class='mo-custom-share-icon " .$selected_theme. " fa fa-google-plus' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 				
 			}
 			if( get_option('mo_openid_vkontakte_share_enable') ) {
 				$link = 'http://vk.com/share.php?url='.$url.'&amp;title='.$title.'&amp;description='.$excerpt;
-				$html .= "<a title='Vkontakte' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-vk' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Vkontakte' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-vk' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_tumblr_share_enable') ) {
 				$link = 'http://www.tumblr.com/share/link?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Tumblr' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-tumblr' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Tumblr' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-tumblr' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_stumble_share_enable') ) {
 				$link = 'http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='StumbleUpon' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-stumbleupon' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='StumbleUpon' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-stumbleupon' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_linkedin_share_enable') ) {
 					$link = 'https://www.linkedin.com/shareArticle?mini=true&amp;title='.$title.'&amp;url='.$url.'&amp;summary='.$excerpt;
 					
 
-					$html .= "<a title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-linkedin' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+					$html .= "<a rel='nofollow' title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-linkedin' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			
 			}
 				
 			if( get_option('mo_openid_reddit_share_enable') ) {
 				$link = 'http://www.reddit.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Reddit' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-reddit' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Reddit' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-reddit' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_pinterest_share_enable') ) {
-				$html .= "<a title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-pinterest' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:3px;text-align:center;color:#ffffff;font-size:" .($sharingSize-10). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-pinterest' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:3px;text-align:center;color:#ffffff;font-size:" .($sharingSize-10). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 		
 			}
 			
 			if( get_option('mo_openid_pocket_share_enable') ) {
 				$link = 'https://getpocket.com/save?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Pocket' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-get-pocket' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pocket' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-get-pocket' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_digg_share_enable') ) {
 				$link = 'http://digg.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Digg' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-digg' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Digg' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-digg' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_delicious_share_enable') ) {
 				$link = 'http://www.delicious.com/save?v=5&noui&jump=close&url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Delicious' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-delicious' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Delicious' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-delicious' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_odnoklassniki_share_enable') ) {
 				$link = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments='.$excerpt.'&amp;st._surl='.$url;
-				$html .= "<a title='Odnoklassniki' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-odnoklassniki' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Odnoklassniki' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-odnoklassniki' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_mail_share_enable') ) {
-				$html .= "<a title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);'  class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-envelope' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);'  class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-envelope' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_print_share_enable') ) {
-				$html .= "<a title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-print' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-print' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_whatsapp_share_enable') ) {
-				$html .= '<a id="mobileshow" title="Whatsapp" href="whatsapp://send?text=' . $url ."\" class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-whatsapp' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				
+				if(wp_is_mobile()){
+				$html .= '<a rel="nofollow" title="Whatsapp" href="whatsapp://send?text=' . $url ."\" class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-whatsapp' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				}
+				else{
+				$html .= '<a rel="nofollow" title="Whatsapp" target ="_blank" href="https://web.whatsapp.com/send?text=' . $url ."\" class='mo-openid-share-link' ><i class='mo-custom-share-icon " .$selected_theme. " fa fa-whatsapp' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:8px;text-align:center;color:#ffffff;font-size:" .($sharingSize-16). "px !important;background-color:#" .$custom_color. ";height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				}
 			}
 			
 							
@@ -413,68 +444,74 @@ function mo_openid_vertical_share_shortcode( $atts = '', $title = '', $excerpt =
 		else if($custom_theme == 'customFont') {
 			
 			if( get_option('mo_openid_facebook_share_enable') ) {
-				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url.'&amp;redirect_uri=http%3A%2F%2Fminiorange.com%2Fsocial_share_redirect';
-				$html .= "<a title='Facebook' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-facebook' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url;
+				$html .= "<a rel='nofollow' title='Facebook' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-facebook' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_twitter_share_enable') ) {
 				$link = empty($twitter_username) ? 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url : 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url. '&amp;via='.$twitter_username;
-				$html .= "<a title='Twitter' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-twitter' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Twitter' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-twitter' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			
 			if( get_option('mo_openid_google_share_enable') ) {
 						
 				$link = 'https://plus.google.com/share?url='.$url;
-				$html .= "<a title='Google' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link'><i class='fa fa-google-plus' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Google' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link'><i class='fa fa-google-plus' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_vkontakte_share_enable') ) {
 				$link = 'http://vk.com/share.php?url='.$url.'&amp;title='.$title.'&amp;description='.$excerpt;
-				$html .= "<a title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-vk' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-vk' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_tumblr_share_enable') ) {
 				$link = 'http://www.tumblr.com/share/link?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-tumblr' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-tumblr' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_stumble_share_enable') ) {
 				$link = 'http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-stumbleupon' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-stumbleupon' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_linkedin_share_enable') ) {
 				$link = 'https://www.linkedin.com/shareArticle?mini=true&amp;title='.$title.'&amp;url='.$url.'&amp;summary='.$excerpt;
-				$html .= "<a title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-linkedin' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='LinkedIn' onclick='popupCenter(". '"' . $link . '"' .", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-linkedin' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_reddit_share_enable') ) {
 				$link = 'http://www.reddit.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-reddit' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-reddit' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}			
 			if( get_option('mo_openid_pinterest_share_enable') ) {	
-				$html .= "<a title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' ><i class='fa fa-pinterest' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .($sharingSize-5). "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link' ><i class='fa fa-pinterest' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .($sharingSize-5). "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 				}
 						
 			if( get_option('mo_openid_pocket_share_enable') ) {
 				$link = 'https://getpocket.com/save?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-get-pocket' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-get-pocket' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_digg_share_enable') ) {
 				$link = 'http://digg.com/submit?url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-digg' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-digg' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_delicious_share_enable') ) {
 				$link = 'http://www.delicious.com/save?v=5&noui&jump=close&url='.$url.'&amp;title='.$title;
-				$html .= "<a title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-delicious' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-delicious' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_odnoklassniki_share_enable') ) {
 				$link = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments='.$excerpt.'&amp;st._surl='.$url;
-				$html .= "<a title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-odnoklassniki' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link' ><i class='fa fa-odnoklassniki' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_mail_share_enable') ) {
-				$html .= "<a title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);'  class='mo-openid-share-link' ><i class='fa fa-envelope' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);'  class='mo-openid-share-link' ><i class='fa fa-envelope' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_print_share_enable') ) {
-				$html .= "<a title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' ><i class='fa fa-print' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				$html .= "<a rel='nofollow' title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link' ><i class='fa fa-print' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
 			}
 			if( get_option('mo_openid_whatsapp_share_enable') ) {
-				$html .= '<a id="mobileshow" title="Whatsapp" href="whatsapp://send?text=' . $url ."\" class='mo-openid-share-link' ><i class='fa fa-whatsapp' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:#" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				
+				if(wp_is_mobile()){
+				$html .= '<a rel="nofollow" title="Whatsapp" href="whatsapp://send?text=' . $url ."\" class='mo-openid-share-link' ><i class='fa fa-whatsapp' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				}
+				else{
+				$html .= '<a rel="nofollow" title="Whatsapp" target ="_blank" href="https://web.whatsapp.com/send?text=' . $url ."\" class='mo-openid-share-link' ><i class='fa fa-whatsapp' style='margin-bottom : " . ($spaceBetweenIcons-4) . "px !important;padding-top:4px;text-align:center;color:" .$fontColor . ";font-size:" .$sharingSize. "px !important;height:" .$sharingSize. "px !important;width:" .$sharingSize. "px !important;'></i></a>";
+				}
 			}
 			
 							
@@ -483,67 +520,72 @@ function mo_openid_vertical_share_shortcode( $atts = '', $title = '', $excerpt =
 		else {
 			
 			if( get_option('mo_openid_facebook_share_enable') ) {
-				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url.'&amp;redirect_uri=http%3A%2F%2Fminiorange.com%2Fsocial_share_redirect';
-				$html .=	"<a title='Facebook' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Facebook' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/facebook.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$link = 'https://www.facebook.com/dialog/share?app_id=766555246789034&amp;display=popup&amp;href='.$url;
+				$html .=	"<a rel='nofollow' title='Facebook' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Facebook' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/facebook.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			
 			if( get_option('mo_openid_twitter_share_enable') ) {
 				$link = empty($twitter_username) ? 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url : 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url. '&amp;via='.$twitter_username;
-				$html .=	"<a title='Twitter' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Twitter' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/twitter.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Twitter' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Twitter' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/twitter.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			
 			if( get_option('mo_openid_google_share_enable') ) {
 				$link = 'https://plus.google.com/share?url='.$url;
 				
-				$html .=	"<a title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Google' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/google.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Google' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Google' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/google.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_vkontakte_share_enable') ) {
 				$link = 'http://vk.com/share.php?url='.$url.'&amp;title='.$title.'&amp;description='.$excerpt;
-				$html .=	"<a title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Vkontakte' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/vk.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Vkontakte' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Vkontakte' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/vk.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_tumblr_share_enable') ) {
 				$link = 'http://www.tumblr.com/share/link?url='.$url.'&amp;title='.$title;
-				$html .=	"<a title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Tumblr' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/tumblr.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Tumblr' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Tumblr' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/tumblr.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_stumble_share_enable') ) {
 				$link = 'http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$title;
-				$html .=	"<a title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='StumbleUpon' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/stumble.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='StumbleUpon' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='StumbleUpon' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/stumble.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_linkedin_share_enable') ) {
 				$link = 'https://www.linkedin.com/shareArticle?mini=true&amp;title='.$title.'&amp;url='.$url.'&amp;summary='.$excerpt;
-				$html .=	"<a title='LinkedIn' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='LinkedIn' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/linkedin.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='LinkedIn' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='LinkedIn' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/linkedin.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_reddit_share_enable') ) {
 				$link = 'http://www.reddit.com/submit?url='.$url.'&amp;title='.$title;
-				$html .=	"<a title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Reddit' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/reddit.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Reddit' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Reddit' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/reddit.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}		
 			if( get_option('mo_openid_pinterest_share_enable') ) {
-				$html .=	"<a title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link'><img alt='Pinterest' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/pininterest.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Pinterest' href='javascript:pinIt();' class='mo-openid-share-link'><img alt='Pinterest' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/pininterest.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_pocket_share_enable') ) {
 				$link = 'https://getpocket.com/save?url='.$url.'&amp;title='.$title;
-				$html .=	"<a title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Pocket' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/pocket.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Pocket' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Pocket' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/pocket.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_digg_share_enable') ) {
 				$link = 'http://digg.com/submit?url='.$url.'&amp;title='.$title;
-				$html .=	"<a title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Digg' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/digg.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Digg' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Digg' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/digg.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_delicious_share_enable') ) {
 				$link = 'http://www.delicious.com/save?v=5&noui&jump=close&url='.$url.'&amp;title='.$title;
-				$html .=	"<a title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Delicious' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/delicious.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Delicious' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Delicious' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/delicious.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_odnoklassniki_share_enable') ) {
 				$link = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments='.$excerpt.'&amp;st._surl='.$url;
-				$html .=	"<a title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Odnoklassniki' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/odnoklassniki.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .=	"<a rel='nofollow' title='Odnoklassniki' onclick='popupCenter(" . '"' . $link . '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Odnoklassniki' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/odnoklassniki.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_mail_share_enable') ) {
-				$html .= "<a title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Email this page' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important; height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/mail.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Email this page' onclick='popupCenter(" . '"mailto:?subject= ' . $email_subject . '&amp;body=' . $email_body. '"' . ", 800, 500);' class='mo-openid-share-link'><img alt='Email this page' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important; height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/mail.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_print_share_enable') ) {
-				$html .= "<a title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link'><img alt='Print this page' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important; height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/print.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				$html .= "<a rel='nofollow' title='Print this page' onclick='javascript:window.print();' class='mo-openid-share-link'><img alt='Print this page' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important; height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/print.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
 			}
 			if( get_option('mo_openid_whatsapp_share_enable') ) {
-				$html .= '<a id="mobileshow" title="Whatsapp" href="whatsapp://send?text=' . $url ."\" class='mo-openid-share-link'><img alt='Whatsapp' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/whatsapp.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				if(wp_is_mobile()){
+				$html .= '<a rel="nofollow" title="Whatsapp" href="whatsapp://send?text=' . $url ."\" class='mo-openid-share-link'><img alt='Whatsapp' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/whatsapp.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				}
+				else{
+				$html .= '<a rel="nofollow" title="Whatsapp" target ="_blank" href="https://web.whatsapp.com/send?text=' . $url ."\" class='mo-openid-share-link'><img alt='Whatsapp' style= 'margin-bottom : " . ($spaceBetweenIcons-6) . "px !important;height: " . $sharingSize . "px !important;width: " . $sharingSize . "px !important;' src='" . plugins_url( 'includes/images/icons/whatsapp.png', __FILE__ ) . "' class='mo-openid-app-share-icons " . $selected_theme . "' ></a>";
+				}
 			}
 			
 		}

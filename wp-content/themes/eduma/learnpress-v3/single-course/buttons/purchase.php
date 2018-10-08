@@ -16,24 +16,32 @@ defined( 'ABSPATH' ) || exit();
 
 if ( ! isset( $course ) ) {
 	$course = learn_press_get_course();
-} ?>
+}
+$guest_checkout = ( LP()->checkout()->is_enable_guest_checkout() ) ? 'guest_checkout' : '';
+?>
 
-<?php do_action( 'learn-press/before-purchase-form' ); ?>
+<div class="lp-course-buttons">
 
-    <form name="purchase-course" class="purchase-course" method="post" enctype="multipart/form-data">
+    <?php do_action( 'learn-press/before-purchase-form' ); ?>
 
-		<?php do_action( 'learn-press/before-purchase-button' ); ?>
+    <form name="purchase-course" class="purchase-course form-purchase-course <?php echo $guest_checkout;?>" method="post" enctype="multipart/form-data">
+
+        <?php do_action( 'learn-press/before-purchase-button' ); ?>
 
         <input type="hidden" name="purchase-course" value="<?php echo esc_attr( $course->get_id() ); ?>"/>
         <input type="hidden" name="purchase-course-nonce"
                value="<?php echo esc_attr( LP_Nonce_Helper::create_course( 'purchase' ) ); ?>"/>
 
-        <button class="button button-purchase-course">
-			<?php echo esc_html( apply_filters( 'learn-press/purchase-course-button-text', __( 'Buy this course', 'learnpress' ) ) ); ?>
+        <button class="lp-button button button-purchase-course thim-enroll-course-button">
+            <?php echo esc_html( apply_filters( 'learn-press/purchase-course-button-text', __( 'Buy this course', 'eduma' ) ) ); ?>
         </button>
+        <input type="hidden" name="redirect_to" value="">
 
-		<?php do_action( 'learn-press/after-purchase-button' ); ?>
+        <?php do_action( 'learn-press/after-purchase-button' ); ?>
 
     </form>
 
-<?php do_action( 'learn-press/after-purchase-form' ); ?>
+    <?php do_action( 'learn-press/after-purchase-form' ); ?>
+
+</div>
+

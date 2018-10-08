@@ -18,6 +18,7 @@ function thim_shortcode_one_course_instructors( $atts ) {
 		'visible_item'    => '3',
 		'show_pagination' => true,
 		'auto_play'       => '0',
+        'el_class' => '',
 	), $atts );
 
 
@@ -38,9 +39,11 @@ function thim_shortcode_one_course_instructors( $atts ) {
 	}
 
 	ob_start();
+    if($instance['el_class']) echo '<div class="'.$instance['el_class'].'">';
 	echo '<div class="thim-widget-one-course-instructors">';
 	include $widget_template;
 	echo '</div>';
+    if($instance['el_class']) echo '</div>';
 	$html_output = ob_get_contents();
 	ob_end_clean();
 

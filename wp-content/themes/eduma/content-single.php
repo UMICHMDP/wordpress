@@ -10,34 +10,34 @@ $theme_options_data = get_theme_mods();
 
 
 	<div class="page-content-inner">
-        <?php if( get_theme_mod( 'thim_layout_content_page', 'normal' ) == 'normal' ) {?>
-            <header class="entry-header">
-                <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-                <?php thim_entry_meta(); ?>
-            </header>
-            <?php
-            /* Video, Audio, Image, Gallery, Default will get thumb */
-            do_action( 'thim_entry_top', 'full' );
-            ?>
-        <?php } else { ?>
-            <?php
-            /* Video, Audio, Image, Gallery, Default will get thumb */
-            do_action( 'thim_entry_top', 'full' );
-            ?>
-            <header class="entry-header">
-                <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-                <?php thim_entry_meta(); ?>
-            </header>
-        <?php } ?>
+		<?php if ( get_theme_mod( 'thim_layout_content_page', 'normal' ) == 'normal' ) { ?>
+			<header class="entry-header">
+				<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+				<?php thim_entry_meta(); ?>
+			</header>
+			<?php
+			/* Video, Audio, Image, Gallery, Default will get thumb */
+			do_action( 'thim_entry_top', 'full' );
+			?>
+		<?php } else { ?>
+			<?php
+			/* Video, Audio, Image, Gallery, Default will get thumb */
+			do_action( 'thim_entry_top', 'full' );
+			?>
+			<header class="entry-header">
+				<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+				<?php thim_entry_meta(); ?>
+			</header>
+		<?php } ?>
 		<!-- .entry-header -->
 		<div class="entry-content">
 			<?php the_content(); ?>
 			<?php
 			wp_link_pages( array(
-				'before' => '<div class="pagination loop-pagination">',
-				'after'  => '</div>',
-				'link_before'      => '<span class="page-number">',
-				'link_after'       => '</span>',
+				'before'      => '<div class="pagination loop-pagination">',
+				'after'       => '</div>',
+				'link_before' => '<span class="page-number">',
+				'link_after'  => '</span>',
 			) );
 			?>
 		</div>
@@ -96,7 +96,9 @@ $theme_options_data = get_theme_mods();
 
 		<?php endif; ?>
 		<?php
-		get_template_part( 'inc/related' );
+		if ( !empty( $theme_options_data['thim_archive_single_related_post'] ) ) {
+			get_template_part( 'inc/related' );
+		}
 		?>
 	</div>
 </article>

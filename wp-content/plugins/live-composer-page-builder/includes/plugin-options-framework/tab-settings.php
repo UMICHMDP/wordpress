@@ -1,3 +1,10 @@
+<?php
+// Prevent direct access to the file.
+if ( ! defined( 'ABSPATH' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	exit;
+}
+?>
 <div class="wp-clearfix" id="dslc-settings-frame">
 
 	<ul class="nav-subtabs wp-clearfix widget-inside" id="dslc-settings-column">
@@ -34,11 +41,6 @@
 		<li class="dslc-submenu-section">
 			<a href="#features-control"  data-nav-to="<?php echo 'tab-1' ?>" class="nav-subtab <?php echo $anchor == 'tab-1' ? 'nav-tab-active' : ''; ?>">
 				<span class="dashicons dashicons-forms"></span> <?php _e( 'Features Control', 'live-composer-page-builder' ) ?>
-			</a>
-		</li>
-		<li class="dslc-submenu-section">
-			<a href="#archives"  data-nav-to="<?php echo 'tab-1' ?>" class="nav-subtab <?php echo $anchor == 'tab-1' ? 'nav-tab-active' : ''; ?>">
-				<span class="dashicons dashicons-exerpt-view"></span> <?php _e( 'Archive and Search', 'live-composer-page-builder' ) ?>
 			</a>
 		</li>
 		<li class="dslc-submenu-section">
@@ -95,22 +97,17 @@
 					<?php do_settings_sections( 'dslc_plugin_options_features' ); ?>
 					<?php submit_button(); ?>
 			</div>
-			<a name="archives"></a>
-			<a href="#dslc-top" class="dslc-scroll-back"><span class="dashicons dashicons-arrow-up-alt"></span> Top</a>
-			<div class="dslc-panel">
-					<?php do_settings_sections( 'dslc_plugin_options_archives' ); ?>
-					<?php submit_button(); ?>
-			</div>
 			<a name="cpt-slugs"></a>
 			<a href="#dslc-top" class="dslc-scroll-back"><span class="dashicons dashicons-arrow-up-alt"></span> Top</a>
 			<div class="dslc-panel">
 					<?php do_settings_sections( 'dslc_plugin_options_cpt_slugs' ); ?>
 					<?php submit_button(); ?>
 			</div>
+			<div class="dslc-panel dslc-hide-panel">
+					<?php do_settings_sections( 'dslc_plugin_options_archives' ); ?>
+			</div>
 			<!-- </div> -->
 
-
-		
 		</form>
 	</div>
 </div>

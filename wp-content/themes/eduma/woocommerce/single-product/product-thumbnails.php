@@ -13,7 +13,7 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     3.1.0
+ * @version     3.3.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -56,7 +56,7 @@ if ( $attachment_ids ) {
 				$image            = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_small_thumbnail_size', 'shop_thumbnail' ) );
 				$image_title      = esc_attr( get_the_title( get_post_thumbnail_id() ) );
 				$image_link       = wp_get_attachment_url( get_post_thumbnail_id() );
-				$img = get_the_post_thumbnail_url( $post->ID, 'shop_thumbnail');
+				$img = get_the_post_thumbnail_url( $post->ID, 'thumbnail');
 				$attachment_count = count( $product->get_gallery_image_ids() );
 				if ( $attachment_count > 0 ) {
 					$gallery = '[product-gallery]';
@@ -75,7 +75,7 @@ if ( $attachment_ids ) {
 					continue;
 				}
 				$classes[]   = 'image-' . $attachment_id;
-				$image       = wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_small_thumbnail_size', 'shop_thumbnail' ) );
+				$image       = wp_get_attachment_image( $attachment_id, 'thumbnail' );
 				$image_class = esc_attr( implode( ' ', $classes ) );
 				$image_title = esc_attr( get_the_title( $attachment_id ) );
 

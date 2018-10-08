@@ -104,6 +104,7 @@
 			right: 0;
 			max-height: 300px;
 			overflow-y: auto;
+
 			background: #fff !important;
 			margin-top: 2px;
 			left: 0;
@@ -140,6 +141,9 @@
 					a {
 						color: #666;
 						text-decoration: underline;
+						&:hover {
+							color: #333333!important;
+						}
 					}
 				}
 				a {
@@ -329,8 +333,11 @@ body.thim-search-active{
   .thim-search-light-style {
 	.thim-widget-courses-searching {
 	  .search-course-title {
-		font-size: 14px;
+		font-size: 20px;
 	  }
+		.search-course-description {
+			font-size: 14px;
+		}
 	}
   }
 }

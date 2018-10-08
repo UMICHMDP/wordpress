@@ -18,7 +18,7 @@ $quiz        = LP_Global::course_item_quiz();
 $question    = LP_Global::quiz_question();
 $user        = LP_Global::user();
 $hinted      = $user->has_hinted_answer( $question->get_id(), $quiz->get_id(), get_the_ID() );
-$button_text = $hinted ? __( 'Hinted', 'learnpress' ) : __( 'Hint', 'learnpress' );
+$button_text = $hinted ? __( 'Hinted', 'eduma' ) : __( 'Hint', 'eduma' );
 ?>
 
 <?php do_action( 'learn-press/quiz/before-question-hint-button' ); ?>

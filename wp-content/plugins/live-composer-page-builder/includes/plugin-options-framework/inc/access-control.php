@@ -6,6 +6,11 @@
  * dslc_access_control_init ( Register options )
  */
 
+// Prevent direct access to the file.
+if ( ! defined( 'ABSPATH' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	exit;
+}
 
 /**
  * Register options
@@ -16,7 +21,6 @@
 function dslc_access_control_init() {
 
 	global $dslc_plugin_options;
-	global $dslc_var_modules;
 
 	$capability_opts = array(
 		array(
